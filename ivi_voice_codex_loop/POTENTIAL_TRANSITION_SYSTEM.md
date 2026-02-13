@@ -26,6 +26,22 @@ Implement a **Potential-to-Act** pipeline where action selection is a theorem-go
    - Semantics: minimal axioms for indeterminacy, closure, and equality-by-refinement.
    - Enforcement: theorem boundary depended on by runtime interfaces.
 
+## Interdependence modes
+
+### Mode A — hard interdependence (compile/proof time)
+
+- Layers 1-3 must implement the shared PTS interface.
+- Layer 4 proves invariants over that interface.
+- Use when correctness/stability is prioritized.
+
+### Mode B — soft interdependence (runtime/learning time)
+
+- Layers share spine types + deterministic logging schema.
+- Proof obligations can be partial/TODO while runtime explores gaps.
+- Voice-driven runs produce integration pressure that is later promoted to Mode A.
+
+Recommended execution policy: **Mode B first, migrate stable discoveries to Mode A**.
+
 ## PTS interface
 
 For state space `S` and action space `A`:
@@ -54,6 +70,17 @@ For state space `S` and action space `A`:
 5. **Explanation correspondence boundary**
    - Explanations reference actual selected transitions and emitted evidence.
 
+## Voice integration artifact contract
+
+Each voice turn must emit four structured artifacts:
+
+- `Trace`: full path for `Pot -> BornWeights -> Refine -> Action`
+- `Gap`: concrete spine mismatch (missing function/invariant/typing step)
+- `Candidate`: proposed operator/axiom/invariant signature
+- `Test`: minimal reproduction that fails before candidate, passes after
+
+If an insight cannot be expressed as one of these objects, it is not integration work yet.
+
 ## Acceptance test (minimum integration test)
 
 **Test: nontrivial loop + explanation consistency**
@@ -66,6 +93,14 @@ Given a small cyclic environment:
 - Layer 4 proves at least one invariant used by this run (e.g., normalization or refinement coherence).
 
 If any layer cannot contribute to this test, stack integration is incomplete.
+
+## Promotion workflow (B -> A)
+
+1. Run voice layer on real usage.
+2. Collect `(Trace, Gap, Candidate, Test)`.
+3. Implement candidate in Layer 2/3 runtime.
+4. Add/enable the test in suite.
+5. Promote stabilized properties to Layer 4 proofs.
 
 ## Repo integration note
 

@@ -818,6 +818,7 @@ class IVILoopController:
         _ensure_dir(self.phase_dir)
         self.deriv_phase1_path = os.path.join(self.phase_dir, "derivations_phase1.md")
         self.analysis_phase1_path = os.path.join(self.phase_dir, "analysis_phase1.md")
+        self.integration_artifacts_path = os.path.join(self.phase_dir, "integration_artifacts.jsonl")
 
     def ingest(self, text: str, source: str = "voice") -> Dict[str, Any]:
         kind = self.grid.classify_utterance(text)
@@ -840,6 +841,8 @@ class IVILoopController:
 
         # Build a context packet for "derive" mode (what the system would use next)
         ctx = self.grid.build_context(query=text, mode="derive", max_triangles=12, closure_hops=2)
+        artifacts = self._build_integration_artifacts(kind="statement", query=text, context_packet=ctx)
+        self._append_integration_artifacts(artifacts)
 
         return {
             "kind": "statement",
@@ -847,6 +850,7 @@ class IVILoopController:
             "created": created,
             "metrics": metrics,
             "context_packet": ctx,
+            "integration_artifacts": artifacts,
         }
 
     def answer_question(self, question: str) -> Dict[str, Any]:
@@ -866,12 +870,66 @@ class IVILoopController:
                 }
             )
 
+        artifacts = self._build_integration_artifacts(kind="question", query=question, context_packet=ctx)
+        self._append_integration_artifacts(artifacts)
+
         return {
             "kind": "question",
             "question": question,
             "context_packet": ctx,
             "suggested_refs": top,
+            "integration_artifacts": artifacts,
         }
+
+    def _build_integration_artifacts(self, kind: str, query: str, context_packet: Dict[str, Any]) -> Dict[str, Any]:
+        meta = context_packet.get("meta", {})
+        pot = meta.get("potential_distribution", [])
+        collapse = meta.get("collapse_selection", [])
+        formal_targets = meta.get("formal_targets", [])
+
+        trace = {
+            "query": query,
+            "mode": meta.get("mode"),
+            "potential_distribution": pot,
+            "collapse_selection": collapse,
+            "formal_targets": formal_targets,
+        }
+
+        gaps: List[Dict[str, str]] = []
+        if not pot:
+            gaps.append({"code": "missing_potential_distribution", "detail": "No Born-like potential distribution in context meta."})
+        if not collapse:
+            gaps.append({"code": "missing_collapse_selection", "detail": "No sampled collapse selection available."})
+        if not formal_targets:
+            gaps.append({"code": "missing_formal_targets", "detail": "No Lean formal targets attached to this turn."})
+
+        candidate = {
+            "name": "ExplainFromTrace",
+            "signature": "Explain : (Trace, SelectedAction, Evidence) -> Narrative",
+            "reason": "Bind Layer-1 explanation directly to Pot->Born->Refine->Action trace.",
+        }
+
+        test = {
+            "name": "order1_trace_gap_candidate_test",
+            "assertions": [
+                "trace includes potential_distribution",
+                "trace includes collapse_selection",
+                "formal_targets is non-empty",
+                "gaps empty for integrated turn",
+            ],
+        }
+
+        return {
+            "kind": kind,
+            "timestamp": _now_ts(),
+            "Trace": trace,
+            "Gap": gaps,
+            "Candidate": candidate,
+            "Test": test,
+        }
+
+    def _append_integration_artifacts(self, artifacts: Dict[str, Any]) -> None:
+        _jsonl_append(self.integration_artifacts_path, artifacts)
 
     def _append_derivations_phase1(self, sid: str, created: Dict[str, Any]) -> None:
         st = self.grid.idx.statements.get(sid, {})
