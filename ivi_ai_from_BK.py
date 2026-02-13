@@ -14,8 +14,12 @@ criterion.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Iterable, List, Sequence, Tuple
+from typing import Callable, Dict, Iterable, List, Sequence, Tuple
 import math
+import numpy as np
+
+from born_rule import BornContext
+from potential_ai_born import PotentialAIBornPolicy, PotentialAIState
 
 
 @dataclass(frozen=True)
@@ -48,6 +52,47 @@ class SuccessReport:
     min_potentiality: float
     success: bool
     threshold: float
+
+
+@dataclass(frozen=True)
+class CollapseContext:
+    """Represents a collapse/evaluation context for one benchmark regime."""
+
+    name: str
+    signal: Tuple[float, ...]
+    runs: Dict[str, PotentialRun]
+
+    @property
+    def length(self) -> int:
+        return len(self.signal)
+
+
+@dataclass(frozen=True)
+class PotentialInvariant:
+    """Represents a duality-preserving invariant derived upstream of context."""
+
+    name: str
+    value: float
+    description: str
+
+
+@dataclass(frozen=True)
+class PotentialLayerSpec:
+    """Captures the context-free potential layer state."""
+
+    params: PotentialParams
+    invariants: Tuple[PotentialInvariant, ...]
+    duality_condition: str = "D_s J = 0 (numerical analogue)"
+
+
+@dataclass(frozen=True)
+class InterfaceRule:
+    """Describes one context-indexed collapse functor and its weights."""
+
+    context: str
+    functor_name: str
+    weights: Dict[str, float]
+    description: str
 
 
 class PotentialAI:
@@ -87,36 +132,7 @@ class PotentialAI:
             state = self._step(state, target, t)
             trajectory.append(state)
 
-        deviations = [abs(x - y) for x, y in zip(trajectory, signals)]
-        mse = sum(d * d for d in deviations) / len(deviations)
-        mae = sum(deviations) / len(deviations)
-        coherence = 1.0 - min(1.0, mae)
-
-        if len(trajectory) >= 3:
-            accel = [
-                abs(trajectory[i] - 2 * trajectory[i - 1] + trajectory[i - 2])
-                for i in range(2, len(trajectory))
-            ]
-            stability = 1.0 / (1.0 + sum(accel) / len(accel))
-        else:
-            stability = 1.0
-
-        drift = abs(trajectory[-1] - trajectory[0])
-        responsiveness = math.tanh(1.7 * drift)
-
-        # Composite potentiality score (clipped to [0,1]).
-        potentiality = max(
-            0.0,
-            min(1.0, 0.50 * (1.0 / (1.0 + mse)) + 0.25 * coherence + 0.15 * stability + 0.10 * responsiveness),
-        )
-
-        return PotentialRun(
-            trajectory=trajectory,
-            potentiality=potentiality,
-            stability=stability,
-            coherence=coherence,
-            responsiveness=responsiveness,
-        )
+        return _compute_run_metrics(trajectory, signals)
 
 
 def default_signal_suite(length: int = 80) -> List[float]:
@@ -167,6 +183,271 @@ def evaluate_across_regimes(params: PotentialParams, length: int = 80) -> Tuple[
         threshold=threshold,
     )
     return runs, report
+
+
+def _compute_run_metrics(trajectory: Sequence[float], target: Sequence[float]) -> PotentialRun:
+    """Shared metric computation used by IVI and baseline models."""
+
+    trajectory_list = list(trajectory)
+    target_list = list(target)
+    if not trajectory_list:
+        raise ValueError("trajectory must be non-empty")
+    if len(trajectory_list) != len(target_list):
+        raise ValueError("trajectory and target must have the same length")
+
+    deviations = [abs(x - y) for x, y in zip(trajectory_list, target_list)]
+    mse = sum(d * d for d in deviations) / len(deviations)
+    mae = sum(deviations) / len(deviations)
+    coherence = 1.0 - min(1.0, mae)
+
+    if len(trajectory_list) >= 3:
+        accel = [
+            abs(trajectory_list[i] - 2 * trajectory_list[i - 1] + trajectory_list[i - 2])
+            for i in range(2, len(trajectory_list))
+        ]
+        stability = 1.0 / (1.0 + sum(accel) / len(accel))
+    else:
+        stability = 1.0
+
+    drift = abs(trajectory_list[-1] - trajectory_list[0])
+    responsiveness = math.tanh(1.7 * drift)
+
+    potentiality = max(
+        0.0,
+        min(1.0, 0.50 * (1.0 / (1.0 + mse)) + 0.25 * coherence + 0.15 * stability + 0.10 * responsiveness),
+    )
+
+    return PotentialRun(
+        trajectory=list(trajectory_list),
+        potentiality=potentiality,
+        stability=stability,
+        coherence=coherence,
+        responsiveness=responsiveness,
+    )
+
+
+def persistence_baseline(signal: Sequence[float]) -> PotentialRun:
+    """Naive baseline that predicts the previous observation (persistence)."""
+
+    values = list(signal)
+    if not values:
+        raise ValueError("signal must be non-empty")
+
+    preds = [values[0]]
+    preds.extend(values[:-1])
+    return _compute_run_metrics(preds, values)
+
+
+def ewma_baseline(signal: Sequence[float], alpha: float = 0.35) -> PotentialRun:
+    """Exponentially weighted moving average baseline."""
+
+    if not 0.0 < alpha <= 1.0:
+        raise ValueError("alpha must be in (0, 1]")
+
+    values = list(signal)
+    if not values:
+        raise ValueError("signal must be non-empty")
+
+    preds: List[float] = []
+    ema = values[0]
+    for value in values:
+        preds.append(ema)
+        ema = alpha * value + (1.0 - alpha) * ema
+    return _compute_run_metrics(preds, values)
+
+
+def linear_trend_baseline(signal: Sequence[float], window: int = 6) -> PotentialRun:
+    """Linear trend extrapolation using a sliding history window."""
+
+    if window < 2:
+        raise ValueError("window must be >= 2")
+
+    values = list(signal)
+    if not values:
+        raise ValueError("signal must be non-empty")
+
+    preds: List[float] = []
+    for t in range(len(values)):
+        history_start = max(0, t - window)
+        history_idx = list(range(history_start, t))
+
+        if not history_idx:
+            preds.append(values[0])
+            continue
+        if len(history_idx) == 1:
+            preds.append(values[history_idx[-1]])
+            continue
+
+        history_vals = [values[i] for i in history_idx]
+        mean_x = sum(history_idx) / len(history_idx)
+        mean_y = sum(history_vals) / len(history_vals)
+        denom = sum((x - mean_x) ** 2 for x in history_idx)
+        if denom == 0.0:
+            slope = 0.0
+        else:
+            slope = sum((x - mean_x) * (y - mean_y) for x, y in zip(history_idx, history_vals)) / denom
+        intercept = mean_y - slope * mean_x
+        preds.append(slope * t + intercept)
+
+    return _compute_run_metrics(preds, values)
+
+
+BaselineCallable = Callable[[Sequence[float]], PotentialRun]
+
+
+def default_baseline_suite() -> Dict[str, BaselineCallable]:
+    """Return the built-in collection of normal-AI baselines."""
+
+    return {
+        "persistence": persistence_baseline,
+        "ewma": ewma_baseline,
+        "linear_trend": linear_trend_baseline,
+    }
+
+
+def summarize_model_performance(contexts: Dict[str, CollapseContext]) -> Dict[str, Dict[str, float]]:
+    """Aggregate potentiality statistics for every model across contexts."""
+
+    aggregates: Dict[str, List[float]] = {}
+    for context in contexts.values():
+        for model_name, run in context.runs.items():
+            aggregates.setdefault(model_name, []).append(run.potentiality)
+
+    return {
+        name: {
+            "avg": sum(scores) / len(scores),
+            "min": min(scores),
+        }
+        for name, scores in aggregates.items()
+    }
+
+
+def compare_against_normal_baselines(
+    params: PotentialParams | None = None,
+    length: int = 80,
+    baselines: Dict[str, BaselineCallable] | None = None,
+) -> Tuple[Dict[str, CollapseContext], Dict[str, Dict[str, float]]]:
+    """Evaluate IVI and baseline models on the same benchmark regimes."""
+
+    baseline_suite = baselines or default_baseline_suite()
+    regimes = regime_signal_suite(length)
+    ai = PotentialAI(params or PotentialParams())
+
+    contexts: Dict[str, CollapseContext] = {}
+    for name, signal in regimes.items():
+        runs: Dict[str, PotentialRun] = {"ivi": ai.run(signal)}
+        for baseline_name, runner in baseline_suite.items():
+            runs[baseline_name] = runner(signal)
+        contexts[name] = CollapseContext(name=name, signal=tuple(signal), runs=runs)
+
+    summary = summarize_model_performance(contexts)
+    return contexts, summary
+
+
+def born_weighted_model_probs(
+    context: CollapseContext,
+    metric: Callable[[PotentialRun], float] | None = None,
+    collapse_side: bool = False,
+) -> Dict[str, float]:
+    """Compute Born-rule action weights for the models in one context."""
+
+    metric_fn = metric or (lambda run: run.potentiality)
+    model_names = list(context.runs.keys())
+    amplitudes = np.array([metric_fn(context.runs[name]) for name in model_names], dtype=np.complex128)
+    if not np.any(amplitudes):
+        amplitudes = np.ones_like(amplitudes)
+
+    state = PotentialAIState(psi=amplitudes)
+    basis = np.eye(len(model_names), dtype=np.complex128)
+    born_ctx = BornContext.from_orthonormal_basis(basis.T)
+    policy = PotentialAIBornPolicy(use_collapse_side=collapse_side)
+    probs = policy.action_distribution(state, born_ctx)
+    return dict(zip(model_names, probs))
+
+
+def born_weight_summary(
+    contexts: Dict[str, CollapseContext],
+    metric: Callable[[PotentialRun], float] | None = None,
+    collapse_side: bool = False,
+) -> Dict[str, Dict[str, float]]:
+    """Return Born-rule weights for every context/model combination."""
+
+    return {
+        name: born_weighted_model_probs(context, metric=metric, collapse_side=collapse_side)
+        for name, context in contexts.items()
+    }
+
+
+def derive_potential_layer_spec(
+    params: PotentialParams | None = None,
+    length: int = 80,
+) -> Tuple[PotentialLayerSpec, Dict[str, PotentialRun], SuccessReport]:
+    """Build the context-free potential layer specification and invariants."""
+
+    base_params = params or PotentialParams()
+    runs, report = evaluate_across_regimes(base_params, length)
+    invariants: Tuple[PotentialInvariant, ...] = (
+        PotentialInvariant(
+            name="avg_potentiality",
+            value=report.avg_potentiality,
+            description="Context-free robust average potentiality",
+        ),
+        PotentialInvariant(
+            name="min_potentiality",
+            value=report.min_potentiality,
+            description="Worst-case potentiality across benchmark regimes",
+        ),
+        PotentialInvariant(
+            name="success_threshold",
+            value=report.threshold,
+            description="Target threshold ensuring duality-preserving success",
+        ),
+    )
+
+    spec = PotentialLayerSpec(params=base_params, invariants=invariants)
+    return spec, runs, report
+
+
+def derive_interface_rules(
+    params: PotentialParams | None = None,
+    length: int = 80,
+    baselines: Dict[str, BaselineCallable] | None = None,
+) -> Dict[str, InterfaceRule]:
+    """Construct per-context collapse rules (functors) with normalized weights."""
+
+    contexts, _ = compare_against_normal_baselines(params=params, length=length, baselines=baselines)
+    rules: Dict[str, InterfaceRule] = {}
+
+    for context_name, context in contexts.items():
+        potentials = {model: run.potentiality for model, run in context.runs.items()}
+        total = sum(potentials.values())
+        if total <= 0.0:
+            weight = 1.0 / len(potentials)
+            normalized = {model: weight for model in potentials.keys()}
+        else:
+            normalized = {model: value / total for model, value in potentials.items()}
+
+        rules[context_name] = InterfaceRule(
+            context=context_name,
+            functor_name=f"F_{context_name}",
+            weights=normalized,
+            description="Collapse functor weights derived from shared benchmark potentialities",
+        )
+
+    return rules
+
+
+def derive_duality_schema(
+    params: PotentialParams | None = None,
+    length: int = 80,
+    baselines: Dict[str, BaselineCallable] | None = None,
+) -> Tuple[PotentialLayerSpec, Dict[str, InterfaceRule], Dict[str, CollapseContext]]:
+    """End-to-end derivation of potential and interface layers for analysis."""
+
+    potential_spec, _, _ = derive_potential_layer_spec(params=params, length=length)
+    contexts, _ = compare_against_normal_baselines(params=params, length=length, baselines=baselines)
+    interface_rules = derive_interface_rules(params=params, length=length, baselines=baselines)
+    return potential_spec, interface_rules, contexts
 
 
 def iterative_tune(

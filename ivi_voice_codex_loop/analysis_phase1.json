@@ -1,0 +1,24 @@
+{
+  "instructions": {
+    "derive": {
+      "mode": "strict",
+      "min_confidence_to_accept": 0.6,
+      "min_confidence_to_quarantine": 0.35,
+      "require_explicit_markers": ["Define", "IF", "THEN", "iff", "→", "↔", ":"],
+      "max_claims_per_run": 200
+    },
+    "kb": {
+      "definition_policy": "single_active",
+      "conflict_policy": "quarantine",
+      "quarantine_tag": "needs_review"
+    },
+    "lean": {
+      "emit_axioms_only_if_confidence_ge": 0.7,
+      "emit_theorem_stubs_for_rules": true,
+      "namespace": "IVI.Derived.Phase1"
+    },
+    "questions": {
+      "do_not_loop_on_questions": true
+    }
+  }
+}
