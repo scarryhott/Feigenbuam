@@ -8,6 +8,15 @@ This is a repo-local loop that:
 5) Generates Lean stubs from accepted claims
 6) Writes an analysis report (no compilation required)
 
+## Order-1 Protocol
+
+The canonical protocol for conversations and iteration is documented at:
+
+- `ORDER_1_PROTOCOL.md`
+- `POTENTIAL_TRANSITION_SYSTEM.md`
+
+In chat, use the exact phrase **"Order-1 Protocol"** to reference and activate that contract.
+
 ## Quick start
 
 ```bash

@@ -2,7 +2,7 @@
 
 ## Graph status
 
-- Counts: {'S': 1, 'D': 1, 'E': 1, 'T': 1}
+- Counts: {'S': 2, 'D': 2, 'E': 2, 'T': 2}
 
 - Orphan E (first 50): []
 

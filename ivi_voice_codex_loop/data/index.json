@@ -6,6 +6,13 @@
       "created_ts": 1771024376.724417,
       "source": "voice",
       "tags": []
+    },
+    "S_a9bc340c7a4eb099": {
+      "sid": "S_a9bc340c7a4eb099",
+      "text": "Encode semantic enforcement protocol as one Potential Transition System spine across Layer1-4",
+      "created_ts": 1771026082.4884632,
+      "source": "voice",
+      "tags": []
     }
   },
   "derivations": {
@@ -20,6 +27,18 @@
       ],
       "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
       "created_ts": 1771024376.72528
+    },
+    "D_013762510174e415": {
+      "did": "D_013762510174e415",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_a9bc340c7a4eb099"
+      ],
+      "conclusions": [
+        "E_0a674fb87d5ca65c"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771026082.4899049
     }
   },
   "equations": {
@@ -30,6 +49,14 @@
       "statement": "Proposition derived from: Define triangle time as relational closure",
       "version_hash": "ab7e9bd7f2fecfaa",
       "created_ts": 1771024376.724867
+    },
+    "E_0a674fb87d5ca65c": {
+      "eid": "E_0a674fb87d5ca65c",
+      "lean_name": "encode_semantic_enforcement_protocol_as_one_potential_transi",
+      "lean_file": "/Users/harryscott/voice/Feigenbuam/ivi_voice_codex_loop/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: Encode semantic enforcement protocol as one Potential Transition System spine across Layer1-4",
+      "version_hash": "3de19cbd7f4781f8",
+      "created_ts": 1771026082.489387
     }
   },
   "triangles": {
@@ -39,21 +66,37 @@
       "did": "D_58a23ec6b5dad9a0",
       "eid": "E_180332dda5ac45b5",
       "created_ts": 1771024376.7256162
+    },
+    "T_42c471cecae1535f": {
+      "tid": "T_42c471cecae1535f",
+      "sid": "S_a9bc340c7a4eb099",
+      "did": "D_013762510174e415",
+      "eid": "E_0a674fb87d5ca65c",
+      "created_ts": 1771026082.490408
     }
   },
   "sid_to_tids": {
     "S_c99876197a9b0bc4": [
       "T_016dbe2c7452dbfc"
+    ],
+    "S_a9bc340c7a4eb099": [
+      "T_42c471cecae1535f"
     ]
   },
   "eid_to_tids": {
     "E_180332dda5ac45b5": [
       "T_016dbe2c7452dbfc"
+    ],
+    "E_0a674fb87d5ca65c": [
+      "T_42c471cecae1535f"
     ]
   },
   "did_to_tids": {
     "D_58a23ec6b5dad9a0": [
       "T_016dbe2c7452dbfc"
+    ],
+    "D_013762510174e415": [
+      "T_42c471cecae1535f"
     ]
   },
   "neighbors": {
@@ -68,6 +111,18 @@
     "D_58a23ec6b5dad9a0": [
       "S_c99876197a9b0bc4",
       "E_180332dda5ac45b5"
+    ],
+    "S_a9bc340c7a4eb099": [
+      "D_013762510174e415",
+      "E_0a674fb87d5ca65c"
+    ],
+    "E_0a674fb87d5ca65c": [
+      "D_013762510174e415",
+      "S_a9bc340c7a4eb099"
+    ],
+    "D_013762510174e415": [
+      "S_a9bc340c7a4eb099",
+      "E_0a674fb87d5ca65c"
     ]
   },
   "tf_s": {
@@ -78,6 +133,21 @@
       "as": 0.16666666666666666,
       "relational": 0.16666666666666666,
       "closure": 0.16666666666666666
+    },
+    "S_a9bc340c7a4eb099": {
+      "encode": 0.07692307692307693,
+      "semantic": 0.07692307692307693,
+      "enforcement": 0.07692307692307693,
+      "protocol": 0.07692307692307693,
+      "as": 0.07692307692307693,
+      "one": 0.07692307692307693,
+      "potential": 0.07692307692307693,
+      "transition": 0.07692307692307693,
+      "system": 0.07692307692307693,
+      "spine": 0.07692307692307693,
+      "across": 0.07692307692307693,
+      "layer1": 0.07692307692307693,
+      "4": 0.07692307692307693
     }
   },
   "tf_e": {
@@ -91,6 +161,24 @@
       "as": 0.1111111111111111,
       "relational": 0.1111111111111111,
       "closure": 0.1111111111111111
+    },
+    "E_0a674fb87d5ca65c": {
+      "proposition": 0.0625,
+      "derived": 0.0625,
+      "from": 0.0625,
+      "encode": 0.0625,
+      "semantic": 0.0625,
+      "enforcement": 0.0625,
+      "protocol": 0.0625,
+      "as": 0.0625,
+      "one": 0.0625,
+      "potential": 0.0625,
+      "transition": 0.0625,
+      "system": 0.0625,
+      "spine": 0.0625,
+      "across": 0.0625,
+      "layer1": 0.0625,
+      "4": 0.0625
     }
   },
   "tf_d": {
@@ -105,10 +193,25 @@
       "as": 0.09090909090909091,
       "candidate": 0.09090909090909091,
       "lemma": 0.09090909090909091
+    },
+    "D_013762510174e415": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
     }
   },
   "recent_triangle_trace": [
     "T_016dbe2c7452dbfc",
+    "T_016dbe2c7452dbfc",
+    "T_42c471cecae1535f",
+    "T_42c471cecae1535f",
     "T_016dbe2c7452dbfc"
   ]
 }

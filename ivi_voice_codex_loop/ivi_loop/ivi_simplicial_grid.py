@@ -635,6 +635,8 @@ class IVISimplicialGrid:
             s = score_map.get(tid, 0.01)
             weight_map[tid] = s * s
 
+        potential_probs = self._normalize_weights(weight_map)
+
         sampled_tids = self._sample_weighted_without_replacement(
             weight_map, k=min(max_triangles, len(weight_map))
         )
@@ -646,6 +648,23 @@ class IVISimplicialGrid:
         # 4) Gather incident nodes (S,D,E) for the packet
         packet = self._context_packet_from_triangles(sampled_tids)
 
+        potential_top = sorted(potential_probs.items(), key=lambda x: x[1], reverse=True)[:16]
+        formal_targets: List[Dict[str, str]] = []
+        for tid in sampled_tids:
+            tri = self.idx.triangles.get(tid)
+            if not tri:
+                continue
+            eq = self.idx.equations.get(tri["eid"])
+            if not eq:
+                continue
+            formal_targets.append(
+                {
+                    "eid": eq["eid"],
+                    "lean_name": eq["lean_name"],
+                    "lean_file": eq["lean_file"],
+                }
+            )
+
         # include meta
         packet["meta"] = {
             "mode": mode,
@@ -653,6 +672,9 @@ class IVISimplicialGrid:
             "max_triangles": max_triangles,
             "closure_hops": closure_hops,
             "novelty_lambda": novelty_lambda,
+            "potential_distribution": [{"tid": tid, "p": p} for tid, p in potential_top],
+            "collapse_selection": sampled_tids,
+            "formal_targets": formal_targets,
             "sampled_tids": sampled_tids,
         }
 
@@ -724,6 +746,13 @@ class IVISimplicialGrid:
             scored.append((key, item))
         scored.sort(reverse=True)
         return [item for _, item in scored[:k]]
+
+    def _normalize_weights(self, weights: Dict[str, float]) -> Dict[str, float]:
+        positives = {k: v for k, v in weights.items() if v > 0.0}
+        z = sum(positives.values())
+        if z <= 0.0:
+            return {}
+        return {k: (v / z) for k, v in positives.items()}
 
     # =========================
     # Question vs statement routing helpers
