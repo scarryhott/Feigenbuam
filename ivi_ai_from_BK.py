@@ -18,7 +18,12 @@ from typing import Callable, Dict, Iterable, List, Sequence, Tuple
 import math
 import numpy as np
 
-from born_rule import BornContext
+from born_rule import BornContext, lueders_dephase_rho, probs_from_density
+from density_builders import (
+    build_rho_from_scores_and_coherence,
+    coherence_matrix_from_named_embeddings,
+    orthonormal_basis_from_named_embeddings,
+)
 from potential_ai_born import PotentialAIBornPolicy, PotentialAIState
 
 
@@ -348,19 +353,40 @@ def born_weighted_model_probs(
     context: CollapseContext,
     metric: Callable[[PotentialRun], float] | None = None,
     collapse_side: bool = False,
+    use_density: bool = False,
+    coherence_embeddings: Dict[str, Sequence[float]] | None = None,
+    lam: float = 0.25,
+    use_embedding_basis: bool = False,
 ) -> Dict[str, float]:
     """Compute Born-rule action weights for the models in one context."""
 
     metric_fn = metric or (lambda run: run.potentiality)
     model_names = list(context.runs.keys())
-    amplitudes = np.array([metric_fn(context.runs[name]) for name in model_names], dtype=np.complex128)
+    raw_scores = {name: max(metric_fn(context.runs[name]), 0.0) for name in model_names}
+
+    amplitudes = np.array([raw_scores[name] for name in model_names], dtype=np.complex128)
     if not np.any(amplitudes):
         amplitudes = np.ones_like(amplitudes)
 
+    basis = None
+    if use_embedding_basis and coherence_embeddings:
+        basis = orthonormal_basis_from_named_embeddings(model_names, coherence_embeddings)
+    if basis is None:
+        basis = np.eye(len(model_names), dtype=np.complex128)
+    born_ctx = BornContext.from_orthonormal_basis(basis)
+    canonical_ctx = BornContext.from_orthonormal_basis(np.eye(len(model_names), dtype=np.complex128))
+
+    if use_density:
+        coherence = coherence_matrix_from_named_embeddings(model_names, coherence_embeddings)
+        rho, _ = build_rho_from_scores_and_coherence(raw_scores, coherence=coherence, lam=lam)
+        if collapse_side:
+            rho = lueders_dephase_rho(rho, canonical_ctx.projectors)
+        probs = probs_from_density(rho, born_ctx.projectors)
+        return dict(zip(model_names, probs))
+
     state = PotentialAIState(psi=amplitudes)
-    basis = np.eye(len(model_names), dtype=np.complex128)
-    born_ctx = BornContext.from_orthonormal_basis(basis.T)
-    policy = PotentialAIBornPolicy(use_collapse_side=collapse_side)
+    collapse_proj = canonical_ctx.projectors if collapse_side else None
+    policy = PotentialAIBornPolicy(use_collapse_side=collapse_side, collapse_projectors=collapse_proj)
     probs = policy.action_distribution(state, born_ctx)
     return dict(zip(model_names, probs))
 
@@ -369,11 +395,23 @@ def born_weight_summary(
     contexts: Dict[str, CollapseContext],
     metric: Callable[[PotentialRun], float] | None = None,
     collapse_side: bool = False,
+    use_density: bool = False,
+    coherence_embeddings: Dict[str, Sequence[float]] | None = None,
+    lam: float = 0.25,
+    use_embedding_basis: bool = False,
 ) -> Dict[str, Dict[str, float]]:
     """Return Born-rule weights for every context/model combination."""
 
     return {
-        name: born_weighted_model_probs(context, metric=metric, collapse_side=collapse_side)
+        name: born_weighted_model_probs(
+            context,
+            metric=metric,
+            collapse_side=collapse_side,
+            use_density=use_density,
+            coherence_embeddings=coherence_embeddings,
+            lam=lam,
+            use_embedding_basis=use_embedding_basis,
+        )
         for name, context in contexts.items()
     }
 

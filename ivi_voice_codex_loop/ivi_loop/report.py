@@ -15,5 +15,8 @@ def format_status(settings: Settings) -> str:
     lines.append(f"- utterances:   {counts.get('utterances', 0)}")
     lines.append(f"- claims:       {counts.get('logic_claims', 0)}")
     lines.append(f"- notes:        {counts.get('analysis_notes', 0)}")
+    lines.append(f"- equations:    {counts.get('equations', 0)}")
+    lines.append(f"- derivations:  {counts.get('derivations', 0)}")
+    lines.append(f"- triangles:    {counts.get('triangles', 0)}")
     lines.append(f"- quarantined:  {qn}")
     return "\n".join(lines)

@@ -3,8 +3,11 @@ import math
 from ivi_ai_from_BK import (
     PotentialAI,
     PotentialParams,
-    compare_against_normal_baselines,
+    PotentialRun,
+    CollapseContext,
     born_weight_summary,
+    born_weighted_model_probs,
+    compare_against_normal_baselines,
     derive_duality_schema,
     derive_interface_rules,
     derive_potential_layer_spec,
@@ -115,6 +118,74 @@ def test_born_weight_summary_matches_model_counts():
         assert set(weights.keys()) == set(contexts[ctx_name].runs.keys())
         total = sum(weights.values())
         assert 0.99 <= total <= 1.01
+
+
+def test_density_based_born_weights_change_after_collapse():
+    contexts, _ = compare_against_normal_baselines(length=20)
+    embeddings = {
+        "ivi": [1.0, 0.0],
+        "persistence": [0.2, 0.9],
+        "ewma": [-0.5, 0.7],
+        "linear_trend": [0.6, -0.6],
+    }
+
+    summary_potential = born_weight_summary(
+        contexts,
+        use_density=True,
+        coherence_embeddings=embeddings,
+        lam=0.4,
+        use_embedding_basis=True,
+        collapse_side=False,
+    )
+    summary_collapse = born_weight_summary(
+        contexts,
+        use_density=True,
+        coherence_embeddings=embeddings,
+        lam=0.4,
+        use_embedding_basis=True,
+        collapse_side=True,
+    )
+
+    differences = []
+    for ctx in contexts.keys():
+        for name in contexts[ctx].runs.keys():
+            differences.append(abs(summary_potential[ctx][name] - summary_collapse[ctx][name]))
+
+    assert any(diff > 1e-4 for diff in differences)
+
+
+def test_pure_state_born_weights_change_with_embedding_basis():
+    contexts, _ = compare_against_normal_baselines(length=20)
+    embeddings = {
+        "ivi": [1.0, 0.0, 0.3],
+        "persistence": [0.4, -0.7, 0.2],
+        "ewma": [-0.5, 0.8, -0.1],
+        "linear_trend": [0.6, -0.2, 0.5],
+    }
+
+    summary_potential = born_weight_summary(
+        contexts,
+        use_density=False,
+        coherence_embeddings=embeddings,
+        lam=0.0,
+        use_embedding_basis=True,
+        collapse_side=False,
+    )
+    summary_collapse = born_weight_summary(
+        contexts,
+        use_density=False,
+        coherence_embeddings=embeddings,
+        lam=0.0,
+        use_embedding_basis=True,
+        collapse_side=True,
+    )
+
+    differences = []
+    for ctx in contexts.keys():
+        for name in contexts[ctx].runs.keys():
+            differences.append(abs(summary_potential[ctx][name] - summary_collapse[ctx][name]))
+
+    assert any(diff > 1e-4 for diff in differences)
 
 
 def test_single_signal_evaluation_remains_available():

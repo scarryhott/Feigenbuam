@@ -25,6 +25,9 @@ def _histogram(vals: List[float], bins: List[float]) -> Dict[str, int]:
 def analyze_state(settings: Settings) -> Dict[str, Any]:
     state = load_state(settings)
     claims = list(state.get("logic_claims", {}).values())
+    equations = state.get("equations", {})
+    derivations = state.get("derivations", {})
+    triangles = state.get("triangles", {})
 
     accepted = [c for c in claims if c.get("status") == "accepted"]
     quarantined = [c for c in claims if c.get("status") == "quarantined"]
@@ -55,12 +58,23 @@ def analyze_state(settings: Settings) -> Dict[str, Any]:
                 conflicts.append({"type": "eq_conflict", "lhs": lhs, "a": eq_map[lhs], "b": rhs, "claim": c.get("id")})
             eq_map[lhs] = rhs
 
+    eq_ids = set(equations.keys())
+    der_ids = set(derivations.keys())
+    broken_triangles = 0
+    for tri in triangles.values():
+        if tri.get("equation_id") not in eq_ids or tri.get("derivation_id") not in der_ids:
+            broken_triangles += 1
+
     report = {
         "counts": {
             "claims_total": len(claims),
             "accepted": len(accepted),
             "quarantined": len(quarantined),
             "conflicts": len(conflicts),
+            "equations": len(equations),
+            "derivations": len(derivations),
+            "triangles": len(triangles),
+            "broken_triangles": broken_triangles,
         },
         "confidence": {
             "hist_total": _histogram(confs, bins=[0.0, 0.25, 0.5, 0.7, 0.85, 1.01]),
@@ -74,6 +88,7 @@ def analyze_state(settings: Settings) -> Dict[str, Any]:
         "notes": [
             "No Lean compilation performed (by design).",
             "Conflicts are heuristic: duplicate defs/equalities with different RHS.",
+            "Triangle integrity checks ensure derivation/equation links remain connected.",
         ],
     }
 

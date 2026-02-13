@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Literal, Optional
@@ -37,6 +38,55 @@ class Utterance:
     role: Role
     text: str
     is_question: bool
+    provenance: Provenance
+
+    def to_dict(self) -> Dict[str, Any]:
+        d = asdict(self)
+        d["provenance"] = self.provenance.to_dict()
+        return d
+
+
+@dataclass
+class Equation:
+    id: str
+    created_at: str
+    claim_id: str
+    statement_id: str
+    lean_name: str
+    expression: str
+    tags: List[str]
+    provenance: Provenance
+
+    def to_dict(self) -> Dict[str, Any]:
+        d = asdict(self)
+        d["provenance"] = self.provenance.to_dict()
+        return d
+
+
+@dataclass
+class DerivationStep:
+    id: str
+    created_at: str
+    statement_id: str
+    claim_id: str
+    equation_id: str
+    relation: Literal["grounds", "realizes", "interprets"]
+    notes: str
+    provenance: Provenance
+
+    def to_dict(self) -> Dict[str, Any]:
+        d = asdict(self)
+        d["provenance"] = self.provenance.to_dict()
+        return d
+
+
+@dataclass
+class Triangle:
+    id: str
+    created_at: str
+    statement_id: str
+    derivation_id: str
+    equation_id: str
     provenance: Provenance
 
     def to_dict(self) -> Dict[str, Any]:
@@ -128,5 +178,86 @@ def make_note(title: str, body: str, prov: Provenance) -> AnalysisNote:
         created_at=base["t"],
         title=title,
         body=body,
+        provenance=prov,
+    )
+
+
+def _sanitize_ident(s: str) -> str:
+    out = re.sub(r"[^A-Za-z0-9_']", "_", s.strip())
+    if not out:
+        return "x"
+    if out[0].isdigit():
+        out = f"x_{out}"
+    return out
+
+
+def make_equation_from_claim(claim: LogicClaim, statement_id: str, prov: Provenance) -> Equation:
+    text = claim.text.strip()
+    if claim.kind == "definition" and text.startswith("def ") and ":=" in text:
+        lhs = text[4:].split(":=", 1)[0].strip()
+        lean_name = _sanitize_ident(lhs)
+    else:
+        lean_name = _sanitize_ident(f"eq_{claim.id}")
+
+    base = {
+        "claim_id": claim.id,
+        "statement_id": statement_id,
+        "lean_name": lean_name,
+        "expression": text,
+        "t": now_iso(),
+    }
+    return Equation(
+        id=f"E-{stable_hash(base)}",
+        created_at=base["t"],
+        claim_id=claim.id,
+        statement_id=statement_id,
+        lean_name=lean_name,
+        expression=text,
+        tags=["phase1", "equation", claim.kind],
+        provenance=prov,
+    )
+
+
+def make_derivation_step(
+    statement_id: str,
+    claim_id: str,
+    equation_id: str,
+    relation: Literal["grounds", "realizes", "interprets"],
+    notes: str,
+    prov: Provenance,
+) -> DerivationStep:
+    base = {
+        "statement_id": statement_id,
+        "claim_id": claim_id,
+        "equation_id": equation_id,
+        "relation": relation,
+        "notes": notes,
+        "t": now_iso(),
+    }
+    return DerivationStep(
+        id=f"D-{stable_hash(base)}",
+        created_at=base["t"],
+        statement_id=statement_id,
+        claim_id=claim_id,
+        equation_id=equation_id,
+        relation=relation,
+        notes=notes,
+        provenance=prov,
+    )
+
+
+def make_triangle(statement_id: str, derivation_id: str, equation_id: str, prov: Provenance) -> Triangle:
+    base = {
+        "statement_id": statement_id,
+        "derivation_id": derivation_id,
+        "equation_id": equation_id,
+        "t": now_iso(),
+    }
+    return Triangle(
+        id=f"T-{stable_hash(base)}",
+        created_at=base["t"],
+        statement_id=statement_id,
+        derivation_id=derivation_id,
+        equation_id=equation_id,
         provenance=prov,
     )

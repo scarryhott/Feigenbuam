@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Tuple
 
 import numpy as np
 
@@ -33,16 +33,23 @@ class CollapseAIState:
 class PotentialAIBornPolicy:
     """Implements the Born-weight rule for action distributions."""
 
-    def __init__(self, use_collapse_side: bool = False, rng: Optional[np.random.Generator] = None) -> None:
+    def __init__(
+        self,
+        use_collapse_side: bool = False,
+        rng: Optional[np.random.Generator] = None,
+        collapse_projectors: Optional[Tuple[Array, ...]] = None,
+    ) -> None:
         self.use_collapse_side = use_collapse_side
         self.rng = rng or np.random.default_rng()
+        self.collapse_projectors = collapse_projectors
 
     def action_distribution(self, state: PotentialAIState, ctx: BornContext) -> np.ndarray:
         psi = normalize_vec(state.psi)
         if not self.use_collapse_side:
             return born_probs_from_projectors(psi, ctx.projectors)
         rho0 = np.outer(psi, np.conjugate(psi))
-        rho_c = lueders_dephase_rho(rho0, ctx.projectors)
+        collapse_projectors = self.collapse_projectors or ctx.projectors
+        rho_c = lueders_dephase_rho(rho0, collapse_projectors)
         return probs_from_density(rho_c, ctx.projectors)
 
     def choose_action(self, state: PotentialAIState, ctx: BornContext, mode: str = "sample") -> int:

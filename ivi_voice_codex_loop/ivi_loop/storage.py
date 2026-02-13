@@ -10,7 +10,7 @@ from .config import Settings
 
 @dataclass
 class Event:
-    type: str  # "utterance" | "logic_claim" | "analysis_note"
+    type: str  # "utterance" | "logic_claim" | "analysis_note" | "equation" | "derivation" | "triangle"
     payload: Dict[str, Any]
 
 
@@ -22,10 +22,14 @@ def ensure_dirs(settings: Settings) -> None:
     (settings.root / "IVI" / "Derived").mkdir(parents=True, exist_ok=True)
 
 
-def append_event(settings: Settings, event: Event) -> None:
+def append_event(settings: Settings, event: Event | Dict[str, Any]) -> None:
     ensure_dirs(settings)
+    if isinstance(event, dict):
+        record = {"type": event["type"], "payload": event["payload"]}
+    else:
+        record = {"type": event.type, "payload": event.payload}
     with settings.events_path.open("a", encoding="utf-8") as f:
-        f.write(json.dumps({"type": event.type, "payload": event.payload}, ensure_ascii=False) + "\n")
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
 def read_events(settings: Settings) -> List[Event]:
@@ -63,6 +67,9 @@ def rebuild_state(settings: Settings) -> Dict[str, Any]:
     utterances: Dict[str, Dict[str, Any]] = {}
     claims: Dict[str, Dict[str, Any]] = {}
     notes: Dict[str, Dict[str, Any]] = {}
+    equations: Dict[str, Dict[str, Any]] = {}
+    derivations: Dict[str, Dict[str, Any]] = {}
+    triangles: Dict[str, Dict[str, Any]] = {}
 
     for ev in events:
         p = ev.payload
@@ -72,15 +79,27 @@ def rebuild_state(settings: Settings) -> Dict[str, Any]:
             claims[p["id"]] = p
         elif ev.type == "analysis_note":
             notes[p["id"]] = p
+        elif ev.type == "equation":
+            equations[p["id"]] = p
+        elif ev.type == "derivation":
+            derivations[p["id"]] = p
+        elif ev.type == "triangle":
+            triangles[p["id"]] = p
 
     state = {
         "utterances": utterances,
         "logic_claims": claims,
         "analysis_notes": notes,
+        "equations": equations,
+        "derivations": derivations,
+        "triangles": triangles,
         "counts": {
             "utterances": len(utterances),
             "logic_claims": len(claims),
             "analysis_notes": len(notes),
+            "equations": len(equations),
+            "derivations": len(derivations),
+            "triangles": len(triangles),
             "events_total": len(events),
         },
     }
