@@ -221,12 +221,17 @@ def test_triangle_time_choice_artifact_build_and_validate():
     assert dependency["depends_on"] == "potential_distribution"
     assert dependency["collapse_subset_of_potential"] is True
     assert dependency["unsupported_collapse_tids"] == []
+    assert dependency["potential_distribution_digest"]
+    assert dependency["collapse_set_digest"]
+    assert dependency["supported_collapse_set_digest"]
+    assert "choice_sampling_seed" in dependency
     assert ok is True
     assert violations == []
 
 
 @pytest.mark.order1
 def test_triangle_time_choice_artifact_rejects_inconsistent_potential_collapse_dependency():
+    canonical_tids = ["T_1"]
     artifact = {
         "RefinementApplied": "triangle_time_refinement_transform_v1",
         "Delta": {
@@ -238,6 +243,13 @@ def test_triangle_time_choice_artifact_rejects_inconsistent_potential_collapse_d
                 "potential_count": 1,
                 "collapse_count": 1,
                 "supported_collapse_count": 0,
+                "potential_tids_canonical": canonical_tids,
+                "collapse_tids_canonical": canonical_tids,
+                "supported_collapse_tids_canonical": canonical_tids,
+                "potential_distribution_digest": "dd3373f4ee1aa0ef1f8f6ff5b47ca3404f96f4036e50f651f414cf5ab74f64bc",
+                "collapse_set_digest": "dd3373f4ee1aa0ef1f8f6ff5b47ca3404f96f4036e50f651f414cf5ab74f64bc",
+                "supported_collapse_set_digest": "dd3373f4ee1aa0ef1f8f6ff5b47ca3404f96f4036e50f651f414cf5ab74f64bc",
+                "choice_sampling_seed": None,
                 "unsupported_collapse_tids": ["T_1"],
                 "collapse_subset_of_potential": False,
             },
@@ -255,6 +267,13 @@ def test_triangle_time_choice_artifact_rejects_inconsistent_potential_collapse_d
                 "potential_count": 1,
                 "collapse_count": 1,
                 "supported_collapse_count": 1,
+                "potential_tids_canonical": canonical_tids,
+                "collapse_tids_canonical": canonical_tids,
+                "supported_collapse_tids_canonical": canonical_tids,
+                "potential_distribution_digest": "dd3373f4ee1aa0ef1f8f6ff5b47ca3404f96f4036e50f651f414cf5ab74f64bc",
+                "collapse_set_digest": "dd3373f4ee1aa0ef1f8f6ff5b47ca3404f96f4036e50f651f414cf5ab74f64bc",
+                "supported_collapse_set_digest": "dd3373f4ee1aa0ef1f8f6ff5b47ca3404f96f4036e50f651f414cf5ab74f64bc",
+                "choice_sampling_seed": None,
                 "unsupported_collapse_tids": ["T_1"],
                 "collapse_subset_of_potential": True,
             },

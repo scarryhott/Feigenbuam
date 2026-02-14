@@ -41,6 +41,11 @@ def test_voice_turn_supports_monitor_insight_and_progress(tmp_path):
     assert insight_out["kind"] == "insight"
     assert insight_out["result"]["kind"] == "statement"
     assert insight_out["progress"]["turns"] >= 1
+    trace = insight_out["result"]["integration_artifacts"]["Trace"]
+    assert "order_relation" in trace
+    assert trace["order_relation"]["mode"] == "continuous_triad_v1"
+    assert trace["order_relation"]["order_1_projection"]["class_label"] == trace["class_label"]
+    assert "digest" in trace["order_relation"]
 
     progress_out = loop.voice_turn("/progress")
     assert progress_out["kind"] == "progress"
@@ -50,6 +55,10 @@ def test_voice_turn_supports_monitor_insight_and_progress(tmp_path):
     assert "creative_novelty_rate" in progress_out["progress"]
     assert 0.0 <= float(progress_out["progress"]["creative_novelty_rate"]) <= 1.0
     assert "latest_creativity_event" in progress_out["progress"]
+    assert "class_regime_distribution" in progress_out["progress"]
+    class_dist = progress_out["progress"]["class_regime_distribution"]
+    assert "alpha_dominant" in class_dist
+    assert "beta_dominant" in class_dist
 
 
 @pytest.mark.order1
@@ -145,6 +154,10 @@ def test_voice_turn_proactively_requests_user_insight_when_checks_fail(tmp_path)
     assert req["OracleRequest"]["missing_information"]
     assert "STATE IMPASSE DETECTED" in req["OracleRequest"]["recommended_question"]
     assert "trigger_evidence" in req["OracleRequest"]
+    assert req["OracleRequest"]["question_template_id"]
+    assert req["OracleRequest"]["oracle_template_version"]
+    assert req["OracleRequest"]["oracle_template_digest"]
+    assert req["OracleRequest"]["oracle_template_inputs_digest"]
     assert req["OracleRequest"]["expected_impact"]
 
     call = loop.build_oracle_phone_call(req)
@@ -205,6 +218,7 @@ def test_voice_turn_autoloop_generates_monitor_timeline(tmp_path):
     assert out["steps_run"] >= 1
     assert out["halted_reason"] in {"max_steps_reached", "fixed_point"}
     assert out["selection_mode"] == "deterministic_replay"
+    assert out["triangle_time_mode"] == "continuous_triad_v1"
     assert len(out["timeline"]) == out["steps_run"]
 
     step1 = out["timeline"][0]
@@ -213,8 +227,9 @@ def test_voice_turn_autoloop_generates_monitor_timeline(tmp_path):
     assert "self_generation_progress" in step1["monitor_before"]
     assert "self_generation_progress" in step1["monitor_after"]
     assert step1["selection"]["mode"] == "deterministic_replay"
-    assert step1["selection"]["selector"] == "argmax_choice_potential"
+    assert step1["selection"]["selector"] == "least_action_argmin"
     assert isinstance(step1["selection"]["seed"], int)
+    assert "least_action" in step1["selection"]
     assert "ChoiceWitness" in step1
     assert step1["ChoiceWitness"]["choice_law_version"] == "choice_law_v1"
     assert step1["ChoiceWitness"]["admissible_set_digest"]
@@ -228,6 +243,30 @@ def test_voice_turn_autoloop_generates_monitor_timeline(tmp_path):
     assert "CreativityEvent" in step1
     assert "creative" in step1["CreativityEvent"]
     assert "basis" in step1["CreativityEvent"]
+    assert step1["triangle_time_step"]["mode"] == "continuous_triad_v1"
+    assert step1["triangle_time_step"]["index"] == 1
+    assert step1["alpha_beta"]["mode"] == "continuous_triad_v1"
+    assert 0.0 <= float(step1["alpha_beta"]["alpha"]) <= 1.0
+    assert 0.0 <= float(step1["alpha_beta"]["beta"]) <= 1.0
+    assert step1["alpha_beta"]["digest"]
+    assert step1["relift_conditioning"]["mode"] == "continuous_triad_v1"
+    assert step1["relift_conditioning"]["conditioning_mode"] in {
+        "bias_candidates",
+        "reweight_potentials",
+        "identity",
+    }
+    assert step1["relift_conditioning_mode"] in {
+        "bias_candidates",
+        "reweight_potentials",
+        "identity",
+    }
+    assert int(step1["k_collapse"]) >= 1
+    assert isinstance(step1["class_label"], str)
+    assert step1["relift_conditioning"]["conditioning_digest"]
+    assert "order_relation" in step1
+    assert step1["order_relation"]["mode"] == "continuous_triad_v1"
+    assert step1["order_relation"]["order_coupling"]["k_collapse"] >= 1
+    assert step1["order_relation"]["order_4_boundary"]["trigger_class"] == step1["oracle_trigger_class"]["class"]
 
 
 @pytest.mark.order1
@@ -281,13 +320,333 @@ def test_voice_turn_autoloop_supports_exploration_mode(tmp_path):
     out = loop.voice_turn("/autoloop 1 explore")
     assert out["kind"] == "autoloop"
     assert out["selection_mode"] == "exploration"
+    assert out["triangle_time_mode"] == "continuous_triad_v1"
     assert out["steps_run"] == 1
     step = out["timeline"][0]
     assert step["selection"]["mode"] == "exploration"
-    assert step["selection"]["selector"] == "intrinsic_choice_law_sample"
+    assert step["selection"]["selector"] == "least_action_boltzmann_sample"
     assert isinstance(step["selection"]["seed"], int)
+    assert "least_action" in step["selection"]
     assert step["ChoiceWitness"]["choice_law_version"] == "choice_law_v1"
     assert isinstance(step["ChoiceWitness"]["sampling_seed"], int)
+    assert step["triangle_time_step"]["mode"] == "continuous_triad_v1"
+    assert step["alpha_beta"]["digest"]
+    assert step["relift_conditioning"]["used_collapse_tids_digest"]
+
+
+@pytest.mark.order1
+def test_autoloop_supports_forced_alpha_beta_and_seed_override(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_forced_regime_repo"))
+    loop = IVILoopController(grid)
+
+    loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+    loop.add_statement_and_loop("seed setup for forced regime", source="test_seed")
+
+    forced = {"alpha": 0.9, "beta": 0.1}
+    out = loop.run_automated_self_generation_loop(
+        max_steps=1,
+        source="test_forced",
+        selection_mode="deterministic_replay",
+        forced_alpha_beta=forced,
+        seed_override=7,
+    )
+
+    assert out["forced_alpha_beta"] is not None
+    assert out["seed_override"] == 7
+    step = out["timeline"][0]
+    assert float(step["alpha_beta"]["alpha"]) > float(step["alpha_beta"]["beta"])
+    assert step["alpha_beta"].get("source") == "forced_override"
+    assert step["selection"]["seed"] is not None
+
+
+@pytest.mark.order1
+def test_relift_conditioning_changes_choice_law_candidate_inputs_digest(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_relift_causality_repo"))
+    loop = IVILoopController(grid)
+
+    alpha_beta = {"alpha": 0.4, "beta": 0.6}
+    selected = {"tid": "T_A"}
+    trace_a = {
+        "potential_distribution": [{"tid": "T_A", "p": 0.5}, {"tid": "T_B", "p": 0.5}],
+        "collapse_selection": ["T_A"],
+    }
+    trace_b = {
+        "potential_distribution": [{"tid": "T_A", "p": 0.5}, {"tid": "T_B", "p": 0.5}],
+        "collapse_selection": ["T_B"],
+    }
+
+    relift_a = loop._build_relift_conditioning(trace_a, selected, alpha_beta)
+    relift_b = loop._build_relift_conditioning(trace_b, selected, alpha_beta)
+    assert relift_a["conditioning_digest"] != relift_b["conditioning_digest"]
+
+    loop._last_relift_conditioning = relift_a
+    out_a = loop.add_statement_and_loop("relift causality probe A", source="test_relift_a")
+    replay_a = out_a["integration_artifacts"]["Trace"]["choice_law_replay"]
+    trace_a_out = out_a["integration_artifacts"]["Trace"]
+    digest_a = replay_a["candidate_inputs_digest"]
+
+    loop._last_relift_conditioning = relift_b
+    out_b = loop.add_statement_and_loop("relift causality probe B", source="test_relift_b")
+    replay_b = out_b["integration_artifacts"]["Trace"]["choice_law_replay"]
+    trace_b_out = out_b["integration_artifacts"]["Trace"]
+    digest_b = replay_b["candidate_inputs_digest"]
+
+    assert replay_a["relift_conditioning_digest"] == relift_a["conditioning_digest"]
+    assert replay_b["relift_conditioning_digest"] == relift_b["conditioning_digest"]
+    assert trace_a_out["relift_conditioning_mode"] in {"bias_candidates", "reweight_potentials", "identity"}
+    assert trace_b_out["relift_conditioning_mode"] in {"bias_candidates", "reweight_potentials", "identity"}
+    assert int(trace_a_out["k_collapse"]) >= 1
+    assert int(trace_b_out["k_collapse"]) >= 1
+    assert isinstance(trace_a_out["class_label"], str) and trace_a_out["class_label"]
+    assert isinstance(trace_b_out["class_label"], str) and trace_b_out["class_label"]
+    assert trace_a_out["class_digest"] == trace_a_out["class_digest_potential"]
+    assert trace_b_out["class_digest"] == trace_b_out["class_digest_potential"]
+    assert trace_a_out["class_digest_actuated"]
+    assert trace_b_out["class_digest_actuated"]
+    assert trace_a_out["class_features_potential"] == trace_a_out["class_features"]
+    assert trace_b_out["class_features_potential"] == trace_b_out["class_features"]
+    assert digest_a != digest_b
+
+
+@pytest.mark.order1
+def test_regime_ab_experiment_is_reproducible_with_seed_override(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_regime_ab_repo"))
+    loop = IVILoopController(grid)
+    loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+
+    loop.add_statement_and_loop("regime harness baseline", source="test_regime_baseline")
+
+    out1 = loop.run_regime_ab_experiment(max_steps=2, seed_override=11)
+    out2 = loop.run_regime_ab_experiment(max_steps=2, seed_override=11)
+
+    assert out1["kind"] == "regime_ab_experiment"
+    assert out1["seed_override"] == 11
+    assert "alpha_dominant" in out1["regimes"]
+    assert "beta_dominant" in out1["regimes"]
+    assert out1["regimes"]["alpha_dominant"]["forced_alpha_beta"]["alpha"] > out1["regimes"]["alpha_dominant"]["forced_alpha_beta"]["beta"]
+    assert out1["regimes"]["beta_dominant"]["forced_alpha_beta"]["beta"] > out1["regimes"]["beta_dominant"]["forced_alpha_beta"]["alpha"]
+    assert out1["regimes"]["alpha_dominant"]["timeline_class_labels"] == out2["regimes"]["alpha_dominant"]["timeline_class_labels"]
+    assert out1["regimes"]["beta_dominant"]["timeline_class_labels"] == out2["regimes"]["beta_dominant"]["timeline_class_labels"]
+    assert "measure_stats" in out1["regimes"]["alpha_dominant"]
+    assert "entropy_bits" in out1["regimes"]["alpha_dominant"]["measure_stats"]
+    assert "top1_mass" in out1["regimes"]["alpha_dominant"]["measure_stats"]
+    assert "top5_mass" in out1["regimes"]["alpha_dominant"]["measure_stats"]
+    assert "measure_divergence" in out1["comparison"]
+    assert "js_divergence" in out1["comparison"]["measure_divergence"]
+    assert "l1_distance" in out1["comparison"]["measure_divergence"]
+    assert "beta_kcollapse_conditional" in out1["comparison"]
+    assert "by_k_bin" in out1["comparison"]["beta_kcollapse_conditional"]
+
+
+@pytest.mark.order1
+def test_class_digest_potential_invariant_under_redescription_actions(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_class_invariance_repo"))
+    loop = IVILoopController(grid)
+
+    relift = {
+        "conditioning_mode": "bias_candidates",
+        "k_collapse": 2,
+        "alpha": 0.4,
+        "beta": 0.6,
+    }
+    trace_a = {
+        "potential_distribution": [{"tid": "T1", "p": 0.6}, {"tid": "T2", "p": 0.4}],
+        "collapse_selection": ["T2", "T1"],
+        "formal_targets": [{"eid": "E1"}, {"eid": "E2"}],
+        "role_projection": {"subject_tids": ["T1"], "object_tids": ["T2"]},
+        "timestamp": 1.0,
+    }
+    trace_b = {
+        "potential_distribution": [{"tid": "T2", "p": 0.4}, {"tid": "T1", "p": 0.6}],
+        "collapse_selection": ["T1", "T2"],
+        "formal_targets": [{"eid": "E2"}, {"eid": "E1"}],
+        "role_projection": {"subject_tids": ["T1"], "object_tids": ["T2"]},
+        "timestamp": 9999.0,
+        "non_semantic_note": "metadata only perturbation",
+    }
+
+    a = loop._derive_topological_class_label(trace_a, relift)
+    b = loop._derive_topological_class_label(trace_b, relift)
+
+    assert a["class_digest_potential"] == b["class_digest_potential"]
+    assert a["class_features_potential"] == b["class_features_potential"]
+    assert a["class_digest_actuated"] == b["class_digest_actuated"]
+
+
+@pytest.mark.order1
+def test_least_action_components_hard_rejects_and_support_constraint(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_least_action_repo"))
+    loop = IVILoopController(grid)
+
+    failed = loop._least_action_components(
+        deficit_before=2,
+        deficit_after=1,
+        pot_before=[0.6, 0.4],
+        collapsed_indices=[0],
+        oracle_triggered=False,
+        novelty=0.0,
+        integrity_ok=False,
+    )
+    assert failed["valid"] is False
+    assert failed["hard_reject_reason"] == "integrity_failed"
+
+    outside_support = loop._least_action_components(
+        deficit_before=2,
+        deficit_after=1,
+        pot_before=[1.0, 0.0],
+        collapsed_indices=[1],
+        oracle_triggered=False,
+        novelty=0.0,
+        integrity_ok=True,
+    )
+    assert outside_support["valid"] is False
+    assert outside_support["hard_reject_reason"] == "collapse_outside_support"
+
+
+@pytest.mark.order1
+def test_least_action_selection_prefers_lower_action(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_least_action_select_repo"))
+    loop = IVILoopController(grid)
+
+    trace = {
+        "potential_distribution": [
+            {"tid": "T_keep", "p": 0.9},
+            {"tid": "T_drop", "p": 0.1},
+        ],
+        "collapse_selection": [],
+        "integrity_ok": True,
+    }
+    progress = {"latest_creativity_event": {"novel_selected_digest": False}}
+    candidates = [
+        {
+            "tid": "T_keep",
+            "weight": 0.9,
+            "closure_gain": 0,
+            "projected_deficit": 0,
+            "symmetry_class": "neutral",
+            "delta_signature_digest": "aaa0000000000001",
+        },
+        {
+            "tid": "T_drop",
+            "weight": 0.1,
+            "closure_gain": 0,
+            "projected_deficit": 0,
+            "symmetry_class": "neutral",
+            "delta_signature_digest": "bbb0000000000002",
+        },
+    ]
+
+    selected, meta = loop._select_autoloop_candidate(
+        candidates,
+        trace,
+        progress,
+        step=1,
+        selection_mode="deterministic_replay",
+        relift_conditioning={"conditioning_mode": "identity", "alpha": 0.5, "beta": 0.5},
+        seed_override=1,
+    )
+    assert meta["selector"] == "least_action_argmin"
+    assert selected["tid"] == "T_drop"
+
+
+@pytest.mark.order1
+def test_least_action_calibration_report_shape(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_least_action_calibration_repo"))
+    loop = IVILoopController(grid)
+    loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+
+    out = loop.run_least_action_calibration(max_steps=1, trials=4, seed_start=3)
+
+    assert out["kind"] == "least_action_calibration"
+    assert out["max_steps"] == 1
+    assert out["trials"] == 4
+    assert out["seed_start"] == 3
+    assert out["steps_observed"] >= 1
+    assert "predicted_distribution" in out
+    assert "observed_distribution" in out
+    assert "comparison" in out
+    assert out["comparison"]["js_divergence"] >= 0.0
+    assert out["comparison"]["l1_distance"] >= 0.0
+    assert isinstance(out["trial_reports"], list)
+    assert len(out["trial_reports"]) == 4
+
+
+@pytest.mark.order1
+def test_voice_turn_supports_autoloop_regime_command(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_regime_cmd_repo"))
+    loop = IVILoopController(grid)
+    loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+
+    loop.add_statement_and_loop("regime command baseline", source="test_regime_cmd")
+    out = loop.voice_turn("/autoloop-regime 1 5")
+
+    assert out["kind"] == "regime_ab_experiment"
+    assert out["seed_override"] == 5
+    assert "alpha_dominant" in out["regimes"]
+    assert "beta_dominant" in out["regimes"]
+
+
+@pytest.mark.order1
+def test_order_relation_contract_has_all_four_orders(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_order_relation_repo"))
+    loop = IVILoopController(grid)
+
+    loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+    out = loop.add_statement_and_loop("order relation integration probe", source="test_order_relation")
+    trace = out["integration_artifacts"]["Trace"]
+    relation = trace["order_relation"]
+
+    assert relation["mode"] == "continuous_triad_v1"
+    assert "order_1_projection" in relation
+    assert "order_2_potential" in relation
+    assert "order_3_contact" in relation
+    assert "order_4_boundary" in relation
+    assert "order_coupling" in relation
+    assert relation["order_1_projection"]["class_label"] == trace["class_label"]
+    assert relation["order_coupling"]["relift_conditioning_mode"] == trace["relift_conditioning_mode"]
+    assert isinstance(relation["digest"], str) and relation["digest"]
+
+
+@pytest.mark.order1
+def test_progress_reports_class_distribution_by_regime(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_class_distribution_repo"))
+    loop = IVILoopController(grid)
+
+    loop._append_integration_artifacts(
+        {
+            "Trace": {"class_label": "cls_A", "regime_label": "alpha_dominant"},
+            "Gap": [],
+            "CreativityEvent": {"creative": False, "basis": "none", "novel_selected_digest": False},
+            "RefinementApplied": {"action": "noop"},
+        }
+    )
+    loop._append_integration_artifacts(
+        {
+            "Trace": {"class_label": "cls_B", "regime_label": "alpha_dominant"},
+            "Gap": [],
+            "CreativityEvent": {"creative": False, "basis": "none", "novel_selected_digest": False},
+            "RefinementApplied": {"action": "noop"},
+        }
+    )
+    loop._append_integration_artifacts(
+        {
+            "Trace": {"class_label": "cls_A", "regime_label": "beta_dominant"},
+            "Gap": [],
+            "CreativityEvent": {"creative": False, "basis": "none", "novel_selected_digest": False},
+            "RefinementApplied": {"action": "noop"},
+        }
+    )
+
+    progress = loop.get_axiom_self_generation_progress()
+    dist = progress["class_regime_distribution"]
+
+    assert dist["alpha_dominant"]["total"] == 2
+    assert dist["beta_dominant"]["total"] == 1
+    assert dist["balanced"]["total"] == 0
+    alpha_classes = {entry["class_label"]: entry["count"] for entry in dist["alpha_dominant"]["by_class"]}
+    beta_classes = {entry["class_label"]: entry["count"] for entry in dist["beta_dominant"]["by_class"]}
+    assert alpha_classes == {"cls_A": 1, "cls_B": 1}
+    assert beta_classes == {"cls_A": 1}
 
 
 @pytest.mark.order1
@@ -342,6 +701,9 @@ def test_grid_trigger_branch_point_classification(tmp_path):
     )
     assert req is not None
     assert req["OracleRequest"]["trigger_class"] == "non_dominated_candidate_set"
+    assert req["OracleRequest"]["question_template_id"] == "oracle_template_branch_point_v1"
+    assert req["OracleRequest"]["oracle_template_version"] == "oracle_template_branch_point_v1"
+    assert req["OracleRequest"]["oracle_template_digest"]
     assert "branch_point_certificate" in req["OracleRequest"]["trigger_evidence"]
 
 
@@ -370,3 +732,79 @@ def test_grid_trigger_stagnation_emits_oracle_request(tmp_path):
     )
     assert req is not None
     assert req["OracleRequest"]["trigger_class"] == "stagnation"
+    assert req["OracleRequest"]["question_template_id"] == "oracle_template_stagnation_v1"
+    assert req["OracleRequest"]["oracle_template_version"] == "oracle_template_stagnation_v1"
+    assert req["OracleRequest"]["oracle_template_digest"]
+
+
+@pytest.mark.order1
+def test_insight_parses_branch_point_and_stagnation_answer_contracts(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_oracle_answer_repo"))
+    loop = IVILoopController(grid)
+
+    branch_req = loop._attach_oracle_template_metadata(
+        {
+            "trigger_reason": "conflicting_admissible_refinements",
+            "trigger_class": "non_dominated_candidate_set",
+            "impasse_description": "test",
+            "candidate_actions": ["T_A", "T_B"],
+            "missing_information": "select one signature",
+            "recommended_question": "STATE IMPASSE DETECTED",
+            "minimal_question": "STATE IMPASSE DETECTED",
+            "trigger_evidence": {},
+            "expected_impact": "inject_external_constraint_to_resume_refinement",
+        },
+        template_id="oracle_template_branch_point_v1",
+        template_inputs={"candidate_actions": ["T_A", "T_B"]},
+    )
+    loop._set_active_oracle_request({"OracleRequest": branch_req})
+    branch_out = loop.voice_turn("/insight opt_1")
+
+    assert branch_out["kind"] == "insight"
+    assert branch_out["oracle_answer"]["applied"] is True
+    assert branch_out["oracle_answer"]["template_id"] == "oracle_template_branch_point_v1"
+    assert branch_out["oracle_answer"]["schema_ok"] is True
+    assert branch_out["oracle_answer"]["parsed"]["option_id"] == "opt_1"
+    assert branch_out["oracle_commitment"]["schema_ok"] is True
+    assert branch_out["oracle_commitment"]["parsed_digest"]
+
+    stag_req = loop._attach_oracle_template_metadata(
+        {
+            "trigger_reason": "stagnation",
+            "trigger_class": "stagnation",
+            "impasse_description": "test",
+            "candidate_actions": ["T_A"],
+            "missing_information": "new constraint",
+            "recommended_question": "STATE STAGNATION DETECTED",
+            "minimal_question": "STATE STAGNATION DETECTED",
+            "trigger_evidence": {},
+            "expected_impact": "inject_external_constraint_to_resume_refinement",
+        },
+        template_id="oracle_template_stagnation_v1",
+        template_inputs={"candidate_actions": ["T_A"]},
+    )
+    loop._set_active_oracle_request({"OracleRequest": stag_req})
+    stag_out = loop.voice_turn("/insight new_constraint=use objective projection")
+
+    assert stag_out["oracle_answer"]["template_id"] == "oracle_template_stagnation_v1"
+    assert stag_out["oracle_answer"]["schema_ok"] is True
+    assert stag_out["oracle_answer"]["parsed"]["new_constraint"] == "use objective projection"
+    assert stag_out["oracle_answer"]["parsed"]["priority"] == "intent_constraint"
+
+
+@pytest.mark.order1
+def test_oracle_minimal_question_template_fixed_point(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_fixed_point_template_repo"))
+    loop = IVILoopController(grid)
+
+    question = loop._oracle_minimal_question_template(
+        trigger_class="fixed_point",
+        reasons=["fixed_point"],
+        candidate_actions=["T_alpha"],
+        missing_information="new objective or boundary extension",
+        trigger_evidence={"closure_deficit": 0, "max_closure_gain": 0},
+    )
+
+    assert "STATE BOUNDARY REACHED" in question
+    assert "Class: fixed_point" in question
+    assert "/insight <constraint>" in question

@@ -79,6 +79,11 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     assert isinstance(trace["choice_law_replay"]["candidate_potentials"], list)
     assert trace["choice_law_replay"]["candidate_potentials_digest"]
     assert trace["choice_law_replay"]["selected_delta_signature_digest"]
+    assert isinstance(trace["potential_distribution_replay"], list)
+    assert trace["potential_distribution_digest"]
+    assert trace["potential_distribution_source"] == "choice_law_replay.candidate_potentials"
+    assert trace["potential_distribution_replay"] == trace["choice_law_replay"]["candidate_potentials"]
+    assert trace["potential_distribution_digest"] == trace["choice_law_replay"]["candidate_potentials_digest"]
     assert trace["closure_rules_version"] == "closure_rules_v1"
     assert trace["closure_rules_digest"]
     assert isinstance(trace["closure_replay_steps"], list)
@@ -100,6 +105,12 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     choice_replay_check = question["integration_artifacts"]["StateChecks"]["choice_law_replay_integrity"]
     assert choice_replay_check["enabled"] is True
     assert choice_replay_check["passed"] is True
+    potential_derivation_check = question["integration_artifacts"]["StateChecks"]["potential_derivation_integrity"]
+    assert potential_derivation_check["enabled"] is True
+    assert potential_derivation_check["passed"] is True
+    seed_parity_check = question["integration_artifacts"]["StateChecks"]["potential_collapse_sampling_seed_parity"]
+    assert seed_parity_check["enabled"] is True
+    assert seed_parity_check["passed"] is True
 
     progress = loop.get_axiom_self_generation_progress()
     assert "creative_event_count" in progress
@@ -114,6 +125,7 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     assert dependency["depends_on"] == "potential_distribution"
     assert isinstance(dependency["unsupported_collapse_tids"], list)
     assert dependency["collapse_subset_of_potential"] is True
+    assert "choice_sampling_seed" in dependency
 
     # Layer 1 explanation consistency: suggested refs must point into current equation context.
     eq_ids = {e["eid"] for e in ctx["equations"]}

@@ -25,6 +25,7 @@ Storage:
 from __future__ import annotations
 
 import dataclasses
+import copy
 import hashlib
 import json
 import math
@@ -240,15 +241,33 @@ def build_triangle_time_choice_artifact(trace: Dict[str, Any]) -> Dict[str, Any]
         for entry in trace.get("potential_distribution", [])
         if isinstance(entry, dict) and entry.get("tid")
     ]
-    potential_tid_set = set(potential_tids)
+    potential_tids_canonical = sorted(set(potential_tids))
+    potential_tid_set = set(potential_tids_canonical)
     collapse_tids = [str(tid) for tid in trace.get("collapse_selection", [])]
-    alternatives = [tid for tid in potential_tids if tid not in set(collapse_tids)]
-    unsupported_collapse_tids = [tid for tid in collapse_tids if tid not in potential_tid_set]
+    collapse_tids_canonical = sorted(set(collapse_tids))
+    collapse_tid_set = set(collapse_tids_canonical)
+    alternatives = [tid for tid in potential_tids_canonical if tid not in collapse_tid_set]
+    unsupported_collapse_tids = sorted(tid for tid in collapse_tids_canonical if tid not in potential_tid_set)
+    supported_collapse_tids_canonical = sorted(tid for tid in collapse_tids_canonical if tid in potential_tid_set)
+    choice_law_replay = trace.get("choice_law_replay", {}) if isinstance(trace.get("choice_law_replay", {}), dict) else {}
+    choice_sampling_seed = choice_law_replay.get("sampling_seed", None)
+
+    potential_distribution_digest = _stable_hash(json.dumps(potential_tids_canonical, ensure_ascii=True))
+    collapse_set_digest = _stable_hash(json.dumps(collapse_tids_canonical, ensure_ascii=True))
+    supported_collapse_set_digest = _stable_hash(json.dumps(supported_collapse_tids_canonical, ensure_ascii=True))
+
     potential_collapse_dependency = {
         "depends_on": "potential_distribution",
-        "potential_count": len(potential_tids),
-        "collapse_count": len(collapse_tids),
-        "supported_collapse_count": len(collapse_tids) - len(unsupported_collapse_tids),
+        "potential_count": len(potential_tids_canonical),
+        "collapse_count": len(collapse_tids_canonical),
+        "supported_collapse_count": len(supported_collapse_tids_canonical),
+        "potential_tids_canonical": potential_tids_canonical,
+        "collapse_tids_canonical": collapse_tids_canonical,
+        "supported_collapse_tids_canonical": supported_collapse_tids_canonical,
+        "potential_distribution_digest": potential_distribution_digest,
+        "collapse_set_digest": collapse_set_digest,
+        "supported_collapse_set_digest": supported_collapse_set_digest,
+        "choice_sampling_seed": choice_sampling_seed,
         "unsupported_collapse_tids": unsupported_collapse_tids,
         "collapse_subset_of_potential": len(unsupported_collapse_tids) == 0,
     }
@@ -259,8 +278,8 @@ def build_triangle_time_choice_artifact(trace: Dict[str, Any]) -> Dict[str, Any]
         "RefinementApplied": "triangle_time_refinement_transform_v1",
         "Delta": {
             "added_triangle_tids": collapse_tids,
-            "added_triangle_count": len(collapse_tids),
-            "potential_triangle_count": len(potential_tids),
+            "added_triangle_count": len(collapse_tids_canonical),
+            "potential_triangle_count": len(potential_tids_canonical),
             "potential_collapse_dependency": potential_collapse_dependency,
         },
         "Witness": {
@@ -288,6 +307,7 @@ def validate_triangle_time_choice_artifact(artifact: Dict[str, Any]) -> Tuple[bo
     delta = artifact.get("Delta")
     witness = artifact.get("Witness")
     alternatives = artifact.get("Alternatives")
+    dependency_delta: Optional[Dict[str, Any]] = None
 
     if not refinement_applied:
         violations.append("RefinementApplied missing")
@@ -310,14 +330,85 @@ def validate_triangle_time_choice_artifact(artifact: Dict[str, Any]) -> Tuple[bo
         if not isinstance(dependency, dict):
             violations.append("Witness.potential_collapse_dependency must be a mapping")
         else:
+            potential_tids_canonical = dependency.get("potential_tids_canonical")
+            collapse_tids_canonical = dependency.get("collapse_tids_canonical")
+            supported_tids_canonical = dependency.get("supported_collapse_tids_canonical")
             unsupported = dependency.get("unsupported_collapse_tids")
             subset_ok = dependency.get("collapse_subset_of_potential")
+            potential_count = dependency.get("potential_count")
+            collapse_count = dependency.get("collapse_count")
+            supported_count = dependency.get("supported_collapse_count")
+            potential_digest = dependency.get("potential_distribution_digest")
+            collapse_digest = dependency.get("collapse_set_digest")
+            supported_digest = dependency.get("supported_collapse_set_digest")
+            choice_sampling_seed = dependency.get("choice_sampling_seed", None)
+            if not isinstance(potential_tids_canonical, list):
+                violations.append("Witness.potential_collapse_dependency.potential_tids_canonical must be a list")
+            if not isinstance(collapse_tids_canonical, list):
+                violations.append("Witness.potential_collapse_dependency.collapse_tids_canonical must be a list")
+            if not isinstance(supported_tids_canonical, list):
+                violations.append("Witness.potential_collapse_dependency.supported_collapse_tids_canonical must be a list")
             if not isinstance(unsupported, list):
                 violations.append("Witness.potential_collapse_dependency.unsupported_collapse_tids must be a list")
             if not isinstance(subset_ok, bool):
                 violations.append("Witness.potential_collapse_dependency.collapse_subset_of_potential must be a bool")
-            elif subset_ok != (len(unsupported) == 0 if isinstance(unsupported, list) else False):
+            if not isinstance(potential_count, int):
+                violations.append("Witness.potential_collapse_dependency.potential_count must be an int")
+            if not isinstance(collapse_count, int):
+                violations.append("Witness.potential_collapse_dependency.collapse_count must be an int")
+            if not isinstance(supported_count, int):
+                violations.append("Witness.potential_collapse_dependency.supported_collapse_count must be an int")
+            if not isinstance(potential_digest, str) or not potential_digest:
+                violations.append("Witness.potential_collapse_dependency.potential_distribution_digest must be a non-empty string")
+            if not isinstance(collapse_digest, str) or not collapse_digest:
+                violations.append("Witness.potential_collapse_dependency.collapse_set_digest must be a non-empty string")
+            if not isinstance(supported_digest, str) or not supported_digest:
+                violations.append("Witness.potential_collapse_dependency.supported_collapse_set_digest must be a non-empty string")
+            if choice_sampling_seed is not None and not isinstance(choice_sampling_seed, int):
+                violations.append("Witness.potential_collapse_dependency.choice_sampling_seed must be int|null")
+
+            if isinstance(potential_tids_canonical, list) and isinstance(potential_count, int) and potential_count != len(potential_tids_canonical):
+                violations.append("Witness.potential_collapse_dependency potential_count mismatch")
+            if isinstance(collapse_tids_canonical, list) and isinstance(collapse_count, int) and collapse_count != len(collapse_tids_canonical):
+                violations.append("Witness.potential_collapse_dependency collapse_count mismatch")
+            if isinstance(supported_tids_canonical, list) and isinstance(supported_count, int) and supported_count != len(supported_tids_canonical):
+                violations.append("Witness.potential_collapse_dependency supported_collapse_count mismatch")
+
+            if (
+                isinstance(collapse_count, int)
+                and isinstance(unsupported, list)
+                and isinstance(supported_count, int)
+                and supported_count != collapse_count - len(unsupported)
+            ):
+                violations.append("Witness.potential_collapse_dependency supported-by-construction mismatch")
+
+            if isinstance(potential_tids_canonical, list) and isinstance(potential_digest, str) and potential_digest:
+                expected = _stable_hash(json.dumps(potential_tids_canonical, ensure_ascii=True))
+                if potential_digest != expected:
+                    violations.append("Witness.potential_collapse_dependency potential_distribution_digest mismatch")
+            if isinstance(collapse_tids_canonical, list) and isinstance(collapse_digest, str) and collapse_digest:
+                expected = _stable_hash(json.dumps(collapse_tids_canonical, ensure_ascii=True))
+                if collapse_digest != expected:
+                    violations.append("Witness.potential_collapse_dependency collapse_set_digest mismatch")
+            if isinstance(supported_tids_canonical, list) and isinstance(supported_digest, str) and supported_digest:
+                expected = _stable_hash(json.dumps(supported_tids_canonical, ensure_ascii=True))
+                if supported_digest != expected:
+                    violations.append("Witness.potential_collapse_dependency supported_collapse_set_digest mismatch")
+
+            if isinstance(subset_ok, bool) and isinstance(unsupported, list) and subset_ok != (len(unsupported) == 0):
                 violations.append("Witness.potential_collapse_dependency integrity mismatch")
+
+            if (
+                isinstance(collapse_tids_canonical, list)
+                and isinstance(unsupported, list)
+                and isinstance(supported_tids_canonical, list)
+            ):
+                expected_supported = sorted(tid for tid in collapse_tids_canonical if tid not in set(unsupported))
+                if sorted(supported_tids_canonical) != expected_supported:
+                    violations.append("Witness.potential_collapse_dependency supported set mismatch")
+
+            if isinstance(dependency_delta, dict) and dependency_delta != dependency:
+                violations.append("Delta/Witness potential_collapse_dependency mismatch")
     if not isinstance(alternatives, list):
         violations.append("Alternatives must be a list")
 
@@ -1510,6 +1601,8 @@ class IVILoopController:
         self.grid = grid
         self._last_complexity_validation_level: Optional[str] = None
         self._openclaw: Optional[OpenClawMicrocosm] = None
+        self._last_oracle_request: Optional[Dict[str, Any]] = None
+        self._last_relift_conditioning: Optional[Dict[str, Any]] = None
 
         self.phase_dir = os.path.join(self.grid.base_dir, "ivi_memory")
         _ensure_dir(self.phase_dir)
@@ -1607,6 +1700,523 @@ class IVILoopController:
             "novel_selected_digest": novel_selected_digest,
         }
 
+    def _relift_regime_label(self, relift_conditioning: Dict[str, Any]) -> str:
+        conditioning = relift_conditioning if isinstance(relift_conditioning, dict) else {}
+        alpha = float(conditioning.get("alpha", 0.5))
+        beta = float(conditioning.get("beta", 0.5))
+        if alpha > beta:
+            return "alpha_dominant"
+        if beta > alpha:
+            return "beta_dominant"
+        return "balanced"
+
+    def _derive_topological_class_label(
+        self,
+        trace: Dict[str, Any],
+        relift_conditioning: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        conditioning = relift_conditioning if isinstance(relift_conditioning, dict) else {}
+
+        pot = [x for x in trace_obj.get("potential_distribution", []) if isinstance(x, dict)]
+        collapse = [str(x).strip() for x in trace_obj.get("collapse_selection", []) if str(x).strip()]
+        formal = [x for x in trace_obj.get("formal_targets", []) if isinstance(x, dict)]
+        role_projection = (
+            trace_obj.get("role_projection", {})
+            if isinstance(trace_obj.get("role_projection", {}), dict)
+            else {}
+        )
+        subject = [str(x).strip() for x in role_projection.get("subject_tids", []) if str(x).strip()]
+        obj = [str(x).strip() for x in role_projection.get("object_tids", []) if str(x).strip()]
+
+        if subject and obj:
+            role_shape = "bipolar"
+        elif subject:
+            role_shape = "subject"
+        elif obj:
+            role_shape = "object"
+        else:
+            role_shape = "flat"
+
+        conditioning_mode = str(conditioning.get("conditioning_mode", "identity"))
+        k_collapse = int(conditioning.get("k_collapse", max(1, len(set(collapse[:2])))))
+        regime_label = self._relift_regime_label(conditioning)
+
+        feature_payload_potential = {
+            "role_shape": role_shape,
+            "potential_count": int(len({str(x.get('tid', '')).strip() for x in pot if str(x.get('tid', '')).strip()})),
+            "collapse_count": int(len(set(collapse))),
+            "formal_count": int(len({str(x.get('eid', '')).strip() for x in formal if str(x.get('eid', '')).strip()})),
+        }
+        feature_payload_actuated = {
+            **feature_payload_potential,
+            "conditioning_mode": conditioning_mode,
+            "k_collapse": int(max(1, min(3, k_collapse))),
+            "regime_label": regime_label,
+        }
+        feature_potential_json = json.dumps(feature_payload_potential, sort_keys=True, ensure_ascii=True)
+        feature_actuated_json = json.dumps(feature_payload_actuated, sort_keys=True, ensure_ascii=True)
+        class_digest_potential = _stable_hash(feature_potential_json)
+        class_digest_actuated = _stable_hash(feature_actuated_json)
+
+        class_label_potential = (
+            f"{feature_payload_potential['role_shape']}"
+            f"|p{feature_payload_potential['potential_count']}"
+            f"|c{feature_payload_potential['collapse_count']}"
+            f"|f{feature_payload_potential['formal_count']}"
+        )
+        class_label_actuated = (
+            f"{class_label_potential}"
+            f"|{feature_payload_actuated['conditioning_mode']}"
+            f"|k{feature_payload_actuated['k_collapse']}"
+        )
+
+        return {
+            "class_label": class_label_potential,
+            "class_label_potential": class_label_potential,
+            "class_label_actuated": class_label_actuated,
+            "class_digest": class_digest_potential,
+            "class_digest_potential": class_digest_potential,
+            "class_digest_actuated": class_digest_actuated,
+            "class_features": feature_payload_potential,
+            "class_features_potential": feature_payload_potential,
+            "class_features_actuated": feature_payload_actuated,
+            "regime_label": regime_label,
+        }
+
+    def _distribution_prob_map(self, by_class: List[Dict[str, Any]]) -> Dict[str, float]:
+        probs: Dict[str, float] = {}
+        for entry in by_class:
+            if not isinstance(entry, dict):
+                continue
+            cls = str(entry.get("class_label", "")).strip()
+            if not cls:
+                continue
+            p = float(entry.get("probability", 0.0))
+            if p > 0.0:
+                probs[cls] = probs.get(cls, 0.0) + p
+        z = float(sum(probs.values()))
+        if z <= 0.0:
+            return {}
+        return {k: float(v) / z for k, v in probs.items()}
+
+    def _distribution_from_count_map(self, counts: Dict[str, float]) -> Dict[str, Any]:
+        cleaned: Dict[str, float] = {}
+        for key, val in counts.items():
+            cls = str(key).strip()
+            if not cls:
+                continue
+            v = float(val)
+            if v > 0.0:
+                cleaned[cls] = cleaned.get(cls, 0.0) + v
+        total = float(sum(cleaned.values()))
+        by_class = [
+            {
+                "class_label": cls,
+                "count": float(cnt),
+                "probability": float(cnt) / float(max(1e-12, total)),
+            }
+            for cls, cnt in sorted(cleaned.items(), key=lambda kv: (-float(kv[1]), str(kv[0])))
+        ]
+        return {
+            "total": float(total),
+            "by_class": by_class,
+        }
+
+    def _distribution_stats(self, by_class: List[Dict[str, Any]]) -> Dict[str, float]:
+        probs = sorted(self._distribution_prob_map(by_class).values(), reverse=True)
+        entropy_bits = 0.0
+        for p in probs:
+            if p > 0.0:
+                entropy_bits -= p * math.log2(p)
+        top1 = probs[0] if probs else 0.0
+        top5 = float(sum(probs[:5])) if probs else 0.0
+        return {
+            "entropy_bits": float(entropy_bits),
+            "top1_mass": float(top1),
+            "top5_mass": float(top5),
+        }
+
+    def _js_l1_divergence(self, by_class_a: List[Dict[str, Any]], by_class_b: List[Dict[str, Any]]) -> Dict[str, float]:
+        p_map = self._distribution_prob_map(by_class_a)
+        q_map = self._distribution_prob_map(by_class_b)
+        universe = sorted(set(p_map.keys()) | set(q_map.keys()))
+        if not universe:
+            return {"js_divergence": 0.0, "l1_distance": 0.0}
+
+        p = [float(p_map.get(k, 0.0)) for k in universe]
+        q = [float(q_map.get(k, 0.0)) for k in universe]
+        m = [0.5 * (a + b) for a, b in zip(p, q)]
+
+        def _kl(a: List[float], b: List[float]) -> float:
+            out = 0.0
+            for x, y in zip(a, b):
+                if x > 0.0 and y > 0.0:
+                    out += x * math.log2(x / y)
+            return out
+
+        js = 0.5 * _kl(p, m) + 0.5 * _kl(q, m)
+        l1 = float(sum(abs(a - b) for a, b in zip(p, q)))
+        return {
+            "js_divergence": float(max(0.0, js)),
+            "l1_distance": float(max(0.0, l1)),
+        }
+
+    def _k_collapse_bin(self, k_collapse: int) -> str:
+        k = int(k_collapse)
+        if k <= 1:
+            return "low"
+        if k == 2:
+            return "medium"
+        return "high"
+
+    def _beta_kcollapse_conditional_divergence(self, timeline: List[Dict[str, Any]]) -> Dict[str, Any]:
+        bins: Dict[str, Dict[str, int]] = {"low": {}, "medium": {}, "high": {}}
+        for step in timeline:
+            if not isinstance(step, dict):
+                continue
+            label = str(step.get("class_label", "")).strip()
+            if not label:
+                continue
+            bin_name = self._k_collapse_bin(int(step.get("k_collapse", 1)))
+            bins[bin_name][label] = int(bins[bin_name].get(label, 0)) + 1
+
+        by_bin: Dict[str, Dict[str, Any]] = {}
+        for bin_name, counts in bins.items():
+            total = int(sum(counts.values()))
+            by_class = [
+                {
+                    "class_label": cls,
+                    "count": int(cnt),
+                    "probability": float(cnt) / float(max(1, total)),
+                }
+                for cls, cnt in sorted(counts.items(), key=lambda kv: (-int(kv[1]), str(kv[0])))
+            ]
+            by_bin[bin_name] = {"total": total, "by_class": by_class}
+
+        pairwise: List[Dict[str, Any]] = []
+        keys = [k for k, v in by_bin.items() if int(v.get("total", 0)) > 0]
+        for i in range(len(keys)):
+            for j in range(i + 1, len(keys)):
+                a = keys[i]
+                b = keys[j]
+                d = self._js_l1_divergence(
+                    by_bin[a].get("by_class", []),
+                    by_bin[b].get("by_class", []),
+                )
+                pairwise.append({
+                    "bins": [a, b],
+                    "js_divergence": float(d.get("js_divergence", 0.0)),
+                    "l1_distance": float(d.get("l1_distance", 0.0)),
+                })
+
+        mean_js = float(sum(float(x.get("js_divergence", 0.0)) for x in pairwise)) / float(max(1, len(pairwise)))
+        max_js = max([float(x.get("js_divergence", 0.0)) for x in pairwise], default=0.0)
+        return {
+            "by_k_bin": by_bin,
+            "pairwise": pairwise,
+            "mean_js_divergence": float(mean_js),
+            "max_js_divergence": float(max_js),
+        }
+
+    def _class_distribution_by_regime(self, artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
+        regimes = {
+            "alpha_dominant": {},
+            "beta_dominant": {},
+            "balanced": {},
+        }
+
+        for item in artifacts:
+            if not isinstance(item, dict):
+                continue
+            trace = item.get("Trace", {}) if isinstance(item.get("Trace", {}), dict) else {}
+            regime = str(trace.get("regime_label", "")).strip() or self._relift_regime_label(
+                trace.get("relift_conditioning", {}) if isinstance(trace.get("relift_conditioning", {}), dict) else {}
+            )
+            if regime not in regimes:
+                regime = "balanced"
+            class_label = str(trace.get("class_label", "")).strip()
+            if not class_label:
+                inferred = self._derive_topological_class_label(
+                    trace,
+                    trace.get("relift_conditioning", {}) if isinstance(trace.get("relift_conditioning", {}), dict) else {},
+                )
+                class_label = str(inferred.get("class_label", "unclassified"))
+            regimes[regime][class_label] = int(regimes[regime].get(class_label, 0)) + 1
+
+        out: Dict[str, Any] = {}
+        for regime, buckets in regimes.items():
+            total = int(sum(int(v) for v in buckets.values()))
+            by_class = [
+                {
+                    "class_label": cls,
+                    "count": int(cnt),
+                    "probability": float(cnt) / float(max(1, total)),
+                }
+                for cls, cnt in sorted(buckets.items(), key=lambda kv: (-int(kv[1]), str(kv[0])))
+            ]
+            out[regime] = {
+                "total": total,
+                "by_class": by_class,
+            }
+        return out
+
+    def _timeline_class_distribution(self, timeline: List[Dict[str, Any]]) -> Dict[str, Any]:
+        counts: Dict[str, int] = {}
+        for step in timeline:
+            if not isinstance(step, dict):
+                continue
+            cls = str(step.get("class_label", "")).strip()
+            if not cls:
+                continue
+            counts[cls] = int(counts.get(cls, 0)) + 1
+        total = int(sum(counts.values()))
+        return {
+            "total": total,
+            "by_class": [
+                {
+                    "class_label": cls,
+                    "count": int(cnt),
+                    "probability": float(cnt) / float(max(1, total)),
+                }
+                for cls, cnt in sorted(counts.items(), key=lambda kv: (-int(kv[1]), str(kv[0])))
+            ],
+        }
+
+    def _normalize_forced_alpha_beta(self, forced_alpha_beta: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+        if not isinstance(forced_alpha_beta, dict):
+            return None
+        alpha = float(forced_alpha_beta.get("alpha", 0.5))
+        beta = float(forced_alpha_beta.get("beta", 0.5))
+        alpha = max(0.0, min(1.0, alpha))
+        beta = max(0.0, min(1.0, beta))
+        total = alpha + beta
+        if total <= 0.0:
+            alpha = 0.5
+            beta = 0.5
+        else:
+            alpha = alpha / total
+            beta = beta / total
+        payload = {
+            "mode": "continuous_triad_v1",
+            "alpha": float(alpha),
+            "beta": float(beta),
+            "source": "forced_override",
+        }
+        payload["digest"] = _stable_hash(json.dumps(payload, sort_keys=True, ensure_ascii=True))
+        return payload
+
+    def run_regime_ab_experiment(
+        self,
+        max_steps: int = 3,
+        source: str = "voice_auto",
+        selection_mode: str = "deterministic_replay",
+        seed_override: int = 0,
+    ) -> Dict[str, Any]:
+        regimes = {
+            "alpha_dominant": {"alpha": 0.8, "beta": 0.2},
+            "beta_dominant": {"alpha": 0.2, "beta": 0.8},
+        }
+        experiment_root = os.path.join(self.grid.base_dir, "ivi_memory", "regime_harness")
+        _ensure_dir(experiment_root)
+
+        baseline_idx = copy.deepcopy(self.grid.idx)
+        baseline_relift = copy.deepcopy(self._last_relift_conditioning)
+        reports: Dict[str, Any] = {}
+
+        for regime_name, forced in regimes.items():
+            regime_dir = os.path.join(experiment_root, f"{regime_name}_seed_{int(seed_override)}")
+            _ensure_dir(regime_dir)
+            regime_grid = IVISimplicialGrid(base_dir=regime_dir)
+            regime_grid.idx = copy.deepcopy(baseline_idx)
+            regime_grid._save_index()
+
+            regime_loop = IVILoopController(regime_grid)
+            for cleanup_path in [
+                regime_loop.integration_artifacts_path,
+                regime_loop.deriv_phase1_path,
+                regime_loop.analysis_phase1_path,
+            ]:
+                if os.path.exists(cleanup_path):
+                    os.remove(cleanup_path)
+            regime_loop._last_relift_conditioning = copy.deepcopy(baseline_relift)
+            regime_loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+
+            forced_payload = self._normalize_forced_alpha_beta(forced)
+            run = regime_loop.run_automated_self_generation_loop(
+                max_steps=max_steps,
+                source=f"{source}_{regime_name}",
+                selection_mode=selection_mode,
+                forced_alpha_beta=forced_payload,
+                seed_override=int(seed_override),
+            )
+            class_distribution = self._timeline_class_distribution(run.get("timeline", []))
+            measure_stats = self._distribution_stats(class_distribution.get("by_class", []))
+            reports[regime_name] = {
+                "forced_alpha_beta": forced_payload,
+                "class_distribution": class_distribution,
+                "measure_stats": measure_stats,
+                "timeline": list(run.get("timeline", [])) if isinstance(run.get("timeline", []), list) else [],
+                "timeline_class_labels": [
+                    str(step.get("class_label", ""))
+                    for step in run.get("timeline", [])
+                    if isinstance(step, dict)
+                ],
+                "timeline_relift_modes": [
+                    str(step.get("relift_conditioning_mode", ""))
+                    for step in run.get("timeline", [])
+                    if isinstance(step, dict)
+                ],
+                "steps_run": int(run.get("steps_run", 0)),
+                "halted_reason": str(run.get("halted_reason", "")),
+            }
+
+        alpha_labels = {str(x.get("class_label", "")) for x in reports.get("alpha_dominant", {}).get("class_distribution", {}).get("by_class", []) if isinstance(x, dict)}
+        beta_labels = {str(x.get("class_label", "")) for x in reports.get("beta_dominant", {}).get("class_distribution", {}).get("by_class", []) if isinstance(x, dict)}
+        union = alpha_labels | beta_labels
+        overlap = alpha_labels & beta_labels
+        measure_divergence = self._js_l1_divergence(
+            reports.get("alpha_dominant", {}).get("class_distribution", {}).get("by_class", []),
+            reports.get("beta_dominant", {}).get("class_distribution", {}).get("by_class", []),
+        )
+        beta_kcollapse = self._beta_kcollapse_conditional_divergence(
+            reports.get("beta_dominant", {}).get("timeline", [])
+            if isinstance(reports.get("beta_dominant", {}), dict)
+            else []
+        )
+
+        return {
+            "kind": "regime_ab_experiment",
+            "steps_requested": max(1, int(max_steps)),
+            "selection_mode": selection_mode,
+            "seed_override": int(seed_override),
+            "regimes": reports,
+            "comparison": {
+                "alpha_unique_classes": sorted(alpha_labels - beta_labels),
+                "beta_unique_classes": sorted(beta_labels - alpha_labels),
+                "shared_classes": sorted(overlap),
+                "jaccard_overlap": float(len(overlap)) / float(max(1, len(union))),
+                "measure_divergence": measure_divergence,
+                "beta_kcollapse_conditional": beta_kcollapse,
+            },
+        }
+
+    def run_least_action_calibration(
+        self,
+        max_steps: int = 1,
+        trials: int = 12,
+        source: str = "voice_auto_calibration",
+        seed_start: int = 0,
+    ) -> Dict[str, Any]:
+        run_steps = max(1, int(max_steps))
+        run_trials = max(1, int(trials))
+        start_seed = int(seed_start)
+
+        experiment_root = os.path.join(self.grid.base_dir, "ivi_memory", "least_action_calibration")
+        _ensure_dir(experiment_root)
+
+        baseline_idx = copy.deepcopy(self.grid.idx)
+        baseline_relift = copy.deepcopy(self._last_relift_conditioning)
+
+        observed_counts: Dict[str, float] = {}
+        predicted_mass: Dict[str, float] = {}
+        steps_observed = 0
+        trial_reports: List[Dict[str, Any]] = []
+
+        for i in range(run_trials):
+            seed = start_seed + i
+            trial_dir = os.path.join(experiment_root, f"trial_{i:03d}_seed_{seed}")
+            _ensure_dir(trial_dir)
+
+            trial_grid = IVISimplicialGrid(base_dir=trial_dir)
+            trial_grid.idx = copy.deepcopy(baseline_idx)
+            trial_grid._save_index()
+
+            trial_loop = IVILoopController(trial_grid)
+            for cleanup_path in [
+                trial_loop.integration_artifacts_path,
+                trial_loop.deriv_phase1_path,
+                trial_loop.analysis_phase1_path,
+            ]:
+                if os.path.exists(cleanup_path):
+                    os.remove(cleanup_path)
+            trial_loop._last_relift_conditioning = copy.deepcopy(baseline_relift)
+            trial_loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+
+            out = trial_loop.run_automated_self_generation_loop(
+                max_steps=run_steps,
+                source=f"{source}_trial_{i}",
+                selection_mode="exploration",
+                seed_override=seed,
+            )
+            timeline = out.get("timeline", []) if isinstance(out.get("timeline", []), list) else []
+            trial_steps = 0
+            for step in timeline:
+                if not isinstance(step, dict):
+                    continue
+                selection = step.get("selection", {}) if isinstance(step.get("selection", {}), dict) else {}
+                witness = step.get("ChoiceWitness", {}) if isinstance(step.get("ChoiceWitness", {}), dict) else {}
+                candidate_potentials = witness.get("candidate_potentials", []) if isinstance(witness.get("candidate_potentials", []), list) else []
+
+                policy = selection.get("least_action_policy", {}) if isinstance(selection.get("least_action_policy", {}), dict) else {}
+                temperature = max(0.05, float(policy.get("temperature", 0.5)))
+
+                logits: List[Tuple[str, float]] = []
+                for cand in candidate_potentials:
+                    if not isinstance(cand, dict):
+                        continue
+                    digest = str(cand.get("delta_signature_digest", "")).strip()
+                    la = cand.get("least_action", {}) if isinstance(cand.get("least_action", {}), dict) else {}
+                    score = float(la.get("score", float("inf")))
+                    if not digest or (not math.isfinite(score)):
+                        continue
+                    logits.append((digest, -score / temperature))
+
+                if logits:
+                    max_logit = max(v for _, v in logits)
+                    exp_vals = [(d, math.exp(v - max_logit)) for d, v in logits]
+                    z = float(sum(v for _, v in exp_vals))
+                    if z > 0.0:
+                        for digest, val in exp_vals:
+                            predicted_mass[digest] = predicted_mass.get(digest, 0.0) + (float(val) / z)
+
+                selected = step.get("selected_candidate", {}) if isinstance(step.get("selected_candidate", {}), dict) else {}
+                selected_digest = str(selected.get("delta_signature_digest", selected.get("tid", ""))).strip()
+                if selected_digest:
+                    observed_counts[selected_digest] = observed_counts.get(selected_digest, 0.0) + 1.0
+
+                steps_observed += 1
+                trial_steps += 1
+
+            trial_reports.append(
+                {
+                    "trial_index": i,
+                    "seed": seed,
+                    "steps_run": int(out.get("steps_run", 0)),
+                    "steps_counted": trial_steps,
+                    "halted_reason": str(out.get("halted_reason", "")),
+                }
+            )
+
+        observed_distribution = self._distribution_from_count_map(observed_counts)
+        predicted_distribution = self._distribution_from_count_map(predicted_mass)
+        divergence = self._js_l1_divergence(
+            predicted_distribution.get("by_class", []),
+            observed_distribution.get("by_class", []),
+        )
+
+        return {
+            "kind": "least_action_calibration",
+            "max_steps": run_steps,
+            "trials": run_trials,
+            "seed_start": start_seed,
+            "steps_observed": int(steps_observed),
+            "predicted_distribution": predicted_distribution,
+            "observed_distribution": observed_distribution,
+            "comparison": divergence,
+            "trial_reports": trial_reports,
+        }
+
     def get_axiom_self_generation_progress(self) -> Dict[str, Any]:
         metrics = self.grid.compute_graph_metrics()
         artifacts = self._read_integration_artifacts(max_items=128)
@@ -1644,6 +2254,7 @@ class IVILoopController:
         s_count = int(counts.get("S", 0))
         e_count = int(counts.get("E", 0))
         derived_density = float(e_count) / float(max(1, s_count))
+        class_distribution = self._class_distribution_by_regime(artifacts)
 
         return {
             "turns": turn_count,
@@ -1656,6 +2267,7 @@ class IVILoopController:
             "creative_event_count": len(creative_events),
             "creative_novelty_rate": creative_novelty_rate,
             "latest_creativity_event": latest_creativity_event,
+            "class_regime_distribution": class_distribution,
         }
 
     def monitor_snapshot(self) -> Dict[str, Any]:
@@ -1909,6 +2521,12 @@ class IVILoopController:
     def _choice_law_replay_payload(self, trace: Dict[str, Any]) -> Dict[str, Any]:
         law_spec = self._choice_law_spec()
         law_json = json.dumps(law_spec, sort_keys=True, ensure_ascii=True)
+        relift_conditioning = (
+            trace.get("relift_conditioning", {})
+            if isinstance(trace.get("relift_conditioning", {}), dict)
+            else {}
+        )
+        relift_conditioning_digest = str(relift_conditioning.get("conditioning_digest", ""))
 
         candidates = self._build_autoloop_candidates(trace, {"turns": 0, "gap_rate": 0.0, "derived_density": 1.0}, 1)
         canonical_inputs = sorted(
@@ -1919,6 +2537,7 @@ class IVILoopController:
                     "projected_deficit": int(c.get("projected_deficit", 0)),
                     "symmetry_class": str(c.get("symmetry_class", "neutral")),
                     "delta_signature_digest": str(c.get("delta_signature_digest", "")),
+                    "relift_conditioning_digest": relift_conditioning_digest,
                 }
                 for c in candidates
             ],
@@ -1932,6 +2551,7 @@ class IVILoopController:
             {"turns": 0, "gap_rate": 0.0, "derived_density": 1.0},
             1,
             selection_mode="deterministic_replay",
+            relift_conditioning=relift_conditioning,
         )
         witness = selection_meta.get("ChoiceWitness", {}) if isinstance(selection_meta, dict) else {}
         candidate_potentials = witness.get("candidate_potentials", []) if isinstance(witness, dict) else []
@@ -1942,6 +2562,7 @@ class IVILoopController:
             "choice_law_digest": _stable_hash(law_json),
             "candidate_inputs": canonical_inputs,
             "candidate_inputs_digest": _stable_hash(canonical_inputs_json),
+            "relift_conditioning_digest": relift_conditioning_digest,
             "candidate_potentials": candidate_potentials,
             "candidate_potentials_digest": _stable_hash(candidate_potentials_json),
             "selected_delta_signature_digest": str(
@@ -1965,6 +2586,8 @@ class IVILoopController:
             violations.append("choice_law_candidate_inputs_mismatch")
         if str(replay.get("candidate_inputs_digest", "")) != str(expected.get("candidate_inputs_digest", "")):
             violations.append("choice_law_candidate_inputs_digest_mismatch")
+        if str(replay.get("relift_conditioning_digest", "")) != str(expected.get("relift_conditioning_digest", "")):
+            violations.append("choice_law_relift_conditioning_digest_mismatch")
         if replay.get("candidate_potentials", []) != expected.get("candidate_potentials", []):
             violations.append("choice_law_candidate_potentials_mismatch")
         if str(replay.get("candidate_potentials_digest", "")) != str(expected.get("candidate_potentials_digest", "")):
@@ -1980,6 +2603,34 @@ class IVILoopController:
             "passed": len(violations) == 0,
             "violations": violations,
             "detail": "; ".join(violations) if violations else "choice-law replay payload matches recomputed potentials",
+        }
+
+    def _evaluate_potential_derivation_integrity(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        violations: List[str] = []
+        replay = trace.get("choice_law_replay", {}) if isinstance(trace.get("choice_law_replay", {}), dict) else {}
+
+        potential_replay = trace.get("potential_distribution_replay", [])
+        if not isinstance(potential_replay, list):
+            violations.append("potential_distribution_replay_missing_or_invalid")
+            potential_replay = []
+
+        potential_digest = str(trace.get("potential_distribution_digest", ""))
+        replay_potentials = replay.get("candidate_potentials", []) if isinstance(replay.get("candidate_potentials", []), list) else []
+        replay_digest = str(replay.get("candidate_potentials_digest", ""))
+
+        if potential_replay != replay_potentials:
+            violations.append("potential_distribution_replay_mismatch")
+        if potential_digest != replay_digest:
+            violations.append("potential_distribution_digest_mismatch")
+
+        return {
+            "name": "potential_derivation_integrity",
+            "enabled": True,
+            "passed": len(violations) == 0,
+            "violations": violations,
+            "detail": "; ".join(violations)
+            if violations
+            else "potential distribution replay is bound to choice-law candidate potentials",
         }
 
     def _grid_state_from_trace(self, trace: Dict[str, Any]) -> Dict[str, Any]:
@@ -2052,12 +2703,213 @@ class IVILoopController:
             return 0.0
         return float(bucket) / float(0xFFFFFFFF)
 
+    def _normalize_probability_vector(self, values: List[float]) -> List[float]:
+        cleaned = [max(0.0, float(x)) for x in values]
+        z = float(sum(cleaned))
+        if z <= 1e-12:
+            n = len(cleaned)
+            return [1.0 / float(max(1, n)) for _ in cleaned]
+        return [x / z for x in cleaned]
+
+    def _entropy_probability_vector(self, probs: List[float]) -> float:
+        h = 0.0
+        for p in probs:
+            p_val = float(p)
+            if p_val > 0.0:
+                h -= p_val * math.log(p_val + 1e-12)
+        return float(h)
+
+    def _least_action_weights(self, conditioning: Dict[str, Any]) -> Dict[str, float]:
+        alpha = float(conditioning.get("alpha", 0.5)) if isinstance(conditioning, dict) else 0.5
+        beta = float(conditioning.get("beta", 0.5)) if isinstance(conditioning, dict) else 0.5
+        alpha_clamped = max(0.0, min(1.0, alpha))
+        beta_clamped = max(0.0, min(1.0, beta))
+        return {
+            "lam_def": 1.0,
+            "lam_destroy": 1.0,
+            "lam_dH": 0.25,
+            "lam_oracle": 0.5,
+            "lam_novelty": 0.25,
+            "temperature": max(0.05, 0.35 + 0.65 * alpha_clamped),
+            "beta_bias": 0.10 * beta_clamped,
+            "alpha_mix": alpha_clamped,
+        }
+
+    def _least_action_components(
+        self,
+        deficit_before: float,
+        deficit_after: float,
+        pot_before: List[float],
+        collapsed_indices: List[int],
+        oracle_triggered: bool,
+        novelty: float,
+        integrity_ok: bool,
+    ) -> Dict[str, Any]:
+        p0 = self._normalize_probability_vector(pot_before)
+        collapse_set = {int(i) for i in collapsed_indices}
+
+        if not integrity_ok:
+            return {
+                "valid": False,
+                "hard_reject_reason": "integrity_failed",
+                "score": float("inf"),
+                "c_def": float("inf"),
+                "c_destroy": float("inf"),
+                "c_dH": float("inf"),
+                "c_oracle": float("inf"),
+                "r_nov": 0.0,
+            }
+
+        for idx in collapse_set:
+            if idx < 0 or idx >= len(p0) or p0[idx] <= 0.0:
+                return {
+                    "valid": False,
+                    "hard_reject_reason": "collapse_outside_support",
+                    "score": float("inf"),
+                    "c_def": float("inf"),
+                    "c_destroy": float("inf"),
+                    "c_dH": float("inf"),
+                    "c_oracle": float("inf"),
+                    "r_nov": 0.0,
+                }
+
+        remain = 0.0
+        p_after_raw: List[float] = []
+        for i, p in enumerate(p0):
+            if i in collapse_set:
+                p_after_raw.append(0.0)
+            else:
+                p_after_raw.append(p)
+                remain += p
+        p1 = self._normalize_probability_vector(p_after_raw)
+
+        c_def = max(0.0, float(deficit_after) - float(deficit_before))
+        c_destroy = max(0.0, min(1.0, 1.0 - remain))
+        h0 = self._entropy_probability_vector(p0)
+        h1 = self._entropy_probability_vector(p1)
+        c_dh = max(0.0, h0 - h1)
+        c_oracle = 1.0 if bool(oracle_triggered) else 0.0
+        r_nov = max(0.0, float(novelty))
+
+        return {
+            "valid": True,
+            "hard_reject_reason": "",
+            "score": 0.0,
+            "c_def": float(c_def),
+            "c_destroy": float(c_destroy),
+            "c_dH": float(c_dh),
+            "c_oracle": float(c_oracle),
+            "r_nov": float(r_nov),
+        }
+
+    def _least_action_bundle(
+        self,
+        candidates: List[Dict[str, Any]],
+        trace: Dict[str, Any],
+        progress: Dict[str, Any],
+        relift_conditioning: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        progress_obj = progress if isinstance(progress, dict) else {}
+        conditioning = relift_conditioning if isinstance(relift_conditioning, dict) else {}
+        weights = self._least_action_weights(conditioning)
+
+        potential_entries = [
+            x for x in trace_obj.get("potential_distribution", []) if isinstance(x, dict) and str(x.get("tid", "")).strip()
+        ]
+        basis_tids = [str(x.get("tid", "")).strip() for x in potential_entries]
+        if not basis_tids:
+            basis_tids = [str(c.get("tid", "")).strip() for c in candidates if str(c.get("tid", "")).strip()]
+        basis_tids = list(dict.fromkeys(basis_tids))
+        basis_index = {tid: idx for idx, tid in enumerate(basis_tids)}
+
+        p_before = [0.0 for _ in basis_tids]
+        for entry in potential_entries:
+            tid = str(entry.get("tid", "")).strip()
+            if tid in basis_index:
+                p_before[basis_index[tid]] = max(0.0, float(entry.get("p", 0.0)))
+        if not any(v > 0.0 for v in p_before):
+            p_before = [max(0.0, float(c.get("weight", 0.0))) for c in candidates[: len(basis_tids)]]
+            if len(p_before) < len(basis_tids):
+                p_before.extend([0.0] * (len(basis_tids) - len(p_before)))
+
+        grid_state = self._grid_state_from_trace(trace_obj)
+        deficit_before = float(grid_state.get("closure_deficit", 0.0))
+        oracle_class = self._classify_grid_oracle_trigger(trace_obj, candidates).get("class", "progressing")
+        oracle_triggered = str(oracle_class) in {"fixed_point", "stagnation", "branch_point"}
+        novelty_obj = progress_obj.get("latest_creativity_event", {}) if isinstance(progress_obj.get("latest_creativity_event", {}), dict) else {}
+        novelty = 1.0 if bool(novelty_obj.get("novel_selected_digest", False)) else 0.0
+
+        conditioning_mode = str(conditioning.get("conditioning_mode", "identity"))
+        conditioning_tids = {
+            str(tid).strip()
+            for tid in conditioning.get("used_collapse_tids_canonical", [])
+            if str(tid).strip()
+        }
+
+        by_digest: Dict[str, Dict[str, Any]] = {}
+        for cand in candidates:
+            tid = str(cand.get("tid", "")).strip()
+            digest = str(cand.get("delta_signature_digest", tid))
+            projected_deficit = float(cand.get("projected_deficit", deficit_before))
+            collapsed_indices: List[int] = []
+            if tid in basis_index:
+                collapsed_indices.append(int(basis_index[tid]))
+            for collapse_tid in conditioning_tids:
+                if collapse_tid in basis_index:
+                    collapsed_indices.append(int(basis_index[collapse_tid]))
+
+            integrity_ok = bool(trace_obj.get("integrity_ok", True))
+
+            components = self._least_action_components(
+                deficit_before=deficit_before,
+                deficit_after=projected_deficit,
+                pot_before=p_before,
+                collapsed_indices=collapsed_indices,
+                oracle_triggered=oracle_triggered,
+                novelty=novelty,
+                integrity_ok=integrity_ok,
+            )
+
+            if not bool(components.get("valid", False)):
+                score = float("inf")
+            else:
+                base = (
+                    float(weights["lam_def"]) * float(components["c_def"])
+                    + float(weights["lam_destroy"]) * float(components["c_destroy"])
+                    + float(weights["lam_dH"]) * float(components["c_dH"])
+                    + float(weights["lam_oracle"]) * float(components["c_oracle"])
+                    - float(weights["lam_novelty"]) * float(components["r_nov"])
+                )
+                if conditioning_mode == "bias_candidates" and tid in conditioning_tids:
+                    base -= float(weights["beta_bias"])
+                elif conditioning_mode == "reweight_potentials":
+                    w = max(0.0, min(1.0, float(cand.get("weight", 0.0))))
+                    base = float(weights["alpha_mix"]) * base + (1.0 - float(weights["alpha_mix"])) * (1.0 - w)
+                score = float(base)
+
+            by_digest[digest] = {
+                **components,
+                "score": float(score),
+                "tid": tid,
+                "oracle_class": str(oracle_class),
+                "deficit_before": float(deficit_before),
+                "deficit_after": float(projected_deficit),
+            }
+
+        return {
+            "weights": weights,
+            "basis_tids": basis_tids,
+            "scores_by_digest": by_digest,
+        }
+
     def _build_intrinsic_choice_witness(
         self,
         candidates: List[Dict[str, Any]],
         selected: Dict[str, Any],
         selection_mode: str,
         seed: int,
+        action_bundle: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         admissible = [
             c
@@ -2073,6 +2925,7 @@ class IVILoopController:
         )
 
         candidate_potentials: List[Dict[str, Any]] = []
+        action_scores = action_bundle.get("scores_by_digest", {}) if isinstance(action_bundle, dict) else {}
         for cand in admissible_sorted:
             gain_norm = (max(0.0, float(cand.get("closure_gain", 0))) / max_gain) if max_gain > 0 else 0.0
             inv_deficit = 1.0 / float(1 + max(0, int(cand.get("projected_deficit", 0))))
@@ -2085,6 +2938,7 @@ class IVILoopController:
                     "tid": str(cand.get("tid", "")),
                     "delta_signature_digest": str(cand.get("delta_signature_digest", "")),
                     "phi": float(phi),
+                    "least_action": dict(action_scores.get(str(cand.get("delta_signature_digest", "")), {})),
                     "components": {
                         "closure_gain_norm": float(gain_norm),
                         "projected_deficit_reduction": float(deficit_reduction),
@@ -2210,14 +3064,24 @@ class IVILoopController:
         max_steps: int = 3,
         source: str = "voice_auto",
         selection_mode: str = "deterministic_replay",
+        forced_alpha_beta: Optional[Dict[str, Any]] = None,
+        seed_override: Optional[int] = None,
     ) -> Dict[str, Any]:
         steps = max(1, int(max_steps))
+        forced_alpha_beta_payload = self._normalize_forced_alpha_beta(forced_alpha_beta)
         timeline: List[Dict[str, Any]] = []
         halted_reason = "max_steps_reached"
         oracle_request: Optional[Dict[str, Any]] = None
         epsilon = 0.01
         stagnation_patience = 2
         stagnation_count = 0
+        alpha_weight = 0.60
+        beta_weight = 0.40
+        active_relift_conditioning = (
+            dict(self._last_relift_conditioning)
+            if isinstance(self._last_relift_conditioning, dict)
+            else {"mode": "continuous_triad_v1", "conditioning_mode": "identity", "alpha": alpha_weight, "beta": beta_weight}
+        )
 
         for i in range(steps):
             monitor_before = self.monitor_snapshot()
@@ -2231,6 +3095,8 @@ class IVILoopController:
                 progress_before,
                 i + 1,
                 selection_mode=selection_mode,
+                relift_conditioning=active_relift_conditioning,
+                seed_override=seed_override,
             )
 
             grid_before = self._grid_state_from_trace(trace_before)
@@ -2266,6 +3132,53 @@ class IVILoopController:
                     if isinstance(monitor_after.get("creativity_event", {}), dict)
                     else {"creative": False, "basis": "none", "novel_selected_digest": False}
                 )
+                fixed_point_evidence = (
+                    dict(grid_trigger.get("evidence", {}))
+                    if isinstance(grid_trigger.get("evidence", {}), dict)
+                    else {}
+                )
+                fixed_point_question = self._oracle_minimal_question_template(
+                    trigger_class="fixed_point",
+                    reasons=["fixed_point"],
+                    candidate_actions=[str(c.get("tid", "")) for c in candidates if c.get("tid")],
+                    missing_information="new objective or boundary extension",
+                    trigger_evidence=fixed_point_evidence,
+                )
+                alpha_beta = self._compute_alpha_beta_weights(
+                    state_checks,
+                    creativity_event,
+                    previous_alpha=alpha_weight,
+                    previous_beta=beta_weight,
+                )
+                if isinstance(forced_alpha_beta_payload, dict):
+                    alpha_beta = dict(forced_alpha_beta_payload)
+                alpha_weight = float(alpha_beta.get("alpha", alpha_weight))
+                beta_weight = float(alpha_beta.get("beta", beta_weight))
+                relift_conditioning = self._build_relift_conditioning(trace, selected, alpha_beta)
+                active_relift_conditioning = dict(relift_conditioning)
+                self._last_relift_conditioning = dict(relift_conditioning)
+                fixed_oracle_req = {
+                    "trigger_reason": "fixed_point",
+                    "trigger_class": "fixed_point",
+                    "impasse_description": "No gainful refinement remains; closure fixed point reached.",
+                    "candidate_actions": [str(c.get("tid", "")) for c in candidates if c.get("tid")],
+                    "missing_information": "new objective or boundary extension",
+                    "recommended_question": fixed_point_question,
+                    "minimal_question": fixed_point_question,
+                    "trigger_evidence": fixed_point_evidence,
+                    "expected_impact": "confirm_halt_or_supply_new_objective",
+                }
+                fixed_oracle_req = self._attach_oracle_template_metadata(
+                    fixed_oracle_req,
+                    template_id="oracle_template_fixed_point_v1",
+                    template_inputs={
+                        "trigger_reason": "fixed_point",
+                        "trigger_class": "fixed_point",
+                        "candidate_actions": [str(c.get("tid", "")) for c in candidates if c.get("tid")],
+                        "trigger_evidence": fixed_point_evidence,
+                        "minimal_question": fixed_point_question,
+                    },
+                )
                 timeline.append(
                     {
                         "step": i + 1,
@@ -2276,6 +3189,19 @@ class IVILoopController:
                         "mu_before": mu_before,
                         "mu_after": mu_after,
                         "delta_mu": delta_mu,
+                        "triangle_time_step": {"mode": "continuous_triad_v1", "index": i + 1},
+                        "alpha_beta": alpha_beta,
+                        "relift_conditioning": relift_conditioning,
+                        "relift_conditioning_mode": str(relift_conditioning.get("conditioning_mode", "identity")),
+                        "k_collapse": int(relift_conditioning.get("k_collapse", 1)),
+                        "class_label": str(trace.get("class_label", "")),
+                        "order_relation": self._build_order_relation_contract(
+                            trace,
+                            selection_meta=selection_meta,
+                            trigger_class=str(grid_trigger.get("class", "progressing")),
+                            oracle_request={"needed": True, "OracleRequest": fixed_oracle_req},
+                            gap_codes=[str(g.get("code", "")) for g in result.get("integration_artifacts", {}).get("Gap", []) if isinstance(g, dict)],
+                        ),
                         "epsilon": epsilon,
                         "stagnation_count": stagnation_count,
                         "grid_before": grid_before,
@@ -2286,7 +3212,7 @@ class IVILoopController:
                         "result": insight_out,
                         "monitor_before": monitor_before,
                         "monitor_after": monitor_after,
-                        "OracleRequest": {},
+                        "OracleRequest": fixed_oracle_req,
                     }
                 )
                 break
@@ -2297,6 +3223,11 @@ class IVILoopController:
                     delta_mu=delta_mu,
                     epsilon=epsilon,
                     stagnation_count=stagnation_count,
+                    trigger_evidence=(
+                        dict(grid_trigger.get("evidence", {}))
+                        if isinstance(grid_trigger.get("evidence", {}), dict)
+                        else {}
+                    ),
                 )
             monitor_after = self.monitor_snapshot()
             creativity_event = (
@@ -2304,12 +3235,26 @@ class IVILoopController:
                 if isinstance(monitor_after.get("creativity_event", {}), dict)
                 else {"creative": False, "basis": "none", "novel_selected_digest": False}
             )
+            alpha_beta = self._compute_alpha_beta_weights(
+                state_checks,
+                creativity_event,
+                previous_alpha=alpha_weight,
+                previous_beta=beta_weight,
+            )
+            if isinstance(forced_alpha_beta_payload, dict):
+                alpha_beta = dict(forced_alpha_beta_payload)
+            alpha_weight = float(alpha_beta.get("alpha", alpha_weight))
+            beta_weight = float(alpha_beta.get("beta", beta_weight))
+            relift_conditioning = self._build_relift_conditioning(trace, selected, alpha_beta)
+            active_relift_conditioning = dict(relift_conditioning)
+            self._last_relift_conditioning = dict(relift_conditioning)
             if isinstance(request, dict):
                 oracle_payload = request.get("OracleRequest", {}) if isinstance(request.get("OracleRequest", {}), dict) else {}
                 if choice_witness:
                     oracle_payload["choice_witness"] = choice_witness
                 oracle_payload["creativity_event"] = creativity_event
                 request["OracleRequest"] = oracle_payload
+                self._set_active_oracle_request(request)
             timeline.append(
                 {
                     "step": i + 1,
@@ -2320,6 +3265,19 @@ class IVILoopController:
                     "mu_before": mu_before,
                     "mu_after": mu_after,
                     "delta_mu": delta_mu,
+                    "triangle_time_step": {"mode": "continuous_triad_v1", "index": i + 1},
+                    "alpha_beta": alpha_beta,
+                    "relift_conditioning": relift_conditioning,
+                    "relift_conditioning_mode": str(relift_conditioning.get("conditioning_mode", "identity")),
+                    "k_collapse": int(relift_conditioning.get("k_collapse", 1)),
+                    "class_label": str(trace.get("class_label", "")),
+                    "order_relation": self._build_order_relation_contract(
+                        trace,
+                        selection_meta=selection_meta,
+                        trigger_class=str(grid_trigger.get("class", "progressing")),
+                        oracle_request=request if isinstance(request, dict) else None,
+                        gap_codes=[str(g.get("code", "")) for g in result.get("integration_artifacts", {}).get("Gap", []) if isinstance(g, dict)],
+                    ),
                     "epsilon": epsilon,
                     "stagnation_count": stagnation_count,
                     "grid_before": grid_before,
@@ -2345,12 +3303,16 @@ class IVILoopController:
             "steps_run": len(timeline),
             "halted_reason": halted_reason,
             "selection_mode": selection_mode,
+            "triangle_time_mode": "continuous_triad_v1",
             "epsilon": epsilon,
             "stagnation_patience": stagnation_patience,
+            "forced_alpha_beta": dict(forced_alpha_beta_payload) if isinstance(forced_alpha_beta_payload, dict) else None,
+            "seed_override": int(seed_override) if seed_override is not None else None,
             "timeline": timeline,
             "progress": self.get_axiom_self_generation_progress(),
         }
         if oracle_request is not None:
+            self._set_active_oracle_request(oracle_request)
             out["insight_request"] = oracle_request
             out["voice_call"] = self.build_oracle_phone_call(oracle_request)
             out["OracleRequest"] = dict(oracle_request.get("OracleRequest", {}))
@@ -2434,7 +3396,17 @@ class IVILoopController:
         progress: Dict[str, Any],
         step: int,
         selection_mode: str,
+        seed_override: Optional[int] = None,
     ) -> int:
+        if seed_override is not None:
+            forced_payload = {
+                "seed_override": int(seed_override),
+                "step": int(step),
+                "selection_mode": selection_mode,
+            }
+            forced_digest = hashlib.sha256(json.dumps(forced_payload, sort_keys=True).encode("utf-8")).hexdigest()
+            return int(forced_digest[:8], 16)
+
         payload = {
             "selection_mode": selection_mode,
             "step": step,
@@ -2466,6 +3438,8 @@ class IVILoopController:
         progress: Dict[str, Any],
         step: int,
         selection_mode: str = "deterministic_replay",
+        relift_conditioning: Optional[Dict[str, Any]] = None,
+        seed_override: Optional[int] = None,
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         if not candidates:
             fallback = {"tid": "fallback", "weight": 1.0, "insight": "[auto_refine]"}
@@ -2477,7 +3451,32 @@ class IVILoopController:
             }
 
         normalized_mode = selection_mode if selection_mode in {"deterministic_replay", "exploration"} else "deterministic_replay"
-        seed = self._derive_autoloop_seed(trace, progress, step, normalized_mode)
+        seed = self._derive_autoloop_seed(trace, progress, step, normalized_mode, seed_override=seed_override)
+        conditioning = relift_conditioning if isinstance(relift_conditioning, dict) else {}
+        conditioning_mode = str(conditioning.get("conditioning_mode", "identity"))
+        conditioning_tids = [
+            str(tid)
+            for tid in conditioning.get("used_collapse_tids_canonical", [])
+            if str(tid).strip()
+        ]
+        conditioning_set = set(conditioning_tids)
+        beta = float(conditioning.get("beta", 0.5))
+        alpha = float(conditioning.get("alpha", 0.5))
+        action_bundle = self._least_action_bundle(candidates, trace, progress, relift_conditioning=conditioning)
+        action_scores = action_bundle.get("scores_by_digest", {}) if isinstance(action_bundle, dict) else {}
+
+        def _least_action_score(c: Dict[str, Any]) -> float:
+            digest = str(c.get("delta_signature_digest", c.get("tid", "")))
+            obj = action_scores.get(digest, {}) if isinstance(action_scores, dict) else {}
+            return float(obj.get("score", float("inf")))
+
+        def _boltzmann_weight_from_action(c: Dict[str, Any]) -> float:
+            a = _least_action_score(c)
+            if not math.isfinite(a):
+                return 0.0
+            temp = float(action_bundle.get("weights", {}).get("temperature", 0.5)) if isinstance(action_bundle, dict) else 0.5
+            temp = max(0.05, float(temp))
+            return math.exp(-a / temp)
 
         if normalized_mode == "deterministic_replay":
             ordered = sorted(
@@ -2485,47 +3484,60 @@ class IVILoopController:
                 key=lambda c: str(c.get("delta_signature_digest", c.get("tid", ""))),
             )
             witness_seed = seed
-            witness_pre = self._build_intrinsic_choice_witness(ordered, ordered[0], normalized_mode, witness_seed)
+            witness_pre = self._build_intrinsic_choice_witness(ordered, ordered[0], normalized_mode, witness_seed, action_bundle=action_bundle)
             potential_map = {
                 str(entry.get("delta_signature_digest", "")): float(entry.get("phi", 0.0))
                 for entry in witness_pre.get("candidate_potentials", [])
                 if isinstance(entry, dict)
             }
-            selected = sorted(
+
+            def _conditioned_action(c: Dict[str, Any]) -> float:
+                base_action = _least_action_score(c)
+                if not math.isfinite(base_action):
+                    return float("inf")
+                digest = str(c.get("delta_signature_digest", c.get("tid", "")))
+                base_phi = float(potential_map.get(digest, 0.0))
+                tid = str(c.get("tid", ""))
+                if conditioning_mode == "bias_candidates" and tid in conditioning_set:
+                    base_action -= 0.10 * max(0.0, min(1.0, beta))
+                if conditioning_mode == "reweight_potentials":
+                    w = float(c.get("weight", 0.0))
+                    base_action = (max(0.0, min(1.0, alpha)) * base_action) + ((1.0 - max(0.0, min(1.0, alpha))) * (1.0 - w))
+                # keep phi as soft tiebreak pressure
+                return base_action - (0.05 * base_phi)
+
+            selected = min(
                 ordered,
                 key=lambda c: (
-                    float(potential_map.get(str(c.get("delta_signature_digest", c.get("tid", ""))), 0.0)),
-                    int(round(float(c.get("weight", 0.0)) * 1_000_000)),
+                    _conditioned_action(c),
+                    -int(round(float(c.get("weight", 0.0)) * 1_000_000)),
                     str(c.get("delta_signature_digest", c.get("tid", ""))),
                 ),
-                reverse=True,
-            )[0]
-            witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, witness_seed)
+            )
+            witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, witness_seed, action_bundle=action_bundle)
             return selected, {
                 "mode": normalized_mode,
                 "seed": seed,
-                "selector": "argmax_choice_potential",
+                "selector": "least_action_argmin",
+                "least_action": dict(action_scores.get(str(selected.get("delta_signature_digest", selected.get("tid", ""))), {})),
+                "least_action_policy": dict(action_bundle.get("weights", {})) if isinstance(action_bundle, dict) else {},
                 "ChoiceWitness": witness,
             }
 
         rng = random.Random(seed)
         ordered = sorted(candidates, key=lambda c: str(c.get("delta_signature_digest", c.get("tid", ""))))
-        witness_pre = self._build_intrinsic_choice_witness(ordered, ordered[0], normalized_mode, seed)
-        candidate_potentials = witness_pre.get("candidate_potentials", [])
-        potential_map = {
-            str(entry.get("delta_signature_digest", "")): float(entry.get("phi", 0.0))
-            for entry in candidate_potentials
-            if isinstance(entry, dict)
-        }
-        weights = [math.exp(float(potential_map.get(str(c.get("delta_signature_digest", c.get("tid", ""))), 0.0))) for c in ordered]
+        witness_pre = self._build_intrinsic_choice_witness(ordered, ordered[0], normalized_mode, seed, action_bundle=action_bundle)
+        weights: List[float] = [_boltzmann_weight_from_action(c) for c in ordered]
         total = sum(weights)
         if total <= 0.0:
             selected = ordered[0]
-            witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, seed)
+            witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, seed, action_bundle=action_bundle)
             return selected, {
                 "mode": normalized_mode,
                 "seed": seed,
                 "selector": "first_nonpositive_weights",
+                "least_action": dict(action_scores.get(str(selected.get("delta_signature_digest", selected.get("tid", ""))), {})),
+                "least_action_policy": dict(action_bundle.get("weights", {})) if isinstance(action_bundle, dict) else {},
                 "ChoiceWitness": witness,
             }
 
@@ -2538,14 +3550,184 @@ class IVILoopController:
                 selected = cand
                 break
 
-        witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, seed)
+        witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, seed, action_bundle=action_bundle)
 
         return selected, {
             "mode": normalized_mode,
             "seed": seed,
-            "selector": "intrinsic_choice_law_sample",
+            "selector": "least_action_boltzmann_sample",
+            "least_action": dict(action_scores.get(str(selected.get("delta_signature_digest", selected.get("tid", ""))), {})),
+            "least_action_policy": dict(action_bundle.get("weights", {})) if isinstance(action_bundle, dict) else {},
             "ChoiceWitness": witness,
         }
+
+    def _compute_alpha_beta_weights(
+        self,
+        state_checks: Dict[str, Any],
+        creativity_event: Dict[str, Any],
+        previous_alpha: float,
+        previous_beta: float,
+    ) -> Dict[str, Any]:
+        checks = state_checks if isinstance(state_checks, dict) else {}
+        enabled = 0
+        passed = 0
+        for obj in checks.values():
+            if isinstance(obj, dict) and obj.get("enabled", False):
+                enabled += 1
+                if obj.get("passed", False):
+                    passed += 1
+        coherence_score = float(passed) / float(max(1, enabled))
+
+        creative_obj = creativity_event if isinstance(creativity_event, dict) else {}
+        novelty_signal = 1.0 if bool(creative_obj.get("novel_selected_digest", False)) else 0.0
+
+        alpha = float(previous_alpha)
+        beta = float(previous_beta)
+
+        if novelty_signal < 0.5:
+            beta += 0.05
+        else:
+            beta -= 0.02
+
+        if coherence_score < 0.85:
+            alpha += 0.05
+        else:
+            alpha -= 0.02
+
+        alpha = max(0.10, min(0.90, alpha))
+        beta = max(0.10, min(0.90, beta))
+        z = max(1e-9, alpha + beta)
+        alpha = alpha / z
+        beta = beta / z
+
+        canonical = {
+            "mode": "continuous_triad_v1",
+            "alpha": round(alpha, 6),
+            "beta": round(beta, 6),
+            "coherence_score": round(coherence_score, 6),
+            "novelty_signal": round(novelty_signal, 6),
+        }
+        return {
+            "mode": "continuous_triad_v1",
+            "alpha": float(canonical["alpha"]),
+            "beta": float(canonical["beta"]),
+            "coherence_score": float(canonical["coherence_score"]),
+            "novelty_signal": float(canonical["novelty_signal"]),
+            "digest": _stable_hash(json.dumps(canonical, sort_keys=True, ensure_ascii=True)),
+        }
+
+    def _build_relift_conditioning(
+        self,
+        trace: Dict[str, Any],
+        selected: Dict[str, Any],
+        alpha_beta: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        potential_tids = sorted(
+            {
+                str(entry.get("tid", ""))
+                for entry in trace_obj.get("potential_distribution", [])
+                if isinstance(entry, dict) and str(entry.get("tid", "")).strip()
+            }
+        )
+        potential_set = set(potential_tids)
+        collapse_tids = sorted(
+            {
+                str(tid)
+                for tid in trace_obj.get("collapse_selection", [])
+                if str(tid).strip()
+            }
+        )
+        used_collapse = sorted([tid for tid in collapse_tids if tid in potential_set])
+        selected_tid = str(selected.get("tid", "")) if isinstance(selected, dict) else ""
+
+        conditioning_mode = "bias_candidates" if used_collapse else "identity"
+        alpha = float(alpha_beta.get("alpha", 0.5))
+        beta = float(alpha_beta.get("beta", 0.5))
+        if beta >= 0.55 and used_collapse:
+            conditioning_mode = "bias_candidates"
+        elif alpha >= 0.55:
+            conditioning_mode = "reweight_potentials"
+        else:
+            conditioning_mode = "identity"
+
+        k_collapse = 1 if beta < 0.55 else 2
+        used_collapse = used_collapse[: max(1, min(3, k_collapse))]
+        conditioning_payload = {
+            "mode": "continuous_triad_v1",
+            "conditioning_mode": conditioning_mode,
+            "used_collapse_tids_canonical": used_collapse,
+            "selected_tid": selected_tid,
+            "alpha": alpha,
+            "beta": beta,
+            "k_collapse": int(max(1, min(3, k_collapse))),
+        }
+        used_digest = _stable_hash(json.dumps(used_collapse, ensure_ascii=True))
+        conditioning_digest = _stable_hash(json.dumps(conditioning_payload, sort_keys=True, ensure_ascii=True))
+        return {
+            "mode": "continuous_triad_v1",
+            "conditioning_mode": conditioning_mode,
+            "used_collapse_tids_canonical": used_collapse,
+            "used_collapse_tids_digest": used_digest,
+            "k_collapse": int(max(1, min(3, k_collapse))),
+            "conditioning_digest": conditioning_digest,
+        }
+
+    def _build_order_relation_contract(
+        self,
+        trace: Dict[str, Any],
+        selection_meta: Optional[Dict[str, Any]] = None,
+        trigger_class: str = "progressing",
+        oracle_request: Optional[Dict[str, Any]] = None,
+        gap_codes: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        sel_obj = selection_meta if isinstance(selection_meta, dict) else {}
+        gaps = [str(x).strip() for x in (gap_codes or []) if str(x).strip()]
+
+        pot = trace_obj.get("potential_distribution", []) if isinstance(trace_obj.get("potential_distribution", []), list) else []
+        collapse = trace_obj.get("collapse_selection", []) if isinstance(trace_obj.get("collapse_selection", []), list) else []
+        role_projection = trace_obj.get("role_projection", {}) if isinstance(trace_obj.get("role_projection", {}), dict) else {}
+        relift = trace_obj.get("relift_conditioning", {}) if isinstance(trace_obj.get("relift_conditioning", {}), dict) else {}
+        replay = trace_obj.get("choice_law_replay", {}) if isinstance(trace_obj.get("choice_law_replay", {}), dict) else {}
+
+        relift_mode = str(trace_obj.get("relift_conditioning_mode", relift.get("conditioning_mode", "identity")))
+        k_collapse = int(trace_obj.get("k_collapse", relift.get("k_collapse", 1)))
+        trigger = str(trigger_class or "progressing")
+        oracle_needed = bool((isinstance(oracle_request, dict) and oracle_request.get("needed", False)) or trigger in {"fixed_point", "stagnation", "branch_point"})
+
+        contract = {
+            "mode": "continuous_triad_v1",
+            "order_1_projection": {
+                "collapse_count": int(len([str(t).strip() for t in collapse if str(t).strip()])),
+                "class_label": str(trace_obj.get("class_label", "")),
+                "class_digest": str(trace_obj.get("class_digest", "")),
+            },
+            "order_2_potential": {
+                "potential_count": int(len([x for x in pot if isinstance(x, dict) and str(x.get("tid", "")).strip()])),
+                "choice_seed": sel_obj.get("seed", replay.get("sampling_seed", None)),
+                "selected_delta_signature_digest": str(replay.get("selected_delta_signature_digest", "")),
+            },
+            "order_3_contact": {
+                "query": str(trace_obj.get("query", "")),
+                "source_mode": str(trace_obj.get("mode", "")),
+                "subject_count": int(len([str(t).strip() for t in role_projection.get("subject_tids", []) if str(t).strip()])),
+                "object_count": int(len([str(t).strip() for t in role_projection.get("object_tids", []) if str(t).strip()])),
+            },
+            "order_4_boundary": {
+                "trigger_class": trigger,
+                "oracle_needed": oracle_needed,
+                "gap_codes": sorted(set(gaps)),
+                "gap_count": int(len(set(gaps))),
+            },
+            "order_coupling": {
+                "relift_conditioning_mode": relift_mode,
+                "k_collapse": int(max(1, min(3, k_collapse))),
+                "regime_label": str(trace_obj.get("regime_label", "balanced")),
+            },
+        }
+        contract["digest"] = _stable_hash(json.dumps(contract, sort_keys=True, ensure_ascii=True))
+        return contract
 
     def _compute_progress_mu(self, progress: Dict[str, Any], state_checks: Dict[str, Any]) -> float:
         gap_rate = float(progress.get("gap_rate", 0.0))
@@ -2564,6 +3746,276 @@ class IVILoopController:
         mu = 0.45 * derived_density + 0.35 * (1.0 - gap_rate) + 0.20 * pass_rate
         return max(0.0, min(1.0, mu))
 
+    def _oracle_template_registry(self) -> Dict[str, Dict[str, Any]]:
+        return {
+            "oracle_template_branch_point_v1": {
+                "version": "oracle_template_branch_point_v1",
+                "trigger_class": "branch_point",
+                "answer_schema": {
+                    "type": "object",
+                    "required_any": ["selected_signature_digest", "option_id"],
+                    "properties": {
+                        "selected_signature_digest": "str",
+                        "option_id": "str",
+                    },
+                },
+            },
+            "oracle_template_stagnation_v1": {
+                "version": "oracle_template_stagnation_v1",
+                "trigger_class": "stagnation",
+                "answer_schema": {
+                    "type": "object",
+                    "required": ["new_constraint", "priority"],
+                    "properties": {
+                        "new_constraint": "str",
+                        "priority": "str",
+                    },
+                    "enum": {
+                        "priority": [
+                            "objective_priority",
+                            "intent_constraint",
+                            "regime_expansion",
+                            "operator_expansion",
+                        ]
+                    },
+                },
+            },
+            "oracle_template_fixed_point_v1": {
+                "version": "oracle_template_fixed_point_v1",
+                "trigger_class": "fixed_point",
+                "answer_schema": {
+                    "type": "object",
+                    "required": ["next_scope"],
+                    "properties": {
+                        "next_scope": "str",
+                        "new_constraint": "str",
+                    },
+                    "enum": {
+                        "next_scope": ["stop", "expand", "new_operator_family"],
+                    },
+                },
+            },
+        }
+
+    def _oracle_template_metadata(
+        self,
+        template_id: str,
+        template_inputs: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, str]:
+        registry = self._oracle_template_registry()
+        template_spec = registry.get(template_id, {
+            "version": str(template_id),
+            "trigger_class": "unknown",
+            "answer_schema": {
+                "type": "object",
+                "required": ["new_constraint"],
+                "properties": {"new_constraint": "str"},
+            },
+        })
+        canonical_spec = {
+            "template_id": str(template_id),
+            "version": str(template_spec.get("version", template_id)),
+            "trigger_class": str(template_spec.get("trigger_class", "unknown")),
+            "answer_schema": template_spec.get("answer_schema", {}),
+        }
+        spec_json = json.dumps(canonical_spec, sort_keys=True, ensure_ascii=True)
+        inputs_obj = template_inputs if isinstance(template_inputs, dict) else {}
+        inputs_json = json.dumps(inputs_obj, sort_keys=True, ensure_ascii=True)
+        return {
+            "oracle_template_version": str(canonical_spec["version"]),
+            "oracle_template_digest": _stable_hash(spec_json),
+            "oracle_template_inputs_digest": _stable_hash(inputs_json),
+        }
+
+    def _attach_oracle_template_metadata(
+        self,
+        oracle_req: Dict[str, Any],
+        template_id: str,
+        template_inputs: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        out = dict(oracle_req)
+        out["question_template_id"] = str(template_id)
+        out.update(self._oracle_template_metadata(template_id, template_inputs=template_inputs))
+        return out
+
+    def _set_active_oracle_request(self, insight_request: Optional[Dict[str, Any]]) -> None:
+        req_obj = insight_request if isinstance(insight_request, dict) else {}
+        oracle_req = req_obj.get("OracleRequest", {}) if isinstance(req_obj.get("OracleRequest", {}), dict) else {}
+        self._last_oracle_request = dict(oracle_req) if oracle_req else None
+
+    def _parse_oracle_reply_payload(self, text: str) -> Dict[str, str]:
+        payload = text.strip()
+        if not payload:
+            return {}
+        if payload.startswith("{") and payload.endswith("}"):
+            try:
+                obj = json.loads(payload)
+            except json.JSONDecodeError:
+                obj = {}
+            if isinstance(obj, dict):
+                return {str(k).strip(): str(v).strip() for k, v in obj.items() if str(k).strip()}
+
+        parsed: Dict[str, str] = {}
+        tokens = [x.strip() for x in re.split(r"[;,]", payload) if x.strip()]
+        for token in tokens:
+            if "=" in token:
+                k, v = token.split("=", 1)
+            elif ":" in token:
+                k, v = token.split(":", 1)
+            else:
+                continue
+            key = str(k).strip()
+            val = str(v).strip()
+            if key:
+                parsed[key] = val
+        return parsed
+
+    def _parse_insight_against_oracle_request(self, insight_text: str) -> Dict[str, Any]:
+        oracle_req = self._last_oracle_request if isinstance(self._last_oracle_request, dict) else {}
+        template_id = str(oracle_req.get("question_template_id", ""))
+        if not template_id:
+            return {
+                "applied": False,
+                "template_id": "",
+                "raw": insight_text,
+                "parsed": {},
+                "violations": ["no_active_oracle_request"],
+                "schema_ok": False,
+            }
+
+        parsed = self._parse_oracle_reply_payload(insight_text)
+        raw = insight_text.strip()
+        normalized = str(raw).strip().lower()
+
+        if template_id == "oracle_template_branch_point_v1":
+            if "selected_signature_digest" not in parsed and "option_id" not in parsed:
+                if raw.startswith("opt_"):
+                    parsed["option_id"] = raw
+                elif raw:
+                    parsed["selected_signature_digest"] = raw
+            violations: List[str] = []
+            if "selected_signature_digest" not in parsed and "option_id" not in parsed:
+                violations.append("branch_point_requires_selected_signature_digest_or_option_id")
+            schema_ok = len(violations) == 0
+
+        elif template_id == "oracle_template_stagnation_v1":
+            if "new_constraint" not in parsed and raw:
+                parsed["new_constraint"] = raw
+            if "priority" not in parsed:
+                parsed["priority"] = "intent_constraint"
+            allowed = {"objective_priority", "intent_constraint", "regime_expansion", "operator_expansion"}
+            violations = []
+            if not str(parsed.get("new_constraint", "")).strip():
+                violations.append("stagnation_requires_new_constraint")
+            if str(parsed.get("priority", "")) not in allowed:
+                violations.append("stagnation_priority_invalid")
+            schema_ok = len(violations) == 0
+
+        elif template_id == "oracle_template_fixed_point_v1":
+            if "next_scope" not in parsed:
+                if normalized in {"stop", "expand", "new_operator_family"}:
+                    parsed["next_scope"] = normalized
+                elif "operator" in normalized:
+                    parsed["next_scope"] = "new_operator_family"
+                elif "stop" in normalized:
+                    parsed["next_scope"] = "stop"
+                else:
+                    parsed["next_scope"] = "expand"
+            if "new_constraint" not in parsed and raw and normalized not in {"stop", "expand", "new_operator_family"}:
+                parsed["new_constraint"] = raw
+            allowed = {"stop", "expand", "new_operator_family"}
+            violations = []
+            if str(parsed.get("next_scope", "")) not in allowed:
+                violations.append("fixed_point_next_scope_invalid")
+            schema_ok = len(violations) == 0
+
+        else:
+            if raw and "new_constraint" not in parsed:
+                parsed["new_constraint"] = raw
+            violations = []
+            schema_ok = bool(parsed)
+
+        parsed_json = json.dumps(parsed, sort_keys=True, ensure_ascii=True)
+        return {
+            "applied": True,
+            "template_id": template_id,
+            "oracle_template_version": str(oracle_req.get("oracle_template_version", "")),
+            "oracle_template_digest": str(oracle_req.get("oracle_template_digest", "")),
+            "oracle_template_inputs_digest": str(oracle_req.get("oracle_template_inputs_digest", "")),
+            "raw": insight_text,
+            "parsed": parsed,
+            "parsed_digest": _stable_hash(parsed_json),
+            "violations": violations,
+            "schema_ok": bool(schema_ok),
+        }
+
+    def _oracle_minimal_question_template(
+        self,
+        trigger_class: str,
+        reasons: List[str],
+        candidate_actions: List[str],
+        missing_information: str,
+        trigger_evidence: Optional[Dict[str, Any]] = None,
+        delta_mu: Optional[float] = None,
+        epsilon: Optional[float] = None,
+        stagnation_count: Optional[int] = None,
+    ) -> str:
+        cls = str(trigger_class or "validation_failure")
+        evidence = trigger_evidence if isinstance(trigger_evidence, dict) else {}
+        actions = candidate_actions or ["no-ranked-options"]
+
+        if cls == "branch_point":
+            cert = evidence.get("branch_point_certificate", {}) if isinstance(evidence.get("branch_point_certificate", {}), dict) else {}
+            eq = cert.get("equivalence_check", {}) if isinstance(cert.get("equivalence_check", {}), dict) else {}
+            signatures = eq.get("signature_digests", []) if isinstance(eq.get("signature_digests", []), list) else []
+            tie_gain = cert.get("tie_closure_gain", evidence.get("max_closure_gain", 0))
+            return (
+                "STATE IMPASSE DETECTED\n"
+                "Class: branch_point (non-equivalent equal-gain refinements).\n"
+                f"Conflict: {', '.join(reasons) if reasons else 'branch ambiguity'}\n"
+                f"Tie closure gain: {tie_gain}\n"
+                f"Delta signatures: {signatures or ['missing-signatures']}\n"
+                f"Options considered: {actions}\n"
+                f"Missing constraint: {missing_information}\n"
+                "QUESTION: Which discriminating constraint should dominate tie-breaking? Reply with /insight <constraint>."
+            )
+
+        if cls == "stagnation":
+            deficit = int(evidence.get("closure_deficit", 0))
+            max_gain = int(evidence.get("max_closure_gain", 0))
+            dm = float(delta_mu) if delta_mu is not None else 0.0
+            eps = float(epsilon) if epsilon is not None else 0.01
+            stag = int(stagnation_count) if stagnation_count is not None else 0
+            return (
+                "STATE IMPASSE DETECTED\n"
+                "Class: stagnation (closure deficit persists without gain).\n"
+                f"Conflict: {', '.join(reasons) if reasons else 'no progress'}\n"
+                f"Closure deficit: {deficit}; max closure gain: {max_gain}\n"
+                f"Progress metric: Δμ={dm:.4f} < ε={eps:.4f}; consecutive stagnation={stag}\n"
+                f"Options considered: {actions}\n"
+                f"Missing constraint: {missing_information}\n"
+                "QUESTION: What new constraint unlocks closure deficit reduction? Reply with /insight <constraint>."
+            )
+
+        if cls == "fixed_point":
+            deficit = int(evidence.get("closure_deficit", 0))
+            max_gain = int(evidence.get("max_closure_gain", 0))
+            return (
+                "STATE BOUNDARY REACHED\n"
+                "Class: fixed_point (no gainful refinement remains).\n"
+                f"Closure deficit: {deficit}; max closure gain: {max_gain}\n"
+                "QUESTION: Confirm halt, or provide a new objective/constraint via /insight <constraint>."
+            )
+
+        return (
+            "STATE IMPASSE DETECTED\n"
+            "Goal: preserve coherent IVI refinement under semantic paradox constraints.\n"
+            f"Conflict: {', '.join(reasons) if reasons else 'validation failure'}\n"
+            f"Options considered: {actions}\n"
+            f"Missing constraint: {missing_information}\n"
+            "QUESTION: Which constraint best reflects your intent? Reply with /insight <constraint>."
+        )
+
     def _build_stagnation_oracle_request(
         self,
         progress: Dict[str, Any],
@@ -2571,6 +4023,7 @@ class IVILoopController:
         delta_mu: float,
         epsilon: float,
         stagnation_count: int,
+        trigger_evidence: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         options = [{"id": f"opt_{i+1}", "constraint": c} for i, c in enumerate(candidate_actions[:3])]
         if not options:
@@ -2584,13 +4037,17 @@ class IVILoopController:
             for opt in options
         }
 
-        minimal_question = (
-            "STATE IMPASSE DETECTED\n"
-            f"Goal: recover refinement progress (Δμ={delta_mu:.4f} < ε={epsilon:.4f}).\n"
-            f"Stagnation: {stagnation_count} consecutive low-gain iterations.\n"
-            f"Options considered: {[o['constraint'] for o in options]}\n"
-            "QUESTION: Which constraint best reflects your intent? Reply with /insight <constraint>."
+        minimal_question = self._oracle_minimal_question_template(
+            trigger_class="stagnation",
+            reasons=["stagnation_low_mu_progress"],
+            candidate_actions=[str(o.get("constraint", "")) for o in options],
+            missing_information="external intent constraint to break refinement tie/stagnation",
+            trigger_evidence=trigger_evidence,
+            delta_mu=delta_mu,
+            epsilon=epsilon,
+            stagnation_count=stagnation_count,
         )
+        template_id = "oracle_template_stagnation_v1"
 
         oracle_req = {
             "trigger_reason": "stagnation",
@@ -2602,8 +4059,20 @@ class IVILoopController:
             "minimal_question": minimal_question,
             "options": options,
             "consequence_map": consequence_map,
+            "trigger_evidence": dict(trigger_evidence) if isinstance(trigger_evidence, dict) else {},
             "expected_impact": "inject_external_constraint_to_resume_refinement",
         }
+        oracle_req = self._attach_oracle_template_metadata(
+            oracle_req,
+            template_id=template_id,
+            template_inputs={
+                "trigger_reason": "stagnation",
+                "trigger_class": "stagnation",
+                "candidate_actions": list(candidate_actions),
+                "trigger_evidence": dict(trigger_evidence) if isinstance(trigger_evidence, dict) else {},
+                "minimal_question": minimal_question,
+            },
+        )
 
         return {
             "needed": True,
@@ -2716,13 +4185,47 @@ class IVILoopController:
         impasse_description = (
             "Internal refinement reached an impasse: unresolved ambiguity or validation failure blocks safe progression."
         )
-        recommended_question = (
-            "STATE IMPASSE DETECTED\n"
-            "Goal: preserve coherent IVI refinement under semantic paradox constraints.\n"
-            f"Conflict: {', '.join(reasons)}\n"
-            f"Options considered: {candidate_actions or ['no-ranked-options']}\n"
-            f"Missing constraint: {missing_information}\n"
-            "QUESTION: Which constraint best reflects your intent? Reply with /insight <constraint>."
+        template_trigger_class = (
+            "branch_point"
+            if structural_class == "branch_point"
+            else "stagnation"
+            if structural_class == "stagnation"
+            else "fixed_point"
+            if structural_class == "fixed_point"
+            else trigger_class
+        )
+        recommended_question = self._oracle_minimal_question_template(
+            trigger_class=template_trigger_class,
+            reasons=reasons,
+            candidate_actions=candidate_actions,
+            missing_information=missing_information,
+            trigger_evidence=structural_evidence,
+        )
+        template_id = f"oracle_template_{template_trigger_class}_v1"
+
+        oracle_req = {
+            "trigger_reason": trigger_reasons[0] if trigger_reasons else "validation_failure_no_repair_path",
+            "trigger_class": trigger_class,
+            "impasse_description": impasse_description,
+            "candidate_actions": candidate_actions,
+            "missing_information": missing_information,
+            "recommended_question": recommended_question,
+            "minimal_question": recommended_question,
+            "options": options,
+            "consequence_map": consequence_map,
+            "trigger_evidence": structural_evidence,
+            "expected_impact": "inject_external_constraint_to_resume_refinement",
+        }
+        oracle_req = self._attach_oracle_template_metadata(
+            oracle_req,
+            template_id=template_id,
+            template_inputs={
+                "trigger_reason": trigger_reasons[0] if trigger_reasons else "validation_failure_no_repair_path",
+                "trigger_class": trigger_class,
+                "candidate_actions": list(candidate_actions),
+                "trigger_evidence": structural_evidence,
+                "minimal_question": recommended_question,
+            },
         )
 
         return {
@@ -2734,19 +4237,7 @@ class IVILoopController:
             "mode": "oracle_phone_call",
             "caller": "morpheus_operator",
             "oracle": "ivi_paradox_axiom",
-            "OracleRequest": {
-                "trigger_reason": trigger_reasons[0] if trigger_reasons else "validation_failure_no_repair_path",
-                "trigger_class": trigger_class,
-                "impasse_description": impasse_description,
-                "candidate_actions": candidate_actions,
-                "missing_information": missing_information,
-                "recommended_question": recommended_question,
-                "minimal_question": recommended_question,
-                "options": options,
-                "consequence_map": consequence_map,
-                "trigger_evidence": structural_evidence,
-                "expected_impact": "inject_external_constraint_to_resume_refinement",
-            },
+            "OracleRequest": oracle_req,
         }
 
     def build_oracle_phone_call(self, insight_request: Dict[str, Any]) -> Dict[str, Any]:
@@ -2768,10 +4259,21 @@ class IVILoopController:
         if not insight:
             raise ValueError("Insight text is empty.")
 
+        oracle_answer = self._parse_insight_against_oracle_request(insight)
+        commitment = {
+            "source": "oracle_reply_schema_parser",
+            "schema_ok": bool(oracle_answer.get("schema_ok", False)),
+            "template_id": str(oracle_answer.get("template_id", "")),
+            "parsed_digest": str(oracle_answer.get("parsed_digest", "")),
+            "violations": list(oracle_answer.get("violations", [])),
+        }
+
         result = self.add_statement_and_loop(insight, source=source)
         return {
             "kind": "insight",
             "insight": insight,
+            "oracle_answer": oracle_answer,
+            "oracle_commitment": commitment,
             "result": result,
             "progress": self.get_axiom_self_generation_progress(),
         }
@@ -2789,6 +4291,7 @@ class IVILoopController:
                     "/progress",
                     "/semantic-map",
                     "/autoloop <steps>",
+                    "/autoloop-regime <steps> [seed]",
                     "/insight <text>",
                     "/openclaw attach <repo_root>",
                     "/walktalk <text>",
@@ -2810,6 +4313,7 @@ class IVILoopController:
             )
             out = {"kind": "monitor", "monitor": monitor}
             if insight_request is not None:
+                self._set_active_oracle_request(insight_request)
                 out["insight_request"] = insight_request
                 out["voice_call"] = self.build_oracle_phone_call(insight_request)
                 out["OracleRequest"] = dict(insight_request.get("OracleRequest", {}))
@@ -2824,10 +4328,32 @@ class IVILoopController:
             )
             out = {"kind": "progress", "progress": progress}
             if insight_request is not None:
+                self._set_active_oracle_request(insight_request)
                 out["insight_request"] = insight_request
                 out["voice_call"] = self.build_oracle_phone_call(insight_request)
                 out["OracleRequest"] = dict(insight_request.get("OracleRequest", {}))
             return out
+        if t.startswith("/autoloop-regime"):
+            payload = t[len("/autoloop-regime") :].strip()
+            steps = 3
+            seed = 0
+            if payload:
+                parts = payload.split()
+                try:
+                    steps = int(parts[0])
+                except ValueError as exc:
+                    raise ValueError("Usage: /autoloop-regime <steps> [seed]") from exc
+                if len(parts) > 1:
+                    try:
+                        seed = int(parts[1])
+                    except ValueError as exc:
+                        raise ValueError("Usage: /autoloop-regime <steps> [seed]") from exc
+            return self.run_regime_ab_experiment(
+                max_steps=steps,
+                source="voice_auto_regime",
+                selection_mode="deterministic_replay",
+                seed_override=seed,
+            )
         if t.startswith("/autoloop"):
             payload = t[len("/autoloop") :].strip()
             steps = 3
@@ -2865,6 +4391,7 @@ class IVILoopController:
         trace = out.get("integration_artifacts", {}).get("Trace", {})
         insight_request = self.evaluate_user_insight_need(out["progress"], state_checks, trace)
         if insight_request is not None:
+            self._set_active_oracle_request(insight_request)
             out["insight_request"] = insight_request
             out["voice_call"] = self.build_oracle_phone_call(insight_request)
             out["OracleRequest"] = dict(insight_request.get("OracleRequest", {}))
@@ -2987,6 +4514,26 @@ class IVILoopController:
             "role_projection": role_projection,
             "complexity_claim": complexity_claim,
         }
+        if isinstance(self._last_relift_conditioning, dict):
+            trace["relift_conditioning"] = dict(self._last_relift_conditioning)
+        relift_conditioning_obj = (
+            trace.get("relift_conditioning", {})
+            if isinstance(trace.get("relift_conditioning", {}), dict)
+            else {}
+        )
+        trace["relift_conditioning_mode"] = str(relift_conditioning_obj.get("conditioning_mode", "identity"))
+        trace["k_collapse"] = int(relift_conditioning_obj.get("k_collapse", 1))
+        class_info = self._derive_topological_class_label(trace, relift_conditioning_obj)
+        trace["class_label"] = str(class_info.get("class_label", ""))
+        trace["class_label_potential"] = str(class_info.get("class_label_potential", trace.get("class_label", "")))
+        trace["class_label_actuated"] = str(class_info.get("class_label_actuated", ""))
+        trace["class_digest"] = str(class_info.get("class_digest", ""))
+        trace["class_digest_potential"] = str(class_info.get("class_digest_potential", trace.get("class_digest", "")))
+        trace["class_digest_actuated"] = str(class_info.get("class_digest_actuated", ""))
+        trace["class_features"] = dict(class_info.get("class_features", {}))
+        trace["class_features_potential"] = dict(class_info.get("class_features_potential", trace.get("class_features", {})))
+        trace["class_features_actuated"] = dict(class_info.get("class_features_actuated", {}))
+        trace["regime_label"] = str(class_info.get("regime_label", "balanced"))
         choice_law_spec = self._choice_law_spec()
         trace["choice_law_version"] = str(choice_law_spec.get("version", "choice_law_v1"))
         trace["choice_law_digest"] = _stable_hash(json.dumps(choice_law_spec, sort_keys=True, ensure_ascii=True))
@@ -2994,12 +4541,17 @@ class IVILoopController:
         trace["choice_law_replay"] = {
             "candidate_inputs": list(choice_law_replay.get("candidate_inputs", [])),
             "candidate_inputs_digest": str(choice_law_replay.get("candidate_inputs_digest", "")),
+            "relift_conditioning_digest": str(choice_law_replay.get("relift_conditioning_digest", "")),
             "candidate_potentials": list(choice_law_replay.get("candidate_potentials", [])),
             "candidate_potentials_digest": str(choice_law_replay.get("candidate_potentials_digest", "")),
             "selected_delta_signature_digest": str(choice_law_replay.get("selected_delta_signature_digest", "")),
             "sampling_seed": choice_law_replay.get("sampling_seed", None),
             "justification": str(choice_law_replay.get("justification", "")),
         }
+        trace["potential_distribution_replay"] = list(choice_law_replay.get("candidate_potentials", []))
+        trace["potential_distribution_digest"] = str(choice_law_replay.get("candidate_potentials_digest", ""))
+        trace["potential_distribution_source"] = "choice_law_replay.candidate_potentials"
+        trace["order_relation"] = self._build_order_relation_contract(trace)
 
         closure_replay = self._closure_replay_payload(trace)
         trace["closure_rules_version"] = str(closure_replay.get("closure_rules_version", "closure_rules_v1"))
@@ -3152,6 +4704,46 @@ class IVILoopController:
                 }
             )
 
+        potential_derivation_check = self._evaluate_potential_derivation_integrity(trace)
+        if not potential_derivation_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "potential_derivation_tamper_detected",
+                    "detail": str(
+                        potential_derivation_check.get(
+                            "detail",
+                            "potential distribution replay is not derivable from choice law candidate potentials",
+                        )
+                    ),
+                }
+            )
+
+        dependency_obj = (
+            triangle_time_choice.get("Witness", {}).get("potential_collapse_dependency", {})
+            if isinstance(triangle_time_choice.get("Witness", {}), dict)
+            else {}
+        )
+        dependency_seed = dependency_obj.get("choice_sampling_seed", None) if isinstance(dependency_obj, dict) else None
+        replay_seed = trace.get("choice_law_replay", {}).get("sampling_seed", None)
+        seed_parity_ok = dependency_seed == replay_seed
+        sampling_seed_check = {
+            "name": "potential_collapse_sampling_seed_parity",
+            "enabled": True,
+            "passed": bool(seed_parity_ok),
+            "dependency_seed": dependency_seed,
+            "replay_seed": replay_seed,
+            "detail": "triangle dependency seed matches choice-law replay seed"
+            if seed_parity_ok
+            else "triangle dependency seed mismatches choice-law replay seed",
+        }
+        if not sampling_seed_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "potential_collapse_sampling_seed_mismatch",
+                    "detail": str(sampling_seed_check.get("detail", "sampling seed mismatch")),
+                }
+            )
+
         policy_immutability_check = {
             "name": "policy_immutability_gate",
             "enabled": True,
@@ -3196,6 +4788,8 @@ class IVILoopController:
                 "closure_rules_immutability_gate": closure_rules_immutability_check,
                 "choice_law_immutability_gate": choice_law_immutability_check,
                 "choice_law_replay_integrity": choice_law_replay_check,
+                "potential_derivation_integrity": potential_derivation_check,
+                "potential_collapse_sampling_seed_parity": sampling_seed_check,
                 "purple_semantic_enforcement": purple_semantic_check,
                 "policy_immutability_gate": policy_immutability_check,
                 "triangle_time_choice_contract": {
