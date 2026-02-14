@@ -79,6 +79,15 @@ Each voice turn must emit four structured artifacts:
 - `Candidate`: proposed operator/axiom/invariant signature
 - `Test`: minimal reproduction that fails before candidate, passes after
 
+When complexity claims are present, `Trace` must include `complexity_claim` with:
+
+- `claim_type` (restricted form, e.g. `NP_R_subset_P`)
+- `regime_assumptions` (non-empty)
+- `transform.name` (explicit transform identity)
+- `validation.benchmark_suite` and `validation.status`
+
+Global `P = NP` claims are invalid under this spine and must be emitted as `Gap`.
+
 If an insight cannot be expressed as one of these objects, it is not integration work yet.
 
 ## Acceptance test (minimum integration test)

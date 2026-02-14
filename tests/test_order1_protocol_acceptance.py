@@ -45,6 +45,38 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     assert len(trace) >= 2
     assert len(set(trace)) >= 2
 
+    # Complexity claim is representation-conditioned in runtime trace.
+    complexity_claim = question["integration_artifacts"]["Trace"]["complexity_claim"]
+    assert complexity_claim["claim_type"] == "NP_R_subset_P"
+    assert complexity_claim["regime_assumptions"]
+    assert complexity_claim["transform"]["name"]
+    assert complexity_claim["validation"]["benchmark_suite"]
+    assert complexity_claim["validation"]["status"]
+
+    # Order-1 state check option enforces restricted-regime P-vs-NP semantics.
+    p_np_state_check = question["integration_artifacts"]["StateChecks"]["p_np_state_check"]
+    assert p_np_state_check["enabled"] is True
+    assert p_np_state_check["mode"] == "restricted_regime_only"
+    assert p_np_state_check["passed"] is True
+
+    reflexive_check = question["integration_artifacts"]["StateChecks"]["reflexive_refinement"]
+    assert reflexive_check["enabled"] is True
+    assert reflexive_check["passed"] is True
+
+    refinement_witness = question["integration_artifacts"]["Trace"]["refinement_witness"]
+    assert refinement_witness["witness"]["prior_state_digest"]
+    assert refinement_witness["witness"]["delta_digest"]
+
+    triangle_contract = question["integration_artifacts"]["StateChecks"]["triangle_time_choice_contract"]
+    assert triangle_contract["enabled"] is True
+    assert triangle_contract["passed"] is True
+
+    # Triangle-time complexity choice is emitted as refinement contract fields.
+    assert question["integration_artifacts"]["RefinementApplied"]
+    assert isinstance(question["integration_artifacts"]["Delta"], dict)
+    assert isinstance(question["integration_artifacts"]["Witness"], dict)
+    assert isinstance(question["integration_artifacts"]["Alternatives"], list)
+
     # Layer 1 explanation consistency: suggested refs must point into current equation context.
     eq_ids = {e["eid"] for e in ctx["equations"]}
     assert question["suggested_refs"], "Expected suggested references from question response"
@@ -72,3 +104,13 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     assert "IVI paradox axiom integration" in protocol_doc
     assert "Global openness / local rigor" in protocol_doc
     assert "No silent collapse" in protocol_doc
+    assert "Semantic IVI paradox axiom (canonical voice declaration)" in protocol_doc
+    assert "Oracle-call integration rule" in protocol_doc
+    assert "real_dimension_phone_call" in protocol_doc
+    assert "Matrix semantic correspondence (canonical)" in protocol_doc
+    assert "Order 1 = Matrix" in protocol_doc
+    assert "Order 2 = Neo" in protocol_doc
+    assert "Order 3 = Morpheus" in protocol_doc
+    assert "Order 4 = Oracle (IVI paradox axiom)" in protocol_doc
+    assert "representation-conditioned" in protocol_doc
+    assert "Disallowed form: global `P = NP` assertions" in protocol_doc
