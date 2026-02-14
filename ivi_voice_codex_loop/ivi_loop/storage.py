@@ -66,6 +66,7 @@ def rebuild_state(settings: Settings) -> Dict[str, Any]:
     events = read_events(settings)
     utterances: Dict[str, Dict[str, Any]] = {}
     claims: Dict[str, Dict[str, Any]] = {}
+    quarantined_claims: Dict[str, Dict[str, Any]] = {}
     notes: Dict[str, Dict[str, Any]] = {}
     equations: Dict[str, Dict[str, Any]] = {}
     derivations: Dict[str, Dict[str, Any]] = {}
@@ -76,7 +77,10 @@ def rebuild_state(settings: Settings) -> Dict[str, Any]:
         if ev.type == "utterance":
             utterances[p["id"]] = p
         elif ev.type == "logic_claim":
-            claims[p["id"]] = p
+            if p.get("status") == "accepted":
+                claims[p["id"]] = p
+            else:
+                quarantined_claims[p["id"]] = p
         elif ev.type == "analysis_note":
             notes[p["id"]] = p
         elif ev.type == "equation":
@@ -89,6 +93,7 @@ def rebuild_state(settings: Settings) -> Dict[str, Any]:
     state = {
         "utterances": utterances,
         "logic_claims": claims,
+        "quarantined_claims": quarantined_claims,
         "analysis_notes": notes,
         "equations": equations,
         "derivations": derivations,
@@ -96,6 +101,7 @@ def rebuild_state(settings: Settings) -> Dict[str, Any]:
         "counts": {
             "utterances": len(utterances),
             "logic_claims": len(claims),
+            "quarantined_claims": len(quarantined_claims),
             "analysis_notes": len(notes),
             "equations": len(equations),
             "derivations": len(derivations),

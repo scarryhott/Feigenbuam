@@ -24,13 +24,12 @@ def _histogram(vals: List[float], bins: List[float]) -> Dict[str, int]:
 
 def analyze_state(settings: Settings) -> Dict[str, Any]:
     state = load_state(settings)
-    claims = list(state.get("logic_claims", {}).values())
+    accepted = list(state.get("logic_claims", {}).values())
+    quarantined = list(state.get("quarantined_claims", {}).values())
+    claims = accepted + quarantined
     equations = state.get("equations", {})
     derivations = state.get("derivations", {})
     triangles = state.get("triangles", {})
-
-    accepted = [c for c in claims if c.get("status") == "accepted"]
-    quarantined = [c for c in claims if c.get("status") == "quarantined"]
 
     confs = [float(c.get("confidence", 0.0)) for c in claims]
     a_confs = [float(c.get("confidence", 0.0)) for c in accepted]

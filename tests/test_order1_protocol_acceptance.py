@@ -64,3 +64,11 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     # Cross-layer handoff is explicit in context metadata.
     assert meta["collapse_selection"]
     assert meta["formal_targets"]
+
+    # Protocol contract includes IVI paradox axiom integration for global openness/local rigor.
+    protocol_doc = (Path(__file__).resolve().parents[1] / "ivi_voice_codex_loop" / "ORDER_1_PROTOCOL.md").read_text(
+        encoding="utf-8"
+    )
+    assert "IVI paradox axiom integration" in protocol_doc
+    assert "Global openness / local rigor" in protocol_doc
+    assert "No silent collapse" in protocol_doc

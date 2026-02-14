@@ -74,6 +74,85 @@ def _json_write(path: str, obj: Any) -> None:
     os.replace(tmp, path)
 
 
+def validate_trace_backed_references(
+    trace: Dict[str, Any], references: List[Dict[str, Any]]
+) -> Tuple[bool, List[str]]:
+    """
+    Ensure every reference is grounded in the current trace.
+
+    Currently enforced:
+      - each reference.eid must exist in trace.formal_targets[*].eid
+    """
+    formal_targets = trace.get("formal_targets", [])
+    allowed_eids = {
+        target.get("eid")
+        for target in formal_targets
+        if isinstance(target, dict) and target.get("eid")
+    }
+
+    violations: List[str] = []
+    for idx, ref in enumerate(references):
+        eid = str(ref.get("eid", "")).strip()
+        if not eid:
+            violations.append(f"ref[{idx}] missing eid")
+            continue
+        if eid not in allowed_eids:
+            violations.append(f"ref[{idx}] eid not in trace formal_targets: {eid}")
+
+    return (len(violations) == 0), violations
+
+
+def _validate_role_projection_structure(trace: Dict[str, Any], projection: Dict[str, Any]) -> List[str]:
+    violations: List[str] = []
+
+    collapse = [str(tid) for tid in trace.get("collapse_selection", [])]
+    collapse_set = set(collapse)
+    potential_set = {str(entry.get("tid")) for entry in trace.get("potential_distribution", []) if entry.get("tid")}
+
+    subject_tids = [str(tid) for tid in projection.get("subject_tids", [])]
+    object_tids = [str(tid) for tid in projection.get("object_tids", [])]
+
+    sub_set = set(subject_tids)
+    obj_set = set(object_tids)
+
+    if sub_set & obj_set:
+        violations.append("role_projection overlap between subject_tids and object_tids")
+    if (sub_set | obj_set) != collapse_set:
+        violations.append("role_projection union does not match collapse_selection")
+
+    missing_from_potential = [tid for tid in (subject_tids + object_tids) if tid not in potential_set]
+    if missing_from_potential:
+        violations.append("role_projection tids missing from potential_distribution")
+
+    if len(collapse) >= 2 and (not subject_tids or not object_tids):
+        violations.append("role_projection must populate both subject_tids and object_tids for multi-selection trace")
+
+    return violations
+
+
+def validate_role_exchange_trace_consistency(trace: Dict[str, Any]) -> Tuple[bool, List[str]]:
+    """
+    Practical proxy for self-dual commutation in runtime traces.
+
+    We enforce that role projections are structurally valid and remain valid
+    under subject/object role exchange.
+    """
+    projection = trace.get("role_projection", {})
+    if not isinstance(projection, dict):
+        return False, ["trace.role_projection must be a mapping"]
+
+    violations = _validate_role_projection_structure(trace, projection)
+
+    swapped_projection = {
+        "subject_tids": list(projection.get("object_tids", [])),
+        "object_tids": list(projection.get("subject_tids", [])),
+    }
+    swapped_violations = _validate_role_projection_structure(trace, swapped_projection)
+    violations.extend([f"swap_check: {v}" for v in swapped_violations])
+
+    return (len(violations) == 0), violations
+
+
 def _tokenize(text: str) -> List[str]:
     # lightweight tokenizer: lowercase words/numbers, keep apostrophes inside words
     return re.findall(r"[a-z0-9']+", text.lower())
@@ -871,6 +950,16 @@ class IVILoopController:
             )
 
         artifacts = self._build_integration_artifacts(kind="question", query=question, context_packet=ctx)
+        is_valid, violations = validate_trace_backed_references(artifacts.get("Trace", {}), top)
+        if not is_valid:
+            artifacts.setdefault("Gap", []).append(
+                {
+                    "code": "untraceable_reference",
+                    "detail": "; ".join(violations),
+                }
+            )
+            # Fail closed: do not emit references that cannot be justified by Trace.
+            top = []
         self._append_integration_artifacts(artifacts)
 
         return {
@@ -886,6 +975,10 @@ class IVILoopController:
         pot = meta.get("potential_distribution", [])
         collapse = meta.get("collapse_selection", [])
         formal_targets = meta.get("formal_targets", [])
+        role_projection = {
+            "subject_tids": list(collapse[::2]),
+            "object_tids": list(collapse[1::2]),
+        }
 
         trace = {
             "query": query,
@@ -893,6 +986,7 @@ class IVILoopController:
             "potential_distribution": pot,
             "collapse_selection": collapse,
             "formal_targets": formal_targets,
+            "role_projection": role_projection,
         }
 
         gaps: List[Dict[str, str]] = []
@@ -902,6 +996,15 @@ class IVILoopController:
             gaps.append({"code": "missing_collapse_selection", "detail": "No sampled collapse selection available."})
         if not formal_targets:
             gaps.append({"code": "missing_formal_targets", "detail": "No Lean formal targets attached to this turn."})
+
+        role_ok, role_violations = validate_role_exchange_trace_consistency(trace)
+        if not role_ok:
+            gaps.append(
+                {
+                    "code": "role_exchange_inconsistency",
+                    "detail": "; ".join(role_violations),
+                }
+            )
 
         candidate = {
             "name": "ExplainFromTrace",

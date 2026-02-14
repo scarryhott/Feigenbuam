@@ -24,6 +24,25 @@ Produce new coherent structure each turn: create or improve relational objects i
 
 If any invariant fails, iteration is incomplete.
 
+## IVI paradox axiom integration
+
+Order-1 explicitly adopts the **IVI paradox axiom**:
+
+- The axiom base is intentionally incomplete; incompleteness is a generative source.
+- Formal proof is treated as a local collapse of potential structure, not total closure of ontology.
+- Runtime must preserve union constraints across imagination, world-model evidence, and historical trace.
+
+Operational effect per turn:
+
+1. Keep unresolved branches visible as explicit `Gap` objects until formally discharged.
+2. Permit provisional candidates only when they are trace-backed and testable.
+3. Reject explanations that claim global completion beyond current proof boundary.
+
+Paradox discipline:
+
+- **Global openness / local rigor**: allow open incompleteness globally, require strict traceability locally.
+- **No silent collapse**: every committed statement must map to a generating path and evidence object.
+
 ## Execution cycle
 
 1. **Ingest**
@@ -36,6 +55,7 @@ If any invariant fails, iteration is incomplete.
    - Patch Lean artifact linked to `E`.
 5. **Reflection**
    - Report what changed, why it is non-repetitive, and what remains underdetermined.
+   - Distinguish unresolved paradox gaps from proven local collapses.
 
 ## Required artifacts per iteration
 
