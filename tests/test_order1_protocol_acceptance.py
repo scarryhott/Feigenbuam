@@ -63,19 +63,57 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     assert reflexive_check["enabled"] is True
     assert reflexive_check["passed"] is True
 
+    purple_check = question["integration_artifacts"]["StateChecks"]["purple_semantic_enforcement"]
+    assert purple_check["enabled"] is True
+    assert "purple_semantics" in purple_check
+
     refinement_witness = question["integration_artifacts"]["Trace"]["refinement_witness"]
     assert refinement_witness["witness"]["prior_state_digest"]
     assert refinement_witness["witness"]["delta_digest"]
 
+    trace = question["integration_artifacts"]["Trace"]
+    assert trace["choice_law_version"] == "choice_law_v1"
+    assert trace["choice_law_digest"]
+    assert isinstance(trace["choice_law_replay"]["candidate_inputs"], list)
+    assert trace["choice_law_replay"]["candidate_inputs_digest"]
+    assert isinstance(trace["choice_law_replay"]["candidate_potentials"], list)
+    assert trace["choice_law_replay"]["candidate_potentials_digest"]
+    assert trace["choice_law_replay"]["selected_delta_signature_digest"]
+    assert trace["closure_rules_version"] == "closure_rules_v1"
+    assert trace["closure_rules_digest"]
+    assert isinstance(trace["closure_replay_steps"], list)
+    assert isinstance(trace["closure_replay"]["active_cells_canonical"], list)
+    assert trace["closure_replay"]["active_cells_serialization"]
+    assert trace["closure_replay"]["active_cells_digest"]
+    assert trace["closure_replay"]["closure_cells_digest"]
+    assert isinstance(trace["closure_replay"]["closure_deficit"], int)
+
+    creativity_event = question["integration_artifacts"]["CreativityEvent"]
+    assert "creative" in creativity_event
+    assert "basis" in creativity_event
+    assert "selected_delta_signature_digest" in creativity_event
+
     triangle_contract = question["integration_artifacts"]["StateChecks"]["triangle_time_choice_contract"]
     assert triangle_contract["enabled"] is True
     assert triangle_contract["passed"] is True
+
+    choice_replay_check = question["integration_artifacts"]["StateChecks"]["choice_law_replay_integrity"]
+    assert choice_replay_check["enabled"] is True
+    assert choice_replay_check["passed"] is True
+
+    progress = loop.get_axiom_self_generation_progress()
+    assert "creative_event_count" in progress
+    assert "creative_novelty_rate" in progress
 
     # Triangle-time complexity choice is emitted as refinement contract fields.
     assert question["integration_artifacts"]["RefinementApplied"]
     assert isinstance(question["integration_artifacts"]["Delta"], dict)
     assert isinstance(question["integration_artifacts"]["Witness"], dict)
     assert isinstance(question["integration_artifacts"]["Alternatives"], list)
+    dependency = question["integration_artifacts"]["Witness"]["potential_collapse_dependency"]
+    assert dependency["depends_on"] == "potential_distribution"
+    assert isinstance(dependency["unsupported_collapse_tids"], list)
+    assert dependency["collapse_subset_of_potential"] is True
 
     # Layer 1 explanation consistency: suggested refs must point into current equation context.
     eq_ids = {e["eid"] for e in ctx["equations"]}
@@ -112,5 +150,7 @@ def test_order1_protocol_acceptance_nontrivial_loop_and_explanation_consistency(
     assert "Order 2 = Neo" in protocol_doc
     assert "Order 3 = Morpheus" in protocol_doc
     assert "Order 4 = Oracle (IVI paradox axiom)" in protocol_doc
+    assert "Purple semantic enforcement (canonical)" in protocol_doc
+    assert "Project codename **Purple**" in protocol_doc
     assert "representation-conditioned" in protocol_doc
     assert "Disallowed form: global `P = NP` assertions" in protocol_doc

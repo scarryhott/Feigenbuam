@@ -1,6 +1,8 @@
 import pytest
 
 from ivi_loop.ivi_simplicial_grid import (
+    IVILoopController,
+    IVISimplicialGrid,
     build_reflexive_state_from_trace,
     reflexive_step_payload,
     build_triangle_time_choice_artifact,
@@ -215,8 +217,56 @@ def test_triangle_time_choice_artifact_build_and_validate():
     assert isinstance(artifact["Delta"], dict)
     assert isinstance(artifact["Witness"], dict)
     assert isinstance(artifact["Alternatives"], list)
+    dependency = artifact["Witness"]["potential_collapse_dependency"]
+    assert dependency["depends_on"] == "potential_distribution"
+    assert dependency["collapse_subset_of_potential"] is True
+    assert dependency["unsupported_collapse_tids"] == []
     assert ok is True
     assert violations == []
+
+
+@pytest.mark.order1
+def test_triangle_time_choice_artifact_rejects_inconsistent_potential_collapse_dependency():
+    artifact = {
+        "RefinementApplied": "triangle_time_refinement_transform_v1",
+        "Delta": {
+            "added_triangle_tids": ["T_1"],
+            "added_triangle_count": 1,
+            "potential_triangle_count": 1,
+            "potential_collapse_dependency": {
+                "depends_on": "potential_distribution",
+                "potential_count": 1,
+                "collapse_count": 1,
+                "supported_collapse_count": 0,
+                "unsupported_collapse_tids": ["T_1"],
+                "collapse_subset_of_potential": False,
+            },
+        },
+        "Witness": {
+            "integrity_checks": {
+                "has_potential_distribution": True,
+                "has_collapse_selection": True,
+                "has_formal_targets": True,
+                "role_exchange_consistent": True,
+                "potential_collapse_dependency_valid": True,
+            },
+            "potential_collapse_dependency": {
+                "depends_on": "potential_distribution",
+                "potential_count": 1,
+                "collapse_count": 1,
+                "supported_collapse_count": 1,
+                "unsupported_collapse_tids": ["T_1"],
+                "collapse_subset_of_potential": True,
+            },
+            "violations": [],
+        },
+        "Alternatives": [],
+    }
+
+    ok, violations = validate_triangle_time_choice_artifact(artifact)
+
+    assert ok is False
+    assert "Witness.potential_collapse_dependency integrity mismatch" in violations
 
 
 @pytest.mark.order1
@@ -236,3 +286,150 @@ def test_reflexive_refinement_step_emits_witness_payload():
     assert payload["witness"]["delta_digest"]
     assert "ok" in payload
     assert "delta" in payload
+
+
+@pytest.mark.order1
+def test_closure_replay_payload_is_deterministic(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "closure_replay_deterministic_repo"))
+    loop = IVILoopController(grid)
+
+    trace = {
+        "potential_distribution": [{"tid": "T_1", "p": 1.0}],
+        "collapse_selection": ["T_1"],
+        "formal_targets": [{"eid": "E_1"}],
+        "role_projection": {"subject_tids": ["T_1"], "object_tids": []},
+    }
+    payload_1 = loop._closure_replay_payload(trace)
+    payload_2 = loop._closure_replay_payload(trace)
+
+    assert payload_1["closure_rules_version"] == "closure_rules_v1"
+    assert payload_1["closure_rules_digest"] == payload_2["closure_rules_digest"]
+    assert payload_1["active_cells_canonical"] == payload_2["active_cells_canonical"]
+    assert payload_1["active_cells_serialization"] == payload_2["active_cells_serialization"]
+    assert payload_1["active_cells_digest"] == payload_2["active_cells_digest"]
+    assert payload_1["closure_cells_digest"] == payload_2["closure_cells_digest"]
+    assert payload_1["closure_deficit_digest"] == payload_2["closure_deficit_digest"]
+
+
+@pytest.mark.order1
+def test_closure_replay_tamper_detection_fails_integrity_check(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "closure_replay_tamper_repo"))
+    loop = IVILoopController(grid)
+
+    trace = {
+        "potential_distribution": [{"tid": "T_1", "p": 1.0}],
+        "collapse_selection": ["T_1"],
+        "formal_targets": [{"eid": "E_1"}],
+        "role_projection": {"subject_tids": ["T_1"], "object_tids": []},
+    }
+    replay = loop._closure_replay_payload(trace)
+    trace["closure_rules_version"] = replay["closure_rules_version"]
+    trace["closure_rules_digest"] = replay["closure_rules_digest"]
+    trace["closure_replay"] = {
+        "active_cells_digest": replay["active_cells_digest"],
+        "closure_cells_digest": replay["closure_cells_digest"],
+        "closure_deficit_digest": "tampered_digest",
+    }
+
+    check = loop._evaluate_closure_replay_integrity(trace)
+    assert check["passed"] is False
+    assert "closure_deficit_digest_mismatch" in check["violations"]
+
+
+@pytest.mark.order1
+def test_closure_replay_integrity_detects_noncanonical_active_digest_source(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "closure_replay_noncanonical_repo"))
+    loop = IVILoopController(grid)
+
+    trace = {
+        "potential_distribution": [{"tid": "T_1", "p": 1.0}],
+        "collapse_selection": ["T_1"],
+        "formal_targets": [{"eid": "E_1"}],
+        "role_projection": {"subject_tids": ["T_1"], "object_tids": []},
+    }
+    replay = loop._closure_replay_payload(trace)
+    trace["closure_rules_version"] = replay["closure_rules_version"]
+    trace["closure_rules_digest"] = replay["closure_rules_digest"]
+    trace["closure_replay"] = {
+        "active_cells_canonical": replay["active_cells_canonical"],
+        "active_cells_serialization": replay["active_cells_serialization"] + " ",
+        "active_cells_digest": replay["active_cells_digest"],
+        "closure_cells_digest": replay["closure_cells_digest"],
+        "closure_deficit_digest": replay["closure_deficit_digest"],
+    }
+
+    check = loop._evaluate_closure_replay_integrity(trace)
+    assert check["passed"] is False
+    assert "active_cells_digest_noncanonical_source" in check["violations"]
+
+
+@pytest.mark.order1
+def test_closure_rules_version_immutability_gate_rejects_unapproved_change(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "closure_rules_immutability_repo"))
+    loop = IVILoopController(grid)
+
+    trace = {
+        "closure_rules_version": "closure_rules_v2",
+        "closure_rules_digest": "not_approved_digest",
+    }
+    check = loop._evaluate_closure_rules_immutability(trace)
+
+    assert check["enabled"] is True
+    assert check["passed"] is False
+    assert "closure_rules_version_not_approved" in check["violations"]
+    assert "closure_rules_digest_not_approved" in check["violations"]
+
+
+@pytest.mark.order1
+def test_choice_law_replay_payload_is_deterministic(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "choice_law_replay_deterministic_repo"))
+    loop = IVILoopController(grid)
+
+    trace = {
+        "choice_law_version": "choice_law_v1",
+        "choice_law_digest": "",
+        "potential_distribution": [{"tid": "T_1", "p": 0.6}, {"tid": "T_2", "p": 0.4}],
+        "collapse_selection": ["T_1"],
+        "formal_targets": [{"eid": "E_1"}],
+        "role_projection": {"subject_tids": ["T_1"], "object_tids": ["T_2"]},
+    }
+    payload_1 = loop._choice_law_replay_payload(trace)
+    payload_2 = loop._choice_law_replay_payload(trace)
+
+    assert payload_1["choice_law_version"] == "choice_law_v1"
+    assert payload_1["choice_law_digest"] == payload_2["choice_law_digest"]
+    assert payload_1["candidate_inputs_digest"] == payload_2["candidate_inputs_digest"]
+    assert payload_1["candidate_potentials_digest"] == payload_2["candidate_potentials_digest"]
+    assert payload_1["selected_delta_signature_digest"] == payload_2["selected_delta_signature_digest"]
+
+
+@pytest.mark.order1
+def test_choice_law_replay_tamper_detection_on_candidate_feature_flip(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "choice_law_replay_tamper_repo"))
+    loop = IVILoopController(grid)
+
+    trace = {
+        "potential_distribution": [{"tid": "T_1", "p": 0.6}, {"tid": "T_2", "p": 0.4}],
+        "collapse_selection": ["T_1"],
+        "formal_targets": [{"eid": "E_1"}],
+        "role_projection": {"subject_tids": ["T_1"], "object_tids": ["T_2"]},
+    }
+    replay = loop._choice_law_replay_payload(trace)
+    trace["choice_law_version"] = str(replay.get("choice_law_version", "choice_law_v1"))
+    trace["choice_law_digest"] = str(replay.get("choice_law_digest", ""))
+    tampered_inputs = list(replay.get("candidate_inputs", []))
+    if tampered_inputs:
+        tampered = dict(tampered_inputs[0])
+        tampered["projected_deficit"] = int(tampered.get("projected_deficit", 0)) + 1
+        tampered_inputs[0] = tampered
+    trace["choice_law_replay"] = {
+        "candidate_inputs": tampered_inputs,
+        "candidate_inputs_digest": replay.get("candidate_inputs_digest", ""),
+        "candidate_potentials": replay.get("candidate_potentials", []),
+        "candidate_potentials_digest": replay.get("candidate_potentials_digest", ""),
+        "selected_delta_signature_digest": replay.get("selected_delta_signature_digest", ""),
+    }
+
+    check = loop._evaluate_choice_law_replay_integrity(trace)
+    assert check["passed"] is False
+    assert "choice_law_candidate_inputs_mismatch" in check["violations"]

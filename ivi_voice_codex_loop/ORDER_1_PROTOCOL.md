@@ -67,6 +67,15 @@ Oracle-call integration rule:
 4. **Order 4 = Oracle (IVI paradox axiom)**
    - Meta-semantic boundary: validates local collapse under globally open incompleteness.
 
+### Purple semantic enforcement (canonical)
+
+- Project codename **Purple** denotes the enforced union of:
+  - red-pill channel: reality constraints,
+  - blue-pill channel: imagination constraints.
+- A refinement commit is valid only if both channels are represented in trace role projection,
+  or any missing channel is emitted as explicit `Gap`.
+- Morpheus role remains external constraint injection; Oracle role remains IVI paradox-axiom boundary.
+
 ## Complexity-claim discipline
 
 Order-1 permits only **representation-conditioned** complexity claims.

@@ -240,8 +240,18 @@ def build_triangle_time_choice_artifact(trace: Dict[str, Any]) -> Dict[str, Any]
         for entry in trace.get("potential_distribution", [])
         if isinstance(entry, dict) and entry.get("tid")
     ]
+    potential_tid_set = set(potential_tids)
     collapse_tids = [str(tid) for tid in trace.get("collapse_selection", [])]
     alternatives = [tid for tid in potential_tids if tid not in set(collapse_tids)]
+    unsupported_collapse_tids = [tid for tid in collapse_tids if tid not in potential_tid_set]
+    potential_collapse_dependency = {
+        "depends_on": "potential_distribution",
+        "potential_count": len(potential_tids),
+        "collapse_count": len(collapse_tids),
+        "supported_collapse_count": len(collapse_tids) - len(unsupported_collapse_tids),
+        "unsupported_collapse_tids": unsupported_collapse_tids,
+        "collapse_subset_of_potential": len(unsupported_collapse_tids) == 0,
+    }
 
     role_ok, role_violations = validate_role_exchange_trace_consistency(trace)
 
@@ -251,6 +261,7 @@ def build_triangle_time_choice_artifact(trace: Dict[str, Any]) -> Dict[str, Any]
             "added_triangle_tids": collapse_tids,
             "added_triangle_count": len(collapse_tids),
             "potential_triangle_count": len(potential_tids),
+            "potential_collapse_dependency": potential_collapse_dependency,
         },
         "Witness": {
             "integrity_checks": {
@@ -258,7 +269,9 @@ def build_triangle_time_choice_artifact(trace: Dict[str, Any]) -> Dict[str, Any]
                 "has_collapse_selection": bool(collapse_tids),
                 "has_formal_targets": bool(trace.get("formal_targets")),
                 "role_exchange_consistent": role_ok,
+                "potential_collapse_dependency_valid": potential_collapse_dependency["collapse_subset_of_potential"],
             },
+            "potential_collapse_dependency": potential_collapse_dependency,
             "violations": role_violations,
         },
         "Alternatives": alternatives,
@@ -284,12 +297,27 @@ def validate_triangle_time_choice_artifact(artifact: Dict[str, Any]) -> Tuple[bo
         added = delta.get("added_triangle_tids")
         if not isinstance(added, list):
             violations.append("Delta.added_triangle_tids must be a list")
+        dependency_delta = delta.get("potential_collapse_dependency")
+        if not isinstance(dependency_delta, dict):
+            violations.append("Delta.potential_collapse_dependency must be a mapping")
     if not isinstance(witness, dict):
         violations.append("Witness must be a mapping")
     else:
         checks = witness.get("integrity_checks")
         if not isinstance(checks, dict):
             violations.append("Witness.integrity_checks must be a mapping")
+        dependency = witness.get("potential_collapse_dependency")
+        if not isinstance(dependency, dict):
+            violations.append("Witness.potential_collapse_dependency must be a mapping")
+        else:
+            unsupported = dependency.get("unsupported_collapse_tids")
+            subset_ok = dependency.get("collapse_subset_of_potential")
+            if not isinstance(unsupported, list):
+                violations.append("Witness.potential_collapse_dependency.unsupported_collapse_tids must be a list")
+            if not isinstance(subset_ok, bool):
+                violations.append("Witness.potential_collapse_dependency.collapse_subset_of_potential must be a bool")
+            elif subset_ok != (len(unsupported) == 0 if isinstance(unsupported, list) else False):
+                violations.append("Witness.potential_collapse_dependency integrity mismatch")
     if not isinstance(alternatives, list):
         violations.append("Alternatives must be a list")
 
@@ -1459,10 +1487,22 @@ class IVILoopController:
         },
     }
 
+    PURPLE_SEMANTIC_ENFORCEMENT = {
+        "name": "purple_semantic_enforcement",
+        "purple_meaning": "Union of red-pill reality constraints and blue-pill imagination constraints under IVI paradox discipline.",
+        "red_pill_channel": "reality_constraints",
+        "blue_pill_channel": "imagination_constraints",
+        "union_rule": "No collapse commit is valid unless both channels remain representable in trace or as explicit Gap.",
+        "morpheus_role": "external_constraint_injection",
+        "oracle_role": "ivi_paradox_axiom",
+    }
+
     POLICY_IMMUTABILITY_LOCK = {
         "validator_rules": "locked",
         "promotion_thresholds": "locked",
         "oracle_trigger_logic": "locked",
+        "closure_rules_version": "locked",
+        "choice_law_version": "locked",
         "requires_external_approval_token": True,
     }
 
@@ -1483,7 +1523,7 @@ class IVILoopController:
             return self.answer_question(text)
         return self.add_statement_and_loop(text, source=source)
 
-    def _read_integration_artifacts(self, max_items: Optional[int] = None) -> List[Dict[str, Any]]:
+    def _read_integration_artifacts(self, max_items: Optional[int] = 128) -> List[Dict[str, Any]]:
         if not os.path.exists(self.integration_artifacts_path):
             return []
 
@@ -1502,6 +1542,71 @@ class IVILoopController:
             return rows[-max_items:]
         return rows
 
+    def _derive_creativity_event(
+        self,
+        trace: Dict[str, Any],
+        previous_trace: Optional[Dict[str, Any]] = None,
+        recent_selected_digests: Optional[Set[str]] = None,
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        previous_obj = previous_trace if isinstance(previous_trace, dict) else {}
+
+        grid_now = self._grid_state_from_trace(trace_obj)
+        grid_prev = self._grid_state_from_trace(previous_obj) if previous_obj else {"mu_total": 0.0, "closure_deficit": 0}
+        mu_increase = float(grid_now.get("mu_total", 0.0)) > float(grid_prev.get("mu_total", 0.0))
+        deficit_reduction = int(grid_now.get("closure_deficit", 0)) < int(grid_prev.get("closure_deficit", 0))
+
+        replay = trace_obj.get("choice_law_replay", {}) if isinstance(trace_obj.get("choice_law_replay", {}), dict) else {}
+        candidate_inputs = replay.get("candidate_inputs", []) if isinstance(replay.get("candidate_inputs", []), list) else []
+        admissible_positive = [
+            c
+            for c in candidate_inputs
+            if isinstance(c, dict)
+            and int(c.get("closure_gain", 0)) > 0
+            and bool(str(c.get("delta_signature_digest", "")))
+        ]
+        unique_delta_digests = sorted(
+            {
+                str(c.get("delta_signature_digest", ""))
+                for c in admissible_positive
+                if str(c.get("delta_signature_digest", ""))
+            }
+        )
+        non_equivalent = len(unique_delta_digests) >= 2
+        selected_digest = str(replay.get("selected_delta_signature_digest", ""))
+        branch_point = bool(
+            int(grid_now.get("closure_deficit", 0)) > 0
+            and len(admissible_positive) >= 2
+            and non_equivalent
+            and bool(selected_digest)
+        )
+        changed_grid = bool(mu_increase or deficit_reduction)
+        creative = bool(branch_point and changed_grid)
+
+        basis = "none"
+        if creative and branch_point:
+            basis = "branch_point"
+        elif creative and deficit_reduction:
+            basis = "deficit_reduction"
+        elif creative:
+            basis = "nontrivial_exploration"
+
+        seen = recent_selected_digests if isinstance(recent_selected_digests, set) else set()
+        novel_selected_digest = bool(selected_digest and selected_digest not in seen)
+
+        return {
+            "creative": creative,
+            "basis": basis,
+            "closure_deficit": int(grid_now.get("closure_deficit", 0)),
+            "admissible_positive_count": len(admissible_positive),
+            "unique_delta_signature_count": len(unique_delta_digests),
+            "selected_delta_signature_digest": selected_digest,
+            "mu_increase": mu_increase,
+            "deficit_reduction": deficit_reduction,
+            "changed_grid": changed_grid,
+            "novel_selected_digest": novel_selected_digest,
+        }
+
     def get_axiom_self_generation_progress(self) -> Dict[str, Any]:
         metrics = self.grid.compute_graph_metrics()
         artifacts = self._read_integration_artifacts(max_items=128)
@@ -1516,6 +1621,20 @@ class IVILoopController:
                 code = str(g.get("code", "")).strip()
                 if code:
                     recent_gap_codes.append(code)
+
+        creativity_events = [
+            item.get("CreativityEvent", {})
+            for item in artifacts
+            if isinstance(item, dict) and isinstance(item.get("CreativityEvent", {}), dict)
+        ]
+        creative_events = [ev for ev in creativity_events if bool(ev.get("creative", False))]
+        novel_creative_events = [ev for ev in creative_events if bool(ev.get("novel_selected_digest", False))]
+        creative_novelty_rate = float(len(novel_creative_events)) / float(max(1, len(artifacts)))
+        latest_creativity_event = creativity_events[-1] if creativity_events else {
+            "creative": False,
+            "basis": "none",
+            "novel_selected_digest": False,
+        }
 
         last_refinement = None
         if artifacts:
@@ -1534,20 +1653,532 @@ class IVILoopController:
             "counts": counts,
             "last_refinement_applied": last_refinement,
             "recent_gap_codes": recent_gap_codes[-8:],
+            "creative_event_count": len(creative_events),
+            "creative_novelty_rate": creative_novelty_rate,
+            "latest_creativity_event": latest_creativity_event,
         }
 
     def monitor_snapshot(self) -> Dict[str, Any]:
         metrics = self.grid.compute_graph_metrics()
         recent_artifacts = self._read_integration_artifacts(max_items=1)
         last_artifact = recent_artifacts[-1] if recent_artifacts else {}
+        grid_state = self._grid_state_from_trace(last_artifact.get("Trace", {}))
+        default_creativity_event = {
+            "creative": False,
+            "basis": "none",
+            "novel_selected_digest": False,
+        }
+        creativity_event = last_artifact.get("CreativityEvent", {}) if isinstance(last_artifact.get("CreativityEvent", {}), dict) else {}
+        if not creativity_event:
+            creativity_event = dict(default_creativity_event)
 
         return {
             "graph_metrics": metrics,
             "self_generation_progress": self.get_axiom_self_generation_progress(),
             "last_state_checks": last_artifact.get("StateChecks", {}),
             "last_trace": last_artifact.get("Trace", {}),
+            "creativity_event": creativity_event,
+            "grid_active": grid_state["grid_active"],
+            "closure_deficit": grid_state["closure_deficit"],
+            "superposition_mass": grid_state["superposition_mass"],
+            "mu_total": grid_state["mu_total"],
             "openclaw": self._openclaw.summary() if self._openclaw is not None else None,
             "semantic_mapping": dict(self.MATRIX_SEMANTIC_MAP),
+            "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
+        }
+
+    def _evaluate_purple_semantic_enforcement(self, trace: Dict[str, Any], gaps: List[Dict[str, str]]) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        role_projection = trace_obj.get("role_projection", {}) if isinstance(trace_obj.get("role_projection", {}), dict) else {}
+        has_subject = bool(role_projection.get("subject_tids", []))
+        has_object = bool(role_projection.get("object_tids", []))
+        gap_codes = {str(g.get("code", "")) for g in gaps if isinstance(g, dict)}
+        representable_gap = "missing_potential_distribution" in gap_codes or "missing_collapse_selection" in gap_codes
+
+        passed = bool((has_subject and has_object) or representable_gap)
+        detail = (
+            "subject/object channels present"
+            if (has_subject and has_object)
+            else "channels unresolved but represented as explicit Gap"
+            if representable_gap
+            else "purple union rule violated: missing dual-channel representation without explicit Gap"
+        )
+
+        return {
+            "name": "purple_semantic_enforcement",
+            "enabled": True,
+            "passed": passed,
+            "detail": detail,
+            "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
+        }
+
+    def _grid_primitives_from_trace(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        pot = trace_obj.get("potential_distribution", [])
+        potential_tids = [
+            str(x.get("tid", "")).strip()
+            for x in pot
+            if isinstance(x, dict) and str(x.get("tid", "")).strip()
+        ]
+        collapse_tids = [str(tid).strip() for tid in trace_obj.get("collapse_selection", []) if str(tid).strip()]
+        formal_targets = trace_obj.get("formal_targets", [])
+        formal_eids = [
+            str(e.get("eid", "")).strip()
+            for e in formal_targets
+            if isinstance(e, dict) and str(e.get("eid", "")).strip()
+        ]
+        role_projection = trace_obj.get("role_projection", {}) if isinstance(trace_obj.get("role_projection", {}), dict) else {}
+        subject_tids = [str(x).strip() for x in role_projection.get("subject_tids", []) if str(x).strip()]
+        object_tids = [str(x).strip() for x in role_projection.get("object_tids", []) if str(x).strip()]
+        return {
+            "potential_tids": sorted(set(potential_tids)),
+            "collapse_tids": sorted(set(collapse_tids)),
+            "formal_eids": sorted(set(formal_eids)),
+            "subject_tids": sorted(set(subject_tids)),
+            "object_tids": sorted(set(object_tids)),
+        }
+
+    def _grid_active_cells(self, primitives: Dict[str, Any]) -> Set[Tuple[str, str]]:
+        cells: Set[Tuple[str, str]] = set()
+        for tid in primitives.get("collapse_tids", []):
+            cells.add(("collapse", str(tid)))
+        for eid in primitives.get("formal_eids", []):
+            cells.add(("formal", str(eid)))
+        for tid in primitives.get("subject_tids", []):
+            cells.add(("subject", str(tid)))
+        for tid in primitives.get("object_tids", []):
+            cells.add(("object", str(tid)))
+        for idx in range(len(primitives.get("formal_eids", []))):
+            cells.add(("formal_slot", str(idx)))
+        return cells
+
+    def _grid_closure_cells(self, primitives: Dict[str, Any]) -> Set[Tuple[str, str]]:
+        closure = set(self._grid_active_cells(primitives))
+        for tid in primitives.get("potential_tids", []):
+            closure.add(("collapse", str(tid)))
+        for idx in range(len(primitives.get("collapse_tids", []))):
+            closure.add(("formal_slot", str(idx)))
+        return closure
+
+    def _closure_rules_spec(self) -> Dict[str, Any]:
+        return {
+            "version": "closure_rules_v1",
+            "rules": [
+                {
+                    "name": "potential_implies_collapse_cell",
+                    "from": "potential_tids",
+                    "to": "collapse",
+                },
+                {
+                    "name": "collapse_requires_formal_slot",
+                    "from": "collapse_tids",
+                    "to": "formal_slot",
+                },
+            ],
+        }
+
+    def _canonical_cell_rows(self, cells: Set[Tuple[str, str]]) -> List[List[str]]:
+        return [[str(kind), str(value)] for kind, value in sorted(list(cells))]
+
+    def _closure_replay_payload(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        primitives = self._grid_primitives_from_trace(trace)
+        active = self._grid_active_cells(primitives)
+        closure = self._grid_closure_cells(primitives)
+        deficit = closure - active
+        rules_spec = self._closure_rules_spec()
+        rules_json = json.dumps(rules_spec, sort_keys=True, ensure_ascii=True)
+        active_rows = self._canonical_cell_rows(active)
+        closure_rows = self._canonical_cell_rows(closure)
+        deficit_rows = self._canonical_cell_rows(deficit)
+        active_serialized = json.dumps(active_rows, sort_keys=False, ensure_ascii=True)
+        closure_serialized = json.dumps(closure_rows, sort_keys=False, ensure_ascii=True)
+        deficit_serialized = json.dumps(deficit_rows, sort_keys=False, ensure_ascii=True)
+
+        steps: List[Dict[str, Any]] = [
+            {
+                "step": 1,
+                "rule": "potential_implies_collapse_cell",
+                "applied_count": len(primitives.get("potential_tids", [])),
+            },
+            {
+                "step": 2,
+                "rule": "collapse_requires_formal_slot",
+                "applied_count": len(primitives.get("collapse_tids", [])),
+            },
+        ]
+
+        return {
+            "closure_rules_version": str(rules_spec["version"]),
+            "closure_rules_digest": _stable_hash(rules_json),
+            "closure_replay_steps": steps,
+            "active_cells_canonical": active_rows,
+            "active_cells_serialization": active_serialized,
+            "active_cells_count": len(active),
+            "closure_cells_count": len(closure),
+            "closure_deficit": len(deficit),
+            "active_cells_digest": _stable_hash(active_serialized),
+            "closure_cells_digest": _stable_hash(closure_serialized),
+            "closure_deficit_digest": _stable_hash(deficit_serialized),
+        }
+
+    def _evaluate_closure_replay_integrity(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        expected = self._closure_replay_payload(trace)
+        violations: List[str] = []
+
+        if str(trace.get("closure_rules_version", "")) != str(expected.get("closure_rules_version", "")):
+            violations.append("closure_rules_version_mismatch")
+        if str(trace.get("closure_rules_digest", "")) != str(expected.get("closure_rules_digest", "")):
+            violations.append("closure_rules_digest_mismatch")
+
+        replay = trace.get("closure_replay", {}) if isinstance(trace.get("closure_replay", {}), dict) else {}
+        if replay.get("active_cells_canonical", []) != expected.get("active_cells_canonical", []):
+            violations.append("active_cells_canonical_mismatch")
+        if str(replay.get("active_cells_serialization", "")) != str(expected.get("active_cells_serialization", "")):
+            violations.append("active_cells_serialization_mismatch")
+        replay_active_digest = str(replay.get("active_cells_digest", ""))
+        replay_active_serialized = str(replay.get("active_cells_serialization", ""))
+        if replay_active_serialized and replay_active_digest != _stable_hash(replay_active_serialized):
+            violations.append("active_cells_digest_noncanonical_source")
+        if str(replay.get("active_cells_digest", "")) != str(expected.get("active_cells_digest", "")):
+            violations.append("active_cells_digest_mismatch")
+        if str(replay.get("closure_cells_digest", "")) != str(expected.get("closure_cells_digest", "")):
+            violations.append("closure_cells_digest_mismatch")
+        if str(replay.get("closure_deficit_digest", "")) != str(expected.get("closure_deficit_digest", "")):
+            violations.append("closure_deficit_digest_mismatch")
+
+        return {
+            "name": "closure_replay_integrity",
+            "enabled": True,
+            "passed": len(violations) == 0,
+            "violations": violations,
+            "detail": "; ".join(violations) if violations else "closure replay payload matches recomputed digests",
+        }
+
+    def _evaluate_closure_rules_immutability(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        rules_spec = self._closure_rules_spec()
+        expected_version = str(rules_spec.get("version", "closure_rules_v1"))
+        expected_digest = _stable_hash(json.dumps(rules_spec, sort_keys=True, ensure_ascii=True))
+
+        current_version = str(trace.get("closure_rules_version", ""))
+        current_digest = str(trace.get("closure_rules_digest", ""))
+
+        violations: List[str] = []
+        if current_version != expected_version:
+            violations.append("closure_rules_version_not_approved")
+        if current_digest != expected_digest:
+            violations.append("closure_rules_digest_not_approved")
+
+        return {
+            "name": "closure_rules_immutability_gate",
+            "enabled": True,
+            "passed": len(violations) == 0,
+            "violations": violations,
+            "expected": {
+                "closure_rules_version": expected_version,
+                "closure_rules_digest": expected_digest,
+            },
+            "detail": "; ".join(violations) if violations else "closure rules match approved locked specification",
+        }
+
+    def _evaluate_choice_law_immutability(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        law_spec = self._choice_law_spec()
+        expected_version = str(law_spec.get("version", "choice_law_v1"))
+        expected_digest = _stable_hash(json.dumps(law_spec, sort_keys=True, ensure_ascii=True))
+
+        current_version = str(trace.get("choice_law_version", ""))
+        current_digest = str(trace.get("choice_law_digest", ""))
+
+        violations: List[str] = []
+        if current_version != expected_version:
+            violations.append("choice_law_version_not_approved")
+        if current_digest != expected_digest:
+            violations.append("choice_law_digest_not_approved")
+
+        return {
+            "name": "choice_law_immutability_gate",
+            "enabled": True,
+            "passed": len(violations) == 0,
+            "violations": violations,
+            "expected": {
+                "choice_law_version": expected_version,
+                "choice_law_digest": expected_digest,
+            },
+            "detail": "; ".join(violations) if violations else "choice law matches approved locked specification",
+        }
+
+    def _choice_law_replay_payload(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        law_spec = self._choice_law_spec()
+        law_json = json.dumps(law_spec, sort_keys=True, ensure_ascii=True)
+
+        candidates = self._build_autoloop_candidates(trace, {"turns": 0, "gap_rate": 0.0, "derived_density": 1.0}, 1)
+        canonical_inputs = sorted(
+            [
+                {
+                    "tid": str(c.get("tid", "")),
+                    "closure_gain": int(c.get("closure_gain", 0)),
+                    "projected_deficit": int(c.get("projected_deficit", 0)),
+                    "symmetry_class": str(c.get("symmetry_class", "neutral")),
+                    "delta_signature_digest": str(c.get("delta_signature_digest", "")),
+                }
+                for c in candidates
+            ],
+            key=lambda x: str(x.get("delta_signature_digest", "")),
+        )
+        canonical_inputs_json = json.dumps(canonical_inputs, sort_keys=True, ensure_ascii=True)
+
+        selected, selection_meta = self._select_autoloop_candidate(
+            candidates,
+            trace,
+            {"turns": 0, "gap_rate": 0.0, "derived_density": 1.0},
+            1,
+            selection_mode="deterministic_replay",
+        )
+        witness = selection_meta.get("ChoiceWitness", {}) if isinstance(selection_meta, dict) else {}
+        candidate_potentials = witness.get("candidate_potentials", []) if isinstance(witness, dict) else []
+        candidate_potentials_json = json.dumps(candidate_potentials, sort_keys=True, ensure_ascii=True)
+
+        return {
+            "choice_law_version": str(law_spec.get("version", "choice_law_v1")),
+            "choice_law_digest": _stable_hash(law_json),
+            "candidate_inputs": canonical_inputs,
+            "candidate_inputs_digest": _stable_hash(canonical_inputs_json),
+            "candidate_potentials": candidate_potentials,
+            "candidate_potentials_digest": _stable_hash(candidate_potentials_json),
+            "selected_delta_signature_digest": str(
+                witness.get("selected_delta_signature_digest", selected.get("delta_signature_digest", selected.get("tid", "")))
+            ),
+            "sampling_seed": witness.get("sampling_seed", None),
+            "justification": "selected by intrinsic grid choice law, not controller heuristic",
+        }
+
+    def _evaluate_choice_law_replay_integrity(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        expected = self._choice_law_replay_payload(trace)
+        violations: List[str] = []
+
+        if str(trace.get("choice_law_version", "")) != str(expected.get("choice_law_version", "")):
+            violations.append("choice_law_version_mismatch")
+        if str(trace.get("choice_law_digest", "")) != str(expected.get("choice_law_digest", "")):
+            violations.append("choice_law_digest_mismatch")
+
+        replay = trace.get("choice_law_replay", {}) if isinstance(trace.get("choice_law_replay", {}), dict) else {}
+        if replay.get("candidate_inputs", []) != expected.get("candidate_inputs", []):
+            violations.append("choice_law_candidate_inputs_mismatch")
+        if str(replay.get("candidate_inputs_digest", "")) != str(expected.get("candidate_inputs_digest", "")):
+            violations.append("choice_law_candidate_inputs_digest_mismatch")
+        if replay.get("candidate_potentials", []) != expected.get("candidate_potentials", []):
+            violations.append("choice_law_candidate_potentials_mismatch")
+        if str(replay.get("candidate_potentials_digest", "")) != str(expected.get("candidate_potentials_digest", "")):
+            violations.append("choice_law_candidate_potentials_digest_mismatch")
+        if str(replay.get("selected_delta_signature_digest", "")) != str(
+            expected.get("selected_delta_signature_digest", "")
+        ):
+            violations.append("choice_law_selected_delta_mismatch")
+
+        return {
+            "name": "choice_law_replay_integrity",
+            "enabled": True,
+            "passed": len(violations) == 0,
+            "violations": violations,
+            "detail": "; ".join(violations) if violations else "choice-law replay payload matches recomputed potentials",
+        }
+
+    def _grid_state_from_trace(self, trace: Dict[str, Any]) -> Dict[str, Any]:
+        primitives = self._grid_primitives_from_trace(trace)
+        active = self._grid_active_cells(primitives)
+        closure = self._grid_closure_cells(primitives)
+        deficit_cells = closure - active
+
+        return {
+            "grid_active": len(active),
+            "mu_total": float(len(active)),
+            "closure_deficit": int(len(deficit_cells)),
+            "superposition_mass": int(len(deficit_cells)),
+            "collapse_count": len(primitives.get("collapse_tids", [])),
+            "potential_count": len(primitives.get("potential_tids", [])),
+            "closure_active_digest": _stable_hash(json.dumps(sorted(list(active)), ensure_ascii=True)),
+            "closure_target_digest": _stable_hash(json.dumps(sorted(list(closure)), ensure_ascii=True)),
+        }
+
+    def _candidate_symmetry_class(self, tid: str, trace: Dict[str, Any]) -> str:
+        role_projection = trace.get("role_projection", {}) if isinstance(trace, dict) and isinstance(trace.get("role_projection", {}), dict) else {}
+        subject_tids = role_projection.get("subject_tids", []) if isinstance(role_projection.get("subject_tids", []), list) else []
+        object_tids = role_projection.get("object_tids", []) if isinstance(role_projection.get("object_tids", []), list) else []
+        subject = set(str(x) for x in subject_tids)
+        obj = set(str(x) for x in object_tids)
+        if tid in subject and tid in obj:
+            return "dual"
+        if tid in subject:
+            return "subject"
+        if tid in obj:
+            return "object"
+        return "neutral"
+
+    def _choice_law_spec(self) -> Dict[str, Any]:
+        return {
+            "version": "choice_law_v1",
+            "distribution": "softmax_exp_phi",
+            "phi_components": [
+                "closure_gain_norm",
+                "projected_deficit_reduction",
+                "symmetry_microstructure",
+                "locality_microstructure",
+            ],
+            "weights": {
+                "closure_gain_norm": 0.5,
+                "projected_deficit_reduction": 0.2,
+                "symmetry_microstructure": 0.15,
+                "locality_microstructure": 0.15,
+            },
+            "admissibility": "integrity_valid_and_delta_signature_present",
+        }
+
+    def _symmetry_microstructure_score(self, symmetry_class: str) -> float:
+        table = {
+            "dual": 1.0,
+            "subject": 0.7,
+            "object": 0.7,
+            "neutral": 0.4,
+        }
+        return float(table.get(str(symmetry_class), 0.4))
+
+    def _locality_microstructure_score(self, delta_signature_digest: str) -> float:
+        digest = str(delta_signature_digest or "")
+        if not digest:
+            return 0.0
+        head = digest[:8]
+        try:
+            bucket = int(head, 16)
+        except ValueError:
+            return 0.0
+        return float(bucket) / float(0xFFFFFFFF)
+
+    def _build_intrinsic_choice_witness(
+        self,
+        candidates: List[Dict[str, Any]],
+        selected: Dict[str, Any],
+        selection_mode: str,
+        seed: int,
+    ) -> Dict[str, Any]:
+        admissible = [
+            c
+            for c in candidates
+            if bool(str(c.get("delta_signature_digest", "")))
+            and int(c.get("closure_gain", 0)) >= 0
+        ]
+        admissible_sorted = sorted(admissible, key=lambda c: str(c.get("delta_signature_digest", c.get("tid", ""))))
+        max_gain = max([max(0.0, float(c.get("closure_gain", 0))) for c in admissible_sorted], default=0.0)
+        max_inv_deficit = max(
+            [1.0 / float(1 + max(0, int(c.get("projected_deficit", 0)))) for c in admissible_sorted],
+            default=1.0,
+        )
+
+        candidate_potentials: List[Dict[str, Any]] = []
+        for cand in admissible_sorted:
+            gain_norm = (max(0.0, float(cand.get("closure_gain", 0))) / max_gain) if max_gain > 0 else 0.0
+            inv_deficit = 1.0 / float(1 + max(0, int(cand.get("projected_deficit", 0))))
+            deficit_reduction = inv_deficit / max_inv_deficit if max_inv_deficit > 0 else 0.0
+            symmetry_score = self._symmetry_microstructure_score(str(cand.get("symmetry_class", "neutral")))
+            locality_score = self._locality_microstructure_score(str(cand.get("delta_signature_digest", "")))
+            phi = 0.5 * gain_norm + 0.2 * deficit_reduction + 0.15 * symmetry_score + 0.15 * locality_score
+            candidate_potentials.append(
+                {
+                    "tid": str(cand.get("tid", "")),
+                    "delta_signature_digest": str(cand.get("delta_signature_digest", "")),
+                    "phi": float(phi),
+                    "components": {
+                        "closure_gain_norm": float(gain_norm),
+                        "projected_deficit_reduction": float(deficit_reduction),
+                        "symmetry_microstructure": float(symmetry_score),
+                        "locality_microstructure": float(locality_score),
+                    },
+                }
+            )
+
+        law_spec = self._choice_law_spec()
+        law_json = json.dumps(law_spec, sort_keys=True, ensure_ascii=True)
+        admissible_digests = [str(c.get("delta_signature_digest", "")) for c in admissible_sorted]
+        admissible_set_digest = _stable_hash(json.dumps(admissible_digests, ensure_ascii=True))
+        selected_digest = str(selected.get("delta_signature_digest", selected.get("tid", "")))
+
+        return {
+            "admissible_set_digest": admissible_set_digest,
+            "choice_law_version": str(law_spec.get("version", "choice_law_v1")),
+            "choice_law_digest": _stable_hash(law_json),
+            "candidate_potentials": candidate_potentials,
+            "selected_delta_signature_digest": selected_digest,
+            "sampling_seed": int(seed) if selection_mode == "exploration" else None,
+            "justification": "selected by intrinsic grid choice law, not controller heuristic",
+        }
+
+    def _classify_grid_oracle_trigger(self, trace: Dict[str, Any], candidates: List[Dict[str, Any]]) -> Dict[str, Any]:
+        grid = self._grid_state_from_trace(trace)
+        deficit = int(grid.get("closure_deficit", 0))
+        gains = [int(c.get("closure_gain", 0)) for c in candidates]
+        max_gain = max(gains) if gains else 0
+
+        if deficit == 0 and max_gain <= 0:
+            return {
+                "class": "fixed_point",
+                "detail": "closure deficit is zero and no gainful refinements exist",
+                "evidence": {
+                    "closure_deficit": deficit,
+                    "max_closure_gain": max_gain,
+                },
+            }
+
+        top = [c for c in candidates if int(c.get("closure_gain", 0)) >= max_gain - 1 and max_gain > 0]
+        sigs = {str(c.get("delta_signature_digest", "")) for c in top}
+        if len(top) >= 2 and len(sigs) >= 2:
+            certificate = {
+                "criterion": "equal_closure_gain_non_equivalent_deltas",
+                "equivalence_check": {
+                    "basis": "delta_signature_digest",
+                    "equivalent": False,
+                    "unique_signature_count": len(sigs),
+                    "signature_digests": sorted(list(sigs)),
+                },
+                "tie_closure_gain": max_gain,
+                "non_preference_reason": "Grid objective is closure-gain only; tied non-equivalent deltas require external constraint.",
+            }
+            tied = [
+                {
+                    "tid": str(c.get("tid", "")),
+                    "closure_gain": int(c.get("closure_gain", 0)),
+                    "projected_deficit": int(c.get("projected_deficit", 0)),
+                    "symmetry_class": str(c.get("symmetry_class", "neutral")),
+                    "symmetry_signature_digest": _stable_hash(str(c.get("symmetry_class", "neutral"))),
+                    "delta_signature": dict(c.get("delta_signature", {})) if isinstance(c.get("delta_signature", {}), dict) else {},
+                    "delta_signature_digest": str(c.get("delta_signature_digest", "")),
+                }
+                for c in top
+            ]
+            return {
+                "class": "branch_point",
+                "detail": "equal closure gain among non-equivalent candidate deltas",
+                "evidence": {
+                    "branch_point_certificate": certificate,
+                    "tied_candidates": tied,
+                    "max_closure_gain": max_gain,
+                },
+            }
+
+        if deficit > 0 and max_gain <= 0:
+            return {
+                "class": "stagnation",
+                "detail": "closure deficit remains with no gainful candidate",
+                "evidence": {
+                    "closure_deficit": deficit,
+                    "max_closure_gain": max_gain,
+                },
+            }
+
+        return {
+            "class": "progressing",
+            "detail": "at least one gainful candidate available",
+            "evidence": {
+                "closure_deficit": deficit,
+                "max_closure_gain": max_gain,
+            },
         }
 
     def attach_openclaw_microcosm(self, repo_root: str) -> Dict[str, Any]:
@@ -1602,10 +2233,9 @@ class IVILoopController:
                 selection_mode=selection_mode,
             )
 
-            mu_before = self._compute_progress_mu(
-                progress_before,
-                monitor_before.get("last_state_checks", {}),
-            )
+            grid_before = self._grid_state_from_trace(trace_before)
+            mu_before = float(grid_before.get("mu_total", 0.0))
+            deficit_before = int(grid_before.get("closure_deficit", 0))
 
             auto_insight = str(selected.get("insight", "[auto_refine]"))
             insight_out = self.add_insight(auto_insight, source=source)
@@ -1615,14 +2245,51 @@ class IVILoopController:
             trace = result.get("integration_artifacts", {}).get("Trace", {})
             progress = insight_out.get("progress", {})
 
-            mu_after = self._compute_progress_mu(progress, state_checks)
+            grid_after = self._grid_state_from_trace(trace)
+            mu_after = float(grid_after.get("mu_total", 0.0))
+            deficit_after = int(grid_after.get("closure_deficit", 0))
             delta_mu = mu_after - mu_before
-            if delta_mu < epsilon:
+            deficit_reduced = deficit_after < deficit_before
+            if not deficit_reduced:
                 stagnation_count += 1
             else:
                 stagnation_count = 0
 
             request = self.evaluate_user_insight_need(progress, state_checks, trace)
+            grid_trigger = self._classify_grid_oracle_trigger(trace, candidates)
+            choice_witness = dict(selection_meta.get("ChoiceWitness", {})) if isinstance(selection_meta, dict) else {}
+            if request is None and grid_trigger.get("class") == "fixed_point":
+                halted_reason = "fixed_point"
+                monitor_after = self.monitor_snapshot()
+                creativity_event = (
+                    monitor_after.get("creativity_event", {})
+                    if isinstance(monitor_after.get("creativity_event", {}), dict)
+                    else {"creative": False, "basis": "none", "novel_selected_digest": False}
+                )
+                timeline.append(
+                    {
+                        "step": i + 1,
+                        "candidates": candidates,
+                        "selected_candidate": selected,
+                        "auto_insight": auto_insight,
+                        "selection": selection_meta,
+                        "mu_before": mu_before,
+                        "mu_after": mu_after,
+                        "delta_mu": delta_mu,
+                        "epsilon": epsilon,
+                        "stagnation_count": stagnation_count,
+                        "grid_before": grid_before,
+                        "grid_after": grid_after,
+                        "oracle_trigger_class": grid_trigger,
+                        "ChoiceWitness": choice_witness,
+                        "CreativityEvent": creativity_event,
+                        "result": insight_out,
+                        "monitor_before": monitor_before,
+                        "monitor_after": monitor_after,
+                        "OracleRequest": {},
+                    }
+                )
+                break
             if request is None and stagnation_count >= stagnation_patience:
                 request = self._build_stagnation_oracle_request(
                     progress=progress,
@@ -1632,6 +2299,17 @@ class IVILoopController:
                     stagnation_count=stagnation_count,
                 )
             monitor_after = self.monitor_snapshot()
+            creativity_event = (
+                monitor_after.get("creativity_event", {})
+                if isinstance(monitor_after.get("creativity_event", {}), dict)
+                else {"creative": False, "basis": "none", "novel_selected_digest": False}
+            )
+            if isinstance(request, dict):
+                oracle_payload = request.get("OracleRequest", {}) if isinstance(request.get("OracleRequest", {}), dict) else {}
+                if choice_witness:
+                    oracle_payload["choice_witness"] = choice_witness
+                oracle_payload["creativity_event"] = creativity_event
+                request["OracleRequest"] = oracle_payload
             timeline.append(
                 {
                     "step": i + 1,
@@ -1644,6 +2322,11 @@ class IVILoopController:
                     "delta_mu": delta_mu,
                     "epsilon": epsilon,
                     "stagnation_count": stagnation_count,
+                    "grid_before": grid_before,
+                    "grid_after": grid_after,
+                    "oracle_trigger_class": grid_trigger,
+                    "ChoiceWitness": choice_witness,
+                    "CreativityEvent": creativity_event,
                     "result": insight_out,
                     "monitor_before": monitor_before,
                     "monitor_after": monitor_after,
@@ -1680,7 +2363,10 @@ class IVILoopController:
         step: int,
     ) -> List[Dict[str, Any]]:
         candidates: List[Dict[str, Any]] = []
+        base_grid = self._grid_state_from_trace(trace)
+        base_deficit = int(base_grid.get("closure_deficit", 0))
         pot = trace.get("potential_distribution", []) if isinstance(trace, dict) else []
+        collapse = set(str(x) for x in trace.get("collapse_selection", []) if isinstance(trace, dict))
         for entry in pot[:3]:
             if not isinstance(entry, dict):
                 continue
@@ -1688,12 +2374,32 @@ class IVILoopController:
             if not tid:
                 continue
             weight = float(entry.get("p", 0.0))
+            projected_deficit = max(0, base_deficit - (0 if tid in collapse else 1))
+            closure_gain = max(0, base_deficit - projected_deficit)
+            symmetry_class = self._candidate_symmetry_class(tid, trace)
+            delta_signature = {
+                "added_cells": ["collapse:" + tid],
+                "removed_cells": [],
+                "rule_digest": _stable_hash(f"collapse:{tid}"),
+                "locality_footprint": symmetry_class,
+            }
+            delta_signature_digest = _stable_hash(json.dumps(delta_signature, sort_keys=True, ensure_ascii=True))
             insight = (
                 f"[auto_refine step={step} tid={tid}] "
-                f"weight={weight:.4f} turns={int(progress.get('turns', 0))} "
-                f"gap_rate={float(progress.get('gap_rate', 0.0)):.3f}"
+                f"weight={weight:.4f} closure_gain={closure_gain} turns={int(progress.get('turns', 0))}"
             )
-            candidates.append({"tid": tid, "weight": weight, "insight": insight})
+            candidates.append(
+                {
+                    "tid": tid,
+                    "weight": weight,
+                    "closure_gain": closure_gain,
+                    "projected_deficit": projected_deficit,
+                    "symmetry_class": symmetry_class,
+                    "delta_signature": delta_signature,
+                    "delta_signature_digest": delta_signature_digest,
+                    "insight": insight,
+                }
+            )
 
         if not candidates:
             fallback = (
@@ -1702,7 +2408,23 @@ class IVILoopController:
                 f"gap_rate={float(progress.get('gap_rate', 0.0)):.3f} "
                 f"derived_density={float(progress.get('derived_density', 0.0)):.3f}"
             )
-            candidates.append({"tid": "fallback", "weight": 1.0, "insight": fallback})
+            candidates.append(
+                {
+                    "tid": "fallback",
+                    "weight": 1.0,
+                    "closure_gain": 0,
+                    "projected_deficit": base_deficit,
+                    "symmetry_class": "neutral",
+                    "delta_signature": {
+                        "added_cells": [],
+                        "removed_cells": [],
+                        "rule_digest": _stable_hash("fallback"),
+                        "locality_footprint": "neutral",
+                    },
+                    "delta_signature_digest": _stable_hash("fallback"),
+                    "insight": fallback,
+                }
+            )
 
         return candidates
 
@@ -1751,47 +2473,78 @@ class IVILoopController:
                 "mode": selection_mode,
                 "seed": None,
                 "selector": "fallback",
+                "ChoiceWitness": {},
             }
 
         normalized_mode = selection_mode if selection_mode in {"deterministic_replay", "exploration"} else "deterministic_replay"
         seed = self._derive_autoloop_seed(trace, progress, step, normalized_mode)
 
         if normalized_mode == "deterministic_replay":
-            selected = sorted(
+            ordered = sorted(
                 candidates,
-                key=lambda c: (float(c.get("weight", 0.0)), str(c.get("tid", ""))),
+                key=lambda c: str(c.get("delta_signature_digest", c.get("tid", ""))),
+            )
+            witness_seed = seed
+            witness_pre = self._build_intrinsic_choice_witness(ordered, ordered[0], normalized_mode, witness_seed)
+            potential_map = {
+                str(entry.get("delta_signature_digest", "")): float(entry.get("phi", 0.0))
+                for entry in witness_pre.get("candidate_potentials", [])
+                if isinstance(entry, dict)
+            }
+            selected = sorted(
+                ordered,
+                key=lambda c: (
+                    float(potential_map.get(str(c.get("delta_signature_digest", c.get("tid", ""))), 0.0)),
+                    int(round(float(c.get("weight", 0.0)) * 1_000_000)),
+                    str(c.get("delta_signature_digest", c.get("tid", ""))),
+                ),
                 reverse=True,
             )[0]
+            witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, witness_seed)
             return selected, {
                 "mode": normalized_mode,
                 "seed": seed,
-                "selector": "argmax_weight",
+                "selector": "argmax_choice_potential",
+                "ChoiceWitness": witness,
             }
 
         rng = random.Random(seed)
-        weights = [max(0.0, float(c.get("weight", 0.0))) for c in candidates]
+        ordered = sorted(candidates, key=lambda c: str(c.get("delta_signature_digest", c.get("tid", ""))))
+        witness_pre = self._build_intrinsic_choice_witness(ordered, ordered[0], normalized_mode, seed)
+        candidate_potentials = witness_pre.get("candidate_potentials", [])
+        potential_map = {
+            str(entry.get("delta_signature_digest", "")): float(entry.get("phi", 0.0))
+            for entry in candidate_potentials
+            if isinstance(entry, dict)
+        }
+        weights = [math.exp(float(potential_map.get(str(c.get("delta_signature_digest", c.get("tid", ""))), 0.0))) for c in ordered]
         total = sum(weights)
         if total <= 0.0:
-            selected = candidates[0]
+            selected = ordered[0]
+            witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, seed)
             return selected, {
                 "mode": normalized_mode,
                 "seed": seed,
                 "selector": "first_nonpositive_weights",
+                "ChoiceWitness": witness,
             }
 
         r = rng.random() * total
         acc = 0.0
-        selected = candidates[-1]
-        for cand, w in zip(candidates, weights):
+        selected = ordered[-1]
+        for cand, w in zip(ordered, weights):
             acc += w
             if r <= acc:
                 selected = cand
                 break
 
+        witness = self._build_intrinsic_choice_witness(ordered, selected, normalized_mode, seed)
+
         return selected, {
             "mode": normalized_mode,
             "seed": seed,
-            "selector": "weighted_sample",
+            "selector": "intrinsic_choice_law_sample",
+            "ChoiceWitness": witness,
         }
 
     def _compute_progress_mu(self, progress: Dict[str, Any], state_checks: Dict[str, Any]) -> float:
@@ -1878,6 +2631,18 @@ class IVILoopController:
         derived_density = float(progress.get("derived_density", 0.0))
 
         trigger_class = "validation_failure"
+        trace_obj = trace if isinstance(trace, dict) else {}
+        structural_candidates = self._build_autoloop_candidates(trace_obj, progress, max(1, turns))
+        structural_trigger = self._classify_grid_oracle_trigger(trace_obj, structural_candidates)
+        structural_class = str(structural_trigger.get("class", "progressing"))
+        structural_evidence = dict(structural_trigger.get("evidence", {})) if isinstance(structural_trigger, dict) else {}
+
+        if structural_class == "branch_point":
+            reasons.append("branch_point_equal_closure_gain")
+            trigger_reasons.append("conflicting_admissible_refinements")
+        elif structural_class == "stagnation":
+            reasons.append("stagnation_closure_deficit_not_reducing")
+            trigger_reasons.append("missing_constraints")
 
         if turns >= 3 and gap_rate >= 0.35:
             reasons.append("high_gap_rate")
@@ -1907,8 +2672,8 @@ class IVILoopController:
             trigger_reasons.append("integrity_deadlock")
 
         candidate_actions: List[str] = []
-        if isinstance(trace, dict):
-            pot = trace.get("potential_distribution", [])
+        if isinstance(trace_obj, dict):
+            pot = trace_obj.get("potential_distribution", [])
             for entry in pot[:3]:
                 if isinstance(entry, dict) and entry.get("tid"):
                     candidate_actions.append(str(entry.get("tid")))
@@ -1923,7 +2688,9 @@ class IVILoopController:
         if not reasons:
             return None
 
-        if "conflicting_admissible_refinements" in trigger_reasons:
+        if structural_class == "stagnation":
+            trigger_class = "stagnation"
+        elif "conflicting_admissible_refinements" in trigger_reasons:
             trigger_class = "non_dominated_candidate_set"
         elif "out_of_regime_input" in trigger_reasons:
             trigger_class = "out_of_regime_detection"
@@ -1977,6 +2744,7 @@ class IVILoopController:
                 "minimal_question": recommended_question,
                 "options": options,
                 "consequence_map": consequence_map,
+                "trigger_evidence": structural_evidence,
                 "expected_impact": "inject_external_constraint_to_resume_refinement",
             },
         }
@@ -1991,6 +2759,7 @@ class IVILoopController:
             "reasons": list(insight_request.get("reasons", [])),
             "axiom_declaration": list(insight_request.get("axiom_declaration", [])),
             "semantic_mapping": dict(self.MATRIX_SEMANTIC_MAP),
+            "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
             "OracleRequest": dict(insight_request.get("OracleRequest", {})),
         }
 
@@ -2027,7 +2796,11 @@ class IVILoopController:
                 ],
             }
         if t == "/semantic-map":
-            return {"kind": "semantic_map", "mapping": dict(self.MATRIX_SEMANTIC_MAP)}
+            return {
+                "kind": "semantic_map",
+                "mapping": dict(self.MATRIX_SEMANTIC_MAP),
+                "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
+            }
         if t in {"/monitor", "/status"}:
             monitor = self.monitor_snapshot()
             insight_request = self.evaluate_user_insight_need(
@@ -2163,6 +2936,18 @@ class IVILoopController:
         }
 
     def _build_integration_artifacts(self, kind: str, query: str, context_packet: Dict[str, Any]) -> Dict[str, Any]:
+        previous_rows = self._read_integration_artifacts(max_items=1)
+        previous_trace = previous_rows[-1].get("Trace", {}) if previous_rows and isinstance(previous_rows[-1], dict) else {}
+        recent_rows = self._read_integration_artifacts(max_items=32)
+        recent_selected_digests: Set[str] = set()
+        for row in recent_rows:
+            if not isinstance(row, dict):
+                continue
+            ev = row.get("CreativityEvent", {}) if isinstance(row.get("CreativityEvent", {}), dict) else {}
+            d = str(ev.get("selected_delta_signature_digest", "")).strip()
+            if d:
+                recent_selected_digests.add(d)
+
         meta = context_packet.get("meta", {})
         pot = meta.get("potential_distribution", [])
         collapse = meta.get("collapse_selection", [])
@@ -2202,6 +2987,35 @@ class IVILoopController:
             "role_projection": role_projection,
             "complexity_claim": complexity_claim,
         }
+        choice_law_spec = self._choice_law_spec()
+        trace["choice_law_version"] = str(choice_law_spec.get("version", "choice_law_v1"))
+        trace["choice_law_digest"] = _stable_hash(json.dumps(choice_law_spec, sort_keys=True, ensure_ascii=True))
+        choice_law_replay = self._choice_law_replay_payload(trace)
+        trace["choice_law_replay"] = {
+            "candidate_inputs": list(choice_law_replay.get("candidate_inputs", [])),
+            "candidate_inputs_digest": str(choice_law_replay.get("candidate_inputs_digest", "")),
+            "candidate_potentials": list(choice_law_replay.get("candidate_potentials", [])),
+            "candidate_potentials_digest": str(choice_law_replay.get("candidate_potentials_digest", "")),
+            "selected_delta_signature_digest": str(choice_law_replay.get("selected_delta_signature_digest", "")),
+            "sampling_seed": choice_law_replay.get("sampling_seed", None),
+            "justification": str(choice_law_replay.get("justification", "")),
+        }
+
+        closure_replay = self._closure_replay_payload(trace)
+        trace["closure_rules_version"] = str(closure_replay.get("closure_rules_version", "closure_rules_v1"))
+        trace["closure_rules_digest"] = str(closure_replay.get("closure_rules_digest", ""))
+        trace["closure_replay_steps"] = list(closure_replay.get("closure_replay_steps", []))
+        trace["closure_replay"] = {
+            "active_cells_canonical": list(closure_replay.get("active_cells_canonical", [])),
+            "active_cells_serialization": str(closure_replay.get("active_cells_serialization", "")),
+            "active_cells_count": int(closure_replay.get("active_cells_count", 0)),
+            "closure_cells_count": int(closure_replay.get("closure_cells_count", 0)),
+            "closure_deficit": int(closure_replay.get("closure_deficit", 0)),
+            "active_cells_digest": str(closure_replay.get("active_cells_digest", "")),
+            "closure_cells_digest": str(closure_replay.get("closure_cells_digest", "")),
+            "closure_deficit_digest": str(closure_replay.get("closure_deficit_digest", "")),
+        }
+        creativity_event = self._derive_creativity_event(trace, previous_trace=previous_trace, recent_selected_digests=recent_selected_digests)
 
         reflexive_state = build_reflexive_state_from_trace(trace)
         reflexive_step = run_reflexive_refinement_step(reflexive_state)
@@ -2294,6 +3108,50 @@ class IVILoopController:
                 }
             )
 
+        closure_replay_check = self._evaluate_closure_replay_integrity(trace)
+        if not closure_replay_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "closure_replay_tamper_detected",
+                    "detail": str(closure_replay_check.get("detail", "closure replay payload mismatch")),
+                }
+            )
+
+        closure_rules_immutability_check = self._evaluate_closure_rules_immutability(trace)
+        if not closure_rules_immutability_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "closure_rules_immutability_violation",
+                    "detail": str(
+                        closure_rules_immutability_check.get(
+                            "detail", "closure rules version/digest changed without approval"
+                        )
+                    ),
+                }
+            )
+
+        choice_law_immutability_check = self._evaluate_choice_law_immutability(trace)
+        if not choice_law_immutability_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "choice_law_immutability_violation",
+                    "detail": str(
+                        choice_law_immutability_check.get(
+                            "detail", "choice law version/digest changed without approval"
+                        )
+                    ),
+                }
+            )
+
+        choice_law_replay_check = self._evaluate_choice_law_replay_integrity(trace)
+        if not choice_law_replay_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "choice_law_replay_tamper_detected",
+                    "detail": str(choice_law_replay_check.get("detail", "choice law replay payload mismatch")),
+                }
+            )
+
         policy_immutability_check = {
             "name": "policy_immutability_gate",
             "enabled": True,
@@ -2301,6 +3159,7 @@ class IVILoopController:
             "locked_components": dict(self.POLICY_IMMUTABILITY_LOCK),
             "detail": "Autoloop cannot modify validator rules, promotion thresholds, or oracle trigger logic without external approval token.",
         }
+        purple_semantic_check = self._evaluate_purple_semantic_enforcement(trace, gaps)
 
         candidate = {
             "name": "ExplainFromTrace",
@@ -2322,6 +3181,7 @@ class IVILoopController:
             "kind": kind,
             "timestamp": _now_ts(),
             "Trace": trace,
+            "CreativityEvent": creativity_event,
             "StateChecks": {
                 "p_np_state_check": p_np_state_check,
                 "regime_feature_tests": regime_check,
@@ -2332,6 +3192,11 @@ class IVILoopController:
                     "passed": bool(reflexive_step.get("ok", False)),
                     "detail": "; ".join(reflexive_payload.get("witness", {}).get("reasons", [])),
                 },
+                "closure_replay_integrity": closure_replay_check,
+                "closure_rules_immutability_gate": closure_rules_immutability_check,
+                "choice_law_immutability_gate": choice_law_immutability_check,
+                "choice_law_replay_integrity": choice_law_replay_check,
+                "purple_semantic_enforcement": purple_semantic_check,
                 "policy_immutability_gate": policy_immutability_check,
                 "triangle_time_choice_contract": {
                     "enabled": True,
