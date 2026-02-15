@@ -13,6 +13,377 @@
       "created_ts": 1771122222.6322172,
       "source": "voice_openclaw_walktalk",
       "tags": []
+    },
+    "S_fbdd8481086137a1": {
+      "sid": "S_fbdd8481086137a1",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771122443.44695,
+      "source": "voice",
+      "tags": []
+    },
+    "S_22ea5f061032e552": {
+      "sid": "S_22ea5f061032e552",
+      "text": "[openclaw.walktalk] hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771122522.388306,
+      "source": "voice_openclaw_walktalk",
+      "tags": []
+    },
+    "S_e395442d0c851033": {
+      "sid": "S_e395442d0c851033",
+      "text": "[openclaw.walktalk] hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771122898.98507,
+      "source": "voice_openclaw_walktalk",
+      "tags": []
+    },
+    "S_173a6b5902966480": {
+      "sid": "S_173a6b5902966480",
+      "text": "Define a concrete closure action and execute it\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123152.207777,
+      "source": "voice",
+      "tags": []
+    },
+    "S_4b57a86d532bdb67": {
+      "sid": "S_4b57a86d532bdb67",
+      "text": "Define a concrete closure action and execute it\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123152.2189271,
+      "source": "voice_orchestrator_tick",
+      "tags": []
+    },
+    "S_7fe7cdc05674818c": {
+      "sid": "S_7fe7cdc05674818c",
+      "text": "hello refine roles\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123241.505357,
+      "source": "voice",
+      "tags": []
+    },
+    "S_8953674fc2cb4eb9": {
+      "sid": "S_8953674fc2cb4eb9",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123241.518413,
+      "source": "voice_continuous",
+      "tags": []
+    },
+    "S_f4015ddb2518cc43": {
+      "sid": "S_f4015ddb2518cc43",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123241.531921,
+      "source": "voice_orchestrator_tick",
+      "tags": []
+    },
+    "S_e88ff5fca7a34ae1": {
+      "sid": "S_e88ff5fca7a34ae1",
+      "text": "hello refine roles\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123241.544226,
+      "source": "voice_orchestrator_tick",
+      "tags": []
+    },
+    "S_43d09e36e088fff2": {
+      "sid": "S_43d09e36e088fff2",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123241.5580292,
+      "source": "voice_interagent",
+      "tags": []
+    },
+    "S_38c8cb52b6aa1b7f": {
+      "sid": "S_38c8cb52b6aa1b7f",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123241.572167,
+      "source": "voice_interagent_continuous",
+      "tags": []
+    },
+    "S_10a5350d75df4248": {
+      "sid": "S_10a5350d75df4248",
+      "text": "hello refine roles\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771123241.587379,
+      "source": "voice_interagent_continuous",
+      "tags": []
+    },
+    "S_005dbb3fbc4041bf": {
+      "sid": "S_005dbb3fbc4041bf",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124887.410134,
+      "source": "voice",
+      "tags": []
+    },
+    "S_61a575858669276a": {
+      "sid": "S_61a575858669276a",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124887.4828942,
+      "source": "voice_continuous",
+      "tags": []
+    },
+    "S_284a4e22269f254f": {
+      "sid": "S_284a4e22269f254f",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124887.531318,
+      "source": "voice_orchestrator_tick",
+      "tags": []
+    },
+    "S_b364377d83e2d2e6": {
+      "sid": "S_b364377d83e2d2e6",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124887.5798268,
+      "source": "voice_orchestrator_tick",
+      "tags": []
+    },
+    "S_7025ecb1a29dfeb1": {
+      "sid": "S_7025ecb1a29dfeb1",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124887.62832,
+      "source": "voice_interagent",
+      "tags": []
+    },
+    "S_85b71b2972f14a15": {
+      "sid": "S_85b71b2972f14a15",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124887.678284,
+      "source": "voice_interagent_continuous",
+      "tags": []
+    },
+    "S_4d55a893df75602f": {
+      "sid": "S_4d55a893df75602f",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124887.73212,
+      "source": "voice_interagent_continuous",
+      "tags": []
+    },
+    "S_fee34b66a44121e5": {
+      "sid": "S_fee34b66a44121e5",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124888.515747,
+      "source": "voice_orchestrator_daemon",
+      "tags": []
+    },
+    "S_0590a4216198d370": {
+      "sid": "S_0590a4216198d370",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124888.5860538,
+      "source": "voice_orchestrator_daemon",
+      "tags": []
+    },
+    "S_85309989887c482b": {
+      "sid": "S_85309989887c482b",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124891.652915,
+      "source": "voice_orchestrator_daemon",
+      "tags": []
+    },
+    "S_c859a2e157540749": {
+      "sid": "S_c859a2e157540749",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771124891.755039,
+      "source": "voice_orchestrator_daemon",
+      "tags": []
+    },
+    "S_ef9625487014e426": {
+      "sid": "S_ef9625487014e426",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771125045.273466,
+      "source": "voice",
+      "tags": []
+    },
+    "S_271a2474eea7b83d": {
+      "sid": "S_271a2474eea7b83d",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771125045.346574,
+      "source": "voice_continuous",
+      "tags": []
+    },
+    "S_4591dce4a4f7f777": {
+      "sid": "S_4591dce4a4f7f777",
+      "text": "auto-constraint: T_c2b99a8f57be34aa\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"insight\"]",
+      "created_ts": 1771125045.427644,
+      "source": "voice_insight",
+      "tags": []
+    },
+    "S_7db044658a8348f6": {
+      "sid": "S_7db044658a8348f6",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771125045.494312,
+      "source": "voice_orchestrator_tick",
+      "tags": []
+    },
+    "S_8e996443a218b40b": {
+      "sid": "S_8e996443a218b40b",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771125045.572653,
+      "source": "voice_orchestrator_tick",
+      "tags": []
+    },
+    "S_666ab875c5a419c4": {
+      "sid": "S_666ab875c5a419c4",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771125045.657668,
+      "source": "voice_interagent",
+      "tags": []
+    },
+    "S_fb6666757de84442": {
+      "sid": "S_fb6666757de84442",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771125045.7415838,
+      "source": "voice_interagent_continuous",
+      "tags": []
+    },
+    "S_09c8a1e8e0f6faa7": {
+      "sid": "S_09c8a1e8e0f6faa7",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771125045.835142,
+      "source": "voice_interagent_continuous",
+      "tags": []
+    },
+    "S_c30ee728a372b675": {
+      "sid": "S_c30ee728a372b675",
+      "text": "OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771163124.8494878,
+      "source": "voice_orchestrator_daemon_bootstrap",
+      "tags": []
+    },
+    "S_cb95083613a8c9ae": {
+      "sid": "S_cb95083613a8c9ae",
+      "text": "hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771163125.317399,
+      "source": "voice",
+      "tags": []
+    },
+    "S_0c85ee695a056d6d": {
+      "sid": "S_0c85ee695a056d6d",
+      "text": "auto-constraint: T_40bb5af870d88f98\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"insight\"]",
+      "created_ts": 1771163125.476031,
+      "source": "voice_insight",
+      "tags": []
+    },
+    "S_d5d7e3fcb73a09c9": {
+      "sid": "S_d5d7e3fcb73a09c9",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771163125.5756931,
+      "source": "voice_interagent",
+      "tags": []
+    },
+    "S_b56bd9546d4c4133": {
+      "sid": "S_b56bd9546d4c4133",
+      "text": "OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771164793.658792,
+      "source": "voice_orchestrator_daemon_bootstrap",
+      "tags": []
+    },
+    "S_4a2f17d4980d7313": {
+      "sid": "S_4a2f17d4980d7313",
+      "text": "helo\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771164800.377852,
+      "source": "voice",
+      "tags": []
+    },
+    "S_d33f0fc87a7f107e": {
+      "sid": "S_d33f0fc87a7f107e",
+      "text": "auto-constraint: T_4a9466fd62fb5a98\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"insight\"]",
+      "created_ts": 1771164800.5207858,
+      "source": "voice_insight",
+      "tags": []
+    },
+    "S_94da133ef86c68a9": {
+      "sid": "S_94da133ef86c68a9",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771164800.624525,
+      "source": "voice_interagent",
+      "tags": []
+    },
+    "S_21053715ae2a68ce": {
+      "sid": "S_21053715ae2a68ce",
+      "text": "OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771165942.547128,
+      "source": "voice_orchestrator_daemon_bootstrap",
+      "tags": []
+    },
+    "S_2a8589bb195c9a09": {
+      "sid": "S_2a8589bb195c9a09",
+      "text": "hello\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771165942.7626398,
+      "source": "voice",
+      "tags": []
+    },
+    "S_999678b440b37c7c": {
+      "sid": "S_999678b440b37c7c",
+      "text": "auto-constraint: T_f49092f0d2841180\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"insight\"]",
+      "created_ts": 1771165942.891628,
+      "source": "voice_insight",
+      "tags": []
+    },
+    "S_ed0aa6f76d5878f9": {
+      "sid": "S_ed0aa6f76d5878f9",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771165943.021043,
+      "source": "voice_interagent",
+      "tags": []
+    },
+    "S_7e27db81bede2fb7": {
+      "sid": "S_7e27db81bede2fb7",
+      "text": "OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166733.245739,
+      "source": "voice_orchestrator_daemon_bootstrap",
+      "tags": []
+    },
+    "S_fe2f89f8aead743c": {
+      "sid": "S_fe2f89f8aead743c",
+      "text": "hello\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166733.5035741,
+      "source": "voice",
+      "tags": []
+    },
+    "S_f1efc001183bddce": {
+      "sid": "S_f1efc001183bddce",
+      "text": "OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166733.646977,
+      "source": "voice_continuous",
+      "tags": []
+    },
+    "S_3a0dd5c2a21d48bf": {
+      "sid": "S_3a0dd5c2a21d48bf",
+      "text": "Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166733.805664,
+      "source": "voice_continuous",
+      "tags": []
+    },
+    "S_0db34087196789a3": {
+      "sid": "S_0db34087196789a3",
+      "text": "Translate conversation into executable routines and run one admissible action now.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166733.957505,
+      "source": "voice_continuous",
+      "tags": []
+    },
+    "S_3c59095c7fc16fbe": {
+      "sid": "S_3c59095c7fc16fbe",
+      "text": "auto-constraint: T_163621ecb7eef8f3\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"insight\"]",
+      "created_ts": 1771166734.104545,
+      "source": "voice_insight",
+      "tags": []
+    },
+    "S_352202cee6b93737": {
+      "sid": "S_352202cee6b93737",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166734.214585,
+      "source": "voice_interagent",
+      "tags": []
+    },
+    "S_018b4c7fbce5d392": {
+      "sid": "S_018b4c7fbce5d392",
+      "text": "/agent auto-action off\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166734.371788,
+      "source": "voice",
+      "tags": []
+    },
+    "S_d6f2874be038b68a": {
+      "sid": "S_d6f2874be038b68a",
+      "text": "auto-constraint: T_ada2df4cbb58575b\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"insight\"]",
+      "created_ts": 1771166734.5301518,
+      "source": "voice_insight",
+      "tags": []
+    },
+    "S_d3321a7365124f5d": {
+      "sid": "S_d3321a7365124f5d",
+      "text": "Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771166734.6429498,
+      "source": "voice_interagent",
+      "tags": []
     }
   },
   "derivations": {
@@ -39,6 +410,642 @@
       ],
       "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
       "created_ts": 1771122222.633625
+    },
+    "D_0c0e84254ccf2d72": {
+      "did": "D_0c0e84254ccf2d72",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_fbdd8481086137a1"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771122443.455343
+    },
+    "D_311bb4069d15b32e": {
+      "did": "D_311bb4069d15b32e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_22ea5f061032e552"
+      ],
+      "conclusions": [
+        "E_92365fcadb399a5c"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771122522.3961139
+    },
+    "D_057ae1fb4f52762e": {
+      "did": "D_057ae1fb4f52762e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e395442d0c851033"
+      ],
+      "conclusions": [
+        "E_92365fcadb399a5c"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771122898.994103
+    },
+    "D_171eed0d5aeb1a1f": {
+      "did": "D_171eed0d5aeb1a1f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_173a6b5902966480"
+      ],
+      "conclusions": [
+        "E_ea9f4b394b7a1653"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123152.210442
+    },
+    "D_c46480dcf837d448": {
+      "did": "D_c46480dcf837d448",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_4b57a86d532bdb67"
+      ],
+      "conclusions": [
+        "E_ea9f4b394b7a1653"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123152.2217238
+    },
+    "D_0df1afa4453464ee": {
+      "did": "D_0df1afa4453464ee",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_7fe7cdc05674818c"
+      ],
+      "conclusions": [
+        "E_4eef6d2a711b1b5c"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123241.507854
+    },
+    "D_d78c20e17dbb8e62": {
+      "did": "D_d78c20e17dbb8e62",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_8953674fc2cb4eb9"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123241.520513
+    },
+    "D_2a34117bf8437672": {
+      "did": "D_2a34117bf8437672",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_f4015ddb2518cc43"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123241.534535
+    },
+    "D_6e81b851d00dd139": {
+      "did": "D_6e81b851d00dd139",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e88ff5fca7a34ae1"
+      ],
+      "conclusions": [
+        "E_4eef6d2a711b1b5c"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123241.546929
+    },
+    "D_a28d8e269be8f403": {
+      "did": "D_a28d8e269be8f403",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_43d09e36e088fff2"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123241.560797
+    },
+    "D_e0d99fb43f0080f4": {
+      "did": "D_e0d99fb43f0080f4",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_38c8cb52b6aa1b7f"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123241.5753841
+    },
+    "D_738f45028a7930ab": {
+      "did": "D_738f45028a7930ab",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_10a5350d75df4248"
+      ],
+      "conclusions": [
+        "E_4eef6d2a711b1b5c"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771123241.590425
+    },
+    "D_6d96863ab24cc8a2": {
+      "did": "D_6d96863ab24cc8a2",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_005dbb3fbc4041bf"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124887.4244108
+    },
+    "D_ee3cc9b1a9f2eeee": {
+      "did": "D_ee3cc9b1a9f2eeee",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_61a575858669276a"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124887.48672
+    },
+    "D_5b9f021e13b58d9e": {
+      "did": "D_5b9f021e13b58d9e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_284a4e22269f254f"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124887.5361018
+    },
+    "D_9e8257a0fe26fb69": {
+      "did": "D_9e8257a0fe26fb69",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_b364377d83e2d2e6"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124887.583491
+    },
+    "D_a052ce6f22da00b2": {
+      "did": "D_a052ce6f22da00b2",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_7025ecb1a29dfeb1"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124887.632138
+    },
+    "D_5b446a3f8f91cd5f": {
+      "did": "D_5b446a3f8f91cd5f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_85b71b2972f14a15"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124887.682742
+    },
+    "D_a53a6d4fcbb35faa": {
+      "did": "D_a53a6d4fcbb35faa",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_4d55a893df75602f"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124887.7361941
+    },
+    "D_f94b7b3d742896f9": {
+      "did": "D_f94b7b3d742896f9",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_fee34b66a44121e5"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124888.523842
+    },
+    "D_bd149471db363f57": {
+      "did": "D_bd149471db363f57",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_0590a4216198d370"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124888.590399
+    },
+    "D_05955982a118351c": {
+      "did": "D_05955982a118351c",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_85309989887c482b"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124891.672831
+    },
+    "D_f939b5020d84756e": {
+      "did": "D_f939b5020d84756e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_c859a2e157540749"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771124891.7605572
+    },
+    "D_e7001d02b2355f2b": {
+      "did": "D_e7001d02b2355f2b",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_ef9625487014e426"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.279233
+    },
+    "D_fd16e486a38fcfb2": {
+      "did": "D_fd16e486a38fcfb2",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_271a2474eea7b83d"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.352541
+    },
+    "D_9e09fa1f07a24a79": {
+      "did": "D_9e09fa1f07a24a79",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_4591dce4a4f7f777"
+      ],
+      "conclusions": [
+        "E_804e8ec2f286c1f0"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.43298
+    },
+    "D_d9f92601c26e484d": {
+      "did": "D_d9f92601c26e484d",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_7db044658a8348f6"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.5003982
+    },
+    "D_351d404fe913baed": {
+      "did": "D_351d404fe913baed",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_8e996443a218b40b"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.5790138
+    },
+    "D_a6e2fa2e3ae44603": {
+      "did": "D_a6e2fa2e3ae44603",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_666ab875c5a419c4"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.6634612
+    },
+    "D_40301b260b04714a": {
+      "did": "D_40301b260b04714a",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_fb6666757de84442"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.7476768
+    },
+    "D_27f29f666b3f8f64": {
+      "did": "D_27f29f666b3f8f64",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_09c8a1e8e0f6faa7"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771125045.841344
+    },
+    "D_392c64fa4dc32e7f": {
+      "did": "D_392c64fa4dc32e7f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_c30ee728a372b675"
+      ],
+      "conclusions": [
+        "E_07265af6c9ba0ebe"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771163124.901248
+    },
+    "D_25ab51c29162d508": {
+      "did": "D_25ab51c29162d508",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_cb95083613a8c9ae"
+      ],
+      "conclusions": [
+        "E_00a41cee182d2204"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771163125.3260942
+    },
+    "D_400fae8c84b2a142": {
+      "did": "D_400fae8c84b2a142",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_0c85ee695a056d6d"
+      ],
+      "conclusions": [
+        "E_2392f75204c24970"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771163125.484002
+    },
+    "D_d1744805291f1918": {
+      "did": "D_d1744805291f1918",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_d5d7e3fcb73a09c9"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771163125.583461
+    },
+    "D_4482a82f0169df85": {
+      "did": "D_4482a82f0169df85",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_b56bd9546d4c4133"
+      ],
+      "conclusions": [
+        "E_07265af6c9ba0ebe"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771164793.667702
+    },
+    "D_b46e01cbdf54e2c0": {
+      "did": "D_b46e01cbdf54e2c0",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_4a2f17d4980d7313"
+      ],
+      "conclusions": [
+        "E_2ef2a43deab3d1d9"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771164800.401209
+    },
+    "D_cfd594c55e5d1da4": {
+      "did": "D_cfd594c55e5d1da4",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_d33f0fc87a7f107e"
+      ],
+      "conclusions": [
+        "E_c640598105f1f98f"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771164800.528173
+    },
+    "D_3c5830129e270db5": {
+      "did": "D_3c5830129e270db5",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_94da133ef86c68a9"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771164800.6322649
+    },
+    "D_f7907ea6a11dff56": {
+      "did": "D_f7907ea6a11dff56",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_21053715ae2a68ce"
+      ],
+      "conclusions": [
+        "E_07265af6c9ba0ebe"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771165942.5572321
+    },
+    "D_ef8d234a264923a4": {
+      "did": "D_ef8d234a264923a4",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_2a8589bb195c9a09"
+      ],
+      "conclusions": [
+        "E_dba479f7a753f3d2"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771165942.771224
+    },
+    "D_b7e755f3050c3aa3": {
+      "did": "D_b7e755f3050c3aa3",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_999678b440b37c7c"
+      ],
+      "conclusions": [
+        "E_9cd4e1428565e458"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771165942.89941
+    },
+    "D_377e1280c7090002": {
+      "did": "D_377e1280c7090002",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_ed0aa6f76d5878f9"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771165943.0303261
+    },
+    "D_2f7b8baf19fa5a2f": {
+      "did": "D_2f7b8baf19fa5a2f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_7e27db81bede2fb7"
+      ],
+      "conclusions": [
+        "E_07265af6c9ba0ebe"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166733.255766
+    },
+    "D_7e6fb47195838c48": {
+      "did": "D_7e6fb47195838c48",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_fe2f89f8aead743c"
+      ],
+      "conclusions": [
+        "E_dba479f7a753f3d2"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166733.512774
+    },
+    "D_9f147530a8e61f2d": {
+      "did": "D_9f147530a8e61f2d",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_f1efc001183bddce"
+      ],
+      "conclusions": [
+        "E_07265af6c9ba0ebe"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166733.655488
+    },
+    "D_c85615678b50988c": {
+      "did": "D_c85615678b50988c",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_3a0dd5c2a21d48bf"
+      ],
+      "conclusions": [
+        "E_e9d05c3726807c56"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166733.815595
+    },
+    "D_f970acf317df902c": {
+      "did": "D_f970acf317df902c",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_0db34087196789a3"
+      ],
+      "conclusions": [
+        "E_55af9f90a134b732"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166733.967295
+    },
+    "D_cd03ecec7057d9cb": {
+      "did": "D_cd03ecec7057d9cb",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_3c59095c7fc16fbe"
+      ],
+      "conclusions": [
+        "E_0d6a5980f41fc390"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166734.1144261
+    },
+    "D_048a2959ec04ab31": {
+      "did": "D_048a2959ec04ab31",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_352202cee6b93737"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166734.223776
+    },
+    "D_772a2c82013373b3": {
+      "did": "D_772a2c82013373b3",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_018b4c7fbce5d392"
+      ],
+      "conclusions": [
+        "E_f4a6bb2af7a3b2a1"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166734.381444
+    },
+    "D_164b4d33c795971f": {
+      "did": "D_164b4d33c795971f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_d6f2874be038b68a"
+      ],
+      "conclusions": [
+        "E_d96ebe383615da82"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166734.53971
+    },
+    "D_e6c63e93d050a485": {
+      "did": "D_e6c63e93d050a485",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_d3321a7365124f5d"
+      ],
+      "conclusions": [
+        "E_fa040628a8822058"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771166734.653018
     }
   },
   "equations": {
@@ -49,6 +1056,142 @@
       "statement": "Proposition derived from: [openclaw.walktalk] monitor local state and narrate integrity\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,pr...",
       "version_hash": "ca3d5aa6deddb9c9",
       "created_ts": 1771122222.633161
+    },
+    "E_00a41cee182d2204": {
+      "eid": "E_00a41cee182d2204",
+      "lean_name": "hi_openclaw_voice_persona_anchor_openclaw_soul_style",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_l...",
+      "version_hash": "ae17209170507a25",
+      "created_ts": 1771163125.3222861
+    },
+    "E_92365fcadb399a5c": {
+      "eid": "E_92365fcadb399a5c",
+      "lean_name": "openclaw_walktalk_hi_openclaw_voice_persona_anchor_openclaw",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: [openclaw.walktalk] hi\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbu...",
+      "version_hash": "f94897dff2a301c9",
+      "created_ts": 1771122898.990636
+    },
+    "E_ea9f4b394b7a1653": {
+      "eid": "E_ea9f4b394b7a1653",
+      "lean_name": "define_a_concrete_closure_action_and_execute_it",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: Define a concrete closure action and execute it\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,h...",
+      "version_hash": "5f12fa69eac1e353",
+      "created_ts": 1771123152.220363
+    },
+    "E_4eef6d2a711b1b5c": {
+      "eid": "E_4eef6d2a711b1b5c",
+      "lean_name": "hello_refine_roles_openclaw_voice_persona_anchor_openclaw",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: hello refine roles\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,i...",
+      "version_hash": "1420dbffc77ecea2",
+      "created_ts": 1771123241.5889301
+    },
+    "E_e9d05c3726807c56": {
+      "eid": "E_e9d05c3726807c56",
+      "lean_name": "monitor_local_state_and_refine_openclaw_purple_role",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: Monitor local state and refine OpenClaw/Purple role alignment continuously.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personal...",
+      "version_hash": "4382a53ac74b89e5",
+      "created_ts": 1771166733.810346
+    },
+    "E_fa040628a8822058": {
+      "eid": "E_fa040628a8822058",
+      "lean_name": "proactively_refine_openclaw_and_purple_role_alignment_and",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: Proactively refine OpenClaw and Purple role alignment and request needed insight.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,pe...",
+      "version_hash": "4b7e859fd1ec6b51",
+      "created_ts": 1771166734.648146
+    },
+    "E_804e8ec2f286c1f0": {
+      "eid": "E_804e8ec2f286c1f0",
+      "lean_name": "auto_constraint_t_c2b99a8f57be34aa_openclaw_voice_persona_an",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: auto-constraint: T_c2b99a8f57be34aa\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu...",
+      "version_hash": "16bc7eb0d580c2c2",
+      "created_ts": 1771125045.4303732
+    },
+    "E_07265af6c9ba0ebe": {
+      "eid": "E_07265af6c9ba0ebe",
+      "lean_name": "openclaw_purple_autonomous_mission_refresh_propose_and_execu",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for u...",
+      "version_hash": "aed9f30f03f83b33",
+      "created_ts": 1771166733.651393
+    },
+    "E_2392f75204c24970": {
+      "eid": "E_2392f75204c24970",
+      "lean_name": "auto_constraint_t_40bb5af870d88f98_openclaw_voice_persona_an",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: auto-constraint: T_40bb5af870d88f98\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu...",
+      "version_hash": "47d3254144228392",
+      "created_ts": 1771163125.480472
+    },
+    "E_2ef2a43deab3d1d9": {
+      "eid": "E_2ef2a43deab3d1d9",
+      "lean_name": "helo_openclaw_voice_persona_anchor_openclaw_soul_style",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: helo\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex...",
+      "version_hash": "0ed28a6483952f4c",
+      "created_ts": 1771164800.3918169
+    },
+    "E_c640598105f1f98f": {
+      "eid": "E_c640598105f1f98f",
+      "lean_name": "auto_constraint_t_4a9466fd62fb5a98_openclaw_voice_persona_an",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: auto-constraint: T_4a9466fd62fb5a98\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu...",
+      "version_hash": "6a6b2d53c274f2c8",
+      "created_ts": 1771164800.524343
+    },
+    "E_dba479f7a753f3d2": {
+      "eid": "E_dba479f7a753f3d2",
+      "lean_name": "hello_openclaw_voice_persona_anchor_openclaw_soul_style",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: hello\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_code...",
+      "version_hash": "edae1710e877fdcf",
+      "created_ts": 1771166733.507806
+    },
+    "E_9cd4e1428565e458": {
+      "eid": "E_9cd4e1428565e458",
+      "lean_name": "auto_constraint_t_f49092f0d2841180_openclaw_voice_persona_an",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: auto-constraint: T_f49092f0d2841180\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu...",
+      "version_hash": "5e71de52f321fa58",
+      "created_ts": 1771165942.89555
+    },
+    "E_55af9f90a134b732": {
+      "eid": "E_55af9f90a134b732",
+      "lean_name": "translate_conversation_into_executable_routines_and_run_one",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: Translate conversation into executable routines and run one admissible action now.\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,p...",
+      "version_hash": "0154be90b746218e",
+      "created_ts": 1771166733.9626508
+    },
+    "E_0d6a5980f41fc390": {
+      "eid": "E_0d6a5980f41fc390",
+      "lean_name": "auto_constraint_t_163621ecb7eef8f3_openclaw_voice_persona_an",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: auto-constraint: T_163621ecb7eef8f3\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu...",
+      "version_hash": "02e04639f1d7ed8c",
+      "created_ts": 1771166734.109308
+    },
+    "E_f4a6bb2af7a3b2a1": {
+      "eid": "E_f4a6bb2af7a3b2a1",
+      "lean_name": "agent_auto_action_off_openclaw_voice_persona_anchor",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: /agent auto-action off\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbu...",
+      "version_hash": "a9639f07eddb49f5",
+      "created_ts": 1771166734.376501
+    },
+    "E_d96ebe383615da82": {
+      "eid": "E_d96ebe383615da82",
+      "lean_name": "auto_constraint_t_ada2df4cbb58575b_openclaw_voice_persona_an",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: auto-constraint: T_ada2df4cbb58575b\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu...",
+      "version_hash": "028e956639a96ed1",
+      "created_ts": 1771166734.5350962
     }
   },
   "triangles": {
@@ -65,6 +1208,377 @@
       "did": "D_894dcbefdd4cd130",
       "eid": "E_db4cd98a9bd8199b",
       "created_ts": 1771122222.634274
+    },
+    "T_3620e997d79cbddc": {
+      "tid": "T_3620e997d79cbddc",
+      "sid": "S_fbdd8481086137a1",
+      "did": "D_0c0e84254ccf2d72",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771122443.4569721
+    },
+    "T_58875b48355d4cf5": {
+      "tid": "T_58875b48355d4cf5",
+      "sid": "S_22ea5f061032e552",
+      "did": "D_311bb4069d15b32e",
+      "eid": "E_92365fcadb399a5c",
+      "created_ts": 1771122522.3983738
+    },
+    "T_3a1d7234bac59e2d": {
+      "tid": "T_3a1d7234bac59e2d",
+      "sid": "S_e395442d0c851033",
+      "did": "D_057ae1fb4f52762e",
+      "eid": "E_92365fcadb399a5c",
+      "created_ts": 1771122898.997178
+    },
+    "T_775c18e746b2b179": {
+      "tid": "T_775c18e746b2b179",
+      "sid": "S_173a6b5902966480",
+      "did": "D_171eed0d5aeb1a1f",
+      "eid": "E_ea9f4b394b7a1653",
+      "created_ts": 1771123152.211839
+    },
+    "T_f64f6035f900e361": {
+      "tid": "T_f64f6035f900e361",
+      "sid": "S_4b57a86d532bdb67",
+      "did": "D_c46480dcf837d448",
+      "eid": "E_ea9f4b394b7a1653",
+      "created_ts": 1771123152.223026
+    },
+    "T_36e42d71350ec208": {
+      "tid": "T_36e42d71350ec208",
+      "sid": "S_7fe7cdc05674818c",
+      "did": "D_0df1afa4453464ee",
+      "eid": "E_4eef6d2a711b1b5c",
+      "created_ts": 1771123241.509016
+    },
+    "T_88f63b6ac88eb0d1": {
+      "tid": "T_88f63b6ac88eb0d1",
+      "sid": "S_8953674fc2cb4eb9",
+      "did": "D_d78c20e17dbb8e62",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771123241.521696
+    },
+    "T_c01fdfe7fd82e90e": {
+      "tid": "T_c01fdfe7fd82e90e",
+      "sid": "S_f4015ddb2518cc43",
+      "did": "D_2a34117bf8437672",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771123241.535839
+    },
+    "T_dfa69dc612f467d9": {
+      "tid": "T_dfa69dc612f467d9",
+      "sid": "S_e88ff5fca7a34ae1",
+      "did": "D_6e81b851d00dd139",
+      "eid": "E_4eef6d2a711b1b5c",
+      "created_ts": 1771123241.548235
+    },
+    "T_7c5e4053b989844a": {
+      "tid": "T_7c5e4053b989844a",
+      "sid": "S_43d09e36e088fff2",
+      "did": "D_a28d8e269be8f403",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771123241.562346
+    },
+    "T_0aabe9b176093387": {
+      "tid": "T_0aabe9b176093387",
+      "sid": "S_38c8cb52b6aa1b7f",
+      "did": "D_e0d99fb43f0080f4",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771123241.576801
+    },
+    "T_3d2d91f9f1ed805c": {
+      "tid": "T_3d2d91f9f1ed805c",
+      "sid": "S_10a5350d75df4248",
+      "did": "D_738f45028a7930ab",
+      "eid": "E_4eef6d2a711b1b5c",
+      "created_ts": 1771123241.591964
+    },
+    "T_daed36b2f6828b8e": {
+      "tid": "T_daed36b2f6828b8e",
+      "sid": "S_005dbb3fbc4041bf",
+      "did": "D_6d96863ab24cc8a2",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771124887.428261
+    },
+    "T_c9d76a2e8eb0d643": {
+      "tid": "T_c9d76a2e8eb0d643",
+      "sid": "S_61a575858669276a",
+      "did": "D_ee3cc9b1a9f2eeee",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771124887.488554
+    },
+    "T_07387582741bbe24": {
+      "tid": "T_07387582741bbe24",
+      "sid": "S_284a4e22269f254f",
+      "did": "D_5b9f021e13b58d9e",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771124887.539951
+    },
+    "T_c912d8539da28359": {
+      "tid": "T_c912d8539da28359",
+      "sid": "S_b364377d83e2d2e6",
+      "did": "D_9e8257a0fe26fb69",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771124887.585258
+    },
+    "T_69e280dc83a080e2": {
+      "tid": "T_69e280dc83a080e2",
+      "sid": "S_7025ecb1a29dfeb1",
+      "did": "D_a052ce6f22da00b2",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771124887.6341782
+    },
+    "T_72c8dc76ba5897e0": {
+      "tid": "T_72c8dc76ba5897e0",
+      "sid": "S_85b71b2972f14a15",
+      "did": "D_5b446a3f8f91cd5f",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771124887.685308
+    },
+    "T_23b1edc5c507cb52": {
+      "tid": "T_23b1edc5c507cb52",
+      "sid": "S_4d55a893df75602f",
+      "did": "D_a53a6d4fcbb35faa",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771124887.738128
+    },
+    "T_7f361e5f88ba999a": {
+      "tid": "T_7f361e5f88ba999a",
+      "sid": "S_fee34b66a44121e5",
+      "did": "D_f94b7b3d742896f9",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771124888.527349
+    },
+    "T_0157e66c01ae3534": {
+      "tid": "T_0157e66c01ae3534",
+      "sid": "S_0590a4216198d370",
+      "did": "D_bd149471db363f57",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771124888.592525
+    },
+    "T_555e6ac3901bc415": {
+      "tid": "T_555e6ac3901bc415",
+      "sid": "S_85309989887c482b",
+      "did": "D_05955982a118351c",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771124891.678617
+    },
+    "T_27907ea1faf31112": {
+      "tid": "T_27907ea1faf31112",
+      "sid": "S_c859a2e157540749",
+      "did": "D_f939b5020d84756e",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771124891.763508
+    },
+    "T_c2b99a8f57be34aa": {
+      "tid": "T_c2b99a8f57be34aa",
+      "sid": "S_ef9625487014e426",
+      "did": "D_e7001d02b2355f2b",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771125045.2818198
+    },
+    "T_f2ee2191586273db": {
+      "tid": "T_f2ee2191586273db",
+      "sid": "S_271a2474eea7b83d",
+      "did": "D_fd16e486a38fcfb2",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771125045.355106
+    },
+    "T_99e87ae94f2369ae": {
+      "tid": "T_99e87ae94f2369ae",
+      "sid": "S_4591dce4a4f7f777",
+      "did": "D_9e09fa1f07a24a79",
+      "eid": "E_804e8ec2f286c1f0",
+      "created_ts": 1771125045.435949
+    },
+    "T_c4675dd0fe96883a": {
+      "tid": "T_c4675dd0fe96883a",
+      "sid": "S_7db044658a8348f6",
+      "did": "D_d9f92601c26e484d",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771125045.5033238
+    },
+    "T_a178c05a3b1ad5eb": {
+      "tid": "T_a178c05a3b1ad5eb",
+      "sid": "S_8e996443a218b40b",
+      "did": "D_351d404fe913baed",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771125045.5820239
+    },
+    "T_c9536efcc2e3f421": {
+      "tid": "T_c9536efcc2e3f421",
+      "sid": "S_666ab875c5a419c4",
+      "did": "D_a6e2fa2e3ae44603",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771125045.666566
+    },
+    "T_3d74f55803ff7bf7": {
+      "tid": "T_3d74f55803ff7bf7",
+      "sid": "S_fb6666757de84442",
+      "did": "D_40301b260b04714a",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771125045.750742
+    },
+    "T_e34deea84e3e2dab": {
+      "tid": "T_e34deea84e3e2dab",
+      "sid": "S_09c8a1e8e0f6faa7",
+      "did": "D_27f29f666b3f8f64",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771125045.844692
+    },
+    "T_54ae53603281d6d8": {
+      "tid": "T_54ae53603281d6d8",
+      "sid": "S_c30ee728a372b675",
+      "did": "D_392c64fa4dc32e7f",
+      "eid": "E_07265af6c9ba0ebe",
+      "created_ts": 1771163124.907187
+    },
+    "T_40bb5af870d88f98": {
+      "tid": "T_40bb5af870d88f98",
+      "sid": "S_cb95083613a8c9ae",
+      "did": "D_25ab51c29162d508",
+      "eid": "E_00a41cee182d2204",
+      "created_ts": 1771163125.330492
+    },
+    "T_4c33254126eae826": {
+      "tid": "T_4c33254126eae826",
+      "sid": "S_0c85ee695a056d6d",
+      "did": "D_400fae8c84b2a142",
+      "eid": "E_2392f75204c24970",
+      "created_ts": 1771163125.487297
+    },
+    "T_45f3302dcb23ba1a": {
+      "tid": "T_45f3302dcb23ba1a",
+      "sid": "S_d5d7e3fcb73a09c9",
+      "did": "D_d1744805291f1918",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771163125.587316
+    },
+    "T_89dc80820a3156b2": {
+      "tid": "T_89dc80820a3156b2",
+      "sid": "S_b56bd9546d4c4133",
+      "did": "D_4482a82f0169df85",
+      "eid": "E_07265af6c9ba0ebe",
+      "created_ts": 1771164793.67195
+    },
+    "T_4a9466fd62fb5a98": {
+      "tid": "T_4a9466fd62fb5a98",
+      "sid": "S_4a2f17d4980d7313",
+      "did": "D_b46e01cbdf54e2c0",
+      "eid": "E_2ef2a43deab3d1d9",
+      "created_ts": 1771164800.408353
+    },
+    "T_e0f986df25369101": {
+      "tid": "T_e0f986df25369101",
+      "sid": "S_d33f0fc87a7f107e",
+      "did": "D_cfd594c55e5d1da4",
+      "eid": "E_c640598105f1f98f",
+      "created_ts": 1771164800.532344
+    },
+    "T_9a0578f9c7f63a19": {
+      "tid": "T_9a0578f9c7f63a19",
+      "sid": "S_94da133ef86c68a9",
+      "did": "D_3c5830129e270db5",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771164800.6359339
+    },
+    "T_af4a90b7b95c5a81": {
+      "tid": "T_af4a90b7b95c5a81",
+      "sid": "S_21053715ae2a68ce",
+      "did": "D_f7907ea6a11dff56",
+      "eid": "E_07265af6c9ba0ebe",
+      "created_ts": 1771165942.560831
+    },
+    "T_f49092f0d2841180": {
+      "tid": "T_f49092f0d2841180",
+      "sid": "S_2a8589bb195c9a09",
+      "did": "D_ef8d234a264923a4",
+      "eid": "E_dba479f7a753f3d2",
+      "created_ts": 1771165942.7751849
+    },
+    "T_77f8175721003113": {
+      "tid": "T_77f8175721003113",
+      "sid": "S_999678b440b37c7c",
+      "did": "D_b7e755f3050c3aa3",
+      "eid": "E_9cd4e1428565e458",
+      "created_ts": 1771165942.904255
+    },
+    "T_2f5d7d12db4d5b8e": {
+      "tid": "T_2f5d7d12db4d5b8e",
+      "sid": "S_ed0aa6f76d5878f9",
+      "did": "D_377e1280c7090002",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771165943.034451
+    },
+    "T_1cd1153881454262": {
+      "tid": "T_1cd1153881454262",
+      "sid": "S_7e27db81bede2fb7",
+      "did": "D_2f7b8baf19fa5a2f",
+      "eid": "E_07265af6c9ba0ebe",
+      "created_ts": 1771166733.2601988
+    },
+    "T_163621ecb7eef8f3": {
+      "tid": "T_163621ecb7eef8f3",
+      "sid": "S_fe2f89f8aead743c",
+      "did": "D_7e6fb47195838c48",
+      "eid": "E_dba479f7a753f3d2",
+      "created_ts": 1771166733.518873
+    },
+    "T_6fee68cffabe82b5": {
+      "tid": "T_6fee68cffabe82b5",
+      "sid": "S_f1efc001183bddce",
+      "did": "D_9f147530a8e61f2d",
+      "eid": "E_07265af6c9ba0ebe",
+      "created_ts": 1771166733.6595998
+    },
+    "T_e7e437e240967895": {
+      "tid": "T_e7e437e240967895",
+      "sid": "S_3a0dd5c2a21d48bf",
+      "did": "D_c85615678b50988c",
+      "eid": "E_e9d05c3726807c56",
+      "created_ts": 1771166733.820322
+    },
+    "T_27465ad3a9b36786": {
+      "tid": "T_27465ad3a9b36786",
+      "sid": "S_0db34087196789a3",
+      "did": "D_f970acf317df902c",
+      "eid": "E_55af9f90a134b732",
+      "created_ts": 1771166733.972078
+    },
+    "T_b10fb813056117e5": {
+      "tid": "T_b10fb813056117e5",
+      "sid": "S_3c59095c7fc16fbe",
+      "did": "D_cd03ecec7057d9cb",
+      "eid": "E_0d6a5980f41fc390",
+      "created_ts": 1771166734.118855
+    },
+    "T_93db385ca2cc5823": {
+      "tid": "T_93db385ca2cc5823",
+      "sid": "S_352202cee6b93737",
+      "did": "D_048a2959ec04ab31",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771166734.2282329
+    },
+    "T_ada2df4cbb58575b": {
+      "tid": "T_ada2df4cbb58575b",
+      "sid": "S_018b4c7fbce5d392",
+      "did": "D_772a2c82013373b3",
+      "eid": "E_f4a6bb2af7a3b2a1",
+      "created_ts": 1771166734.3861241
+    },
+    "T_1f1c1db5f640c8f6": {
+      "tid": "T_1f1c1db5f640c8f6",
+      "sid": "S_d6f2874be038b68a",
+      "did": "D_164b4d33c795971f",
+      "eid": "E_d96ebe383615da82",
+      "created_ts": 1771166734.5446799
+    },
+    "T_0fbffa5ae97df739": {
+      "tid": "T_0fbffa5ae97df739",
+      "sid": "S_d3321a7365124f5d",
+      "did": "D_e6c63e93d050a485",
+      "eid": "E_fa040628a8822058",
+      "created_ts": 1771166734.657727
     }
   },
   "sid_to_tids": {
@@ -73,12 +1587,258 @@
     ],
     "S_624622501ca6735f": [
       "T_3c97a58e428cb76f"
+    ],
+    "S_fbdd8481086137a1": [
+      "T_3620e997d79cbddc"
+    ],
+    "S_22ea5f061032e552": [
+      "T_58875b48355d4cf5"
+    ],
+    "S_e395442d0c851033": [
+      "T_3a1d7234bac59e2d"
+    ],
+    "S_173a6b5902966480": [
+      "T_775c18e746b2b179"
+    ],
+    "S_4b57a86d532bdb67": [
+      "T_f64f6035f900e361"
+    ],
+    "S_7fe7cdc05674818c": [
+      "T_36e42d71350ec208"
+    ],
+    "S_8953674fc2cb4eb9": [
+      "T_88f63b6ac88eb0d1"
+    ],
+    "S_f4015ddb2518cc43": [
+      "T_c01fdfe7fd82e90e"
+    ],
+    "S_e88ff5fca7a34ae1": [
+      "T_dfa69dc612f467d9"
+    ],
+    "S_43d09e36e088fff2": [
+      "T_7c5e4053b989844a"
+    ],
+    "S_38c8cb52b6aa1b7f": [
+      "T_0aabe9b176093387"
+    ],
+    "S_10a5350d75df4248": [
+      "T_3d2d91f9f1ed805c"
+    ],
+    "S_005dbb3fbc4041bf": [
+      "T_daed36b2f6828b8e"
+    ],
+    "S_61a575858669276a": [
+      "T_c9d76a2e8eb0d643"
+    ],
+    "S_284a4e22269f254f": [
+      "T_07387582741bbe24"
+    ],
+    "S_b364377d83e2d2e6": [
+      "T_c912d8539da28359"
+    ],
+    "S_7025ecb1a29dfeb1": [
+      "T_69e280dc83a080e2"
+    ],
+    "S_85b71b2972f14a15": [
+      "T_72c8dc76ba5897e0"
+    ],
+    "S_4d55a893df75602f": [
+      "T_23b1edc5c507cb52"
+    ],
+    "S_fee34b66a44121e5": [
+      "T_7f361e5f88ba999a"
+    ],
+    "S_0590a4216198d370": [
+      "T_0157e66c01ae3534"
+    ],
+    "S_85309989887c482b": [
+      "T_555e6ac3901bc415"
+    ],
+    "S_c859a2e157540749": [
+      "T_27907ea1faf31112"
+    ],
+    "S_ef9625487014e426": [
+      "T_c2b99a8f57be34aa"
+    ],
+    "S_271a2474eea7b83d": [
+      "T_f2ee2191586273db"
+    ],
+    "S_4591dce4a4f7f777": [
+      "T_99e87ae94f2369ae"
+    ],
+    "S_7db044658a8348f6": [
+      "T_c4675dd0fe96883a"
+    ],
+    "S_8e996443a218b40b": [
+      "T_a178c05a3b1ad5eb"
+    ],
+    "S_666ab875c5a419c4": [
+      "T_c9536efcc2e3f421"
+    ],
+    "S_fb6666757de84442": [
+      "T_3d74f55803ff7bf7"
+    ],
+    "S_09c8a1e8e0f6faa7": [
+      "T_e34deea84e3e2dab"
+    ],
+    "S_c30ee728a372b675": [
+      "T_54ae53603281d6d8"
+    ],
+    "S_cb95083613a8c9ae": [
+      "T_40bb5af870d88f98"
+    ],
+    "S_0c85ee695a056d6d": [
+      "T_4c33254126eae826"
+    ],
+    "S_d5d7e3fcb73a09c9": [
+      "T_45f3302dcb23ba1a"
+    ],
+    "S_b56bd9546d4c4133": [
+      "T_89dc80820a3156b2"
+    ],
+    "S_4a2f17d4980d7313": [
+      "T_4a9466fd62fb5a98"
+    ],
+    "S_d33f0fc87a7f107e": [
+      "T_e0f986df25369101"
+    ],
+    "S_94da133ef86c68a9": [
+      "T_9a0578f9c7f63a19"
+    ],
+    "S_21053715ae2a68ce": [
+      "T_af4a90b7b95c5a81"
+    ],
+    "S_2a8589bb195c9a09": [
+      "T_f49092f0d2841180"
+    ],
+    "S_999678b440b37c7c": [
+      "T_77f8175721003113"
+    ],
+    "S_ed0aa6f76d5878f9": [
+      "T_2f5d7d12db4d5b8e"
+    ],
+    "S_7e27db81bede2fb7": [
+      "T_1cd1153881454262"
+    ],
+    "S_fe2f89f8aead743c": [
+      "T_163621ecb7eef8f3"
+    ],
+    "S_f1efc001183bddce": [
+      "T_6fee68cffabe82b5"
+    ],
+    "S_3a0dd5c2a21d48bf": [
+      "T_e7e437e240967895"
+    ],
+    "S_0db34087196789a3": [
+      "T_27465ad3a9b36786"
+    ],
+    "S_3c59095c7fc16fbe": [
+      "T_b10fb813056117e5"
+    ],
+    "S_352202cee6b93737": [
+      "T_93db385ca2cc5823"
+    ],
+    "S_018b4c7fbce5d392": [
+      "T_ada2df4cbb58575b"
+    ],
+    "S_d6f2874be038b68a": [
+      "T_1f1c1db5f640c8f6"
+    ],
+    "S_d3321a7365124f5d": [
+      "T_0fbffa5ae97df739"
     ]
   },
   "eid_to_tids": {
     "E_db4cd98a9bd8199b": [
       "T_4d433d075e4c8007",
       "T_3c97a58e428cb76f"
+    ],
+    "E_00a41cee182d2204": [
+      "T_3620e997d79cbddc",
+      "T_daed36b2f6828b8e",
+      "T_c912d8539da28359",
+      "T_23b1edc5c507cb52",
+      "T_0157e66c01ae3534",
+      "T_27907ea1faf31112",
+      "T_c2b99a8f57be34aa",
+      "T_a178c05a3b1ad5eb",
+      "T_e34deea84e3e2dab",
+      "T_40bb5af870d88f98"
+    ],
+    "E_92365fcadb399a5c": [
+      "T_58875b48355d4cf5",
+      "T_3a1d7234bac59e2d"
+    ],
+    "E_ea9f4b394b7a1653": [
+      "T_775c18e746b2b179",
+      "T_f64f6035f900e361"
+    ],
+    "E_4eef6d2a711b1b5c": [
+      "T_36e42d71350ec208",
+      "T_dfa69dc612f467d9",
+      "T_3d2d91f9f1ed805c"
+    ],
+    "E_e9d05c3726807c56": [
+      "T_88f63b6ac88eb0d1",
+      "T_c01fdfe7fd82e90e",
+      "T_0aabe9b176093387",
+      "T_c9d76a2e8eb0d643",
+      "T_07387582741bbe24",
+      "T_72c8dc76ba5897e0",
+      "T_7f361e5f88ba999a",
+      "T_555e6ac3901bc415",
+      "T_f2ee2191586273db",
+      "T_c4675dd0fe96883a",
+      "T_3d74f55803ff7bf7",
+      "T_e7e437e240967895"
+    ],
+    "E_fa040628a8822058": [
+      "T_7c5e4053b989844a",
+      "T_69e280dc83a080e2",
+      "T_c9536efcc2e3f421",
+      "T_45f3302dcb23ba1a",
+      "T_9a0578f9c7f63a19",
+      "T_2f5d7d12db4d5b8e",
+      "T_93db385ca2cc5823",
+      "T_0fbffa5ae97df739"
+    ],
+    "E_804e8ec2f286c1f0": [
+      "T_99e87ae94f2369ae"
+    ],
+    "E_07265af6c9ba0ebe": [
+      "T_54ae53603281d6d8",
+      "T_89dc80820a3156b2",
+      "T_af4a90b7b95c5a81",
+      "T_1cd1153881454262",
+      "T_6fee68cffabe82b5"
+    ],
+    "E_2392f75204c24970": [
+      "T_4c33254126eae826"
+    ],
+    "E_2ef2a43deab3d1d9": [
+      "T_4a9466fd62fb5a98"
+    ],
+    "E_c640598105f1f98f": [
+      "T_e0f986df25369101"
+    ],
+    "E_dba479f7a753f3d2": [
+      "T_f49092f0d2841180",
+      "T_163621ecb7eef8f3"
+    ],
+    "E_9cd4e1428565e458": [
+      "T_77f8175721003113"
+    ],
+    "E_55af9f90a134b732": [
+      "T_27465ad3a9b36786"
+    ],
+    "E_0d6a5980f41fc390": [
+      "T_b10fb813056117e5"
+    ],
+    "E_f4a6bb2af7a3b2a1": [
+      "T_ada2df4cbb58575b"
+    ],
+    "E_d96ebe383615da82": [
+      "T_1f1c1db5f640c8f6"
     ]
   },
   "did_to_tids": {
@@ -87,6 +1847,165 @@
     ],
     "D_894dcbefdd4cd130": [
       "T_3c97a58e428cb76f"
+    ],
+    "D_0c0e84254ccf2d72": [
+      "T_3620e997d79cbddc"
+    ],
+    "D_311bb4069d15b32e": [
+      "T_58875b48355d4cf5"
+    ],
+    "D_057ae1fb4f52762e": [
+      "T_3a1d7234bac59e2d"
+    ],
+    "D_171eed0d5aeb1a1f": [
+      "T_775c18e746b2b179"
+    ],
+    "D_c46480dcf837d448": [
+      "T_f64f6035f900e361"
+    ],
+    "D_0df1afa4453464ee": [
+      "T_36e42d71350ec208"
+    ],
+    "D_d78c20e17dbb8e62": [
+      "T_88f63b6ac88eb0d1"
+    ],
+    "D_2a34117bf8437672": [
+      "T_c01fdfe7fd82e90e"
+    ],
+    "D_6e81b851d00dd139": [
+      "T_dfa69dc612f467d9"
+    ],
+    "D_a28d8e269be8f403": [
+      "T_7c5e4053b989844a"
+    ],
+    "D_e0d99fb43f0080f4": [
+      "T_0aabe9b176093387"
+    ],
+    "D_738f45028a7930ab": [
+      "T_3d2d91f9f1ed805c"
+    ],
+    "D_6d96863ab24cc8a2": [
+      "T_daed36b2f6828b8e"
+    ],
+    "D_ee3cc9b1a9f2eeee": [
+      "T_c9d76a2e8eb0d643"
+    ],
+    "D_5b9f021e13b58d9e": [
+      "T_07387582741bbe24"
+    ],
+    "D_9e8257a0fe26fb69": [
+      "T_c912d8539da28359"
+    ],
+    "D_a052ce6f22da00b2": [
+      "T_69e280dc83a080e2"
+    ],
+    "D_5b446a3f8f91cd5f": [
+      "T_72c8dc76ba5897e0"
+    ],
+    "D_a53a6d4fcbb35faa": [
+      "T_23b1edc5c507cb52"
+    ],
+    "D_f94b7b3d742896f9": [
+      "T_7f361e5f88ba999a"
+    ],
+    "D_bd149471db363f57": [
+      "T_0157e66c01ae3534"
+    ],
+    "D_05955982a118351c": [
+      "T_555e6ac3901bc415"
+    ],
+    "D_f939b5020d84756e": [
+      "T_27907ea1faf31112"
+    ],
+    "D_e7001d02b2355f2b": [
+      "T_c2b99a8f57be34aa"
+    ],
+    "D_fd16e486a38fcfb2": [
+      "T_f2ee2191586273db"
+    ],
+    "D_9e09fa1f07a24a79": [
+      "T_99e87ae94f2369ae"
+    ],
+    "D_d9f92601c26e484d": [
+      "T_c4675dd0fe96883a"
+    ],
+    "D_351d404fe913baed": [
+      "T_a178c05a3b1ad5eb"
+    ],
+    "D_a6e2fa2e3ae44603": [
+      "T_c9536efcc2e3f421"
+    ],
+    "D_40301b260b04714a": [
+      "T_3d74f55803ff7bf7"
+    ],
+    "D_27f29f666b3f8f64": [
+      "T_e34deea84e3e2dab"
+    ],
+    "D_392c64fa4dc32e7f": [
+      "T_54ae53603281d6d8"
+    ],
+    "D_25ab51c29162d508": [
+      "T_40bb5af870d88f98"
+    ],
+    "D_400fae8c84b2a142": [
+      "T_4c33254126eae826"
+    ],
+    "D_d1744805291f1918": [
+      "T_45f3302dcb23ba1a"
+    ],
+    "D_4482a82f0169df85": [
+      "T_89dc80820a3156b2"
+    ],
+    "D_b46e01cbdf54e2c0": [
+      "T_4a9466fd62fb5a98"
+    ],
+    "D_cfd594c55e5d1da4": [
+      "T_e0f986df25369101"
+    ],
+    "D_3c5830129e270db5": [
+      "T_9a0578f9c7f63a19"
+    ],
+    "D_f7907ea6a11dff56": [
+      "T_af4a90b7b95c5a81"
+    ],
+    "D_ef8d234a264923a4": [
+      "T_f49092f0d2841180"
+    ],
+    "D_b7e755f3050c3aa3": [
+      "T_77f8175721003113"
+    ],
+    "D_377e1280c7090002": [
+      "T_2f5d7d12db4d5b8e"
+    ],
+    "D_2f7b8baf19fa5a2f": [
+      "T_1cd1153881454262"
+    ],
+    "D_7e6fb47195838c48": [
+      "T_163621ecb7eef8f3"
+    ],
+    "D_9f147530a8e61f2d": [
+      "T_6fee68cffabe82b5"
+    ],
+    "D_c85615678b50988c": [
+      "T_e7e437e240967895"
+    ],
+    "D_f970acf317df902c": [
+      "T_27465ad3a9b36786"
+    ],
+    "D_cd03ecec7057d9cb": [
+      "T_b10fb813056117e5"
+    ],
+    "D_048a2959ec04ab31": [
+      "T_93db385ca2cc5823"
+    ],
+    "D_772a2c82013373b3": [
+      "T_ada2df4cbb58575b"
+    ],
+    "D_164b4d33c795971f": [
+      "T_1f1c1db5f640c8f6"
+    ],
+    "D_e6c63e93d050a485": [
+      "T_0fbffa5ae97df739"
     ]
   },
   "neighbors": {
@@ -111,6 +2030,570 @@
     "D_894dcbefdd4cd130": [
       "S_624622501ca6735f",
       "E_db4cd98a9bd8199b"
+    ],
+    "S_fbdd8481086137a1": [
+      "D_0c0e84254ccf2d72",
+      "E_00a41cee182d2204"
+    ],
+    "E_00a41cee182d2204": [
+      "D_0c0e84254ccf2d72",
+      "S_fbdd8481086137a1",
+      "D_6d96863ab24cc8a2",
+      "S_005dbb3fbc4041bf",
+      "D_9e8257a0fe26fb69",
+      "S_b364377d83e2d2e6",
+      "D_a53a6d4fcbb35faa",
+      "S_4d55a893df75602f",
+      "D_bd149471db363f57",
+      "S_0590a4216198d370",
+      "D_f939b5020d84756e",
+      "S_c859a2e157540749",
+      "D_e7001d02b2355f2b",
+      "S_ef9625487014e426",
+      "D_351d404fe913baed",
+      "S_8e996443a218b40b",
+      "D_27f29f666b3f8f64",
+      "S_09c8a1e8e0f6faa7",
+      "D_25ab51c29162d508",
+      "S_cb95083613a8c9ae"
+    ],
+    "D_0c0e84254ccf2d72": [
+      "S_fbdd8481086137a1",
+      "E_00a41cee182d2204"
+    ],
+    "S_22ea5f061032e552": [
+      "D_311bb4069d15b32e",
+      "E_92365fcadb399a5c"
+    ],
+    "E_92365fcadb399a5c": [
+      "D_311bb4069d15b32e",
+      "S_22ea5f061032e552",
+      "D_057ae1fb4f52762e",
+      "S_e395442d0c851033"
+    ],
+    "D_311bb4069d15b32e": [
+      "S_22ea5f061032e552",
+      "E_92365fcadb399a5c"
+    ],
+    "S_e395442d0c851033": [
+      "D_057ae1fb4f52762e",
+      "E_92365fcadb399a5c"
+    ],
+    "D_057ae1fb4f52762e": [
+      "S_e395442d0c851033",
+      "E_92365fcadb399a5c"
+    ],
+    "S_173a6b5902966480": [
+      "D_171eed0d5aeb1a1f",
+      "E_ea9f4b394b7a1653"
+    ],
+    "E_ea9f4b394b7a1653": [
+      "D_171eed0d5aeb1a1f",
+      "S_173a6b5902966480",
+      "D_c46480dcf837d448",
+      "S_4b57a86d532bdb67"
+    ],
+    "D_171eed0d5aeb1a1f": [
+      "S_173a6b5902966480",
+      "E_ea9f4b394b7a1653"
+    ],
+    "S_4b57a86d532bdb67": [
+      "D_c46480dcf837d448",
+      "E_ea9f4b394b7a1653"
+    ],
+    "D_c46480dcf837d448": [
+      "S_4b57a86d532bdb67",
+      "E_ea9f4b394b7a1653"
+    ],
+    "S_7fe7cdc05674818c": [
+      "D_0df1afa4453464ee",
+      "E_4eef6d2a711b1b5c"
+    ],
+    "E_4eef6d2a711b1b5c": [
+      "D_0df1afa4453464ee",
+      "S_7fe7cdc05674818c",
+      "D_6e81b851d00dd139",
+      "S_e88ff5fca7a34ae1",
+      "D_738f45028a7930ab",
+      "S_10a5350d75df4248"
+    ],
+    "D_0df1afa4453464ee": [
+      "S_7fe7cdc05674818c",
+      "E_4eef6d2a711b1b5c"
+    ],
+    "S_8953674fc2cb4eb9": [
+      "D_d78c20e17dbb8e62",
+      "E_e9d05c3726807c56"
+    ],
+    "E_e9d05c3726807c56": [
+      "D_d78c20e17dbb8e62",
+      "S_8953674fc2cb4eb9",
+      "D_2a34117bf8437672",
+      "S_f4015ddb2518cc43",
+      "D_e0d99fb43f0080f4",
+      "S_38c8cb52b6aa1b7f",
+      "D_ee3cc9b1a9f2eeee",
+      "S_61a575858669276a",
+      "D_5b9f021e13b58d9e",
+      "S_284a4e22269f254f",
+      "D_5b446a3f8f91cd5f",
+      "S_85b71b2972f14a15",
+      "D_f94b7b3d742896f9",
+      "S_fee34b66a44121e5",
+      "D_05955982a118351c",
+      "S_85309989887c482b",
+      "D_fd16e486a38fcfb2",
+      "S_271a2474eea7b83d",
+      "D_d9f92601c26e484d",
+      "S_7db044658a8348f6",
+      "D_40301b260b04714a",
+      "S_fb6666757de84442",
+      "D_c85615678b50988c",
+      "S_3a0dd5c2a21d48bf"
+    ],
+    "D_d78c20e17dbb8e62": [
+      "S_8953674fc2cb4eb9",
+      "E_e9d05c3726807c56"
+    ],
+    "S_f4015ddb2518cc43": [
+      "D_2a34117bf8437672",
+      "E_e9d05c3726807c56"
+    ],
+    "D_2a34117bf8437672": [
+      "S_f4015ddb2518cc43",
+      "E_e9d05c3726807c56"
+    ],
+    "S_e88ff5fca7a34ae1": [
+      "D_6e81b851d00dd139",
+      "E_4eef6d2a711b1b5c"
+    ],
+    "D_6e81b851d00dd139": [
+      "S_e88ff5fca7a34ae1",
+      "E_4eef6d2a711b1b5c"
+    ],
+    "S_43d09e36e088fff2": [
+      "D_a28d8e269be8f403",
+      "E_fa040628a8822058"
+    ],
+    "E_fa040628a8822058": [
+      "D_a28d8e269be8f403",
+      "S_43d09e36e088fff2",
+      "D_a052ce6f22da00b2",
+      "S_7025ecb1a29dfeb1",
+      "D_a6e2fa2e3ae44603",
+      "S_666ab875c5a419c4",
+      "D_d1744805291f1918",
+      "S_d5d7e3fcb73a09c9",
+      "D_3c5830129e270db5",
+      "S_94da133ef86c68a9",
+      "D_377e1280c7090002",
+      "S_ed0aa6f76d5878f9",
+      "D_048a2959ec04ab31",
+      "S_352202cee6b93737",
+      "D_e6c63e93d050a485",
+      "S_d3321a7365124f5d"
+    ],
+    "D_a28d8e269be8f403": [
+      "S_43d09e36e088fff2",
+      "E_fa040628a8822058"
+    ],
+    "S_38c8cb52b6aa1b7f": [
+      "D_e0d99fb43f0080f4",
+      "E_e9d05c3726807c56"
+    ],
+    "D_e0d99fb43f0080f4": [
+      "S_38c8cb52b6aa1b7f",
+      "E_e9d05c3726807c56"
+    ],
+    "S_10a5350d75df4248": [
+      "D_738f45028a7930ab",
+      "E_4eef6d2a711b1b5c"
+    ],
+    "D_738f45028a7930ab": [
+      "S_10a5350d75df4248",
+      "E_4eef6d2a711b1b5c"
+    ],
+    "S_005dbb3fbc4041bf": [
+      "D_6d96863ab24cc8a2",
+      "E_00a41cee182d2204"
+    ],
+    "D_6d96863ab24cc8a2": [
+      "S_005dbb3fbc4041bf",
+      "E_00a41cee182d2204"
+    ],
+    "S_61a575858669276a": [
+      "D_ee3cc9b1a9f2eeee",
+      "E_e9d05c3726807c56"
+    ],
+    "D_ee3cc9b1a9f2eeee": [
+      "S_61a575858669276a",
+      "E_e9d05c3726807c56"
+    ],
+    "S_284a4e22269f254f": [
+      "D_5b9f021e13b58d9e",
+      "E_e9d05c3726807c56"
+    ],
+    "D_5b9f021e13b58d9e": [
+      "S_284a4e22269f254f",
+      "E_e9d05c3726807c56"
+    ],
+    "S_b364377d83e2d2e6": [
+      "D_9e8257a0fe26fb69",
+      "E_00a41cee182d2204"
+    ],
+    "D_9e8257a0fe26fb69": [
+      "S_b364377d83e2d2e6",
+      "E_00a41cee182d2204"
+    ],
+    "S_7025ecb1a29dfeb1": [
+      "D_a052ce6f22da00b2",
+      "E_fa040628a8822058"
+    ],
+    "D_a052ce6f22da00b2": [
+      "S_7025ecb1a29dfeb1",
+      "E_fa040628a8822058"
+    ],
+    "S_85b71b2972f14a15": [
+      "D_5b446a3f8f91cd5f",
+      "E_e9d05c3726807c56"
+    ],
+    "D_5b446a3f8f91cd5f": [
+      "S_85b71b2972f14a15",
+      "E_e9d05c3726807c56"
+    ],
+    "S_4d55a893df75602f": [
+      "D_a53a6d4fcbb35faa",
+      "E_00a41cee182d2204"
+    ],
+    "D_a53a6d4fcbb35faa": [
+      "S_4d55a893df75602f",
+      "E_00a41cee182d2204"
+    ],
+    "S_fee34b66a44121e5": [
+      "D_f94b7b3d742896f9",
+      "E_e9d05c3726807c56"
+    ],
+    "D_f94b7b3d742896f9": [
+      "S_fee34b66a44121e5",
+      "E_e9d05c3726807c56"
+    ],
+    "S_0590a4216198d370": [
+      "D_bd149471db363f57",
+      "E_00a41cee182d2204"
+    ],
+    "D_bd149471db363f57": [
+      "S_0590a4216198d370",
+      "E_00a41cee182d2204"
+    ],
+    "S_85309989887c482b": [
+      "D_05955982a118351c",
+      "E_e9d05c3726807c56"
+    ],
+    "D_05955982a118351c": [
+      "S_85309989887c482b",
+      "E_e9d05c3726807c56"
+    ],
+    "S_c859a2e157540749": [
+      "D_f939b5020d84756e",
+      "E_00a41cee182d2204"
+    ],
+    "D_f939b5020d84756e": [
+      "S_c859a2e157540749",
+      "E_00a41cee182d2204"
+    ],
+    "S_ef9625487014e426": [
+      "D_e7001d02b2355f2b",
+      "E_00a41cee182d2204"
+    ],
+    "D_e7001d02b2355f2b": [
+      "S_ef9625487014e426",
+      "E_00a41cee182d2204"
+    ],
+    "S_271a2474eea7b83d": [
+      "D_fd16e486a38fcfb2",
+      "E_e9d05c3726807c56"
+    ],
+    "D_fd16e486a38fcfb2": [
+      "S_271a2474eea7b83d",
+      "E_e9d05c3726807c56"
+    ],
+    "S_4591dce4a4f7f777": [
+      "D_9e09fa1f07a24a79",
+      "E_804e8ec2f286c1f0"
+    ],
+    "E_804e8ec2f286c1f0": [
+      "D_9e09fa1f07a24a79",
+      "S_4591dce4a4f7f777"
+    ],
+    "D_9e09fa1f07a24a79": [
+      "S_4591dce4a4f7f777",
+      "E_804e8ec2f286c1f0"
+    ],
+    "S_7db044658a8348f6": [
+      "D_d9f92601c26e484d",
+      "E_e9d05c3726807c56"
+    ],
+    "D_d9f92601c26e484d": [
+      "S_7db044658a8348f6",
+      "E_e9d05c3726807c56"
+    ],
+    "S_8e996443a218b40b": [
+      "D_351d404fe913baed",
+      "E_00a41cee182d2204"
+    ],
+    "D_351d404fe913baed": [
+      "S_8e996443a218b40b",
+      "E_00a41cee182d2204"
+    ],
+    "S_666ab875c5a419c4": [
+      "D_a6e2fa2e3ae44603",
+      "E_fa040628a8822058"
+    ],
+    "D_a6e2fa2e3ae44603": [
+      "S_666ab875c5a419c4",
+      "E_fa040628a8822058"
+    ],
+    "S_fb6666757de84442": [
+      "D_40301b260b04714a",
+      "E_e9d05c3726807c56"
+    ],
+    "D_40301b260b04714a": [
+      "S_fb6666757de84442",
+      "E_e9d05c3726807c56"
+    ],
+    "S_09c8a1e8e0f6faa7": [
+      "D_27f29f666b3f8f64",
+      "E_00a41cee182d2204"
+    ],
+    "D_27f29f666b3f8f64": [
+      "S_09c8a1e8e0f6faa7",
+      "E_00a41cee182d2204"
+    ],
+    "S_c30ee728a372b675": [
+      "D_392c64fa4dc32e7f",
+      "E_07265af6c9ba0ebe"
+    ],
+    "E_07265af6c9ba0ebe": [
+      "D_392c64fa4dc32e7f",
+      "S_c30ee728a372b675",
+      "D_4482a82f0169df85",
+      "S_b56bd9546d4c4133",
+      "D_f7907ea6a11dff56",
+      "S_21053715ae2a68ce",
+      "D_2f7b8baf19fa5a2f",
+      "S_7e27db81bede2fb7",
+      "D_9f147530a8e61f2d",
+      "S_f1efc001183bddce"
+    ],
+    "D_392c64fa4dc32e7f": [
+      "S_c30ee728a372b675",
+      "E_07265af6c9ba0ebe"
+    ],
+    "S_cb95083613a8c9ae": [
+      "D_25ab51c29162d508",
+      "E_00a41cee182d2204"
+    ],
+    "D_25ab51c29162d508": [
+      "S_cb95083613a8c9ae",
+      "E_00a41cee182d2204"
+    ],
+    "S_0c85ee695a056d6d": [
+      "D_400fae8c84b2a142",
+      "E_2392f75204c24970"
+    ],
+    "E_2392f75204c24970": [
+      "D_400fae8c84b2a142",
+      "S_0c85ee695a056d6d"
+    ],
+    "D_400fae8c84b2a142": [
+      "S_0c85ee695a056d6d",
+      "E_2392f75204c24970"
+    ],
+    "S_d5d7e3fcb73a09c9": [
+      "D_d1744805291f1918",
+      "E_fa040628a8822058"
+    ],
+    "D_d1744805291f1918": [
+      "S_d5d7e3fcb73a09c9",
+      "E_fa040628a8822058"
+    ],
+    "S_b56bd9546d4c4133": [
+      "D_4482a82f0169df85",
+      "E_07265af6c9ba0ebe"
+    ],
+    "D_4482a82f0169df85": [
+      "S_b56bd9546d4c4133",
+      "E_07265af6c9ba0ebe"
+    ],
+    "S_4a2f17d4980d7313": [
+      "D_b46e01cbdf54e2c0",
+      "E_2ef2a43deab3d1d9"
+    ],
+    "E_2ef2a43deab3d1d9": [
+      "D_b46e01cbdf54e2c0",
+      "S_4a2f17d4980d7313"
+    ],
+    "D_b46e01cbdf54e2c0": [
+      "S_4a2f17d4980d7313",
+      "E_2ef2a43deab3d1d9"
+    ],
+    "S_d33f0fc87a7f107e": [
+      "D_cfd594c55e5d1da4",
+      "E_c640598105f1f98f"
+    ],
+    "E_c640598105f1f98f": [
+      "D_cfd594c55e5d1da4",
+      "S_d33f0fc87a7f107e"
+    ],
+    "D_cfd594c55e5d1da4": [
+      "S_d33f0fc87a7f107e",
+      "E_c640598105f1f98f"
+    ],
+    "S_94da133ef86c68a9": [
+      "D_3c5830129e270db5",
+      "E_fa040628a8822058"
+    ],
+    "D_3c5830129e270db5": [
+      "S_94da133ef86c68a9",
+      "E_fa040628a8822058"
+    ],
+    "S_21053715ae2a68ce": [
+      "D_f7907ea6a11dff56",
+      "E_07265af6c9ba0ebe"
+    ],
+    "D_f7907ea6a11dff56": [
+      "S_21053715ae2a68ce",
+      "E_07265af6c9ba0ebe"
+    ],
+    "S_2a8589bb195c9a09": [
+      "D_ef8d234a264923a4",
+      "E_dba479f7a753f3d2"
+    ],
+    "E_dba479f7a753f3d2": [
+      "D_ef8d234a264923a4",
+      "S_2a8589bb195c9a09",
+      "D_7e6fb47195838c48",
+      "S_fe2f89f8aead743c"
+    ],
+    "D_ef8d234a264923a4": [
+      "S_2a8589bb195c9a09",
+      "E_dba479f7a753f3d2"
+    ],
+    "S_999678b440b37c7c": [
+      "D_b7e755f3050c3aa3",
+      "E_9cd4e1428565e458"
+    ],
+    "E_9cd4e1428565e458": [
+      "D_b7e755f3050c3aa3",
+      "S_999678b440b37c7c"
+    ],
+    "D_b7e755f3050c3aa3": [
+      "S_999678b440b37c7c",
+      "E_9cd4e1428565e458"
+    ],
+    "S_ed0aa6f76d5878f9": [
+      "D_377e1280c7090002",
+      "E_fa040628a8822058"
+    ],
+    "D_377e1280c7090002": [
+      "S_ed0aa6f76d5878f9",
+      "E_fa040628a8822058"
+    ],
+    "S_7e27db81bede2fb7": [
+      "D_2f7b8baf19fa5a2f",
+      "E_07265af6c9ba0ebe"
+    ],
+    "D_2f7b8baf19fa5a2f": [
+      "S_7e27db81bede2fb7",
+      "E_07265af6c9ba0ebe"
+    ],
+    "S_fe2f89f8aead743c": [
+      "D_7e6fb47195838c48",
+      "E_dba479f7a753f3d2"
+    ],
+    "D_7e6fb47195838c48": [
+      "S_fe2f89f8aead743c",
+      "E_dba479f7a753f3d2"
+    ],
+    "S_f1efc001183bddce": [
+      "D_9f147530a8e61f2d",
+      "E_07265af6c9ba0ebe"
+    ],
+    "D_9f147530a8e61f2d": [
+      "S_f1efc001183bddce",
+      "E_07265af6c9ba0ebe"
+    ],
+    "S_3a0dd5c2a21d48bf": [
+      "D_c85615678b50988c",
+      "E_e9d05c3726807c56"
+    ],
+    "D_c85615678b50988c": [
+      "S_3a0dd5c2a21d48bf",
+      "E_e9d05c3726807c56"
+    ],
+    "S_0db34087196789a3": [
+      "D_f970acf317df902c",
+      "E_55af9f90a134b732"
+    ],
+    "E_55af9f90a134b732": [
+      "D_f970acf317df902c",
+      "S_0db34087196789a3"
+    ],
+    "D_f970acf317df902c": [
+      "S_0db34087196789a3",
+      "E_55af9f90a134b732"
+    ],
+    "S_3c59095c7fc16fbe": [
+      "D_cd03ecec7057d9cb",
+      "E_0d6a5980f41fc390"
+    ],
+    "E_0d6a5980f41fc390": [
+      "D_cd03ecec7057d9cb",
+      "S_3c59095c7fc16fbe"
+    ],
+    "D_cd03ecec7057d9cb": [
+      "S_3c59095c7fc16fbe",
+      "E_0d6a5980f41fc390"
+    ],
+    "S_352202cee6b93737": [
+      "D_048a2959ec04ab31",
+      "E_fa040628a8822058"
+    ],
+    "D_048a2959ec04ab31": [
+      "S_352202cee6b93737",
+      "E_fa040628a8822058"
+    ],
+    "S_018b4c7fbce5d392": [
+      "D_772a2c82013373b3",
+      "E_f4a6bb2af7a3b2a1"
+    ],
+    "E_f4a6bb2af7a3b2a1": [
+      "D_772a2c82013373b3",
+      "S_018b4c7fbce5d392"
+    ],
+    "D_772a2c82013373b3": [
+      "S_018b4c7fbce5d392",
+      "E_f4a6bb2af7a3b2a1"
+    ],
+    "S_d6f2874be038b68a": [
+      "D_164b4d33c795971f",
+      "E_d96ebe383615da82"
+    ],
+    "E_d96ebe383615da82": [
+      "D_164b4d33c795971f",
+      "S_d6f2874be038b68a"
+    ],
+    "D_164b4d33c795971f": [
+      "S_d6f2874be038b68a",
+      "E_d96ebe383615da82"
+    ],
+    "S_d3321a7365124f5d": [
+      "D_e6c63e93d050a485",
+      "E_fa040628a8822058"
+    ],
+    "D_e6c63e93d050a485": [
+      "S_d3321a7365124f5d",
+      "E_fa040628a8822058"
     ]
   },
   "tf_s": {
@@ -173,6 +2656,1611 @@
       "utterance": 0.02857142857142857,
       "kind": 0.02857142857142857,
       "statement": 0.02857142857142857
+    },
+    "S_fbdd8481086137a1": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_22ea5f061032e552": {
+      "openclaw": 0.13333333333333333,
+      "walktalk": 0.03333333333333333,
+      "hi": 0.03333333333333333,
+      "voice": 0.1,
+      "persona": 0.03333333333333333,
+      "anchor": 0.03333333333333333,
+      "soul": 0.06666666666666667,
+      "style": 0.03333333333333333,
+      "direct": 0.03333333333333333,
+      "keywords": 0.03333333333333333,
+      "personalization": 0.03333333333333333,
+      "ivi": 0.06666666666666667,
+      "preserve": 0.03333333333333333,
+      "users": 0.03333333333333333,
+      "harryscott": 0.03333333333333333,
+      "purple": 0.03333333333333333,
+      "feigenbuam": 0.03333333333333333,
+      "codex": 0.03333333333333333,
+      "loop": 0.03333333333333333,
+      "events": 0.03333333333333333,
+      "utterance": 0.03333333333333333,
+      "kind": 0.03333333333333333,
+      "statement": 0.03333333333333333
+    },
+    "S_e395442d0c851033": {
+      "openclaw": 0.13333333333333333,
+      "walktalk": 0.03333333333333333,
+      "hi": 0.03333333333333333,
+      "voice": 0.1,
+      "persona": 0.03333333333333333,
+      "anchor": 0.03333333333333333,
+      "soul": 0.06666666666666667,
+      "style": 0.03333333333333333,
+      "direct": 0.03333333333333333,
+      "keywords": 0.03333333333333333,
+      "personalization": 0.03333333333333333,
+      "ivi": 0.06666666666666667,
+      "preserve": 0.03333333333333333,
+      "users": 0.03333333333333333,
+      "harryscott": 0.03333333333333333,
+      "purple": 0.03333333333333333,
+      "feigenbuam": 0.03333333333333333,
+      "codex": 0.03333333333333333,
+      "loop": 0.03333333333333333,
+      "events": 0.03333333333333333,
+      "utterance": 0.03333333333333333,
+      "kind": 0.03333333333333333,
+      "statement": 0.03333333333333333
+    },
+    "S_173a6b5902966480": {
+      "define": 0.02857142857142857,
+      "a": 0.02857142857142857,
+      "concrete": 0.02857142857142857,
+      "closure": 0.02857142857142857,
+      "action": 0.02857142857142857,
+      "and": 0.02857142857142857,
+      "execute": 0.02857142857142857,
+      "it": 0.02857142857142857,
+      "openclaw": 0.08571428571428572,
+      "voice": 0.08571428571428572,
+      "persona": 0.02857142857142857,
+      "anchor": 0.02857142857142857,
+      "soul": 0.05714285714285714,
+      "style": 0.02857142857142857,
+      "direct": 0.02857142857142857,
+      "keywords": 0.02857142857142857,
+      "personalization": 0.02857142857142857,
+      "ivi": 0.05714285714285714,
+      "preserve": 0.02857142857142857,
+      "users": 0.02857142857142857,
+      "harryscott": 0.02857142857142857,
+      "purple": 0.02857142857142857,
+      "feigenbuam": 0.02857142857142857,
+      "codex": 0.02857142857142857,
+      "loop": 0.02857142857142857,
+      "events": 0.02857142857142857,
+      "utterance": 0.02857142857142857,
+      "kind": 0.02857142857142857,
+      "statement": 0.02857142857142857
+    },
+    "S_4b57a86d532bdb67": {
+      "define": 0.02857142857142857,
+      "a": 0.02857142857142857,
+      "concrete": 0.02857142857142857,
+      "closure": 0.02857142857142857,
+      "action": 0.02857142857142857,
+      "and": 0.02857142857142857,
+      "execute": 0.02857142857142857,
+      "it": 0.02857142857142857,
+      "openclaw": 0.08571428571428572,
+      "voice": 0.08571428571428572,
+      "persona": 0.02857142857142857,
+      "anchor": 0.02857142857142857,
+      "soul": 0.05714285714285714,
+      "style": 0.02857142857142857,
+      "direct": 0.02857142857142857,
+      "keywords": 0.02857142857142857,
+      "personalization": 0.02857142857142857,
+      "ivi": 0.05714285714285714,
+      "preserve": 0.02857142857142857,
+      "users": 0.02857142857142857,
+      "harryscott": 0.02857142857142857,
+      "purple": 0.02857142857142857,
+      "feigenbuam": 0.02857142857142857,
+      "codex": 0.02857142857142857,
+      "loop": 0.02857142857142857,
+      "events": 0.02857142857142857,
+      "utterance": 0.02857142857142857,
+      "kind": 0.02857142857142857,
+      "statement": 0.02857142857142857
+    },
+    "S_7fe7cdc05674818c": {
+      "hello": 0.03333333333333333,
+      "refine": 0.03333333333333333,
+      "roles": 0.03333333333333333,
+      "openclaw": 0.1,
+      "voice": 0.1,
+      "persona": 0.03333333333333333,
+      "anchor": 0.03333333333333333,
+      "soul": 0.06666666666666667,
+      "style": 0.03333333333333333,
+      "direct": 0.03333333333333333,
+      "keywords": 0.03333333333333333,
+      "personalization": 0.03333333333333333,
+      "ivi": 0.06666666666666667,
+      "preserve": 0.03333333333333333,
+      "users": 0.03333333333333333,
+      "harryscott": 0.03333333333333333,
+      "purple": 0.03333333333333333,
+      "feigenbuam": 0.03333333333333333,
+      "codex": 0.03333333333333333,
+      "loop": 0.03333333333333333,
+      "events": 0.03333333333333333,
+      "utterance": 0.03333333333333333,
+      "kind": 0.03333333333333333,
+      "statement": 0.03333333333333333
+    },
+    "S_8953674fc2cb4eb9": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_f4015ddb2518cc43": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_e88ff5fca7a34ae1": {
+      "hello": 0.03333333333333333,
+      "refine": 0.03333333333333333,
+      "roles": 0.03333333333333333,
+      "openclaw": 0.1,
+      "voice": 0.1,
+      "persona": 0.03333333333333333,
+      "anchor": 0.03333333333333333,
+      "soul": 0.06666666666666667,
+      "style": 0.03333333333333333,
+      "direct": 0.03333333333333333,
+      "keywords": 0.03333333333333333,
+      "personalization": 0.03333333333333333,
+      "ivi": 0.06666666666666667,
+      "preserve": 0.03333333333333333,
+      "users": 0.03333333333333333,
+      "harryscott": 0.03333333333333333,
+      "purple": 0.03333333333333333,
+      "feigenbuam": 0.03333333333333333,
+      "codex": 0.03333333333333333,
+      "loop": 0.03333333333333333,
+      "events": 0.03333333333333333,
+      "utterance": 0.03333333333333333,
+      "kind": 0.03333333333333333,
+      "statement": 0.03333333333333333
+    },
+    "S_43d09e36e088fff2": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_38c8cb52b6aa1b7f": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_10a5350d75df4248": {
+      "hello": 0.03333333333333333,
+      "refine": 0.03333333333333333,
+      "roles": 0.03333333333333333,
+      "openclaw": 0.1,
+      "voice": 0.1,
+      "persona": 0.03333333333333333,
+      "anchor": 0.03333333333333333,
+      "soul": 0.06666666666666667,
+      "style": 0.03333333333333333,
+      "direct": 0.03333333333333333,
+      "keywords": 0.03333333333333333,
+      "personalization": 0.03333333333333333,
+      "ivi": 0.06666666666666667,
+      "preserve": 0.03333333333333333,
+      "users": 0.03333333333333333,
+      "harryscott": 0.03333333333333333,
+      "purple": 0.03333333333333333,
+      "feigenbuam": 0.03333333333333333,
+      "codex": 0.03333333333333333,
+      "loop": 0.03333333333333333,
+      "events": 0.03333333333333333,
+      "utterance": 0.03333333333333333,
+      "kind": 0.03333333333333333,
+      "statement": 0.03333333333333333
+    },
+    "S_005dbb3fbc4041bf": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_61a575858669276a": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_284a4e22269f254f": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_b364377d83e2d2e6": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_7025ecb1a29dfeb1": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_85b71b2972f14a15": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_4d55a893df75602f": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_fee34b66a44121e5": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_0590a4216198d370": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_85309989887c482b": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_c859a2e157540749": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_ef9625487014e426": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_271a2474eea7b83d": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_4591dce4a4f7f777": {
+      "auto": 0.03225806451612903,
+      "constraint": 0.03225806451612903,
+      "t": 0.03225806451612903,
+      "c2b99a8f57be34aa": 0.03225806451612903,
+      "openclaw": 0.0967741935483871,
+      "voice": 0.0967741935483871,
+      "persona": 0.03225806451612903,
+      "anchor": 0.03225806451612903,
+      "soul": 0.06451612903225806,
+      "style": 0.03225806451612903,
+      "direct": 0.03225806451612903,
+      "keywords": 0.03225806451612903,
+      "personalization": 0.03225806451612903,
+      "ivi": 0.06451612903225806,
+      "preserve": 0.03225806451612903,
+      "users": 0.03225806451612903,
+      "harryscott": 0.03225806451612903,
+      "purple": 0.03225806451612903,
+      "feigenbuam": 0.03225806451612903,
+      "codex": 0.03225806451612903,
+      "loop": 0.03225806451612903,
+      "events": 0.03225806451612903,
+      "utterance": 0.03225806451612903,
+      "kind": 0.03225806451612903,
+      "insight": 0.03225806451612903
+    },
+    "S_7db044658a8348f6": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_8e996443a218b40b": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_666ab875c5a419c4": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_fb6666757de84442": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_09c8a1e8e0f6faa7": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_c30ee728a372b675": {
+      "openclaw": 0.06666666666666667,
+      "purple": 0.03333333333333333,
+      "autonomous": 0.016666666666666666,
+      "mission": 0.016666666666666666,
+      "refresh": 0.016666666666666666,
+      "propose": 0.016666666666666666,
+      "and": 0.03333333333333333,
+      "execute": 0.03333333333333333,
+      "one": 0.016666666666666666,
+      "closure": 0.016666666666666666,
+      "reducing": 0.016666666666666666,
+      "routine": 0.016666666666666666,
+      "with": 0.016666666666666666,
+      "trace": 0.016666666666666666,
+      "backed": 0.016666666666666666,
+      "justification": 0.016666666666666666,
+      "summarize": 0.016666666666666666,
+      "action": 0.016666666666666666,
+      "refinement": 0.016666666666666666,
+      "ask": 0.016666666666666666,
+      "for": 0.016666666666666666,
+      "user": 0.016666666666666666,
+      "interaction": 0.016666666666666666,
+      "only": 0.016666666666666666,
+      "if": 0.016666666666666666,
+      "a": 0.016666666666666666,
+      "hard": 0.016666666666666666,
+      "semantic": 0.016666666666666666,
+      "constraint": 0.016666666666666666,
+      "requires": 0.016666666666666666,
+      "clarification": 0.016666666666666666,
+      "voice": 0.05,
+      "persona": 0.016666666666666666,
+      "anchor": 0.016666666666666666,
+      "soul": 0.03333333333333333,
+      "style": 0.016666666666666666,
+      "direct": 0.016666666666666666,
+      "keywords": 0.016666666666666666,
+      "personalization": 0.016666666666666666,
+      "ivi": 0.03333333333333333,
+      "preserve": 0.016666666666666666,
+      "users": 0.016666666666666666,
+      "harryscott": 0.016666666666666666,
+      "feigenbuam": 0.016666666666666666,
+      "codex": 0.016666666666666666,
+      "loop": 0.016666666666666666,
+      "events": 0.016666666666666666,
+      "utterance": 0.016666666666666666,
+      "kind": 0.016666666666666666,
+      "statement": 0.016666666666666666
+    },
+    "S_cb95083613a8c9ae": {
+      "hi": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_0c85ee695a056d6d": {
+      "auto": 0.03225806451612903,
+      "constraint": 0.03225806451612903,
+      "t": 0.03225806451612903,
+      "40bb5af870d88f98": 0.03225806451612903,
+      "openclaw": 0.0967741935483871,
+      "voice": 0.0967741935483871,
+      "persona": 0.03225806451612903,
+      "anchor": 0.03225806451612903,
+      "soul": 0.06451612903225806,
+      "style": 0.03225806451612903,
+      "direct": 0.03225806451612903,
+      "keywords": 0.03225806451612903,
+      "personalization": 0.03225806451612903,
+      "ivi": 0.06451612903225806,
+      "preserve": 0.03225806451612903,
+      "users": 0.03225806451612903,
+      "harryscott": 0.03225806451612903,
+      "purple": 0.03225806451612903,
+      "feigenbuam": 0.03225806451612903,
+      "codex": 0.03225806451612903,
+      "loop": 0.03225806451612903,
+      "events": 0.03225806451612903,
+      "utterance": 0.03225806451612903,
+      "kind": 0.03225806451612903,
+      "insight": 0.03225806451612903
+    },
+    "S_d5d7e3fcb73a09c9": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_b56bd9546d4c4133": {
+      "openclaw": 0.06666666666666667,
+      "purple": 0.03333333333333333,
+      "autonomous": 0.016666666666666666,
+      "mission": 0.016666666666666666,
+      "refresh": 0.016666666666666666,
+      "propose": 0.016666666666666666,
+      "and": 0.03333333333333333,
+      "execute": 0.03333333333333333,
+      "one": 0.016666666666666666,
+      "closure": 0.016666666666666666,
+      "reducing": 0.016666666666666666,
+      "routine": 0.016666666666666666,
+      "with": 0.016666666666666666,
+      "trace": 0.016666666666666666,
+      "backed": 0.016666666666666666,
+      "justification": 0.016666666666666666,
+      "summarize": 0.016666666666666666,
+      "action": 0.016666666666666666,
+      "refinement": 0.016666666666666666,
+      "ask": 0.016666666666666666,
+      "for": 0.016666666666666666,
+      "user": 0.016666666666666666,
+      "interaction": 0.016666666666666666,
+      "only": 0.016666666666666666,
+      "if": 0.016666666666666666,
+      "a": 0.016666666666666666,
+      "hard": 0.016666666666666666,
+      "semantic": 0.016666666666666666,
+      "constraint": 0.016666666666666666,
+      "requires": 0.016666666666666666,
+      "clarification": 0.016666666666666666,
+      "voice": 0.05,
+      "persona": 0.016666666666666666,
+      "anchor": 0.016666666666666666,
+      "soul": 0.03333333333333333,
+      "style": 0.016666666666666666,
+      "direct": 0.016666666666666666,
+      "keywords": 0.016666666666666666,
+      "personalization": 0.016666666666666666,
+      "ivi": 0.03333333333333333,
+      "preserve": 0.016666666666666666,
+      "users": 0.016666666666666666,
+      "harryscott": 0.016666666666666666,
+      "feigenbuam": 0.016666666666666666,
+      "codex": 0.016666666666666666,
+      "loop": 0.016666666666666666,
+      "events": 0.016666666666666666,
+      "utterance": 0.016666666666666666,
+      "kind": 0.016666666666666666,
+      "statement": 0.016666666666666666
+    },
+    "S_4a2f17d4980d7313": {
+      "helo": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_d33f0fc87a7f107e": {
+      "auto": 0.03225806451612903,
+      "constraint": 0.03225806451612903,
+      "t": 0.03225806451612903,
+      "4a9466fd62fb5a98": 0.03225806451612903,
+      "openclaw": 0.0967741935483871,
+      "voice": 0.0967741935483871,
+      "persona": 0.03225806451612903,
+      "anchor": 0.03225806451612903,
+      "soul": 0.06451612903225806,
+      "style": 0.03225806451612903,
+      "direct": 0.03225806451612903,
+      "keywords": 0.03225806451612903,
+      "personalization": 0.03225806451612903,
+      "ivi": 0.06451612903225806,
+      "preserve": 0.03225806451612903,
+      "users": 0.03225806451612903,
+      "harryscott": 0.03225806451612903,
+      "purple": 0.03225806451612903,
+      "feigenbuam": 0.03225806451612903,
+      "codex": 0.03225806451612903,
+      "loop": 0.03225806451612903,
+      "events": 0.03225806451612903,
+      "utterance": 0.03225806451612903,
+      "kind": 0.03225806451612903,
+      "insight": 0.03225806451612903
+    },
+    "S_94da133ef86c68a9": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_21053715ae2a68ce": {
+      "openclaw": 0.06666666666666667,
+      "purple": 0.03333333333333333,
+      "autonomous": 0.016666666666666666,
+      "mission": 0.016666666666666666,
+      "refresh": 0.016666666666666666,
+      "propose": 0.016666666666666666,
+      "and": 0.03333333333333333,
+      "execute": 0.03333333333333333,
+      "one": 0.016666666666666666,
+      "closure": 0.016666666666666666,
+      "reducing": 0.016666666666666666,
+      "routine": 0.016666666666666666,
+      "with": 0.016666666666666666,
+      "trace": 0.016666666666666666,
+      "backed": 0.016666666666666666,
+      "justification": 0.016666666666666666,
+      "summarize": 0.016666666666666666,
+      "action": 0.016666666666666666,
+      "refinement": 0.016666666666666666,
+      "ask": 0.016666666666666666,
+      "for": 0.016666666666666666,
+      "user": 0.016666666666666666,
+      "interaction": 0.016666666666666666,
+      "only": 0.016666666666666666,
+      "if": 0.016666666666666666,
+      "a": 0.016666666666666666,
+      "hard": 0.016666666666666666,
+      "semantic": 0.016666666666666666,
+      "constraint": 0.016666666666666666,
+      "requires": 0.016666666666666666,
+      "clarification": 0.016666666666666666,
+      "voice": 0.05,
+      "persona": 0.016666666666666666,
+      "anchor": 0.016666666666666666,
+      "soul": 0.03333333333333333,
+      "style": 0.016666666666666666,
+      "direct": 0.016666666666666666,
+      "keywords": 0.016666666666666666,
+      "personalization": 0.016666666666666666,
+      "ivi": 0.03333333333333333,
+      "preserve": 0.016666666666666666,
+      "users": 0.016666666666666666,
+      "harryscott": 0.016666666666666666,
+      "feigenbuam": 0.016666666666666666,
+      "codex": 0.016666666666666666,
+      "loop": 0.016666666666666666,
+      "events": 0.016666666666666666,
+      "utterance": 0.016666666666666666,
+      "kind": 0.016666666666666666,
+      "statement": 0.016666666666666666
+    },
+    "S_2a8589bb195c9a09": {
+      "hello": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_999678b440b37c7c": {
+      "auto": 0.03225806451612903,
+      "constraint": 0.03225806451612903,
+      "t": 0.03225806451612903,
+      "f49092f0d2841180": 0.03225806451612903,
+      "openclaw": 0.0967741935483871,
+      "voice": 0.0967741935483871,
+      "persona": 0.03225806451612903,
+      "anchor": 0.03225806451612903,
+      "soul": 0.06451612903225806,
+      "style": 0.03225806451612903,
+      "direct": 0.03225806451612903,
+      "keywords": 0.03225806451612903,
+      "personalization": 0.03225806451612903,
+      "ivi": 0.06451612903225806,
+      "preserve": 0.03225806451612903,
+      "users": 0.03225806451612903,
+      "harryscott": 0.03225806451612903,
+      "purple": 0.03225806451612903,
+      "feigenbuam": 0.03225806451612903,
+      "codex": 0.03225806451612903,
+      "loop": 0.03225806451612903,
+      "events": 0.03225806451612903,
+      "utterance": 0.03225806451612903,
+      "kind": 0.03225806451612903,
+      "insight": 0.03225806451612903
+    },
+    "S_ed0aa6f76d5878f9": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_7e27db81bede2fb7": {
+      "openclaw": 0.06666666666666667,
+      "purple": 0.03333333333333333,
+      "autonomous": 0.016666666666666666,
+      "mission": 0.016666666666666666,
+      "refresh": 0.016666666666666666,
+      "propose": 0.016666666666666666,
+      "and": 0.03333333333333333,
+      "execute": 0.03333333333333333,
+      "one": 0.016666666666666666,
+      "closure": 0.016666666666666666,
+      "reducing": 0.016666666666666666,
+      "routine": 0.016666666666666666,
+      "with": 0.016666666666666666,
+      "trace": 0.016666666666666666,
+      "backed": 0.016666666666666666,
+      "justification": 0.016666666666666666,
+      "summarize": 0.016666666666666666,
+      "action": 0.016666666666666666,
+      "refinement": 0.016666666666666666,
+      "ask": 0.016666666666666666,
+      "for": 0.016666666666666666,
+      "user": 0.016666666666666666,
+      "interaction": 0.016666666666666666,
+      "only": 0.016666666666666666,
+      "if": 0.016666666666666666,
+      "a": 0.016666666666666666,
+      "hard": 0.016666666666666666,
+      "semantic": 0.016666666666666666,
+      "constraint": 0.016666666666666666,
+      "requires": 0.016666666666666666,
+      "clarification": 0.016666666666666666,
+      "voice": 0.05,
+      "persona": 0.016666666666666666,
+      "anchor": 0.016666666666666666,
+      "soul": 0.03333333333333333,
+      "style": 0.016666666666666666,
+      "direct": 0.016666666666666666,
+      "keywords": 0.016666666666666666,
+      "personalization": 0.016666666666666666,
+      "ivi": 0.03333333333333333,
+      "preserve": 0.016666666666666666,
+      "users": 0.016666666666666666,
+      "harryscott": 0.016666666666666666,
+      "feigenbuam": 0.016666666666666666,
+      "codex": 0.016666666666666666,
+      "loop": 0.016666666666666666,
+      "events": 0.016666666666666666,
+      "utterance": 0.016666666666666666,
+      "kind": 0.016666666666666666,
+      "statement": 0.016666666666666666
+    },
+    "S_fe2f89f8aead743c": {
+      "hello": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.10714285714285714,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.07142857142857142,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "harryscott": 0.03571428571428571,
+      "purple": 0.03571428571428571,
+      "feigenbuam": 0.03571428571428571,
+      "codex": 0.03571428571428571,
+      "loop": 0.03571428571428571,
+      "events": 0.03571428571428571,
+      "utterance": 0.03571428571428571,
+      "kind": 0.03571428571428571,
+      "statement": 0.03571428571428571
+    },
+    "S_f1efc001183bddce": {
+      "openclaw": 0.06666666666666667,
+      "purple": 0.03333333333333333,
+      "autonomous": 0.016666666666666666,
+      "mission": 0.016666666666666666,
+      "refresh": 0.016666666666666666,
+      "propose": 0.016666666666666666,
+      "and": 0.03333333333333333,
+      "execute": 0.03333333333333333,
+      "one": 0.016666666666666666,
+      "closure": 0.016666666666666666,
+      "reducing": 0.016666666666666666,
+      "routine": 0.016666666666666666,
+      "with": 0.016666666666666666,
+      "trace": 0.016666666666666666,
+      "backed": 0.016666666666666666,
+      "justification": 0.016666666666666666,
+      "summarize": 0.016666666666666666,
+      "action": 0.016666666666666666,
+      "refinement": 0.016666666666666666,
+      "ask": 0.016666666666666666,
+      "for": 0.016666666666666666,
+      "user": 0.016666666666666666,
+      "interaction": 0.016666666666666666,
+      "only": 0.016666666666666666,
+      "if": 0.016666666666666666,
+      "a": 0.016666666666666666,
+      "hard": 0.016666666666666666,
+      "semantic": 0.016666666666666666,
+      "constraint": 0.016666666666666666,
+      "requires": 0.016666666666666666,
+      "clarification": 0.016666666666666666,
+      "voice": 0.05,
+      "persona": 0.016666666666666666,
+      "anchor": 0.016666666666666666,
+      "soul": 0.03333333333333333,
+      "style": 0.016666666666666666,
+      "direct": 0.016666666666666666,
+      "keywords": 0.016666666666666666,
+      "personalization": 0.016666666666666666,
+      "ivi": 0.03333333333333333,
+      "preserve": 0.016666666666666666,
+      "users": 0.016666666666666666,
+      "harryscott": 0.016666666666666666,
+      "feigenbuam": 0.016666666666666666,
+      "codex": 0.016666666666666666,
+      "loop": 0.016666666666666666,
+      "events": 0.016666666666666666,
+      "utterance": 0.016666666666666666,
+      "kind": 0.016666666666666666,
+      "statement": 0.016666666666666666
+    },
+    "S_3a0dd5c2a21d48bf": {
+      "monitor": 0.02702702702702703,
+      "local": 0.02702702702702703,
+      "state": 0.02702702702702703,
+      "and": 0.02702702702702703,
+      "refine": 0.02702702702702703,
+      "openclaw": 0.10810810810810811,
+      "purple": 0.05405405405405406,
+      "role": 0.02702702702702703,
+      "alignment": 0.02702702702702703,
+      "continuously": 0.02702702702702703,
+      "voice": 0.08108108108108109,
+      "persona": 0.02702702702702703,
+      "anchor": 0.02702702702702703,
+      "soul": 0.05405405405405406,
+      "style": 0.02702702702702703,
+      "direct": 0.02702702702702703,
+      "keywords": 0.02702702702702703,
+      "personalization": 0.02702702702702703,
+      "ivi": 0.05405405405405406,
+      "preserve": 0.02702702702702703,
+      "users": 0.02702702702702703,
+      "harryscott": 0.02702702702702703,
+      "feigenbuam": 0.02702702702702703,
+      "codex": 0.02702702702702703,
+      "loop": 0.02702702702702703,
+      "events": 0.02702702702702703,
+      "utterance": 0.02702702702702703,
+      "kind": 0.02702702702702703,
+      "statement": 0.02702702702702703
+    },
+    "S_0db34087196789a3": {
+      "translate": 0.02631578947368421,
+      "conversation": 0.02631578947368421,
+      "into": 0.02631578947368421,
+      "executable": 0.02631578947368421,
+      "routines": 0.02631578947368421,
+      "and": 0.02631578947368421,
+      "run": 0.02631578947368421,
+      "one": 0.02631578947368421,
+      "admissible": 0.02631578947368421,
+      "action": 0.02631578947368421,
+      "now": 0.02631578947368421,
+      "openclaw": 0.07894736842105263,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "purple": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_3c59095c7fc16fbe": {
+      "auto": 0.03225806451612903,
+      "constraint": 0.03225806451612903,
+      "t": 0.03225806451612903,
+      "163621ecb7eef8f3": 0.03225806451612903,
+      "openclaw": 0.0967741935483871,
+      "voice": 0.0967741935483871,
+      "persona": 0.03225806451612903,
+      "anchor": 0.03225806451612903,
+      "soul": 0.06451612903225806,
+      "style": 0.03225806451612903,
+      "direct": 0.03225806451612903,
+      "keywords": 0.03225806451612903,
+      "personalization": 0.03225806451612903,
+      "ivi": 0.06451612903225806,
+      "preserve": 0.03225806451612903,
+      "users": 0.03225806451612903,
+      "harryscott": 0.03225806451612903,
+      "purple": 0.03225806451612903,
+      "feigenbuam": 0.03225806451612903,
+      "codex": 0.03225806451612903,
+      "loop": 0.03225806451612903,
+      "events": 0.03225806451612903,
+      "utterance": 0.03225806451612903,
+      "kind": 0.03225806451612903,
+      "insight": 0.03225806451612903
+    },
+    "S_352202cee6b93737": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
+    },
+    "S_018b4c7fbce5d392": {
+      "agent": 0.03225806451612903,
+      "auto": 0.03225806451612903,
+      "action": 0.03225806451612903,
+      "off": 0.03225806451612903,
+      "openclaw": 0.0967741935483871,
+      "voice": 0.0967741935483871,
+      "persona": 0.03225806451612903,
+      "anchor": 0.03225806451612903,
+      "soul": 0.06451612903225806,
+      "style": 0.03225806451612903,
+      "direct": 0.03225806451612903,
+      "keywords": 0.03225806451612903,
+      "personalization": 0.03225806451612903,
+      "ivi": 0.06451612903225806,
+      "preserve": 0.03225806451612903,
+      "users": 0.03225806451612903,
+      "harryscott": 0.03225806451612903,
+      "purple": 0.03225806451612903,
+      "feigenbuam": 0.03225806451612903,
+      "codex": 0.03225806451612903,
+      "loop": 0.03225806451612903,
+      "events": 0.03225806451612903,
+      "utterance": 0.03225806451612903,
+      "kind": 0.03225806451612903,
+      "statement": 0.03225806451612903
+    },
+    "S_d6f2874be038b68a": {
+      "auto": 0.03225806451612903,
+      "constraint": 0.03225806451612903,
+      "t": 0.03225806451612903,
+      "ada2df4cbb58575b": 0.03225806451612903,
+      "openclaw": 0.0967741935483871,
+      "voice": 0.0967741935483871,
+      "persona": 0.03225806451612903,
+      "anchor": 0.03225806451612903,
+      "soul": 0.06451612903225806,
+      "style": 0.03225806451612903,
+      "direct": 0.03225806451612903,
+      "keywords": 0.03225806451612903,
+      "personalization": 0.03225806451612903,
+      "ivi": 0.06451612903225806,
+      "preserve": 0.03225806451612903,
+      "users": 0.03225806451612903,
+      "harryscott": 0.03225806451612903,
+      "purple": 0.03225806451612903,
+      "feigenbuam": 0.03225806451612903,
+      "codex": 0.03225806451612903,
+      "loop": 0.03225806451612903,
+      "events": 0.03225806451612903,
+      "utterance": 0.03225806451612903,
+      "kind": 0.03225806451612903,
+      "insight": 0.03225806451612903
+    },
+    "S_d3321a7365124f5d": {
+      "proactively": 0.02631578947368421,
+      "refine": 0.02631578947368421,
+      "openclaw": 0.10526315789473684,
+      "and": 0.05263157894736842,
+      "purple": 0.05263157894736842,
+      "role": 0.02631578947368421,
+      "alignment": 0.02631578947368421,
+      "request": 0.02631578947368421,
+      "needed": 0.02631578947368421,
+      "insight": 0.02631578947368421,
+      "voice": 0.07894736842105263,
+      "persona": 0.02631578947368421,
+      "anchor": 0.02631578947368421,
+      "soul": 0.05263157894736842,
+      "style": 0.02631578947368421,
+      "direct": 0.02631578947368421,
+      "keywords": 0.02631578947368421,
+      "personalization": 0.02631578947368421,
+      "ivi": 0.05263157894736842,
+      "preserve": 0.02631578947368421,
+      "users": 0.02631578947368421,
+      "harryscott": 0.02631578947368421,
+      "feigenbuam": 0.02631578947368421,
+      "codex": 0.02631578947368421,
+      "loop": 0.02631578947368421,
+      "events": 0.02631578947368421,
+      "utterance": 0.02631578947368421,
+      "kind": 0.02631578947368421,
+      "statement": 0.02631578947368421
     }
   },
   "tf_e": {
@@ -198,6 +4286,405 @@
       "personalization": 0.038461538461538464,
       "ivi": 0.038461538461538464,
       "pr": 0.038461538461538464
+    },
+    "E_00a41cee182d2204": {
+      "proposition": 0.037037037037037035,
+      "derived": 0.037037037037037035,
+      "from": 0.037037037037037035,
+      "hi": 0.037037037037037035,
+      "openclaw": 0.1111111111111111,
+      "voice": 0.1111111111111111,
+      "persona": 0.037037037037037035,
+      "anchor": 0.037037037037037035,
+      "soul": 0.07407407407407407,
+      "style": 0.037037037037037035,
+      "direct": 0.037037037037037035,
+      "keywords": 0.037037037037037035,
+      "personalization": 0.037037037037037035,
+      "ivi": 0.07407407407407407,
+      "preserve": 0.037037037037037035,
+      "users": 0.037037037037037035,
+      "harryscott": 0.037037037037037035,
+      "purple": 0.037037037037037035,
+      "feigenbuam": 0.037037037037037035,
+      "codex": 0.037037037037037035,
+      "l": 0.037037037037037035
+    },
+    "E_92365fcadb399a5c": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "openclaw": 0.16,
+      "walktalk": 0.04,
+      "hi": 0.04,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "purple": 0.04,
+      "feigenbu": 0.04
+    },
+    "E_ea9f4b394b7a1653": {
+      "proposition": 0.03571428571428571,
+      "derived": 0.03571428571428571,
+      "from": 0.03571428571428571,
+      "define": 0.03571428571428571,
+      "a": 0.03571428571428571,
+      "concrete": 0.03571428571428571,
+      "closure": 0.03571428571428571,
+      "action": 0.03571428571428571,
+      "and": 0.03571428571428571,
+      "execute": 0.03571428571428571,
+      "it": 0.03571428571428571,
+      "openclaw": 0.10714285714285714,
+      "voice": 0.07142857142857142,
+      "persona": 0.03571428571428571,
+      "anchor": 0.03571428571428571,
+      "soul": 0.07142857142857142,
+      "style": 0.03571428571428571,
+      "direct": 0.03571428571428571,
+      "keywords": 0.03571428571428571,
+      "personalization": 0.03571428571428571,
+      "ivi": 0.03571428571428571,
+      "preserve": 0.03571428571428571,
+      "users": 0.03571428571428571,
+      "h": 0.03571428571428571
+    },
+    "E_4eef6d2a711b1b5c": {
+      "proposition": 0.038461538461538464,
+      "derived": 0.038461538461538464,
+      "from": 0.038461538461538464,
+      "hello": 0.038461538461538464,
+      "refine": 0.038461538461538464,
+      "roles": 0.038461538461538464,
+      "openclaw": 0.11538461538461539,
+      "voice": 0.07692307692307693,
+      "persona": 0.038461538461538464,
+      "anchor": 0.038461538461538464,
+      "soul": 0.07692307692307693,
+      "style": 0.038461538461538464,
+      "direct": 0.038461538461538464,
+      "keywords": 0.038461538461538464,
+      "personalization": 0.038461538461538464,
+      "ivi": 0.038461538461538464,
+      "preserve": 0.038461538461538464,
+      "users": 0.038461538461538464,
+      "harryscott": 0.038461538461538464,
+      "purple": 0.038461538461538464,
+      "feigenbuam": 0.038461538461538464,
+      "i": 0.038461538461538464
+    },
+    "E_e9d05c3726807c56": {
+      "proposition": 0.038461538461538464,
+      "derived": 0.038461538461538464,
+      "from": 0.038461538461538464,
+      "monitor": 0.038461538461538464,
+      "local": 0.038461538461538464,
+      "state": 0.038461538461538464,
+      "and": 0.038461538461538464,
+      "refine": 0.038461538461538464,
+      "openclaw": 0.15384615384615385,
+      "purple": 0.038461538461538464,
+      "role": 0.038461538461538464,
+      "alignment": 0.038461538461538464,
+      "continuously": 0.038461538461538464,
+      "voice": 0.07692307692307693,
+      "persona": 0.038461538461538464,
+      "anchor": 0.038461538461538464,
+      "soul": 0.07692307692307693,
+      "style": 0.038461538461538464,
+      "direct": 0.038461538461538464,
+      "keywords": 0.038461538461538464,
+      "personal": 0.038461538461538464
+    },
+    "E_fa040628a8822058": {
+      "proposition": 0.037037037037037035,
+      "derived": 0.037037037037037035,
+      "from": 0.037037037037037035,
+      "proactively": 0.037037037037037035,
+      "refine": 0.037037037037037035,
+      "openclaw": 0.14814814814814814,
+      "and": 0.07407407407407407,
+      "purple": 0.037037037037037035,
+      "role": 0.037037037037037035,
+      "alignment": 0.037037037037037035,
+      "request": 0.037037037037037035,
+      "needed": 0.037037037037037035,
+      "insight": 0.037037037037037035,
+      "voice": 0.07407407407407407,
+      "persona": 0.037037037037037035,
+      "anchor": 0.037037037037037035,
+      "soul": 0.07407407407407407,
+      "style": 0.037037037037037035,
+      "direct": 0.037037037037037035,
+      "keywords": 0.037037037037037035,
+      "pe": 0.037037037037037035
+    },
+    "E_804e8ec2f286c1f0": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "auto": 0.04,
+      "constraint": 0.04,
+      "t": 0.04,
+      "c2b99a8f57be34aa": 0.04,
+      "openclaw": 0.12,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "pu": 0.04
+    },
+    "E_07265af6c9ba0ebe": {
+      "proposition": 0.037037037037037035,
+      "derived": 0.037037037037037035,
+      "from": 0.037037037037037035,
+      "openclaw": 0.037037037037037035,
+      "purple": 0.037037037037037035,
+      "autonomous": 0.037037037037037035,
+      "mission": 0.037037037037037035,
+      "refresh": 0.037037037037037035,
+      "propose": 0.037037037037037035,
+      "and": 0.07407407407407407,
+      "execute": 0.07407407407407407,
+      "one": 0.037037037037037035,
+      "closure": 0.037037037037037035,
+      "reducing": 0.037037037037037035,
+      "routine": 0.037037037037037035,
+      "with": 0.037037037037037035,
+      "trace": 0.037037037037037035,
+      "backed": 0.037037037037037035,
+      "justification": 0.037037037037037035,
+      "summarize": 0.037037037037037035,
+      "action": 0.037037037037037035,
+      "refinement": 0.037037037037037035,
+      "ask": 0.037037037037037035,
+      "for": 0.037037037037037035,
+      "u": 0.037037037037037035
+    },
+    "E_2392f75204c24970": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "auto": 0.04,
+      "constraint": 0.04,
+      "t": 0.04,
+      "40bb5af870d88f98": 0.04,
+      "openclaw": 0.12,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "pu": 0.04
+    },
+    "E_2ef2a43deab3d1d9": {
+      "proposition": 0.038461538461538464,
+      "derived": 0.038461538461538464,
+      "from": 0.038461538461538464,
+      "helo": 0.038461538461538464,
+      "openclaw": 0.11538461538461539,
+      "voice": 0.11538461538461539,
+      "persona": 0.038461538461538464,
+      "anchor": 0.038461538461538464,
+      "soul": 0.07692307692307693,
+      "style": 0.038461538461538464,
+      "direct": 0.038461538461538464,
+      "keywords": 0.038461538461538464,
+      "personalization": 0.038461538461538464,
+      "ivi": 0.07692307692307693,
+      "preserve": 0.038461538461538464,
+      "users": 0.038461538461538464,
+      "harryscott": 0.038461538461538464,
+      "purple": 0.038461538461538464,
+      "feigenbuam": 0.038461538461538464,
+      "codex": 0.038461538461538464
+    },
+    "E_c640598105f1f98f": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "auto": 0.04,
+      "constraint": 0.04,
+      "t": 0.04,
+      "4a9466fd62fb5a98": 0.04,
+      "openclaw": 0.12,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "pu": 0.04
+    },
+    "E_dba479f7a753f3d2": {
+      "proposition": 0.038461538461538464,
+      "derived": 0.038461538461538464,
+      "from": 0.038461538461538464,
+      "hello": 0.038461538461538464,
+      "openclaw": 0.11538461538461539,
+      "voice": 0.11538461538461539,
+      "persona": 0.038461538461538464,
+      "anchor": 0.038461538461538464,
+      "soul": 0.07692307692307693,
+      "style": 0.038461538461538464,
+      "direct": 0.038461538461538464,
+      "keywords": 0.038461538461538464,
+      "personalization": 0.038461538461538464,
+      "ivi": 0.07692307692307693,
+      "preserve": 0.038461538461538464,
+      "users": 0.038461538461538464,
+      "harryscott": 0.038461538461538464,
+      "purple": 0.038461538461538464,
+      "feigenbuam": 0.038461538461538464,
+      "code": 0.038461538461538464
+    },
+    "E_9cd4e1428565e458": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "auto": 0.04,
+      "constraint": 0.04,
+      "t": 0.04,
+      "f49092f0d2841180": 0.04,
+      "openclaw": 0.12,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "pu": 0.04
+    },
+    "E_55af9f90a134b732": {
+      "proposition": 0.037037037037037035,
+      "derived": 0.037037037037037035,
+      "from": 0.037037037037037035,
+      "translate": 0.037037037037037035,
+      "conversation": 0.037037037037037035,
+      "into": 0.037037037037037035,
+      "executable": 0.037037037037037035,
+      "routines": 0.037037037037037035,
+      "and": 0.037037037037037035,
+      "run": 0.037037037037037035,
+      "one": 0.037037037037037035,
+      "admissible": 0.037037037037037035,
+      "action": 0.037037037037037035,
+      "now": 0.037037037037037035,
+      "openclaw": 0.1111111111111111,
+      "voice": 0.07407407407407407,
+      "persona": 0.037037037037037035,
+      "anchor": 0.037037037037037035,
+      "soul": 0.07407407407407407,
+      "style": 0.037037037037037035,
+      "direct": 0.037037037037037035,
+      "keywords": 0.037037037037037035,
+      "p": 0.037037037037037035
+    },
+    "E_0d6a5980f41fc390": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "auto": 0.04,
+      "constraint": 0.04,
+      "t": 0.04,
+      "163621ecb7eef8f3": 0.04,
+      "openclaw": 0.12,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "pu": 0.04
+    },
+    "E_f4a6bb2af7a3b2a1": {
+      "proposition": 0.038461538461538464,
+      "derived": 0.038461538461538464,
+      "from": 0.038461538461538464,
+      "agent": 0.038461538461538464,
+      "auto": 0.038461538461538464,
+      "action": 0.038461538461538464,
+      "off": 0.038461538461538464,
+      "openclaw": 0.11538461538461539,
+      "voice": 0.07692307692307693,
+      "persona": 0.038461538461538464,
+      "anchor": 0.038461538461538464,
+      "soul": 0.07692307692307693,
+      "style": 0.038461538461538464,
+      "direct": 0.038461538461538464,
+      "keywords": 0.038461538461538464,
+      "personalization": 0.038461538461538464,
+      "ivi": 0.038461538461538464,
+      "preserve": 0.038461538461538464,
+      "users": 0.038461538461538464,
+      "harryscott": 0.038461538461538464,
+      "purple": 0.038461538461538464,
+      "feigenbu": 0.038461538461538464
+    },
+    "E_d96ebe383615da82": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "auto": 0.04,
+      "constraint": 0.04,
+      "t": 0.04,
+      "ada2df4cbb58575b": 0.04,
+      "openclaw": 0.12,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "pu": 0.04
     }
   },
   "tf_d": {
@@ -224,13 +4711,900 @@
       "as": 0.09090909090909091,
       "candidate": 0.09090909090909091,
       "lemma": 0.09090909090909091
+    },
+    "D_0c0e84254ccf2d72": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_311bb4069d15b32e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_057ae1fb4f52762e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_171eed0d5aeb1a1f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_c46480dcf837d448": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_0df1afa4453464ee": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_d78c20e17dbb8e62": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_2a34117bf8437672": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_6e81b851d00dd139": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a28d8e269be8f403": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_e0d99fb43f0080f4": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_738f45028a7930ab": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_6d96863ab24cc8a2": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_ee3cc9b1a9f2eeee": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_5b9f021e13b58d9e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_9e8257a0fe26fb69": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a052ce6f22da00b2": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_5b446a3f8f91cd5f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a53a6d4fcbb35faa": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_f94b7b3d742896f9": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_bd149471db363f57": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_05955982a118351c": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_f939b5020d84756e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_e7001d02b2355f2b": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_fd16e486a38fcfb2": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_9e09fa1f07a24a79": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_d9f92601c26e484d": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_351d404fe913baed": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a6e2fa2e3ae44603": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_40301b260b04714a": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_27f29f666b3f8f64": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_392c64fa4dc32e7f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_25ab51c29162d508": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_400fae8c84b2a142": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_d1744805291f1918": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_4482a82f0169df85": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_b46e01cbdf54e2c0": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_cfd594c55e5d1da4": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_3c5830129e270db5": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_f7907ea6a11dff56": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_ef8d234a264923a4": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_b7e755f3050c3aa3": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_377e1280c7090002": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_2f7b8baf19fa5a2f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_7e6fb47195838c48": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_9f147530a8e61f2d": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_c85615678b50988c": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_f970acf317df902c": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_cd03ecec7057d9cb": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_048a2959ec04ab31": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_772a2c82013373b3": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_164b4d33c795971f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_e6c63e93d050a485": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
     }
   },
   "recent_triangle_trace": [
-    "T_4d433d075e4c8007",
-    "T_4d433d075e4c8007",
+    "T_dfa69dc612f467d9",
+    "T_daed36b2f6828b8e",
+    "T_40bb5af870d88f98",
+    "T_99e87ae94f2369ae",
+    "T_c2b99a8f57be34aa",
+    "T_0157e66c01ae3534",
+    "T_58875b48355d4cf5",
+    "T_3620e997d79cbddc",
+    "T_23b1edc5c507cb52",
+    "T_45f3302dcb23ba1a",
+    "T_0aabe9b176093387",
+    "T_72c8dc76ba5897e0",
+    "T_c4675dd0fe96883a",
+    "T_69e280dc83a080e2",
+    "T_c9d76a2e8eb0d643",
+    "T_f2ee2191586273db",
+    "T_07387582741bbe24",
+    "T_555e6ac3901bc415",
+    "T_3d74f55803ff7bf7",
+    "T_45f3302dcb23ba1a",
+    "T_7f361e5f88ba999a",
+    "T_c01fdfe7fd82e90e",
+    "T_89dc80820a3156b2",
     "T_3c97a58e428cb76f",
+    "T_58875b48355d4cf5",
+    "T_c912d8539da28359",
+    "T_88f63b6ac88eb0d1",
+    "T_c9536efcc2e3f421",
+    "T_c2b99a8f57be34aa",
+    "T_555e6ac3901bc415",
+    "T_07387582741bbe24",
+    "T_54ae53603281d6d8",
+    "T_69e280dc83a080e2",
+    "T_c4675dd0fe96883a",
+    "T_a178c05a3b1ad5eb",
+    "T_4a9466fd62fb5a98",
+    "T_a178c05a3b1ad5eb",
+    "T_0157e66c01ae3534",
+    "T_4a9466fd62fb5a98",
+    "T_c2b99a8f57be34aa",
+    "T_c912d8539da28359",
+    "T_36e42d71350ec208",
+    "T_40bb5af870d88f98",
+    "T_dfa69dc612f467d9",
+    "T_3a1d7234bac59e2d",
+    "T_e34deea84e3e2dab",
+    "T_27907ea1faf31112",
+    "T_23b1edc5c507cb52",
+    "T_e0f986df25369101",
+    "T_daed36b2f6828b8e",
+    "T_3a1d7234bac59e2d",
+    "T_99e87ae94f2369ae",
+    "T_c912d8539da28359",
+    "T_e0f986df25369101",
+    "T_23b1edc5c507cb52",
+    "T_27907ea1faf31112",
+    "T_e34deea84e3e2dab",
+    "T_c2b99a8f57be34aa",
+    "T_40bb5af870d88f98",
+    "T_4a9466fd62fb5a98",
+    "T_0157e66c01ae3534",
+    "T_9a0578f9c7f63a19",
+    "T_7c5e4053b989844a",
+    "T_c4675dd0fe96883a",
+    "T_72c8dc76ba5897e0",
+    "T_3d74f55803ff7bf7",
+    "T_7f361e5f88ba999a",
+    "T_88f63b6ac88eb0d1",
+    "T_07387582741bbe24",
+    "T_c9536efcc2e3f421",
+    "T_45f3302dcb23ba1a",
+    "T_69e280dc83a080e2",
+    "T_c01fdfe7fd82e90e",
+    "T_0aabe9b176093387",
+    "T_af4a90b7b95c5a81",
+    "T_4d433d075e4c8007",
+    "T_07387582741bbe24",
+    "T_555e6ac3901bc415",
+    "T_9a0578f9c7f63a19",
     "T_3c97a58e428cb76f",
-    "T_4d433d075e4c8007"
+    "T_c01fdfe7fd82e90e",
+    "T_69e280dc83a080e2",
+    "T_72c8dc76ba5897e0",
+    "T_f2ee2191586273db",
+    "T_3d74f55803ff7bf7",
+    "T_7c5e4053b989844a",
+    "T_f64f6035f900e361",
+    "T_f49092f0d2841180",
+    "T_58875b48355d4cf5",
+    "T_f49092f0d2841180",
+    "T_c2b99a8f57be34aa",
+    "T_23b1edc5c507cb52",
+    "T_36e42d71350ec208",
+    "T_0157e66c01ae3534",
+    "T_dfa69dc612f467d9",
+    "T_a178c05a3b1ad5eb",
+    "T_40bb5af870d88f98",
+    "T_3620e997d79cbddc",
+    "T_3a1d7234bac59e2d",
+    "T_c912d8539da28359",
+    "T_77f8175721003113",
+    "T_a178c05a3b1ad5eb",
+    "T_99e87ae94f2369ae",
+    "T_4c33254126eae826",
+    "T_3620e997d79cbddc",
+    "T_77f8175721003113",
+    "T_27907ea1faf31112",
+    "T_dfa69dc612f467d9",
+    "T_3d2d91f9f1ed805c",
+    "T_e0f986df25369101",
+    "T_f49092f0d2841180",
+    "T_40bb5af870d88f98",
+    "T_e34deea84e3e2dab",
+    "T_2f5d7d12db4d5b8e",
+    "T_72c8dc76ba5897e0",
+    "T_69e280dc83a080e2",
+    "T_7c5e4053b989844a",
+    "T_88f63b6ac88eb0d1",
+    "T_9a0578f9c7f63a19",
+    "T_0aabe9b176093387",
+    "T_3d74f55803ff7bf7",
+    "T_f2ee2191586273db",
+    "T_c01fdfe7fd82e90e",
+    "T_c9536efcc2e3f421",
+    "T_555e6ac3901bc415",
+    "T_07387582741bbe24",
+    "T_1cd1153881454262",
+    "T_9a0578f9c7f63a19",
+    "T_3c97a58e428cb76f",
+    "T_89dc80820a3156b2",
+    "T_e34deea84e3e2dab",
+    "T_7c5e4053b989844a",
+    "T_c9536efcc2e3f421",
+    "T_af4a90b7b95c5a81",
+    "T_0157e66c01ae3534",
+    "T_1cd1153881454262",
+    "T_775c18e746b2b179",
+    "T_3d74f55803ff7bf7",
+    "T_3620e997d79cbddc",
+    "T_163621ecb7eef8f3",
+    "T_27907ea1faf31112",
+    "T_3620e997d79cbddc",
+    "T_4a9466fd62fb5a98",
+    "T_c912d8539da28359",
+    "T_c2b99a8f57be34aa",
+    "T_e34deea84e3e2dab",
+    "T_daed36b2f6828b8e",
+    "T_58875b48355d4cf5",
+    "T_0157e66c01ae3534",
+    "T_f49092f0d2841180",
+    "T_40bb5af870d88f98",
+    "T_3a1d7234bac59e2d",
+    "T_6fee68cffabe82b5",
+    "T_f2ee2191586273db",
+    "T_6fee68cffabe82b5",
+    "T_c9536efcc2e3f421",
+    "T_7f361e5f88ba999a",
+    "T_69e280dc83a080e2",
+    "T_7c5e4053b989844a",
+    "T_c9d76a2e8eb0d643",
+    "T_72c8dc76ba5897e0",
+    "T_3d74f55803ff7bf7",
+    "T_f64f6035f900e361",
+    "T_89dc80820a3156b2",
+    "T_f49092f0d2841180",
+    "T_e7e437e240967895",
+    "T_e7e437e240967895",
+    "T_c9d76a2e8eb0d643",
+    "T_0aabe9b176093387",
+    "T_f2ee2191586273db",
+    "T_72c8dc76ba5897e0",
+    "T_c4675dd0fe96883a",
+    "T_07387582741bbe24",
+    "T_7f361e5f88ba999a",
+    "T_555e6ac3901bc415",
+    "T_c01fdfe7fd82e90e",
+    "T_3d74f55803ff7bf7",
+    "T_88f63b6ac88eb0d1",
+    "T_27465ad3a9b36786",
+    "T_27465ad3a9b36786",
+    "T_c2b99a8f57be34aa",
+    "T_dfa69dc612f467d9",
+    "T_3620e997d79cbddc",
+    "T_c912d8539da28359",
+    "T_f49092f0d2841180",
+    "T_a178c05a3b1ad5eb",
+    "T_3d2d91f9f1ed805c",
+    "T_0157e66c01ae3534",
+    "T_40bb5af870d88f98",
+    "T_36e42d71350ec208",
+    "T_4a9466fd62fb5a98",
+    "T_b10fb813056117e5",
+    "T_23b1edc5c507cb52",
+    "T_99e87ae94f2369ae",
+    "T_e0f986df25369101",
+    "T_4a9466fd62fb5a98",
+    "T_b10fb813056117e5",
+    "T_c912d8539da28359",
+    "T_77f8175721003113",
+    "T_daed36b2f6828b8e",
+    "T_4c33254126eae826",
+    "T_163621ecb7eef8f3",
+    "T_f49092f0d2841180",
+    "T_40bb5af870d88f98",
+    "T_93db385ca2cc5823",
+    "T_0aabe9b176093387",
+    "T_c9536efcc2e3f421",
+    "T_c9d76a2e8eb0d643",
+    "T_69e280dc83a080e2",
+    "T_2f5d7d12db4d5b8e",
+    "T_72c8dc76ba5897e0",
+    "T_e7e437e240967895",
+    "T_7c5e4053b989844a",
+    "T_9a0578f9c7f63a19",
+    "T_07387582741bbe24",
+    "T_555e6ac3901bc415",
+    "T_f2ee2191586273db",
+    "T_ada2df4cbb58575b",
+    "T_daed36b2f6828b8e",
+    "T_3620e997d79cbddc",
+    "T_3a1d7234bac59e2d",
+    "T_c912d8539da28359",
+    "T_40bb5af870d88f98",
+    "T_0157e66c01ae3534",
+    "T_e34deea84e3e2dab",
+    "T_f49092f0d2841180",
+    "T_23b1edc5c507cb52",
+    "T_4a9466fd62fb5a98",
+    "T_a178c05a3b1ad5eb",
+    "T_163621ecb7eef8f3",
+    "T_1f1c1db5f640c8f6",
+    "T_e0f986df25369101",
+    "T_ada2df4cbb58575b",
+    "T_0157e66c01ae3534",
+    "T_c2b99a8f57be34aa",
+    "T_27907ea1faf31112",
+    "T_e34deea84e3e2dab",
+    "T_23b1edc5c507cb52",
+    "T_4c33254126eae826",
+    "T_40bb5af870d88f98",
+    "T_1f1c1db5f640c8f6",
+    "T_3620e997d79cbddc",
+    "T_b10fb813056117e5",
+    "T_0fbffa5ae97df739",
+    "T_0aabe9b176093387",
+    "T_3d74f55803ff7bf7",
+    "T_c9536efcc2e3f421",
+    "T_0fbffa5ae97df739",
+    "T_93db385ca2cc5823",
+    "T_f2ee2191586273db",
+    "T_88f63b6ac88eb0d1",
+    "T_c4675dd0fe96883a",
+    "T_07387582741bbe24",
+    "T_7c5e4053b989844a",
+    "T_e7e437e240967895",
+    "T_c9d76a2e8eb0d643"
   ]
 }

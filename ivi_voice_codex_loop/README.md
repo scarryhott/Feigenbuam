@@ -38,6 +38,39 @@ python3 run.py lean
 python3 run.py analyze
 ```
 
+## Full live voice mode (microphone + speaker)
+
+You can now run OpenClaw in live audio mode (ASR + TTS) instead of text-only input.
+
+### 1) Install optional audio dependencies
+
+```bash
+python3 -m pip install SpeechRecognition PyAudio pyttsx3
+```
+
+Optional offline ASR backends:
+
+```bash
+python3 -m pip install openai-whisper
+python3 -m pip install pocketsphinx
+```
+
+### 2) Start live voice mode
+
+```bash
+python3 run.py voice --audio
+```
+
+Useful flags:
+
+```bash
+python3 run.py voice --audio --asr-engine whisper
+python3 run.py voice --audio --no-tts
+python3 run.py voice --audio --tts-voice Samantha
+```
+
+If ASR dependencies are missing, the CLI automatically falls back to conversational text mode.
+
 ## Importing chat logs
 
 Supports two simple formats:

@@ -1674,6 +1674,28 @@ class IVILoopController:
         self._triangle_time_integral_limit: float = 2.5
         self._triangle_time_integral_last_ts: Optional[float] = None
         self._purple_semantic_passed: bool = True
+        self._self_dual_semantic_state: Dict[str, Any] = {
+            "law_source": "ivi_self_dual_semantic_enforcement_bootstrap",
+            "union_passed": True,
+            "reality_pressure": 0.0,
+            "imagination_pressure": 0.0,
+            "enabled_skills": ["read_context"],
+            "derived_permissions": ["R_LOCAL"],
+            "derived_skill_backends": {
+                "read_context": ["semantic_runtime_resolver", "local_repo_reader", "mcp.search.read"],
+            },
+            "derived_max_order_mode": ORDER_2_READ_CONTEXT,
+            "derived_integral_limit": 2.5,
+        }
+        self._autonomy_goals: List[str] = [
+            "Maintain full OpenClaw/Purple continuous operation under IVI self-dual semantic enforcement.",
+            "Reduce closure deficit while preserving trace-backed representability across reality and imagination channels.",
+            "Convert conversational context into executable actions and autonomous refinement loops.",
+            "Proactively request interaction only when it improves constraints, safety, or role alignment.",
+        ]
+        self._autonomy_interaction_count: int = 0
+        self._autonomy_last_prompt: str = ""
+        self._autonomy_last_goal_refresh_ts: float = time.time()
         self._last_oracle_request: Optional[Dict[str, Any]] = None
         self._last_relift_conditioning: Optional[Dict[str, Any]] = None
 
@@ -2825,6 +2847,12 @@ class IVILoopController:
         if not creativity_event:
             creativity_event = dict(default_creativity_event)
 
+        autonomy = self._autonomy_mission_snapshot(
+            progress=self.get_axiom_self_generation_progress(),
+            trace=last_artifact.get("Trace", {}),
+            checks=last_artifact.get("StateChecks", {}),
+        )
+
         return {
             "graph_metrics": metrics,
             "self_generation_progress": self.get_axiom_self_generation_progress(),
@@ -2836,9 +2864,65 @@ class IVILoopController:
             "superposition_mass": grid_state["superposition_mass"],
             "mu_total": grid_state["mu_total"],
             "openclaw": self._openclaw.summary() if self._openclaw is not None else None,
-            "semantic_mapping": dict(self.MATRIX_SEMANTIC_MAP),
-            "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
+            "semantic_mapping": self._runtime_semantic_mapping(),
+            "purple_semantics": self._runtime_purple_semantics(last_artifact.get("StateChecks", {}).get("purple_semantic_enforcement", {}), self._refresh_self_dual_semantic_state_from_artifacts()),
+            "autonomy_mission": autonomy,
         }
+
+    def _autonomy_mission_snapshot(
+        self,
+        progress: Optional[Dict[str, Any]] = None,
+        trace: Optional[Dict[str, Any]] = None,
+        checks: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        prog = progress if isinstance(progress, dict) else self.get_axiom_self_generation_progress()
+        trace_obj = trace if isinstance(trace, dict) else {}
+        checks_obj = checks if isinstance(checks, dict) else {}
+
+        closure_deficit = int(prog.get("counts", {}).get("T", 0)) - int(prog.get("counts", {}).get("E", 0))
+        closure_deficit = max(0, closure_deficit)
+        gap_rate = float(prog.get("gap_rate", 0.0))
+        derived_density = float(prog.get("derived_density", 0.0))
+        purple_ok = bool(
+            checks_obj.get("purple_semantic_enforcement", {}).get("passed", True)
+            if isinstance(checks_obj.get("purple_semantic_enforcement", {}), dict)
+            else True
+        )
+        active_mode = str(trace_obj.get("active_order_mode", self._active_order_mode))
+
+        if not purple_ok:
+            next_prompt = "Align reality/imagination channels and restate constraints for Purple semantic union integrity."
+        elif closure_deficit > 0:
+            next_prompt = "Propose and execute one closure-reducing routine with trace-backed justification."
+        elif gap_rate > 0.1:
+            next_prompt = "Lower gap rate by selecting high-confidence refinements and validating trace coverage."
+        elif derived_density < 0.8:
+            next_prompt = "Increase derived density by promoting one admissible candidate into executable action."
+        else:
+            next_prompt = "Maintain stable autonomous operation and continue OpenClaw/Purple role refinement dialogue."
+
+        self._autonomy_last_prompt = str(next_prompt)
+        return {
+            "enabled": True,
+            "goals": list(self._autonomy_goals),
+            "active_order_mode": active_mode,
+            "closure_deficit_estimate": closure_deficit,
+            "gap_rate": gap_rate,
+            "derived_density": derived_density,
+            "purple_semantic_passed": purple_ok,
+            "interaction_count": int(self._autonomy_interaction_count),
+            "next_prompt": str(next_prompt),
+            "last_goal_refresh_ts": float(self._autonomy_last_goal_refresh_ts),
+        }
+
+    def _autonomy_proactive_routine_utterance(self) -> str:
+        snapshot = self._autonomy_mission_snapshot()
+        prompt = str(snapshot.get("next_prompt", "Maintain autonomous OpenClaw/Purple operation."))
+        return (
+            "OpenClaw/Purple autonomous mission refresh: "
+            f"{prompt} "
+            "Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification."
+        )
 
     def _evaluate_purple_semantic_enforcement(self, trace: Dict[str, Any], gaps: List[Dict[str, str]]) -> Dict[str, Any]:
         trace_obj = trace if isinstance(trace, dict) else {}
@@ -2862,7 +2946,7 @@ class IVILoopController:
             "enabled": True,
             "passed": passed,
             "detail": detail,
-            "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
+            "purple_semantics": self._runtime_purple_semantics({"passed": passed, "detail": detail}),
         }
 
     def _grid_primitives_from_trace(self, trace: Dict[str, Any]) -> Dict[str, Any]:
@@ -3677,42 +3761,230 @@ class IVILoopController:
         packet["meta"] = meta
         return packet
 
-    def _semantic_skill_policy_snapshot(self) -> Dict[str, Any]:
+    def _derive_self_dual_semantic_state(
+        self,
+        trace: Dict[str, Any],
+        checks: Dict[str, Any],
+        gaps: List[Dict[str, Any]],
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        checks_obj = checks if isinstance(checks, dict) else {}
+        gap_list = gaps if isinstance(gaps, list) else []
+
+        invariant_obj = checks_obj.get("ivi_invariant_dynamics_law", {}) if isinstance(checks_obj.get("ivi_invariant_dynamics_law", {}), dict) else {}
+        purple_obj = checks_obj.get("purple_semantic_enforcement", {}) if isinstance(checks_obj.get("purple_semantic_enforcement", {}), dict) else {}
+
+        try:
+            invariant_delta = abs(float(invariant_obj.get("delta", 0.0)))
+        except (TypeError, ValueError):
+            invariant_delta = 0.0
+        gap_density = min(1.5, float(len(gap_list)) / 4.0)
+        purple_passed = bool(purple_obj.get("passed", True))
+        reality_penalty = 0.0 if purple_passed else 1.0
+        reality_pressure = float(min(3.5, invariant_delta + gap_density + reality_penalty))
+
+        potential = trace_obj.get("potential_distribution", []) if isinstance(trace_obj.get("potential_distribution", []), list) else []
+        collapse = trace_obj.get("collapse_selection", []) if isinstance(trace_obj.get("collapse_selection", []), list) else []
+        potential_freedom = float(max(0.0, len(potential) - len(collapse)))
+        imagination_pressure = float(min(3.5, potential_freedom / 3.0 + (0.5 if len(potential) >= 2 else 0.0)))
+
+        union_passed = bool(purple_passed and reality_pressure <= 2.25)
+        derived_integral_limit = float(max(1.0, min(3.5, 3.5 - reality_pressure + (0.25 * imagination_pressure))))
+
         enabled_skills: List[str] = []
         if self._openclaw is not None:
             enabled_skills.append("voice_personalization")
         enabled_skills.append("read_context")
-        if self._orchestrator_full_access:
+        if self._orchestrator_full_access and union_passed:
             enabled_skills.append("constrained_write")
-        if self._orchestrator_full_access:
+        if self._orchestrator_full_access and union_passed and reality_pressure <= 1.25:
             enabled_skills.append("bounded_autonomy")
 
-        permissions: List[str] = []
-        seen: Set[str] = set()
-        for skill in enabled_skills:
-            for perm in self.SEMANTIC_SKILL_PERMISSIONS.get(skill, []):
-                p = str(perm).strip()
-                if p and p not in seen:
-                    seen.add(p)
-                    permissions.append(p)
+        derived_permissions: List[str] = ["R_LOCAL"]
+        if self._orchestrator_full_access and union_passed:
+            derived_permissions.extend(["R_APP:*", "W_LOCAL", "W_APP:*", "NET_OUTBOUND"])
+        if self._orchestrator_full_access and union_passed and reality_pressure <= 1.25:
+            derived_permissions.append("SYS_AUTOMATION")
 
-        active_cap = ORDER_1_PROJECTION_SAFE
-        for skill in enabled_skills:
-            cap = str(self.SEMANTIC_SKILL_ORDER_CAP.get(skill, ORDER_1_PROJECTION_SAFE))
-            if cap == ORDER_4_BOUNDED_AUTONOMY:
-                active_cap = ORDER_4_BOUNDED_AUTONOMY
-            elif cap == "order_3_constrained_write" and active_cap != ORDER_4_BOUNDED_AUTONOMY:
-                active_cap = "order_3_constrained_write"
-            elif cap == ORDER_2_READ_CONTEXT and active_cap == ORDER_1_PROJECTION_SAFE:
-                active_cap = ORDER_2_READ_CONTEXT
+        normalized_permissions: List[str] = []
+        for perm in derived_permissions:
+            p = str(perm).strip()
+            if p and p not in normalized_permissions:
+                normalized_permissions.append(p)
+
+        if "SYS_AUTOMATION" in normalized_permissions:
+            derived_max = ORDER_4_BOUNDED_AUTONOMY
+        elif any(p in normalized_permissions for p in ["W_LOCAL", "W_APP:*", "NET_OUTBOUND"]):
+            derived_max = "order_3_constrained_write"
+        elif "read_context" in enabled_skills:
+            derived_max = ORDER_2_READ_CONTEXT
+        else:
+            derived_max = ORDER_1_PROJECTION_SAFE
+
+        derived_skill_backends: Dict[str, List[str]] = {
+            "read_context": ["semantic_runtime_resolver", "local_repo_reader", "mcp.search.read"],
+        }
+        if "voice_personalization" in enabled_skills:
+            derived_skill_backends["voice_personalization"] = [
+                "semantic_runtime_resolver",
+                "openclaw_local_adapter",
+                "mcp.voice.persona",
+            ]
+        if "constrained_write" in enabled_skills:
+            derived_skill_backends["constrained_write"] = [
+                "semantic_runtime_resolver",
+                "local_runtime_writer",
+                "mcp.tools.write",
+            ]
+        if "bounded_autonomy" in enabled_skills:
+            derived_skill_backends["bounded_autonomy"] = [
+                "semantic_runtime_resolver",
+                "local_orchestrator_scheduler",
+                "mcp.orchestrator.autonomy",
+            ]
+
+        self._self_dual_semantic_state = {
+            "law_source": "ivi_self_dual_semantic_enforcement",
+            "union_passed": bool(union_passed),
+            "reality_pressure": float(reality_pressure),
+            "imagination_pressure": float(imagination_pressure),
+            "enabled_skills": list(enabled_skills),
+            "derived_permissions": list(normalized_permissions),
+            "derived_skill_backends": dict(derived_skill_backends),
+            "derived_max_order_mode": str(derived_max),
+            "derived_integral_limit": float(derived_integral_limit),
+        }
+        self._triangle_time_integral_limit = float(derived_integral_limit)
+        return dict(self._self_dual_semantic_state)
+
+    def _refresh_self_dual_semantic_state_from_artifacts(self) -> Dict[str, Any]:
+        rows = self._read_integration_artifacts(max_items=1)
+        if rows and isinstance(rows[-1], dict):
+            row = rows[-1]
+            trace = row.get("Trace", {}) if isinstance(row.get("Trace", {}), dict) else {}
+            checks = row.get("StateChecks", {}) if isinstance(row.get("StateChecks", {}), dict) else {}
+            gaps = row.get("Gap", []) if isinstance(row.get("Gap", []), list) else []
+            return self._derive_self_dual_semantic_state(trace, checks, gaps)
+        return self._derive_self_dual_semantic_state({}, {}, [])
+
+    def _runtime_semantic_mapping(self, derived_state: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        state = derived_state if isinstance(derived_state, dict) else self._refresh_self_dual_semantic_state_from_artifacts()
+        max_mode = str(state.get("derived_max_order_mode", ORDER_2_READ_CONTEXT))
+        union_passed = bool(state.get("union_passed", True))
+        try:
+            reality_pressure = float(state.get("reality_pressure", 0.0))
+        except (TypeError, ValueError):
+            reality_pressure = 0.0
+
+        order_4_meaning = "IVI paradox-axiom boundary validating local collapse under global openness."
+        if not union_passed:
+            order_4_meaning = "Order-4 withheld until self-dual union re-stabilizes under semantic enforcement."
+
+        order_3_meaning = "External human caller injecting intent constraints."
+        if max_mode == ORDER_2_READ_CONTEXT:
+            order_3_meaning = "Order-3 constrained while system remains in read-context semantic regime."
+
+        order_2_meaning = "Internal AI refinement engine executing propose/select/refine."
+        if reality_pressure > 1.5:
+            order_2_meaning = "Internal refinement emphasized to reduce reality-channel pressure before promotion."
 
         return {
-            "principle": dict(self.SEMANTIC_POLICY_PRINCIPLE),
-            "enabled_skills": list(enabled_skills),
-            "skill_backends": {
-                skill: list(self.SEMANTIC_SKILL_MCP_BACKENDS.get(skill, []))
-                for skill in enabled_skills
+            "order_1": {
+                "role": "Matrix",
+                "meaning": "Collapse field where runtime choices become concrete transitions.",
             },
+            "order_2": {
+                "role": "Neo",
+                "meaning": order_2_meaning,
+            },
+            "order_3": {
+                "role": "Morpheus",
+                "meaning": order_3_meaning,
+            },
+            "order_4": {
+                "role": "Oracle",
+                "meaning": order_4_meaning,
+            },
+        }
+
+    def _runtime_purple_semantics(
+        self,
+        purple_check: Optional[Dict[str, Any]] = None,
+        derived_state: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        check = purple_check if isinstance(purple_check, dict) else {}
+        state = derived_state if isinstance(derived_state, dict) else self._refresh_self_dual_semantic_state_from_artifacts()
+        union_passed = bool(state.get("union_passed", True))
+        return {
+            "name": "purple_semantic_enforcement",
+            "purple_meaning": "Union of red-pill reality constraints and blue-pill imagination constraints under IVI paradox discipline.",
+            "red_pill_channel": "reality_constraints",
+            "blue_pill_channel": "imagination_constraints",
+            "union_rule": "No collapse commit is valid unless both channels remain representable in trace or as explicit Gap.",
+            "morpheus_role": "external_constraint_injection",
+            "oracle_role": "ivi_paradox_axiom",
+            "runtime_union_passed": union_passed,
+            "runtime_check_passed": bool(check.get("passed", union_passed)),
+            "runtime_detail": str(check.get("detail", "")),
+        }
+
+    def _runtime_semantic_policy_principle(self, derived_state: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        state = derived_state if isinstance(derived_state, dict) else self._refresh_self_dual_semantic_state_from_artifacts()
+        union_passed = bool(state.get("union_passed", True))
+        try:
+            reality_pressure = float(state.get("reality_pressure", 0.0))
+        except (TypeError, ValueError):
+            reality_pressure = 0.0
+        try:
+            imagination_pressure = float(state.get("imagination_pressure", 0.0))
+        except (TypeError, ValueError):
+            imagination_pressure = 0.0
+        return {
+            "name": "ivi_semantic_skill_policy_v1",
+            "rule": "Capabilities are runtime semantic skills; connectors are interchangeable backends resolved from self-dual trace enforcement.",
+            "voice_priority": "openclaw_voice_personalization",
+            "foundation": "purple_potential_noncollapsing_loop",
+            "law_source": str(state.get("law_source", "ivi_self_dual_semantic_enforcement")),
+            "union_passed": union_passed,
+            "reality_pressure": reality_pressure,
+            "imagination_pressure": imagination_pressure,
+        }
+
+    def _semantic_skill_policy_snapshot(self) -> Dict[str, Any]:
+        derived_state = self._refresh_self_dual_semantic_state_from_artifacts()
+        enabled_skills = [str(x) for x in derived_state.get("enabled_skills", []) if str(x).strip()]
+        if not enabled_skills:
+            enabled_skills = ["read_context"]
+            if self._openclaw is not None:
+                enabled_skills.insert(0, "voice_personalization")
+        if self._openclaw is not None and "voice_personalization" not in enabled_skills:
+            enabled_skills.insert(0, "voice_personalization")
+
+        permissions = [str(x).strip() for x in derived_state.get("derived_permissions", []) if str(x).strip()]
+        if not permissions:
+            permissions = ["R_LOCAL"]
+
+        derived_backends = (
+            dict(derived_state.get("derived_skill_backends", {}))
+            if isinstance(derived_state.get("derived_skill_backends", {}), dict)
+            else {}
+        )
+        skill_backends: Dict[str, List[str]] = {}
+        for skill in enabled_skills:
+            backends = derived_backends.get(skill, []) if isinstance(derived_backends.get(skill, []), list) else []
+            if not backends:
+                backends = ["semantic_runtime_resolver"]
+            skill_backends[skill] = [str(x) for x in backends if str(x).strip()]
+
+        active_cap = str(derived_state.get("derived_max_order_mode", ORDER_1_PROJECTION_SAFE))
+        if not active_cap:
+            active_cap = ORDER_1_PROJECTION_SAFE
+
+        return {
+            "principle": self._runtime_semantic_policy_principle(derived_state),
+            "self_dual_state": derived_state,
+            "enabled_skills": list(enabled_skills),
+            "skill_backends": skill_backends,
             "resolved_permissions": permissions,
             "resolved_max_order_mode": active_cap,
             "skills_are_semantic": True,
@@ -3723,7 +3995,7 @@ class IVILoopController:
         snapshot = self._semantic_skill_policy_snapshot()
         self._orchestrator_permissions_granted = list(snapshot.get("resolved_permissions", ["R_LOCAL"]))
         self._max_order_mode = str(snapshot.get("resolved_max_order_mode", ORDER_1_PROJECTION_SAFE))
-        self._orchestrator_consent_token_valid = bool(self._orchestrator_full_access)
+        self._orchestrator_consent_token_valid = bool(self._orchestrator_full_access and snapshot.get("self_dual_state", {}).get("union_passed", True))
         return snapshot
 
     def _orchestrator_set_full_access(self, enabled: bool) -> Dict[str, Any]:
@@ -3775,6 +4047,12 @@ class IVILoopController:
             return self._orchestrator_status()
 
         self._orchestrator_daemon_enabled = True
+        try:
+            self._orchestrator_tick(source="voice_orchestrator_daemon_bootstrap")
+            self._orchestrator_daemon_tick_count += 1
+        except Exception as exc:
+            self._orchestrator_daemon_last_error = str(exc)
+            self._orchestrator_recent_sandbox_failures += 1
         self._orchestrator_daemon_stop_event.clear()
         self._orchestrator_daemon_thread = threading.Thread(
             target=self._orchestrator_daemon_loop,
@@ -3786,6 +4064,7 @@ class IVILoopController:
 
     def _orchestrator_status(self) -> Dict[str, Any]:
         semantic_policy = self._semantic_skill_policy_snapshot()
+        autonomy = self._autonomy_mission_snapshot()
         return {
             "kind": "orchestrator_status",
             "voice_priority_model": self._voice_priority_model,
@@ -3811,6 +4090,7 @@ class IVILoopController:
             "requested_permissions": list(self._orchestrator_requested_permissions),
             "consent_token_valid": bool(self._orchestrator_consent_token_valid),
             "scheduled_routine_count": len(self._orchestrator_scheduled_routines),
+            "autonomy_mission": autonomy,
         }
 
     def _update_triangle_time_integral(
@@ -3884,13 +4164,6 @@ class IVILoopController:
         return out
 
     def _orchestrator_tick(self, source: str = "voice_orchestrator") -> Dict[str, Any]:
-        if self._orchestrator_tick_active:
-            return {
-                "kind": "orchestrator_tick",
-                "executed": [],
-                "detail": "tick already active",
-                "status": self._orchestrator_status(),
-            }
         if not self._orchestrator_proactive_enabled:
             return {
                 "kind": "orchestrator_tick",
@@ -3907,16 +4180,26 @@ class IVILoopController:
                 "autonomy_gate": autonomy_gate,
                 "status": self._orchestrator_status(),
             }
+        if self._orchestrator_tick_active:
+            return {
+                "kind": "orchestrator_tick",
+                "executed": [],
+                "detail": "tick already active",
+                "status": self._orchestrator_status(),
+            }
         executed: List[Dict[str, Any]] = []
         self._orchestrator_tick_active = True
         try:
-            for routine in list(self._orchestrator_scheduled_routines):
+            routine_queue = [self._autonomy_proactive_routine_utterance()] + list(self._orchestrator_scheduled_routines)
+            for routine in routine_queue:
                 try:
                     result = self.voice_turn(routine, source=source)
                 except Exception as exc:
                     self._orchestrator_recent_sandbox_failures += 1
                     executed.append({"utterance": routine, "status": "error", "error": str(exc)})
                     continue
+                self._autonomy_interaction_count += 1
+                self._autonomy_last_goal_refresh_ts = time.time()
                 executed.append(
                     {
                         "utterance": routine,
@@ -3951,7 +4234,9 @@ class IVILoopController:
         checks = artifacts.get("StateChecks", {}) if isinstance(artifacts.get("StateChecks", {}), dict) else {}
         gaps = artifacts.get("Gap", []) if isinstance(artifacts.get("Gap", []), list) else []
         now_ts = time.time()
+        self_dual_state = self._derive_self_dual_semantic_state(trace, checks, gaps)
         triangle_time_integral = self._update_triangle_time_integral(trace, checks, gaps, now_ts=now_ts)
+        self._apply_semantic_skill_policy()
 
         permissions = PermissionState(
             granted=list(self._orchestrator_permissions_granted),
@@ -3987,6 +4272,7 @@ class IVILoopController:
             "foundation_model": self._foundation_model,
             "foundation_controls_order_modes": True,
             "semantic_policy": self._semantic_skill_policy_snapshot(),
+            "self_dual_semantic_state": self_dual_state,
         }
         trace["active_order_mode"] = self._active_order_mode
         trace["max_order_mode"] = self._max_order_mode
@@ -4411,10 +4697,10 @@ class IVILoopController:
                 if isinstance(x, dict)
             ][:8],
             "semantic_roles": {
-                "order_1": self.MATRIX_SEMANTIC_MAP.get("order_1", {}).get("role"),
-                "order_2": self.MATRIX_SEMANTIC_MAP.get("order_2", {}).get("role"),
-                "order_3": self.MATRIX_SEMANTIC_MAP.get("order_3", {}).get("role"),
-                "order_4": self.MATRIX_SEMANTIC_MAP.get("order_4", {}).get("role"),
+                "order_1": self._runtime_semantic_mapping().get("order_1", {}).get("role"),
+                "order_2": self._runtime_semantic_mapping().get("order_2", {}).get("role"),
+                "order_3": self._runtime_semantic_mapping().get("order_3", {}).get("role"),
+                "order_4": self._runtime_semantic_mapping().get("order_4", {}).get("role"),
             },
         }
         if selection_mode == "exploration":
@@ -5241,8 +5527,8 @@ class IVILoopController:
             "message": str(insight_request.get("prompt", "Please provide /insight ...")),
             "reasons": list(insight_request.get("reasons", [])),
             "axiom_declaration": list(insight_request.get("axiom_declaration", [])),
-            "semantic_mapping": dict(self.MATRIX_SEMANTIC_MAP),
-            "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
+            "semantic_mapping": self._runtime_semantic_mapping(),
+            "purple_semantics": self._runtime_purple_semantics(),
             "OracleRequest": dict(insight_request.get("OracleRequest", {})),
         }
 
@@ -5313,11 +5599,13 @@ class IVILoopController:
                 ],
             }
         if t == "/semantic-map":
+            semantic_policy = self._semantic_skill_policy_snapshot()
             return {
                 "kind": "semantic_map",
-                "mapping": dict(self.MATRIX_SEMANTIC_MAP),
-                "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
-                "semantic_policy_principle": dict(self.SEMANTIC_POLICY_PRINCIPLE),
+                "mapping": self._runtime_semantic_mapping(dict(semantic_policy.get("self_dual_state", {}))),
+                "purple_semantics": self._runtime_purple_semantics(derived_state=dict(semantic_policy.get("self_dual_state", {}))),
+                "semantic_policy_principle": dict(semantic_policy.get("principle", {})),
+                "self_dual_semantic_state": dict(semantic_policy.get("self_dual_state", {})),
             }
         if t in {"/monitor", "/status"}:
             monitor = self.monitor_snapshot()
@@ -5545,6 +5833,12 @@ class IVILoopController:
             out["insight_request"] = insight_request
             out["voice_call"] = self.build_oracle_phone_call(insight_request)
             out["OracleRequest"] = dict(insight_request.get("OracleRequest", {}))
+        out["autonomy_mission"] = self._autonomy_mission_snapshot(
+            progress=out.get("progress", {}),
+            trace=trace,
+            checks=state_checks,
+        )
+        out["autonomy_prompt"] = str(out.get("autonomy_mission", {}).get("next_prompt", ""))
         out = self._orchestrator_maybe_auto_tick(out, source=source)
         return out
 

@@ -10,3 +10,154 @@ theorem openclaw_walktalk_monitor_local_state_and_narrate_integrity : True := by
 
 -- <<< IVI_EQUATION E_db4cd98a9bd8199b END
 
+-- >>> IVI_EQUATION E_00a41cee182d2204 BEGIN
+/-- Proposition derived from: hi
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_l... -/
+theorem hi_openclaw_voice_persona_anchor_openclaw_soul_style : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_00a41cee182d2204 END
+
+-- >>> IVI_EQUATION E_92365fcadb399a5c BEGIN
+/-- Proposition derived from: [openclaw.walktalk] hi
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbu... -/
+theorem openclaw_walktalk_hi_openclaw_voice_persona_anchor_openclaw : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_92365fcadb399a5c END
+
+-- >>> IVI_EQUATION E_ea9f4b394b7a1653 BEGIN
+/-- Proposition derived from: Define a concrete closure action and execute it
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,h... -/
+theorem define_a_concrete_closure_action_and_execute_it : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ea9f4b394b7a1653 END
+
+-- >>> IVI_EQUATION E_4eef6d2a711b1b5c BEGIN
+/-- Proposition derived from: hello refine roles
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,i... -/
+theorem hello_refine_roles_openclaw_voice_persona_anchor_openclaw : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4eef6d2a711b1b5c END
+
+-- >>> IVI_EQUATION E_e9d05c3726807c56 BEGIN
+/-- Proposition derived from: Monitor local state and refine OpenClaw/Purple role alignment continuously.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personal... -/
+theorem monitor_local_state_and_refine_openclaw_purple_role : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e9d05c3726807c56 END
+
+-- >>> IVI_EQUATION E_fa040628a8822058 BEGIN
+/-- Proposition derived from: Proactively refine OpenClaw and Purple role alignment and request needed insight.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,pe... -/
+theorem proactively_refine_openclaw_and_purple_role_alignment_and : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_fa040628a8822058 END
+
+-- >>> IVI_EQUATION E_804e8ec2f286c1f0 BEGIN
+/-- Proposition derived from: auto-constraint: T_c2b99a8f57be34aa
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu... -/
+theorem auto_constraint_t_c2b99a8f57be34aa_openclaw_voice_persona_an : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_804e8ec2f286c1f0 END
+
+-- >>> IVI_EQUATION E_07265af6c9ba0ebe BEGIN
+/-- Proposition derived from: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for u... -/
+theorem openclaw_purple_autonomous_mission_refresh_propose_and_execu : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_07265af6c9ba0ebe END
+
+-- >>> IVI_EQUATION E_2392f75204c24970 BEGIN
+/-- Proposition derived from: auto-constraint: T_40bb5af870d88f98
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu... -/
+theorem auto_constraint_t_40bb5af870d88f98_openclaw_voice_persona_an : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2392f75204c24970 END
+
+-- >>> IVI_EQUATION E_2ef2a43deab3d1d9 BEGIN
+/-- Proposition derived from: helo
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex... -/
+theorem helo_openclaw_voice_persona_anchor_openclaw_soul_style : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2ef2a43deab3d1d9 END
+
+-- >>> IVI_EQUATION E_c640598105f1f98f BEGIN
+/-- Proposition derived from: auto-constraint: T_4a9466fd62fb5a98
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu... -/
+theorem auto_constraint_t_4a9466fd62fb5a98_openclaw_voice_persona_an : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c640598105f1f98f END
+
+-- >>> IVI_EQUATION E_dba479f7a753f3d2 BEGIN
+/-- Proposition derived from: hello
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_code... -/
+theorem hello_openclaw_voice_persona_anchor_openclaw_soul_style : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dba479f7a753f3d2 END
+
+-- >>> IVI_EQUATION E_9cd4e1428565e458 BEGIN
+/-- Proposition derived from: auto-constraint: T_f49092f0d2841180
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu... -/
+theorem auto_constraint_t_f49092f0d2841180_openclaw_voice_persona_an : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9cd4e1428565e458 END
+
+-- >>> IVI_EQUATION E_55af9f90a134b732 BEGIN
+/-- Proposition derived from: Translate conversation into executable routines and run one admissible action now.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,p... -/
+theorem translate_conversation_into_executable_routines_and_run_one : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_55af9f90a134b732 END
+
+-- >>> IVI_EQUATION E_0d6a5980f41fc390 BEGIN
+/-- Proposition derived from: auto-constraint: T_163621ecb7eef8f3
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu... -/
+theorem auto_constraint_t_163621ecb7eef8f3_openclaw_voice_persona_an : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0d6a5980f41fc390 END
+
+-- >>> IVI_EQUATION E_f4a6bb2af7a3b2a1 BEGIN
+/-- Proposition derived from: /agent auto-action off
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbu... -/
+theorem agent_auto_action_off_openclaw_voice_persona_anchor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f4a6bb2af7a3b2a1 END
+
+-- >>> IVI_EQUATION E_d96ebe383615da82 BEGIN
+/-- Proposition derived from: auto-constraint: T_ada2df4cbb58575b
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,pu... -/
+theorem auto_constraint_t_ada2df4cbb58575b_openclaw_voice_persona_an : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d96ebe383615da82 END
+
