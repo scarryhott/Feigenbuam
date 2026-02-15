@@ -1,11 +1,49 @@
 {
-  "analysis_notes": {},
+  "analysis_notes": {
+    "N-854990d500a30bb6": {
+      "body": "Statement excluded from active memory: missing strict derivation marker.",
+      "created_at": "2026-02-15T02:13:10.270764+00:00",
+      "id": "N-854990d500a30bb6",
+      "provenance": {
+        "depends_on": null,
+        "source_id": "cli:say",
+        "source_type": "text",
+        "span": null
+      },
+      "title": "strict_rejected_statement"
+    },
+    "N-d9d42ec6e5bf63c0": {
+      "body": "Statement excluded from active memory: missing strict derivation marker.",
+      "created_at": "2026-02-15T02:12:55.596803+00:00",
+      "id": "N-d9d42ec6e5bf63c0",
+      "provenance": {
+        "depends_on": null,
+        "source_id": "cli:say",
+        "source_type": "text",
+        "span": null
+      },
+      "title": "strict_rejected_statement"
+    },
+    "N-f102a7db9bb5c28e": {
+      "body": "Statement excluded from active memory: missing strict derivation marker.",
+      "created_at": "2026-02-15T02:12:07.032050+00:00",
+      "id": "N-f102a7db9bb5c28e",
+      "provenance": {
+        "depends_on": null,
+        "source_id": "cli:say",
+        "source_type": "text",
+        "span": null
+      },
+      "title": "strict_rejected_statement"
+    }
+  },
   "counts": {
-    "analysis_notes": 0,
+    "analysis_notes": 3,
     "derivations": 1,
     "equations": 1,
-    "events_total": 5,
+    "events_total": 8,
     "logic_claims": 1,
+    "quarantined_claims": 0,
     "triangles": 1,
     "utterances": 1
   },
@@ -73,6 +111,7 @@
       "text": "def TriangleTime := relational closure"
     }
   },
+  "quarantined_claims": {},
   "triangles": {
     "T-4750b7b840d571dd": {
       "created_at": "2026-02-13T23:10:35.407483+00:00",

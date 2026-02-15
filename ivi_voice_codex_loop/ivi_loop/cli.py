@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
-from typing import List
+from typing import Any, Dict, List
 
 from .config import Settings
 from .storage import ensure_dirs, append_event, rebuild_state
@@ -13,6 +14,11 @@ from .report import format_status
 from .lean_gen import generate_lean_phase1
 from .analyze import analyze_state
 from .ask import ask_repo
+from .ivi_simplicial_grid import IVILoopController, IVISimplicialGrid
+
+
+VOICE_LAYER_DIRNAME = ".ivi_voice_layer"
+VOICE_STATE_FILENAME = "voice_state.json"
 
 
 def cmd_init(settings: Settings) -> int:
@@ -22,6 +28,39 @@ def cmd_init(settings: Settings) -> int:
 
 
 def cmd_say(settings: Settings, text: str) -> int:
+    stripped = text.strip()
+    if stripped.startswith("/"):
+        try:
+            result = run_voice_cli_turn(settings, stripped)
+        except Exception as exc:
+            detail = str(exc)
+            hint = ""
+            if stripped.startswith("/openclaw attach"):
+                hint = (
+                    "Use a real local path that contains soul.md. "
+                    "Example: /openclaw attach /Users/<you>/path/to/openclaw_repo"
+                )
+                if "<" in stripped or ">" in stripped:
+                    hint = (
+                        "Detected placeholder path. Replace it with your real OpenClaw repo path containing soul.md."
+                    )
+            print(
+                json.dumps(
+                    {
+                        "kind": "voice_command_error",
+                        "command": stripped,
+                        "error": detail,
+                        "hint": hint,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return 1
+
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+
     utt = ingest_text_message(text, source_type="text", source_id="cli:say")
     res = process_utterance(settings, utt)
     if res.skipped:
@@ -84,6 +123,73 @@ def cmd_ask(settings: Settings, query: str, max_hits: int, context: int, glob: s
     report = ask_repo(root=settings.root, query=query, max_hits=max_hits, context=context, glob=glob)
     print(report)
     return 0
+
+
+def _voice_state_path(settings: Settings) -> Path:
+    ensure_dirs(settings)
+    return settings.ivi_dir / VOICE_STATE_FILENAME
+
+
+def _voice_layer_dir(settings: Settings) -> Path:
+    path = settings.root / VOICE_LAYER_DIRNAME
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def _load_voice_state(settings: Settings) -> Dict[str, Any]:
+    path = _voice_state_path(settings)
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+
+
+def _save_voice_state(settings: Settings, state: Dict[str, Any]) -> None:
+    path = _voice_state_path(settings)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _restore_voice_controller_state(loop: IVILoopController, state: Dict[str, Any]) -> None:
+    repo_root = state.get("openclaw_repo_root")
+    if repo_root:
+        loop.attach_openclaw_microcosm(repo_root)
+
+    loop._orchestrator_set_full_access(bool(state.get("orchestrator_full_access", False)))
+    loop._orchestrator_set_proactive(bool(state.get("orchestrator_proactive_enabled", False)))
+    loop._orchestrator_set_continuous(bool(state.get("orchestrator_continuous_enabled", False)))
+    loop._orchestrator_set_eternal(bool(state.get("orchestrator_proactive_enabled", False) and state.get("orchestrator_continuous_enabled", False)))
+    loop._orchestrator_set_daemon(False)
+    if state.get("orchestrator_daemon_enabled", False):
+        loop._orchestrator_set_daemon(
+            True,
+            interval_seconds=state.get("orchestrator_daemon_interval_seconds"),
+        )
+
+
+def _snapshot_voice_controller_state(loop: IVILoopController) -> Dict[str, Any]:
+    openclaw_summary = loop._openclaw.summary() if loop._openclaw is not None else None
+    return {
+        "openclaw_repo_root": openclaw_summary.get("repo_root") if isinstance(openclaw_summary, dict) else None,
+        "orchestrator_full_access": bool(loop._orchestrator_full_access),
+        "orchestrator_proactive_enabled": bool(loop._orchestrator_proactive_enabled),
+        "orchestrator_continuous_enabled": bool(loop._orchestrator_continuous_enabled),
+        "orchestrator_daemon_enabled": bool(loop._orchestrator_daemon_enabled),
+        "orchestrator_daemon_interval_seconds": float(loop._orchestrator_daemon_interval_seconds),
+    }
+
+
+def run_voice_cli_turn(settings: Settings, text: str) -> Dict[str, Any]:
+    state = _load_voice_state(settings)
+    base_dir = _voice_layer_dir(settings)
+    grid = IVISimplicialGrid(base_dir=str(base_dir))
+    loop = IVILoopController(grid)
+    _restore_voice_controller_state(loop, state)
+    result = loop.voice_turn(text, source="cli_voice")
+    _save_voice_state(settings, _snapshot_voice_controller_state(loop))
+    return result
 
 
 def main(argv: List[str] | None = None) -> int:

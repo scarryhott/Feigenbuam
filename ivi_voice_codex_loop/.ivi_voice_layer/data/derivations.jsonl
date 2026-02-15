@@ -1,0 +1,2 @@
+{"did": "D_2e5e4e37f0894385", "rule": "phase1_stub_implication", "premises": ["S_1a09c8915cf0d61f"], "conclusions": ["E_db4cd98a9bd8199b"], "notes": "Minimal scaffold: treat statement as candidate lemma statement.", "created_ts": 1771122188.2513049}
+{"did": "D_894dcbefdd4cd130", "rule": "phase1_stub_implication", "premises": ["S_624622501ca6735f"], "conclusions": ["E_db4cd98a9bd8199b"], "notes": "Minimal scaffold: treat statement as candidate lemma statement.", "created_ts": 1771122222.633625}

@@ -1,0 +1,236 @@
+{
+  "statements": {
+    "S_1a09c8915cf0d61f": {
+      "sid": "S_1a09c8915cf0d61f",
+      "text": "[openclaw.walktalk] monitor local state and narrate integrity\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771122188.248021,
+      "source": "voice_openclaw_walktalk",
+      "tags": []
+    },
+    "S_624622501ca6735f": {
+      "sid": "S_624622501ca6735f",
+      "text": "[openclaw.walktalk] monitor local state and narrate integrity\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771122222.6322172,
+      "source": "voice_openclaw_walktalk",
+      "tags": []
+    }
+  },
+  "derivations": {
+    "D_2e5e4e37f0894385": {
+      "did": "D_2e5e4e37f0894385",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_1a09c8915cf0d61f"
+      ],
+      "conclusions": [
+        "E_db4cd98a9bd8199b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771122188.2513049
+    },
+    "D_894dcbefdd4cd130": {
+      "did": "D_894dcbefdd4cd130",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_624622501ca6735f"
+      ],
+      "conclusions": [
+        "E_db4cd98a9bd8199b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771122222.633625
+    }
+  },
+  "equations": {
+    "E_db4cd98a9bd8199b": {
+      "eid": "E_db4cd98a9bd8199b",
+      "lean_name": "openclaw_walktalk_monitor_local_state_and_narrate_integrity",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi_voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: [openclaw.walktalk] monitor local state and narrate integrity\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,pr...",
+      "version_hash": "ca3d5aa6deddb9c9",
+      "created_ts": 1771122222.633161
+    }
+  },
+  "triangles": {
+    "T_4d433d075e4c8007": {
+      "tid": "T_4d433d075e4c8007",
+      "sid": "S_1a09c8915cf0d61f",
+      "did": "D_2e5e4e37f0894385",
+      "eid": "E_db4cd98a9bd8199b",
+      "created_ts": 1771122188.2519739
+    },
+    "T_3c97a58e428cb76f": {
+      "tid": "T_3c97a58e428cb76f",
+      "sid": "S_624622501ca6735f",
+      "did": "D_894dcbefdd4cd130",
+      "eid": "E_db4cd98a9bd8199b",
+      "created_ts": 1771122222.634274
+    }
+  },
+  "sid_to_tids": {
+    "S_1a09c8915cf0d61f": [
+      "T_4d433d075e4c8007"
+    ],
+    "S_624622501ca6735f": [
+      "T_3c97a58e428cb76f"
+    ]
+  },
+  "eid_to_tids": {
+    "E_db4cd98a9bd8199b": [
+      "T_4d433d075e4c8007",
+      "T_3c97a58e428cb76f"
+    ]
+  },
+  "did_to_tids": {
+    "D_2e5e4e37f0894385": [
+      "T_4d433d075e4c8007"
+    ],
+    "D_894dcbefdd4cd130": [
+      "T_3c97a58e428cb76f"
+    ]
+  },
+  "neighbors": {
+    "S_1a09c8915cf0d61f": [
+      "D_2e5e4e37f0894385",
+      "E_db4cd98a9bd8199b"
+    ],
+    "E_db4cd98a9bd8199b": [
+      "D_2e5e4e37f0894385",
+      "S_1a09c8915cf0d61f",
+      "D_894dcbefdd4cd130",
+      "S_624622501ca6735f"
+    ],
+    "D_2e5e4e37f0894385": [
+      "S_1a09c8915cf0d61f",
+      "E_db4cd98a9bd8199b"
+    ],
+    "S_624622501ca6735f": [
+      "D_894dcbefdd4cd130",
+      "E_db4cd98a9bd8199b"
+    ],
+    "D_894dcbefdd4cd130": [
+      "S_624622501ca6735f",
+      "E_db4cd98a9bd8199b"
+    ]
+  },
+  "tf_s": {
+    "S_1a09c8915cf0d61f": {
+      "openclaw": 0.11428571428571428,
+      "walktalk": 0.02857142857142857,
+      "monitor": 0.02857142857142857,
+      "local": 0.02857142857142857,
+      "state": 0.02857142857142857,
+      "and": 0.02857142857142857,
+      "narrate": 0.02857142857142857,
+      "integrity": 0.02857142857142857,
+      "voice": 0.08571428571428572,
+      "persona": 0.02857142857142857,
+      "anchor": 0.02857142857142857,
+      "soul": 0.05714285714285714,
+      "style": 0.02857142857142857,
+      "direct": 0.02857142857142857,
+      "keywords": 0.02857142857142857,
+      "personalization": 0.02857142857142857,
+      "ivi": 0.05714285714285714,
+      "preserve": 0.02857142857142857,
+      "users": 0.02857142857142857,
+      "harryscott": 0.02857142857142857,
+      "purple": 0.02857142857142857,
+      "feigenbuam": 0.02857142857142857,
+      "codex": 0.02857142857142857,
+      "loop": 0.02857142857142857,
+      "events": 0.02857142857142857,
+      "utterance": 0.02857142857142857,
+      "kind": 0.02857142857142857,
+      "statement": 0.02857142857142857
+    },
+    "S_624622501ca6735f": {
+      "openclaw": 0.11428571428571428,
+      "walktalk": 0.02857142857142857,
+      "monitor": 0.02857142857142857,
+      "local": 0.02857142857142857,
+      "state": 0.02857142857142857,
+      "and": 0.02857142857142857,
+      "narrate": 0.02857142857142857,
+      "integrity": 0.02857142857142857,
+      "voice": 0.08571428571428572,
+      "persona": 0.02857142857142857,
+      "anchor": 0.02857142857142857,
+      "soul": 0.05714285714285714,
+      "style": 0.02857142857142857,
+      "direct": 0.02857142857142857,
+      "keywords": 0.02857142857142857,
+      "personalization": 0.02857142857142857,
+      "ivi": 0.05714285714285714,
+      "preserve": 0.02857142857142857,
+      "users": 0.02857142857142857,
+      "harryscott": 0.02857142857142857,
+      "purple": 0.02857142857142857,
+      "feigenbuam": 0.02857142857142857,
+      "codex": 0.02857142857142857,
+      "loop": 0.02857142857142857,
+      "events": 0.02857142857142857,
+      "utterance": 0.02857142857142857,
+      "kind": 0.02857142857142857,
+      "statement": 0.02857142857142857
+    }
+  },
+  "tf_e": {
+    "E_db4cd98a9bd8199b": {
+      "proposition": 0.038461538461538464,
+      "derived": 0.038461538461538464,
+      "from": 0.038461538461538464,
+      "openclaw": 0.15384615384615385,
+      "walktalk": 0.038461538461538464,
+      "monitor": 0.038461538461538464,
+      "local": 0.038461538461538464,
+      "state": 0.038461538461538464,
+      "and": 0.038461538461538464,
+      "narrate": 0.038461538461538464,
+      "integrity": 0.038461538461538464,
+      "voice": 0.07692307692307693,
+      "persona": 0.038461538461538464,
+      "anchor": 0.038461538461538464,
+      "soul": 0.07692307692307693,
+      "style": 0.038461538461538464,
+      "direct": 0.038461538461538464,
+      "keywords": 0.038461538461538464,
+      "personalization": 0.038461538461538464,
+      "ivi": 0.038461538461538464,
+      "pr": 0.038461538461538464
+    }
+  },
+  "tf_d": {
+    "D_2e5e4e37f0894385": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_894dcbefdd4cd130": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    }
+  },
+  "recent_triangle_trace": [
+    "T_4d433d075e4c8007",
+    "T_4d433d075e4c8007",
+    "T_3c97a58e428cb76f",
+    "T_3c97a58e428cb76f",
+    "T_4d433d075e4c8007"
+  ]
+}
