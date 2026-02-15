@@ -360,22 +360,27 @@ def _dispatch_conversational_turn(loop: IVILoopController, cmd: str, source: str
 
 
 def _run_conversational_voice_session(loop: IVILoopController, source: str, full_output: bool) -> None:
-    print("OpenClaw conversation is live. Talk naturally. Type /quit to exit.")
+    if full_output:
+        print("OpenClaw conversation is live. Talk naturally. Type /quit to exit.")
+    prompt = "ivi> " if full_output else ""
     while True:
         try:
-            line = input("ivi> ")
+            line = input(prompt)
         except EOFError:
-            print("Exiting voice mode.")
+            if full_output:
+                print("Exiting voice mode.")
             break
         except KeyboardInterrupt:
-            print("\nExiting voice mode.")
+            if full_output:
+                print("\nExiting voice mode.")
             break
 
         cmd = str(line).strip()
         if not cmd:
             continue
         if cmd in {"/quit", "/exit"}:
-            print("Exiting voice mode.")
+            if full_output:
+                print("Exiting voice mode.")
             break
 
         runtime_controls = _openclaw_runtime_controls(loop)
@@ -386,7 +391,8 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
         try:
             result = _dispatch_conversational_turn(loop, cmd, source)
         except KeyboardInterrupt:
-            print("\nExiting voice mode.")
+            if full_output:
+                print("\nExiting voice mode.")
             break
         except Exception as exc:
             print(f"error: {exc}")
@@ -428,23 +434,28 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
 
 
 def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: bool, audio: VoiceAudioInterface) -> None:
-    print("OpenClaw Live Audio Voice Session")
-    print("Speak naturally. Say '/quit' or 'quit voice mode' to exit.")
+    if full_output:
+        print("OpenClaw Live Audio Voice Session")
+        print("Speak naturally. Say '/quit' or 'quit voice mode' to exit.")
     exit_phrases = {"/quit", "/exit", "quit", "exit", "quit voice mode", "exit voice mode", "stop listening"}
 
     while True:
-        print("[audio] listening...")
+        if full_output:
+            print("[audio] listening...")
         try:
             cmd = str(audio.listen_once()).strip()
         except KeyboardInterrupt:
-            print("\nExiting voice mode.")
+            if full_output:
+                print("\nExiting voice mode.")
             break
         if not cmd:
             continue
 
-        print(f"you(audio)> {cmd}")
+        if full_output:
+            print(f"you(audio)> {cmd}")
         if cmd.lower() in exit_phrases:
-            print("Exiting voice mode.")
+            if full_output:
+                print("Exiting voice mode.")
             break
 
         runtime_controls = _openclaw_runtime_controls(loop)
@@ -519,8 +530,11 @@ def cmd_voice(
     grid = IVISimplicialGrid(base_dir=str(base_dir))
     loop = IVILoopController(grid)
     _restore_voice_controller_state(loop, state)
-    print(_auto_attach_openclaw_for_voice(loop, settings))
-    print(_enable_full_loop_for_voice(loop))
+    attach_message = _auto_attach_openclaw_for_voice(loop, settings)
+    enable_message = _enable_full_loop_for_voice(loop)
+    if full_output:
+        print(attach_message)
+        print(enable_message)
     if audio_enabled:
         audio = VoiceAudioInterface(
             enabled=True,
@@ -531,9 +545,11 @@ def cmd_voice(
             phrase_time_limit=phrase_time_limit,
         )
         diag = audio.diagnostics().to_dict()
-        print("Audio diagnostics:", json.dumps(diag, ensure_ascii=False))
+        if full_output:
+            print("Audio diagnostics:", json.dumps(diag, ensure_ascii=False))
         if not diag.get("asr_available", False):
-            print("Audio ASR backend unavailable; falling back to text conversational mode.")
+            if full_output:
+                print("Audio ASR backend unavailable; falling back to text conversational mode.")
             _run_conversational_voice_session(loop=loop, source=source, full_output=bool(full_output))
         else:
             _run_audio_voice_session(loop=loop, source=source, full_output=bool(full_output), audio=audio)
