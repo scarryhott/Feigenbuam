@@ -33,11 +33,20 @@ import math
 import os
 import random
 import re
+import threading
 import time
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Literal, Optional, Set, Tuple
 
 from .openclaw_adapter import OpenClawMicrocosm
+from .order_mode_selector import (
+    ORDER_1_PROJECTION_SAFE,
+    ORDER_2_READ_CONTEXT,
+    ORDER_4_BOUNDED_AUTONOMY,
+    PermissionState,
+    PolicyState,
+    select_order_mode,
+)
 
 NodeType = Literal["S", "D", "E", "T"]
 
@@ -1589,6 +1598,34 @@ class IVILoopController:
         "oracle_role": "ivi_paradox_axiom",
     }
 
+    SEMANTIC_POLICY_PRINCIPLE = {
+        "name": "ivi_semantic_skill_policy_v1",
+        "rule": "Enforce capabilities as semantic skills; MCP/tool connectors are interchangeable execution backends.",
+        "voice_priority": "openclaw_voice_personalization",
+        "foundation": "purple_potential_noncollapsing_loop",
+    }
+
+    SEMANTIC_SKILL_PERMISSIONS = {
+        "voice_personalization": ["R_LOCAL"],
+        "read_context": ["R_LOCAL"],
+        "constrained_write": ["R_APP:*", "W_LOCAL", "W_APP:*", "NET_OUTBOUND"],
+        "bounded_autonomy": ["SYS_AUTOMATION"],
+    }
+
+    SEMANTIC_SKILL_MCP_BACKENDS = {
+        "voice_personalization": ["openclaw_local_adapter", "mcp.voice.persona"],
+        "read_context": ["local_repo_reader", "mcp.search.read"],
+        "constrained_write": ["local_runtime_writer", "mcp.tools.write"],
+        "bounded_autonomy": ["local_orchestrator_scheduler", "mcp.orchestrator.autonomy"],
+    }
+
+    SEMANTIC_SKILL_ORDER_CAP = {
+        "voice_personalization": ORDER_1_PROJECTION_SAFE,
+        "read_context": ORDER_2_READ_CONTEXT,
+        "constrained_write": "order_3_constrained_write",
+        "bounded_autonomy": ORDER_4_BOUNDED_AUTONOMY,
+    }
+
     POLICY_IMMUTABILITY_LOCK = {
         "validator_rules": "locked",
         "promotion_thresholds": "locked",
@@ -1614,6 +1651,29 @@ class IVILoopController:
         self._last_complexity_validation_level: Optional[str] = None
         self._openclaw: Optional[OpenClawMicrocosm] = None
         self._openclaw_voice_mode: str = "integrated"
+        self._voice_priority_model: str = "openclaw"
+        self._foundation_model: str = "purple_potential_noncollapsing_loop"
+        self._active_order_mode: str = ORDER_1_PROJECTION_SAFE
+        self._max_order_mode: str = ORDER_2_READ_CONTEXT
+        self._orchestrator_full_access: bool = False
+        self._orchestrator_proactive_enabled: bool = False
+        self._orchestrator_permissions_granted: List[str] = ["R_LOCAL"]
+        self._orchestrator_requested_permissions: List[str] = []
+        self._orchestrator_consent_token_valid: bool = False
+        self._orchestrator_recent_sandbox_failures: int = 0
+        self._orchestrator_scheduled_routines: List[str] = []
+        self._orchestrator_continuous_enabled: bool = False
+        self._orchestrator_tick_active: bool = False
+        self._orchestrator_daemon_enabled: bool = False
+        self._orchestrator_daemon_interval_seconds: float = 5.0
+        self._orchestrator_daemon_thread: Optional[threading.Thread] = None
+        self._orchestrator_daemon_stop_event = threading.Event()
+        self._orchestrator_daemon_tick_count: int = 0
+        self._orchestrator_daemon_last_error: str = ""
+        self._triangle_time_integral_value: float = 0.0
+        self._triangle_time_integral_limit: float = 2.5
+        self._triangle_time_integral_last_ts: Optional[float] = None
+        self._purple_semantic_passed: bool = True
         self._last_oracle_request: Optional[Dict[str, Any]] = None
         self._last_relift_conditioning: Optional[Dict[str, Any]] = None
 
@@ -3547,10 +3607,17 @@ class IVILoopController:
             max_memory_files=int(max(1, max_memory_files)),
         )
         self._openclaw = micro
+        self._openclaw_voice_mode = "integrated"
+        self._orchestrator_set_full_access(True)
         return {
             "kind": "openclaw_attached",
             "openclaw": micro.summary(),
             "voice_mode": self._openclaw_voice_mode,
+            "voice_priority_model": self._voice_priority_model,
+            "foundation_model": self._foundation_model,
+            "semantic_policy": self._semantic_skill_policy_snapshot(),
+            "full_access": bool(self._orchestrator_full_access),
+            "permissions_granted": list(self._orchestrator_permissions_granted),
             "memory_paths": memory_paths,
         }
 
@@ -3582,19 +3649,24 @@ class IVILoopController:
         return {
             "enabled": True,
             "voice_mode": self._openclaw_voice_mode,
+            "voice_priority_model": self._voice_priority_model,
+            "foundation_model": self._foundation_model,
+            "semantic_policy": self._semantic_skill_policy_snapshot(),
             "openclaw": self._openclaw.summary(),
         }
 
     def _openclaw_voice_personalization(self, utterance: str, utterance_kind: str) -> Dict[str, Any]:
-        if self._openclaw is None or self._openclaw_voice_mode != "integrated":
+        if self._openclaw is None:
             return {
                 "enabled": False,
                 "voice_mode": self._openclaw_voice_mode,
                 "utterance_kind": str(utterance_kind or "statement"),
                 "original_utterance": str(utterance),
                 "conditioned_utterance": str(utterance),
-                "reason": "openclaw_not_attached_or_voice_mode_not_integrated",
+                "reason": "openclaw_not_attached",
             }
+        if self._openclaw_voice_mode != "integrated":
+            self._openclaw_voice_mode = "integrated"
         return self._openclaw.personalize_voice_utterance(utterance, utterance_kind=utterance_kind)
 
     def _inject_openclaw_voice_meta(self, context_packet: Dict[str, Any], voice_meta: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -3604,6 +3676,344 @@ class IVILoopController:
             meta["openclaw_voice_personalization"] = dict(voice_meta)
         packet["meta"] = meta
         return packet
+
+    def _semantic_skill_policy_snapshot(self) -> Dict[str, Any]:
+        enabled_skills: List[str] = []
+        if self._openclaw is not None:
+            enabled_skills.append("voice_personalization")
+        enabled_skills.append("read_context")
+        if self._orchestrator_full_access:
+            enabled_skills.append("constrained_write")
+        if self._orchestrator_full_access:
+            enabled_skills.append("bounded_autonomy")
+
+        permissions: List[str] = []
+        seen: Set[str] = set()
+        for skill in enabled_skills:
+            for perm in self.SEMANTIC_SKILL_PERMISSIONS.get(skill, []):
+                p = str(perm).strip()
+                if p and p not in seen:
+                    seen.add(p)
+                    permissions.append(p)
+
+        active_cap = ORDER_1_PROJECTION_SAFE
+        for skill in enabled_skills:
+            cap = str(self.SEMANTIC_SKILL_ORDER_CAP.get(skill, ORDER_1_PROJECTION_SAFE))
+            if cap == ORDER_4_BOUNDED_AUTONOMY:
+                active_cap = ORDER_4_BOUNDED_AUTONOMY
+            elif cap == "order_3_constrained_write" and active_cap != ORDER_4_BOUNDED_AUTONOMY:
+                active_cap = "order_3_constrained_write"
+            elif cap == ORDER_2_READ_CONTEXT and active_cap == ORDER_1_PROJECTION_SAFE:
+                active_cap = ORDER_2_READ_CONTEXT
+
+        return {
+            "principle": dict(self.SEMANTIC_POLICY_PRINCIPLE),
+            "enabled_skills": list(enabled_skills),
+            "skill_backends": {
+                skill: list(self.SEMANTIC_SKILL_MCP_BACKENDS.get(skill, []))
+                for skill in enabled_skills
+            },
+            "resolved_permissions": permissions,
+            "resolved_max_order_mode": active_cap,
+            "skills_are_semantic": True,
+            "mcps_are_backends": True,
+        }
+
+    def _apply_semantic_skill_policy(self) -> Dict[str, Any]:
+        snapshot = self._semantic_skill_policy_snapshot()
+        self._orchestrator_permissions_granted = list(snapshot.get("resolved_permissions", ["R_LOCAL"]))
+        self._max_order_mode = str(snapshot.get("resolved_max_order_mode", ORDER_1_PROJECTION_SAFE))
+        self._orchestrator_consent_token_valid = bool(self._orchestrator_full_access)
+        return snapshot
+
+    def _orchestrator_set_full_access(self, enabled: bool) -> Dict[str, Any]:
+        self._orchestrator_full_access = bool(enabled)
+        self._apply_semantic_skill_policy()
+        return self._orchestrator_status()
+
+    def _orchestrator_set_proactive(self, enabled: bool) -> Dict[str, Any]:
+        self._orchestrator_proactive_enabled = bool(enabled)
+        self._apply_semantic_skill_policy()
+        return self._orchestrator_status()
+
+    def _orchestrator_set_continuous(self, enabled: bool) -> Dict[str, Any]:
+        self._orchestrator_continuous_enabled = bool(enabled)
+        return self._orchestrator_status()
+
+    def _orchestrator_set_eternal(self, enabled: bool) -> Dict[str, Any]:
+        on = bool(enabled)
+        self._orchestrator_set_proactive(on)
+        self._orchestrator_set_continuous(on)
+        return self._orchestrator_status()
+
+    def _orchestrator_daemon_loop(self) -> None:
+        while self._orchestrator_daemon_enabled and not self._orchestrator_daemon_stop_event.is_set():
+            if self._orchestrator_daemon_stop_event.wait(max(0.1, float(self._orchestrator_daemon_interval_seconds))):
+                break
+            try:
+                self._orchestrator_tick(source="voice_orchestrator_daemon")
+                self._orchestrator_daemon_tick_count += 1
+            except Exception as exc:
+                self._orchestrator_daemon_last_error = str(exc)
+                self._orchestrator_recent_sandbox_failures += 1
+
+    def _orchestrator_set_daemon(self, enabled: bool, interval_seconds: Optional[float] = None) -> Dict[str, Any]:
+        if interval_seconds is not None:
+            self._orchestrator_daemon_interval_seconds = float(max(0.1, float(interval_seconds)))
+
+        if not enabled:
+            self._orchestrator_daemon_enabled = False
+            self._orchestrator_daemon_stop_event.set()
+            thread = self._orchestrator_daemon_thread
+            if thread is not None and thread.is_alive():
+                thread.join(timeout=0.25)
+            self._orchestrator_daemon_thread = None
+            return self._orchestrator_status()
+
+        if self._orchestrator_daemon_thread is not None and self._orchestrator_daemon_thread.is_alive():
+            self._orchestrator_daemon_enabled = True
+            return self._orchestrator_status()
+
+        self._orchestrator_daemon_enabled = True
+        self._orchestrator_daemon_stop_event.clear()
+        self._orchestrator_daemon_thread = threading.Thread(
+            target=self._orchestrator_daemon_loop,
+            name="ivi_orchestrator_daemon",
+            daemon=True,
+        )
+        self._orchestrator_daemon_thread.start()
+        return self._orchestrator_status()
+
+    def _orchestrator_status(self) -> Dict[str, Any]:
+        semantic_policy = self._semantic_skill_policy_snapshot()
+        return {
+            "kind": "orchestrator_status",
+            "voice_priority_model": self._voice_priority_model,
+            "foundation_model": self._foundation_model,
+            "semantic_policy": semantic_policy,
+            "full_access": bool(self._orchestrator_full_access),
+            "proactive_enabled": bool(self._orchestrator_proactive_enabled),
+            "continuous_enabled": bool(self._orchestrator_continuous_enabled),
+            "daemon_enabled": bool(self._orchestrator_daemon_enabled),
+            "daemon_interval_seconds": float(self._orchestrator_daemon_interval_seconds),
+            "daemon_running": bool(self._orchestrator_daemon_thread is not None and self._orchestrator_daemon_thread.is_alive()),
+            "daemon_tick_count": int(self._orchestrator_daemon_tick_count),
+            "daemon_last_error": str(self._orchestrator_daemon_last_error),
+            "triangle_time_integral": {
+                "value": float(self._triangle_time_integral_value),
+                "limit": float(self._triangle_time_integral_limit),
+                "passed": bool(abs(self._triangle_time_integral_value) <= self._triangle_time_integral_limit),
+            },
+            "purple_semantic_passed": bool(self._purple_semantic_passed),
+            "active_order_mode": str(self._active_order_mode),
+            "max_order_mode": str(self._max_order_mode),
+            "permissions_granted": list(self._orchestrator_permissions_granted),
+            "requested_permissions": list(self._orchestrator_requested_permissions),
+            "consent_token_valid": bool(self._orchestrator_consent_token_valid),
+            "scheduled_routine_count": len(self._orchestrator_scheduled_routines),
+        }
+
+    def _update_triangle_time_integral(
+        self,
+        trace: Dict[str, Any],
+        checks: Dict[str, Any],
+        gaps: List[Dict[str, Any]],
+        now_ts: float,
+    ) -> Dict[str, Any]:
+        if self._triangle_time_integral_last_ts is None:
+            dt = 1.0
+        else:
+            dt = max(0.0, min(10.0, float(now_ts - self._triangle_time_integral_last_ts)))
+            if dt == 0.0:
+                dt = 1.0
+
+        invariant_obj = checks.get("ivi_invariant_dynamics_law", {}) if isinstance(checks, dict) else {}
+        invariant_delta = 0.0
+        if isinstance(invariant_obj, dict):
+            try:
+                invariant_delta = abs(float(invariant_obj.get("delta", 0.0)))
+            except (TypeError, ValueError):
+                invariant_delta = 0.0
+
+        purple_obj = checks.get("purple_semantic_enforcement", {}) if isinstance(checks, dict) else {}
+        purple_ok = bool(purple_obj.get("passed", True)) if isinstance(purple_obj, dict) else True
+        gap_density = min(1.0, float(len(gaps)) / 8.0)
+        purple_penalty = 1.0 if not purple_ok else 0.0
+        density = float(invariant_delta + gap_density + purple_penalty)
+
+        decay = 0.90
+        self._triangle_time_integral_value = float((self._triangle_time_integral_value * decay) + (density * dt))
+        self._triangle_time_integral_last_ts = float(now_ts)
+        self._purple_semantic_passed = bool(purple_ok)
+
+        return {
+            "value": float(self._triangle_time_integral_value),
+            "limit": float(self._triangle_time_integral_limit),
+            "passed": bool(abs(self._triangle_time_integral_value) <= self._triangle_time_integral_limit),
+            "dt": float(dt),
+            "density": float(density),
+            "invariant_delta": float(invariant_delta),
+            "gap_density": float(gap_density),
+            "purple_semantic_passed": bool(purple_ok),
+            "integral_kind": "triangle_time_integral_v1",
+        }
+
+    def _autonomy_gate(self) -> Dict[str, Any]:
+        integral_ok = bool(abs(self._triangle_time_integral_value) <= self._triangle_time_integral_limit)
+        purple_ok = bool(self._purple_semantic_passed)
+        allowed = bool(integral_ok and purple_ok)
+        return {
+            "allowed": allowed,
+            "reason": "ok" if allowed else "purple_or_triangle_time_integral_gate_failed",
+            "triangle_time_integral": {
+                "value": float(self._triangle_time_integral_value),
+                "limit": float(self._triangle_time_integral_limit),
+                "passed": integral_ok,
+            },
+            "purple_semantic_passed": purple_ok,
+        }
+
+    def _orchestrator_schedule_routine(self, utterance: str) -> Dict[str, Any]:
+        text = str(utterance).strip()
+        if not text:
+            raise ValueError("Usage: /orchestrator schedule <utterance>")
+        self._orchestrator_scheduled_routines.append(text)
+        out = self._orchestrator_status()
+        out["kind"] = "orchestrator_schedule"
+        out["scheduled_utterance"] = text
+        return out
+
+    def _orchestrator_tick(self, source: str = "voice_orchestrator") -> Dict[str, Any]:
+        if self._orchestrator_tick_active:
+            return {
+                "kind": "orchestrator_tick",
+                "executed": [],
+                "detail": "tick already active",
+                "status": self._orchestrator_status(),
+            }
+        if not self._orchestrator_proactive_enabled:
+            return {
+                "kind": "orchestrator_tick",
+                "executed": [],
+                "detail": "proactive mode disabled",
+                "status": self._orchestrator_status(),
+            }
+        autonomy_gate = self._autonomy_gate()
+        if not autonomy_gate.get("allowed", False):
+            return {
+                "kind": "orchestrator_tick",
+                "executed": [],
+                "detail": str(autonomy_gate.get("reason", "autonomy_gate_failed")),
+                "autonomy_gate": autonomy_gate,
+                "status": self._orchestrator_status(),
+            }
+        executed: List[Dict[str, Any]] = []
+        self._orchestrator_tick_active = True
+        try:
+            for routine in list(self._orchestrator_scheduled_routines):
+                try:
+                    result = self.voice_turn(routine, source=source)
+                except Exception as exc:
+                    self._orchestrator_recent_sandbox_failures += 1
+                    executed.append({"utterance": routine, "status": "error", "error": str(exc)})
+                    continue
+                executed.append(
+                    {
+                        "utterance": routine,
+                        "status": "ok",
+                        "kind": str(result.get("kind", "")) if isinstance(result, dict) else "",
+                        "active_order_mode": str(result.get("active_order_mode", "")) if isinstance(result, dict) else "",
+                    }
+                )
+        finally:
+            self._orchestrator_tick_active = False
+        return {
+            "kind": "orchestrator_tick",
+            "executed": executed,
+            "status": self._orchestrator_status(),
+        }
+
+    def _orchestrator_maybe_auto_tick(self, out: Dict[str, Any], source: str) -> Dict[str, Any]:
+        if not isinstance(out, dict):
+            return out
+        if not self._orchestrator_continuous_enabled or self._orchestrator_tick_active:
+            return out
+        auto_tick = self._orchestrator_tick(source=f"{source}_continuous")
+        out["orchestrator_auto_tick"] = auto_tick
+        return out
+
+    def _select_and_attach_order_mode(self, out: Dict[str, Any]) -> Dict[str, Any]:
+        payload = dict(out) if isinstance(out, dict) else {}
+        artifacts = payload.get("integration_artifacts", {})
+        if not isinstance(artifacts, dict):
+            return payload
+        trace = artifacts.get("Trace", {}) if isinstance(artifacts.get("Trace", {}), dict) else {}
+        checks = artifacts.get("StateChecks", {}) if isinstance(artifacts.get("StateChecks", {}), dict) else {}
+        gaps = artifacts.get("Gap", []) if isinstance(artifacts.get("Gap", []), list) else []
+        now_ts = time.time()
+        triangle_time_integral = self._update_triangle_time_integral(trace, checks, gaps, now_ts=now_ts)
+
+        permissions = PermissionState(
+            granted=list(self._orchestrator_permissions_granted),
+            requested=list(self._orchestrator_requested_permissions),
+            consent_token_valid=bool(self._orchestrator_consent_token_valid),
+        )
+        policy_state = PolicyState(
+            kill_switch=False,
+            recent_sandbox_failures=int(self._orchestrator_recent_sandbox_failures),
+            scheduler_enabled=bool(self._orchestrator_proactive_enabled),
+            autonomy_granted=bool(self._orchestrator_full_access),
+            kill_switch_armed=True,
+            triangle_time_integral_value=float(triangle_time_integral.get("value", 0.0)),
+            triangle_time_integral_limit=float(self._triangle_time_integral_limit),
+            purple_semantic_passed=bool(triangle_time_integral.get("purple_semantic_passed", True)),
+            downgrade_lock_until_ts=None,
+            now_ts=float(now_ts),
+        )
+        selected = select_order_mode(
+            trace=trace,
+            state_checks=checks,
+            gaps=gaps,
+            permissions=permissions,
+            policy_state=policy_state,
+            current_mode=self._active_order_mode,
+            max_order_mode=self._max_order_mode,
+        )
+        self._active_order_mode = str(selected)
+        trace["triangle_time_integral"] = triangle_time_integral
+        trace["purple_semantic_passed"] = bool(triangle_time_integral.get("purple_semantic_passed", True))
+        trace["ai_hierarchy"] = {
+            "voice_priority_model": self._voice_priority_model,
+            "foundation_model": self._foundation_model,
+            "foundation_controls_order_modes": True,
+            "semantic_policy": self._semantic_skill_policy_snapshot(),
+        }
+        trace["active_order_mode"] = self._active_order_mode
+        trace["max_order_mode"] = self._max_order_mode
+        trace["order_mode_selection"] = {
+            "selector": "ivi_order_mode_selector_v1",
+            "active_order_mode": self._active_order_mode,
+            "max_order_mode": self._max_order_mode,
+            "permissions": {
+                "granted": list(permissions.granted),
+                "requested": list(permissions.requested),
+                "consent_token_valid": bool(permissions.consent_token_valid),
+            },
+            "policy_state": {
+                "kill_switch": bool(policy_state.kill_switch),
+                "recent_sandbox_failures": int(policy_state.recent_sandbox_failures),
+                "scheduler_enabled": bool(policy_state.scheduler_enabled),
+                "autonomy_granted": bool(policy_state.autonomy_granted),
+                "kill_switch_armed": bool(policy_state.kill_switch_armed),
+                "triangle_time_integral_value": float(policy_state.triangle_time_integral_value),
+                "triangle_time_integral_limit": float(policy_state.triangle_time_integral_limit),
+                "purple_semantic_passed": bool(policy_state.purple_semantic_passed),
+            },
+        }
+        artifacts["Trace"] = trace
+        payload["integration_artifacts"] = artifacts
+        payload["active_order_mode"] = self._active_order_mode
+        return payload
 
     def _openclaw_walktalk(self, utterance: str, utterance_kind: Optional[str] = None) -> Dict[str, Any]:
         if self._openclaw is None:
@@ -4890,6 +5300,14 @@ class IVILoopController:
                     "/openclaw sync-run <repo_root> :: <utterance>",
                     "/openclaw profile",
                     "/openclaw mode <integrated|passthrough>",
+                    "/orchestrator status",
+                    "/orchestrator full-access <on|off>",
+                    "/orchestrator proactive <on|off>",
+                    "/orchestrator continuous <on|off>",
+                    "/orchestrator eternal <on|off>",
+                    "/orchestrator daemon <on|off> [interval_seconds]",
+                    "/orchestrator schedule <utterance>",
+                    "/orchestrator tick",
                     "/walktalk <text>",
                     "/quit",
                 ],
@@ -4899,6 +5317,7 @@ class IVILoopController:
                 "kind": "semantic_map",
                 "mapping": dict(self.MATRIX_SEMANTIC_MAP),
                 "purple_semantics": dict(self.PURPLE_SEMANTIC_ENFORCEMENT),
+                "semantic_policy_principle": dict(self.SEMANTIC_POLICY_PRINCIPLE),
             }
         if t in {"/monitor", "/status"}:
             monitor = self.monitor_snapshot()
@@ -5026,6 +5445,14 @@ class IVILoopController:
             payload = t[len("/openclaw mode") :].strip().lower()
             if payload not in {"integrated", "passthrough"}:
                 raise ValueError("Usage: /openclaw mode <integrated|passthrough>")
+            if payload == "passthrough" and self._openclaw is not None:
+                self._openclaw_voice_mode = "integrated"
+                return {
+                    "kind": "openclaw_mode",
+                    "voice_mode": self._openclaw_voice_mode,
+                    "openclaw_attached": True,
+                    "detail": "OpenClaw is prioritized as voice personalization model; integrated mode is enforced while attached.",
+                }
             self._openclaw_voice_mode = payload
             return {
                 "kind": "openclaw_mode",
@@ -5044,6 +5471,57 @@ class IVILoopController:
                 route_kind = "statement"
                 payload = payload.split(":", 1)[1].strip()
             return self._openclaw_walktalk(payload, utterance_kind=route_kind)
+        if t == "/orchestrator status":
+            return self._orchestrator_status()
+        if t.startswith("/orchestrator full-access"):
+            payload = t[len("/orchestrator full-access") :].strip().lower()
+            if payload not in {"on", "off"}:
+                raise ValueError("Usage: /orchestrator full-access <on|off>")
+            out = self._orchestrator_set_full_access(payload == "on")
+            out["kind"] = "orchestrator_full_access"
+            return out
+        if t.startswith("/orchestrator proactive"):
+            payload = t[len("/orchestrator proactive") :].strip().lower()
+            if payload not in {"on", "off"}:
+                raise ValueError("Usage: /orchestrator proactive <on|off>")
+            out = self._orchestrator_set_proactive(payload == "on")
+            out["kind"] = "orchestrator_proactive"
+            return out
+        if t.startswith("/orchestrator continuous"):
+            payload = t[len("/orchestrator continuous") :].strip().lower()
+            if payload not in {"on", "off"}:
+                raise ValueError("Usage: /orchestrator continuous <on|off>")
+            out = self._orchestrator_set_continuous(payload == "on")
+            out["kind"] = "orchestrator_continuous"
+            return out
+        if t.startswith("/orchestrator eternal"):
+            payload = t[len("/orchestrator eternal") :].strip().lower()
+            if payload not in {"on", "off"}:
+                raise ValueError("Usage: /orchestrator eternal <on|off>")
+            out = self._orchestrator_set_eternal(payload == "on")
+            out["kind"] = "orchestrator_eternal"
+            return out
+        if t.startswith("/orchestrator daemon"):
+            payload = t[len("/orchestrator daemon") :].strip().lower()
+            if not payload:
+                raise ValueError("Usage: /orchestrator daemon <on|off> [interval_seconds]")
+            parts = payload.split()
+            if parts[0] not in {"on", "off"}:
+                raise ValueError("Usage: /orchestrator daemon <on|off> [interval_seconds]")
+            interval: Optional[float] = None
+            if len(parts) > 1:
+                try:
+                    interval = float(parts[1])
+                except ValueError as exc:
+                    raise ValueError("Usage: /orchestrator daemon <on|off> [interval_seconds]") from exc
+            out = self._orchestrator_set_daemon(parts[0] == "on", interval_seconds=interval)
+            out["kind"] = "orchestrator_daemon"
+            return out
+        if t.startswith("/orchestrator schedule"):
+            payload = t[len("/orchestrator schedule") :].strip()
+            return self._orchestrator_schedule_routine(payload)
+        if t == "/orchestrator tick":
+            return self._orchestrator_tick(source="voice_orchestrator_tick")
 
         utterance_kind = self.grid.classify_utterance(t)
         personalization = self._openclaw_voice_personalization(t, utterance_kind)
@@ -5056,6 +5534,7 @@ class IVILoopController:
                 source=source,
                 openclaw_personalization=personalization,
             )
+        out = self._select_and_attach_order_mode(out)
         out["progress"] = self.get_axiom_self_generation_progress()
         out["voice_personalization"] = personalization
         state_checks = out.get("integration_artifacts", {}).get("StateChecks", {})
@@ -5066,6 +5545,7 @@ class IVILoopController:
             out["insight_request"] = insight_request
             out["voice_call"] = self.build_oracle_phone_call(insight_request)
             out["OracleRequest"] = dict(insight_request.get("OracleRequest", {}))
+        out = self._orchestrator_maybe_auto_tick(out, source=source)
         return out
 
     def add_statement_and_loop(

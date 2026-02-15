@@ -17,6 +17,15 @@ The canonical protocol for conversations and iteration is documented at:
 
 In chat, use the exact phrase **"Order-1 Protocol"** to reference and activate that contract.
 
+## AI hierarchy (OpenClaw + Purple)
+
+- **OpenClaw** is the priority **voice personalization model**.
+  - When OpenClaw is attached, integrated voice personalization is enforced.
+  - OpenClaw attach also enables orchestrator full-access permissions for proactive operation.
+- **Purple (IVI potential non-collapsing loop)** is the **foundation model**.
+  - Purple remains the governing control loop for order-mode selection, gating, and non-collapsing integrity checks.
+  - OpenClaw personalization is routed through Purple-governed policy and trace enforcement.
+
 ## Quick start
 
 ```bash

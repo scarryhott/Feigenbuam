@@ -1,4 +1,5 @@
 import pytest
+import time
 from pathlib import Path
 
 from ivi_loop.ivi_simplicial_grid import IVILoopController, IVISimplicialGrid, run_voice_layer_session
@@ -109,17 +110,30 @@ def test_openclaw_attach_and_walktalk_mode(tmp_path):
     assert attached["openclaw"]["agent"] == "openclaw"
     assert Path(attached["openclaw"]["soul_path"]).name.lower() == "soul.md"
     assert attached["voice_mode"] == "integrated"
+    assert attached["voice_priority_model"] == "openclaw"
+    assert attached["foundation_model"] == "purple_potential_noncollapsing_loop"
+    assert attached["semantic_policy"]["principle"]["name"] == "ivi_semantic_skill_policy_v1"
+    assert attached["semantic_policy"]["skills_are_semantic"] is True
+    assert attached["semantic_policy"]["mcps_are_backends"] is True
+    assert "voice_personalization" in attached["semantic_policy"]["enabled_skills"]
+    assert "mcp.voice.persona" in attached["semantic_policy"]["skill_backends"]["voice_personalization"]
+    assert attached["full_access"] is True
+    assert "SYS_AUTOMATION" in attached["permissions_granted"]
 
     profile = loop.voice_turn("/openclaw profile")
     assert profile["kind"] == "openclaw_profile"
     assert profile["profile"]["enabled"] is True
+    assert profile["profile"]["voice_priority_model"] == "openclaw"
+    assert profile["profile"]["foundation_model"] == "purple_potential_noncollapsing_loop"
+    assert profile["profile"]["semantic_policy"]["principle"]["name"] == "ivi_semantic_skill_policy_v1"
     assert profile["profile"]["openclaw"]["voice_profile"]["anchor"]
     assert profile["profile"]["openclaw"]["voice_profile"]["memory_source_count"] >= 1
     assert profile["profile"]["openclaw"]["memory_profile"]["enabled"] is True
 
     switched = loop.voice_turn("/openclaw mode passthrough")
     assert switched["kind"] == "openclaw_mode"
-    assert switched["voice_mode"] == "passthrough"
+    assert switched["voice_mode"] == "integrated"
+    assert "prioritized as voice personalization model" in switched["detail"]
     switched_back = loop.voice_turn("/openclaw mode integrated")
     assert switched_back["voice_mode"] == "integrated"
 
@@ -139,6 +153,16 @@ def test_openclaw_attach_and_walktalk_mode(tmp_path):
     assert q["kind"] == "question"
     assert q["voice_personalization"]["enabled"] is True
     assert "openclaw_voice_personalization" in q["integration_artifacts"]["Trace"]
+    assert "triangle_time_integral" in q["integration_artifacts"]["Trace"]
+    assert "purple_semantic_passed" in q["integration_artifacts"]["Trace"]
+    assert q["active_order_mode"]
+    assert q["integration_artifacts"]["Trace"]["active_order_mode"] == q["active_order_mode"]
+    assert "order_mode_selection" in q["integration_artifacts"]["Trace"]
+    assert q["integration_artifacts"]["Trace"]["ai_hierarchy"]["voice_priority_model"] == "openclaw"
+    assert q["integration_artifacts"]["Trace"]["ai_hierarchy"]["foundation_model"] == "purple_potential_noncollapsing_loop"
+    assert q["integration_artifacts"]["Trace"]["ai_hierarchy"]["foundation_controls_order_modes"] is True
+    assert q["integration_artifacts"]["Trace"]["ai_hierarchy"]["semantic_policy"]["skills_are_semantic"] is True
+    assert q["integration_artifacts"]["Trace"]["ai_hierarchy"]["semantic_policy"]["mcps_are_backends"] is True
 
     s = loop.voice_turn("This is a voice statement for OpenClaw integrated mode")
     assert s["kind"] == "statement"
@@ -146,12 +170,73 @@ def test_openclaw_attach_and_walktalk_mode(tmp_path):
     trace = s["integration_artifacts"]["Trace"]
     assert trace["openclaw_voice_personalization"]["enabled"] is True
     assert trace["openclaw_voice_personalization_digest"]
+    assert trace["active_order_mode"] == s["active_order_mode"]
+    assert trace["max_order_mode"]
 
     sync = loop.voice_turn(f"/openclaw sync-run {openclaw_root} :: question: summarize protocol memory")
     assert sync["kind"] == "openclaw_sync_run"
     assert sync["attached"]["openclaw"]["voice_profile"]["memory_source_count"] >= 1
     assert sync["walktalk"]["kind"] == "walktalk"
     assert sync["walktalk"]["result"]["kind"] == "question"
+
+    orch_full = loop.voice_turn("/orchestrator full-access on")
+    assert orch_full["kind"] == "orchestrator_full_access"
+    assert orch_full["full_access"] is True
+    assert "SYS_AUTOMATION" in orch_full["permissions_granted"]
+
+    orch_proactive = loop.voice_turn("/orchestrator proactive on")
+    assert orch_proactive["kind"] == "orchestrator_proactive"
+    assert orch_proactive["proactive_enabled"] is True
+
+    orch_continuous = loop.voice_turn("/orchestrator continuous on")
+    assert orch_continuous["kind"] == "orchestrator_continuous"
+    assert orch_continuous["continuous_enabled"] is True
+
+    orch_eternal = loop.voice_turn("/orchestrator eternal on")
+    assert orch_eternal["kind"] == "orchestrator_eternal"
+    assert orch_eternal["proactive_enabled"] is True
+    assert orch_eternal["continuous_enabled"] is True
+
+    scheduled = loop.voice_turn("/orchestrator schedule maintain closure and summarize status")
+    assert scheduled["kind"] == "orchestrator_schedule"
+    assert scheduled["scheduled_routine_count"] >= 1
+
+    tick = loop.voice_turn("/orchestrator tick")
+    assert tick["kind"] == "orchestrator_tick"
+    assert len(tick["executed"]) >= 1
+    assert tick["status"]["proactive_enabled"] is True
+
+    q2 = loop.voice_turn("What is the active orchestration mode now?")
+    assert q2["active_order_mode"] in {"order_3_constrained_write", "order_4_bounded_autonomy"}
+    assert "orchestrator_auto_tick" in q2
+    assert q2["orchestrator_auto_tick"]["kind"] == "orchestrator_tick"
+    assert len(q2["orchestrator_auto_tick"]["executed"]) >= 1
+
+    daemon_on = loop.voice_turn("/orchestrator daemon on 0.1")
+    assert daemon_on["kind"] == "orchestrator_daemon"
+    assert daemon_on["daemon_enabled"] is True
+    assert daemon_on["daemon_running"] is True
+
+    time.sleep(0.25)
+    daemon_status = loop.voice_turn("/orchestrator status")
+    assert daemon_status["daemon_tick_count"] >= 1
+    assert "triangle_time_integral" in daemon_status
+    assert "purple_semantic_passed" in daemon_status
+    assert daemon_status["voice_priority_model"] == "openclaw"
+    assert daemon_status["foundation_model"] == "purple_potential_noncollapsing_loop"
+    assert daemon_status["semantic_policy"]["principle"]["name"] == "ivi_semantic_skill_policy_v1"
+    assert "bounded_autonomy" in daemon_status["semantic_policy"]["enabled_skills"]
+
+    loop._purple_semantic_passed = False
+    gated_tick = loop.voice_turn("/orchestrator tick")
+    assert gated_tick["kind"] == "orchestrator_tick"
+    assert gated_tick["executed"] == []
+    assert gated_tick["detail"] == "purple_or_triangle_time_integral_gate_failed"
+    assert gated_tick["autonomy_gate"]["allowed"] is False
+
+    daemon_off = loop.voice_turn("/orchestrator daemon off")
+    assert daemon_off["kind"] == "orchestrator_daemon"
+    assert daemon_off["daemon_enabled"] is False
 
 
 @pytest.mark.order1
