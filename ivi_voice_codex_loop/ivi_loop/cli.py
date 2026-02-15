@@ -194,18 +194,25 @@ def run_voice_cli_turn(settings: Settings, text: str) -> Dict[str, Any]:
 
 
 def _extract_conversation_text(payload: Dict[str, Any]) -> str:
+    def _sanitize(text: str) -> str:
+        out = str(text)
+        if "[openclaw.voice_persona" in out:
+            out = out.split("[openclaw.voice_persona", 1)[0]
+        out = out.replace("[openclaw.walktalk]", " ")
+        return " ".join(out.split()).strip()
+
     if not isinstance(payload, dict):
         return ""
     for key in ("answer", "summary", "detail", "insight"):
         val = payload.get(key)
         if isinstance(val, str) and val.strip():
-            return val.strip()
+            return _sanitize(val)
     refs = payload.get("suggested_refs", [])
     if isinstance(refs, list) and refs:
         names = [str(x.get("lean_name", "")).strip() for x in refs if isinstance(x, dict) and x.get("lean_name")]
         names = [x for x in names if x]
         if names:
-            return "Top references: " + ", ".join(names[:3])
+            return _sanitize("Top references: " + ", ".join(names[:3]))
     return ""
 
 
@@ -345,6 +352,13 @@ def _openclaw_runtime_controls(loop: IVILoopController) -> Dict[str, bool]:
     }
 
 
+def _dispatch_conversational_turn(loop: IVILoopController, cmd: str, source: str) -> Dict[str, Any]:
+    text = str(cmd).strip()
+    if text.startswith("/"):
+        return loop.voice_turn(text, source=source)
+    return loop.voice_turn(f"/walktalk question: {text}", source=source)
+
+
 def _run_conversational_voice_session(loop: IVILoopController, source: str, full_output: bool) -> None:
     print("OpenClaw conversation is live. Talk naturally. Type /quit to exit.")
     while True:
@@ -370,7 +384,7 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
         auto_oracle_enabled = bool(runtime_controls.get("auto_oracle_enabled", True))
 
         try:
-            result = loop.voice_turn(cmd, source=source)
+            result = _dispatch_conversational_turn(loop, cmd, source)
         except KeyboardInterrupt:
             print("\nExiting voice mode.")
             break
@@ -439,7 +453,7 @@ def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: 
         auto_oracle_enabled = bool(runtime_controls.get("auto_oracle_enabled", True))
 
         try:
-            result = loop.voice_turn(cmd, source=source)
+            result = _dispatch_conversational_turn(loop, cmd, source)
         except Exception as exc:
             message = f"error: {exc}"
             print(message)

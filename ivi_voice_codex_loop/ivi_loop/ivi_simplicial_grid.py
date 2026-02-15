@@ -5887,14 +5887,33 @@ class IVILoopController:
 
         # Minimal deterministic answer: list the most relevant equations and where they live
         eqs = ctx.get("equations", [])
+        cleaned_question = re.sub(r"\[openclaw\.voice_persona[^\]]*\]", "", question, flags=re.IGNORECASE)
+        question_tokens = {
+            t
+            for t in re.findall(r"[a-zA-Z0-9_]+", cleaned_question.lower())
+            if len(t) >= 4 and t not in {"openclaw", "voice", "persona", "question", "statement", "insight"}
+        }
+
+        scored_equations: List[Tuple[int, Dict[str, Any]]] = []
+        for e in eqs:
+            if not isinstance(e, dict):
+                continue
+            blob = f"{e.get('lean_name', '')} {e.get('statement', '')}".lower()
+            score = sum(1 for token in question_tokens if token in blob)
+            scored_equations.append((int(score), e))
+
+        if question_tokens:
+            scored_equations = [pair for pair in scored_equations if pair[0] > 0]
+
+        scored_equations.sort(key=lambda item: item[0], reverse=True)
         top = []
-        for e in eqs[:6]:
+        for _, e in scored_equations[:6]:
             top.append(
                 {
-                    "eid": e["eid"],
-                    "lean_name": e["lean_name"],
-                    "lean_file": e["lean_file"],
-                    "statement": e["statement"],
+                    "eid": e.get("eid", ""),
+                    "lean_name": e.get("lean_name", ""),
+                    "lean_file": e.get("lean_file", ""),
+                    "statement": e.get("statement", ""),
                 }
             )
 
@@ -5911,9 +5930,23 @@ class IVILoopController:
             top = []
         self._append_integration_artifacts(artifacts)
 
+        if top:
+            first = top[0]
+            first_stmt = str(first.get("statement", "")).strip()
+            first_stmt = re.sub(r"\[openclaw\.voice_persona[^\]]*\]", "", first_stmt, flags=re.IGNORECASE)
+            first_stmt = first_stmt.replace("[openclaw.walktalk]", " ").strip()
+            if first_stmt.lower().startswith("proposition derived from:"):
+                first_stmt = first_stmt.split(":", 1)[1].strip()
+            first_stmt = re.sub(r"\s+", " ", first_stmt).strip()
+            answer_text = first_stmt if first_stmt else "I found a trace-backed path to continue from."
+        else:
+            answer_text = "Got it. I’ll keep refining and return a concrete, trace-backed result."
+
         return {
             "kind": "question",
             "question": question,
+            "answer": answer_text,
+            "summary": answer_text,
             "context_packet": ctx,
             "suggested_refs": top,
             "voice_personalization": dict(openclaw_personalization) if isinstance(openclaw_personalization, dict) else {},
