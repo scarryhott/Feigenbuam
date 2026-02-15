@@ -285,23 +285,47 @@ def _enable_full_loop_for_voice(loop: IVILoopController) -> str:
     return "Autonomy loop enabled: full-access + proactive + continuous + daemon"
 
 
-def _emit_oracle_prompt_if_needed(result: Dict[str, Any]) -> None:
+def _emit_oracle_prompt_if_needed(result: Dict[str, Any], full_output: bool) -> None:
+    if not full_output:
+        return
     insight_request = result.get("insight_request", {}) if isinstance(result, dict) else {}
     if isinstance(insight_request, dict) and insight_request.get("needed", False):
         prompt = str(insight_request.get("prompt", "Please provide /insight <constraint>.")).strip()
         print("oracle:", prompt)
 
 
-def _run_inter_agent_refinement_cycle(loop: IVILoopController, source: str, full_output: bool) -> None:
-    cycle = loop.voice_turn(
+def _run_inter_agent_refinement_cycle(
+    loop: IVILoopController,
+    source: str,
+    full_output: bool,
+    user_utterance: str,
+    audio: Optional[VoiceAudioInterface] = None,
+) -> None:
+    purple_cycle = loop.voice_turn(
         "Proactively refine OpenClaw and Purple role alignment and request needed insight.",
         source=f"{source}_interagent",
     )
+    followup = loop.voice_turn(
+        f"/walktalk question: The user said: {user_utterance}. Reply as OpenClaw with one concise next-step question or action-oriented suggestion.",
+        source=f"{source}_openclaw_followup",
+    )
     if full_output:
-        print(json.dumps({"kind": "inter_agent_cycle", "result": cycle}, ensure_ascii=False, indent=2))
+        print(
+            json.dumps(
+                {"kind": "inter_agent_cycle", "purple_result": purple_cycle, "openclaw_followup": followup},
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
     else:
-        print("[inter-agent]", _render_conversational_response(cycle))
-    _emit_oracle_prompt_if_needed(cycle)
+        rendered = _render_conversational_response(followup)
+        if rendered.startswith("/"):
+            rendered = "What should we prioritize first right now?"
+        if rendered:
+            print(rendered)
+            if audio is not None:
+                audio.speak(rendered)
+    _emit_oracle_prompt_if_needed(purple_cycle, full_output=full_output)
 
 
 def _auto_resolve_oracle_request(loop: IVILoopController, insight_request: Dict[str, Any], source: str, full_output: bool) -> None:
@@ -403,7 +427,7 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
         else:
             print(_render_conversational_response(result))
         if full_output:
-            _emit_oracle_prompt_if_needed(result)
+            _emit_oracle_prompt_if_needed(result, full_output=full_output)
         if auto_oracle_enabled:
             _auto_resolve_oracle_request(loop, result.get("insight_request", {}), source, full_output)
 
@@ -421,13 +445,12 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
 
         if inter_agent_dialogue_enabled and cmd not in {"/monitor", "/progress", "/status"}:
             try:
-                if full_output:
-                    _run_inter_agent_refinement_cycle(loop=loop, source=source, full_output=full_output)
-                else:
-                    _ = loop.voice_turn(
-                        "Proactively refine OpenClaw and Purple role alignment and request needed insight.",
-                        source=f"{source}_interagent",
-                    )
+                _run_inter_agent_refinement_cycle(
+                    loop=loop,
+                    source=source,
+                    full_output=full_output,
+                    user_utterance=cmd,
+                )
             except Exception as exc:
                 if full_output:
                     print(f"[inter-agent] cycle error: {exc}")
@@ -481,7 +504,7 @@ def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: 
             audio.speak(rendered)
 
         if full_output:
-            _emit_oracle_prompt_if_needed(result)
+            _emit_oracle_prompt_if_needed(result, full_output=full_output)
         if auto_oracle_enabled:
             _auto_resolve_oracle_request(loop, result.get("insight_request", {}), source, full_output)
 
@@ -500,14 +523,13 @@ def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: 
 
         if inter_agent_dialogue_enabled and cmd not in {"/monitor", "/progress", "/status"}:
             try:
-                cycle = loop.voice_turn(
-                    "Proactively refine OpenClaw and Purple role alignment and request needed insight.",
-                    source=f"{source}_interagent",
+                _run_inter_agent_refinement_cycle(
+                    loop=loop,
+                    source=source,
+                    full_output=full_output,
+                    user_utterance=cmd,
+                    audio=audio,
                 )
-                if full_output:
-                    print(json.dumps({"kind": "inter_agent_cycle", "result": cycle}, ensure_ascii=False, indent=2))
-                    audio.speak(_render_conversational_response(cycle))
-                    _emit_oracle_prompt_if_needed(cycle)
             except Exception as exc:
                 message = f"[inter-agent] cycle error: {exc}"
                 if full_output:
