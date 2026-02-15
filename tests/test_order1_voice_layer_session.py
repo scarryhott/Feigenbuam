@@ -101,17 +101,57 @@ def test_openclaw_attach_and_walktalk_mode(tmp_path):
     openclaw_root.mkdir(parents=True, exist_ok=True)
     soul = openclaw_root / "soul.md"
     soul.write_text("# OpenClaw Soul\nwalk/talk agent identity", encoding="utf-8")
+    mem = openclaw_root / "memory_notes.md"
+    mem.write_text("Order-1 Protocol memory anchor for personalized routing", encoding="utf-8")
 
     attached = loop.voice_turn(f"/openclaw attach {openclaw_root}")
     assert attached["kind"] == "openclaw_attached"
     assert attached["openclaw"]["agent"] == "openclaw"
     assert Path(attached["openclaw"]["soul_path"]).name.lower() == "soul.md"
+    assert attached["voice_mode"] == "integrated"
+
+    profile = loop.voice_turn("/openclaw profile")
+    assert profile["kind"] == "openclaw_profile"
+    assert profile["profile"]["enabled"] is True
+    assert profile["profile"]["openclaw"]["voice_profile"]["anchor"]
+    assert profile["profile"]["openclaw"]["voice_profile"]["memory_source_count"] >= 1
+    assert profile["profile"]["openclaw"]["memory_profile"]["enabled"] is True
+
+    switched = loop.voice_turn("/openclaw mode passthrough")
+    assert switched["kind"] == "openclaw_mode"
+    assert switched["voice_mode"] == "passthrough"
+    switched_back = loop.voice_turn("/openclaw mode integrated")
+    assert switched_back["voice_mode"] == "integrated"
 
     walked = loop.voice_turn("/walktalk monitor local state and narrate integrity")
     assert walked["kind"] == "walktalk"
     assert walked["envelope"]["mode"] == "walktalk"
     assert walked["result"]["kind"] == "insight"
+    assert walked["voice_personalization"]["enabled"] is True
     assert walked["progress"]["turns"] >= 1
+
+    walked_question = loop.voice_turn("/walktalk question: what equations are active?")
+    assert walked_question["kind"] == "walktalk"
+    assert walked_question["route"] == "question_projection"
+    assert walked_question["result"]["kind"] == "question"
+
+    q = loop.voice_turn("What do we know about closure deficit?")
+    assert q["kind"] == "question"
+    assert q["voice_personalization"]["enabled"] is True
+    assert "openclaw_voice_personalization" in q["integration_artifacts"]["Trace"]
+
+    s = loop.voice_turn("This is a voice statement for OpenClaw integrated mode")
+    assert s["kind"] == "statement"
+    assert s["voice_personalization"]["enabled"] is True
+    trace = s["integration_artifacts"]["Trace"]
+    assert trace["openclaw_voice_personalization"]["enabled"] is True
+    assert trace["openclaw_voice_personalization_digest"]
+
+    sync = loop.voice_turn(f"/openclaw sync-run {openclaw_root} :: question: summarize protocol memory")
+    assert sync["kind"] == "openclaw_sync_run"
+    assert sync["attached"]["openclaw"]["voice_profile"]["memory_source_count"] >= 1
+    assert sync["walktalk"]["kind"] == "walktalk"
+    assert sync["walktalk"]["result"]["kind"] == "question"
 
 
 @pytest.mark.order1
@@ -262,6 +302,9 @@ def test_voice_turn_autoloop_generates_monitor_timeline(tmp_path):
     }
     assert int(step1["k_collapse"]) >= 1
     assert isinstance(step1["class_label"], str)
+    assert "ivi_invariant" in step1
+    assert step1["ivi_invariant"]["version"] == "ivi_invariant_v1"
+    assert isinstance(step1["ivi_invariant_value"], float)
     assert step1["relift_conditioning"]["conditioning_digest"]
     assert "order_relation" in step1
     assert step1["order_relation"]["mode"] == "continuous_triad_v1"
@@ -436,6 +479,10 @@ def test_regime_ab_experiment_is_reproducible_with_seed_override(tmp_path):
     assert "l1_distance" in out1["comparison"]["measure_divergence"]
     assert "beta_kcollapse_conditional" in out1["comparison"]
     assert "by_k_bin" in out1["comparison"]["beta_kcollapse_conditional"]
+    assert "ivi_invariant_series" in out1["regimes"]["alpha_dominant"]
+    assert "ivi_invariant_delta" in out1["regimes"]["beta_dominant"]
+    assert "ivi_invariant_regime_trend" in out1["comparison"]
+    assert "alpha_leq_beta_delta" in out1["comparison"]["ivi_invariant_regime_trend"]
 
 
 @pytest.mark.order1
@@ -471,6 +518,106 @@ def test_class_digest_potential_invariant_under_redescription_actions(tmp_path):
     assert a["class_digest_potential"] == b["class_digest_potential"]
     assert a["class_features_potential"] == b["class_features_potential"]
     assert a["class_digest_actuated"] == b["class_digest_actuated"]
+
+
+@pytest.mark.order1
+def test_ivi_invariant_is_quotient_stable_for_redescription_actions(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_invariant_quotient_repo"))
+    loop = IVILoopController(grid)
+
+    relift = {
+        "conditioning_mode": "identity",
+        "k_collapse": 1,
+        "alpha": 0.5,
+        "beta": 0.5,
+    }
+    trace_a = {
+        "potential_distribution": [{"tid": "T1", "p": 0.7}, {"tid": "T2", "p": 0.3}],
+        "collapse_selection": ["T1"],
+        "formal_targets": [{"eid": "E1"}],
+        "role_projection": {"subject_tids": ["T1"], "object_tids": []},
+    }
+    trace_b = {
+        "potential_distribution": [{"tid": "T2", "p": 0.3}, {"tid": "T1", "p": 0.7}],
+        "collapse_selection": ["T1"],
+        "formal_targets": [{"eid": "E1"}],
+        "role_projection": {"subject_tids": ["T1"], "object_tids": []},
+        "non_semantic": "metadata perturbation",
+    }
+
+    class_a = loop._derive_topological_class_label(trace_a, relift)
+    class_b = loop._derive_topological_class_label(trace_b, relift)
+    trace_a["class_digest_potential"] = class_a["class_digest_potential"]
+    trace_b["class_digest_potential"] = class_b["class_digest_potential"]
+
+    builder_payload = {
+        "canonical_action_summary": {"expected_informational_action": 0.75},
+        "gating_summary": {"samples_total": 4, "samples_hard_gated": 1},
+    }
+    inv_a = loop._extract_ivi_invariant_components(trace_a, builder_derivation=builder_payload)
+    inv_b = loop._extract_ivi_invariant_components(trace_b, builder_derivation=builder_payload)
+
+    assert class_a["class_digest_potential"] == class_b["class_digest_potential"]
+    assert inv_a["value"] == inv_b["value"]
+    assert inv_a["components"] == inv_b["components"]
+    assert inv_a["quotient_anchor"]["class_digest_potential"] == inv_b["quotient_anchor"]["class_digest_potential"]
+
+
+@pytest.mark.order1
+def test_ivi_invariant_dynamics_law_regime_monotone_and_invariant_modes(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_invariant_dynamics_repo"))
+    loop = IVILoopController(grid)
+
+    prev = {
+        "regime_label": "alpha_dominant",
+        "class_digest_potential": "cls_digest",
+        "potential_distribution_digest": "pot_digest",
+        "builderbuldozer_model_spec_digest": "spec_digest",
+        "ivi_invariant": {"version": "ivi_invariant_v1", "value": 2.0, "digest": "d_prev"},
+    }
+
+    cur_alpha = {
+        "regime_label": "alpha_dominant",
+        "class_digest_potential": "cls_digest_2",
+        "potential_distribution_digest": "pot_digest_2",
+        "builderbuldozer_model_spec_digest": "spec_digest_2",
+        "ivi_invariant": {"version": "ivi_invariant_v1", "value": 1.5, "digest": "d_cur"},
+    }
+    alpha_check = loop._evaluate_ivi_invariant_dynamics_law(cur_alpha, previous_trace=prev)
+    assert alpha_check["enabled"] is True
+    assert alpha_check["admissible_update"] is True
+    assert alpha_check["passed"] is True
+    assert alpha_check["law_kind"] == "monotone_nonincreasing"
+
+    cur_canonical_same = {
+        "regime_label": "beta_dominant",
+        "class_digest_potential": "cls_digest",
+        "potential_distribution_digest": "pot_digest",
+        "builderbuldozer_model_spec_digest": "spec_digest",
+        "ivi_invariant": {"version": "ivi_invariant_v1", "value": 2.0, "digest": "d_cur2"},
+    }
+    inv_check = loop._evaluate_ivi_invariant_dynamics_law(cur_canonical_same, previous_trace=prev)
+    assert inv_check["enabled"] is True
+    assert inv_check["admissible_update"] is True
+    assert inv_check["passed"] is True
+    assert inv_check["law_kind"] == "invariant_under_canonical_equivalence"
+
+
+@pytest.mark.order1
+def test_ivi_invariant_dynamics_law_is_emitted_in_state_checks(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_invariant_statecheck_repo"))
+    loop = IVILoopController(grid)
+    loop.evaluate_user_insight_need = lambda progress, checks, trace=None: None
+
+    loop.add_statement_and_loop("seed invariant dynamics", source="test_seed")
+    out = loop.add_statement_and_loop("second invariant dynamics", source="test_next")
+    checks = out["integration_artifacts"]["StateChecks"]
+
+    assert "ivi_invariant_dynamics_law" in checks
+    dyn = checks["ivi_invariant_dynamics_law"]
+    assert "enabled" in dyn
+    assert "passed" in dyn
+    assert "admissible_update" in dyn
 
 
 @pytest.mark.order1
@@ -572,6 +719,134 @@ def test_least_action_calibration_report_shape(tmp_path):
 
 
 @pytest.mark.order1
+def test_builderbuldozer_derive_command_emits_closure_and_spec_lock_checks(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_builderbuldozer_repo"))
+    loop = IVILoopController(grid)
+
+    expected_version = loop.BUILDERBULDOZER_SPEC_VERSION
+    expected_digest = loop._builderbuldozer_spec_digest()
+    born_distribution = {
+        "num_classes": 1,
+        "class_probabilities": {"cls_A": 1.0},
+        "class_amplitudes": {"cls_A": {"re": 1.0, "im": 0.0}},
+    }
+    born_distribution_digest = loop._expected_builderbuldozer_distribution_digest(4, 7)
+
+    stub_payload = {
+        "enabled": True,
+        "module_path": "/tmp/vortex_cone_sim.py",
+        "model_spec_version": expected_version,
+        "model_spec_digest": expected_digest,
+        "inputs": {"num_trials": 4, "seed_start": 7},
+        "intermediate_presence": {
+            "canon_link_matrix_register": True,
+            "canon_braid_word_register_conjugacy_rep": True,
+            "canon_ivi_action_terms": True,
+            "canon_ivi_potential_amplitude": True,
+            "canon_hard_gated": True,
+        },
+        "gating_summary": {
+            "samples_total": 3,
+            "samples_hard_gated": 1,
+            "samples_included": 2,
+            "hard_gate_semantics_defined": True,
+            "born_excludes_hard_gated": True,
+        },
+        "born_distribution": born_distribution,
+        "born_distribution_digest": born_distribution_digest,
+        "reference_distribution_digest_expected": born_distribution_digest,
+        "reference_distribution_digest_locked": True,
+        "reference_distribution_digest_match": True,
+        "canonical_action_summary": {
+            "expected_informational_action": 0.25,
+            "class_mean_action": {"cls_A": 0.25},
+        },
+        "closed_engineering": True,
+        "closed_final_theory": True,
+    }
+
+    loop._compute_builderbuldozer_derivation = lambda trials=4, seed_start=0: {
+        **stub_payload,
+        "inputs": {"num_trials": int(trials), "seed_start": int(seed_start)},
+    }
+    loop._evaluate_ivi_invariant_dynamics_law = lambda trace, previous_trace=None: {
+        "name": "ivi_invariant_dynamics_law",
+        "enabled": True,
+        "passed": True,
+        "admissible_update": True,
+        "law_kind": "monotone_nonincreasing",
+    }
+
+    loop.voice_turn("/builderbuldozer-derive 4 7")
+    out = loop.voice_turn("/builderbuldozer-derive 4 7")
+
+    assert out["kind"] == "builderbuldozer_derivation"
+    assert out["trials"] == 4
+    assert out["seed_start"] == 7
+    assert out["derivation"]["enabled"] is True
+    assert out["derivation"]["model_spec_version"] == expected_version
+    assert out["derivation"]["model_spec_digest"] == expected_digest
+    assert "canonical_action_summary" in out["derivation"]
+    assert "expected_informational_action" in out["derivation"]["canonical_action_summary"]
+
+    artifacts = out["integration_artifacts"]
+    trace = artifacts["Trace"]
+    checks = artifacts["StateChecks"]
+
+    assert "builderbuldozer_derivation" in trace
+    assert trace["builderbuldozer_model_spec_version"] == expected_version
+    assert trace["builderbuldozer_model_spec_digest"] == expected_digest
+    assert checks["builderbuldozer_ivi_closure_contract"]["enabled"] is True
+    assert checks["builderbuldozer_ivi_closure_contract"]["passed"] is True
+    assert checks["builderbuldozer_spec_immutability_gate"]["enabled"] is True
+    assert checks["builderbuldozer_spec_immutability_gate"]["passed"] is True
+    assert checks["builderbuldozer_reference_distribution_digest_lock"]["enabled"] is True
+    assert checks["builderbuldozer_reference_distribution_digest_lock"]["passed"] is True
+    assert checks["builderbuldozer_theory_closure_contract"]["enabled"] is True
+    assert checks["builderbuldozer_theory_closure_contract"]["passed"] is True
+    assert checks["builderbuldozer_theory_closure_contract"]["requirements"]["ivi_invariant_dynamics_law_enabled"] is True
+    assert "ivi_invariant" in trace
+    assert trace["ivi_invariant"]["version"] == "ivi_invariant_v1"
+    assert checks["ivi_invariant_payload_integrity"]["passed"] is True
+
+
+@pytest.mark.order1
+def test_builderbuldozer_reference_digest_lock_detects_mismatch(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_builderbuldozer_ref_lock_repo"))
+    loop = IVILoopController(grid)
+
+    check = loop._evaluate_builderbuldozer_reference_digest_lock(
+        {
+            "enabled": True,
+            "inputs": {"num_trials": 4, "seed_start": 0},
+            "born_distribution_digest": "wrong_digest",
+        }
+    )
+
+    assert check["enabled"] is True
+    assert check["passed"] is False
+    assert check["case_key"] == "4:0"
+
+
+@pytest.mark.order1
+def test_builderbuldozer_spec_immutability_gate_detects_mismatch(tmp_path):
+    grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_builderbuldozer_spec_repo"))
+    loop = IVILoopController(grid)
+
+    check = loop._evaluate_builderbuldozer_spec_immutability(
+        {
+            "model_spec_version": "wrong_spec",
+            "model_spec_digest": "wrong_digest",
+        }
+    )
+
+    assert check["enabled"] is True
+    assert check["passed"] is False
+    assert "builderbuldozer_spec_version_mismatch" in check["violations"]
+    assert "builderbuldozer_spec_digest_mismatch" in check["violations"]
+
+
+@pytest.mark.order1
 def test_voice_turn_supports_autoloop_regime_command(tmp_path):
     grid = IVISimplicialGrid(base_dir=str(tmp_path / "voice_layer_regime_cmd_repo"))
     loop = IVILoopController(grid)
@@ -639,6 +914,7 @@ def test_progress_reports_class_distribution_by_regime(tmp_path):
 
     progress = loop.get_axiom_self_generation_progress()
     dist = progress["class_regime_distribution"]
+    inv = progress["ivi_invariant_by_regime"]
 
     assert dist["alpha_dominant"]["total"] == 2
     assert dist["beta_dominant"]["total"] == 1
@@ -647,6 +923,8 @@ def test_progress_reports_class_distribution_by_regime(tmp_path):
     beta_classes = {entry["class_label"]: entry["count"] for entry in dist["beta_dominant"]["by_class"]}
     assert alpha_classes == {"cls_A": 1, "cls_B": 1}
     assert beta_classes == {"cls_A": 1}
+    assert "alpha_dominant" in inv
+    assert "beta_dominant" in inv
 
 
 @pytest.mark.order1

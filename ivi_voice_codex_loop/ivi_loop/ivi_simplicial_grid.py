@@ -27,6 +27,7 @@ from __future__ import annotations
 import dataclasses
 import copy
 import hashlib
+import importlib.util
 import json
 import math
 import os
@@ -1597,10 +1598,22 @@ class IVILoopController:
         "requires_external_approval_token": True,
     }
 
+    BUILDERBULDOZER_SPEC_VERSION = "builderbuldozer_ivi_spec_v1"
+    BUILDERBULDOZER_REFERENCE_DISTRIBUTION_DIGESTS = {
+        "4:0": "0599499e338ddf9c7018a808a77c309c88b7c58a85112ffc7bd42d4ee2348726",
+        "4:7": "344fc8c7ad32ff49c23e4911182ca395f037eef9cad956a0574f4d6d68ef403b",
+        "6:2": "e125d048a56eb47b29b4fd324104740ff2e8656c974709db636bd4f834dd43da",
+    }
+    BUILDERBULDOZER_MODULE_CANDIDATES = [
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "vortex_cone_sim.py")),
+        "/Users/harryscott/Downloads/buildersbulldozers/vortex_cone_sim.py",
+    ]
+
     def __init__(self, grid: IVISimplicialGrid):
         self.grid = grid
         self._last_complexity_validation_level: Optional[str] = None
         self._openclaw: Optional[OpenClawMicrocosm] = None
+        self._openclaw_voice_mode: str = "integrated"
         self._last_oracle_request: Optional[Dict[str, Any]] = None
         self._last_relift_conditioning: Optional[Dict[str, Any]] = None
 
@@ -1698,6 +1711,426 @@ class IVILoopController:
             "deficit_reduction": deficit_reduction,
             "changed_grid": changed_grid,
             "novel_selected_digest": novel_selected_digest,
+        }
+
+    def _builderbuldozer_spec_payload(self) -> Dict[str, Any]:
+        return {
+            "version": self.BUILDERBULDOZER_SPEC_VERSION,
+            "inputs": [
+                "seed_start",
+                "num_trials",
+                "scenario_schedule",
+                "params_factory",
+                "hard_gate_toggles",
+                "tolerances",
+            ],
+            "intermediate_objects": [
+                "canon_link_matrix_register",
+                "canon_braid_word_register_conjugacy_rep",
+                "canon_ivi_action_terms",
+                "canon_ivi_potential_amplitude",
+                "canon_hard_gated",
+            ],
+            "output_semantics": {
+                "hard_gated_sample": {
+                    "canon_potential_class_key": None,
+                    "canon_ivi_potential_amplitude": {"re": 0.0, "im": 0.0},
+                    "born_distribution_excluded": True,
+                },
+                "non_hard_gated_sample": {
+                    "born_weight": "|amp|^2",
+                    "class_key_source": "canon_potential_class_key",
+                },
+            },
+            "immutability_locked_components": [
+                "class_key_schema",
+                "action_terms_schema",
+                "gating_semantics",
+                "born_estimator_semantics",
+            ],
+        }
+
+    def _builderbuldozer_spec_digest(self) -> str:
+        payload = self._builderbuldozer_spec_payload()
+        return _stable_hash(json.dumps(payload, sort_keys=True, ensure_ascii=True))
+
+    def _expected_builderbuldozer_distribution_digest(self, num_trials: int, seed_start: int) -> str:
+        key = f"{int(num_trials)}:{int(seed_start)}"
+        return str(self.BUILDERBULDOZER_REFERENCE_DISTRIBUTION_DIGESTS.get(key, ""))
+
+    def _load_builderbuldozer_module(self) -> Tuple[Optional[Any], str]:
+        env_path = str(os.environ.get("BUILDERBULDOZER_MODULE_PATH", "")).strip()
+        candidates = [env_path] if env_path else []
+        candidates.extend(self.BUILDERBULDOZER_MODULE_CANDIDATES)
+        for path in candidates:
+            target = str(path).strip()
+            if not target:
+                continue
+            if not os.path.exists(target):
+                continue
+            spec = importlib.util.spec_from_file_location("builderbuldozer_vortex", target)
+            if spec is None or spec.loader is None:
+                continue
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            return module, target
+        return None, ""
+
+    def _builderbuldozer_request_from_query(self, query: str) -> Optional[Dict[str, int]]:
+        q = str(query or "")
+        ql = q.lower()
+        if not any(token in ql for token in ["builderbuldozer", "buildersbulldozers", "bulldozer"]):
+            return None
+        trials_match = re.search(r"trials\s*=\s*(\d+)", ql)
+        seed_match = re.search(r"seed\s*=\s*(-?\d+)", ql)
+        return {
+            "trials": int(trials_match.group(1)) if trials_match else 4,
+            "seed_start": int(seed_match.group(1)) if seed_match else 0,
+        }
+
+    def _compute_builderbuldozer_derivation(self, trials: int = 4, seed_start: int = 0) -> Dict[str, Any]:
+        module, module_path = self._load_builderbuldozer_module()
+        spec_version = self.BUILDERBULDOZER_SPEC_VERSION
+        spec_digest = self._builderbuldozer_spec_digest()
+        if module is None:
+            return {
+                "enabled": False,
+                "error": "builderbuldozer_module_not_found",
+                "module_path": module_path,
+                "model_spec_version": spec_version,
+                "model_spec_digest": spec_digest,
+            }
+
+        sample_fn = getattr(module, "sample_born_distribution", None)
+        if not callable(sample_fn):
+            return {
+                "enabled": False,
+                "error": "builderbuldozer_sample_born_distribution_missing",
+                "module_path": module_path,
+                "model_spec_version": spec_version,
+                "model_spec_digest": spec_digest,
+            }
+
+        run_trials = max(1, int(trials))
+        run_seed = int(seed_start)
+        sampled = sample_fn(num_trials=run_trials, seed_start=run_seed)
+        samples = sampled.get("samples", []) if isinstance(sampled.get("samples", []), list) else []
+        distribution = sampled.get("distribution", {}) if isinstance(sampled.get("distribution", {}), dict) else {}
+
+        hard_gated = sum(
+            1 for s in samples if isinstance(s, dict) and bool(s.get("canon_hard_gated", False))
+        )
+        included = max(0, len(samples) - hard_gated)
+        first = samples[0] if samples and isinstance(samples[0], dict) else {}
+        action_by_class_sum: Dict[str, float] = {}
+        action_by_class_count: Dict[str, int] = {}
+        for sample in samples:
+            if not isinstance(sample, dict):
+                continue
+            if bool(sample.get("canon_hard_gated", False)):
+                continue
+            cls = str(sample.get("canon_potential_class_key", "")).strip()
+            if not cls:
+                continue
+            action = float(sample.get("canon_ivi_informational_action", 0.0))
+            action_by_class_sum[cls] = float(action_by_class_sum.get(cls, 0.0)) + action
+            action_by_class_count[cls] = int(action_by_class_count.get(cls, 0)) + 1
+        action_by_class_mean = {
+            cls: float(action_by_class_sum.get(cls, 0.0)) / float(max(1, action_by_class_count.get(cls, 0)))
+            for cls in sorted(action_by_class_sum.keys())
+        }
+        probs = dict(distribution.get("class_probabilities", {}))
+        expected_action = 0.0
+        for cls, prob in probs.items():
+            p = max(0.0, float(prob))
+            expected_action += p * float(action_by_class_mean.get(str(cls), 0.0))
+        born_distribution = {
+            "num_classes": int(distribution.get("num_classes", 0)),
+            "class_probabilities": probs,
+            "class_amplitudes": dict(distribution.get("class_amplitudes", {})),
+        }
+        born_distribution_digest = _stable_hash(json.dumps(born_distribution, sort_keys=True, ensure_ascii=True))
+        expected_dist_digest = self._expected_builderbuldozer_distribution_digest(run_trials, run_seed)
+        reference_digest_locked = bool(expected_dist_digest)
+        reference_digest_match = reference_digest_locked and (born_distribution_digest == expected_dist_digest)
+
+        return {
+            "enabled": True,
+            "module_path": module_path,
+            "model_spec_version": spec_version,
+            "model_spec_digest": spec_digest,
+            "inputs": {
+                "num_trials": run_trials,
+                "seed_start": run_seed,
+            },
+            "intermediate_presence": {
+                "canon_link_matrix_register": isinstance(first.get("canon_link_matrix_register", {}), dict),
+                "canon_braid_word_register_conjugacy_rep": isinstance(first.get("canon_braid_word_register_conjugacy_rep", []), list),
+                "canon_ivi_action_terms": isinstance(first.get("canon_ivi_action_terms", {}), dict),
+                "canon_ivi_potential_amplitude": isinstance(first.get("canon_ivi_potential_amplitude", {}), dict),
+                "canon_hard_gated": "canon_hard_gated" in first,
+            },
+            "gating_summary": {
+                "samples_total": len(samples),
+                "samples_hard_gated": hard_gated,
+                "samples_included": included,
+                "hard_gate_semantics_defined": True,
+                "born_excludes_hard_gated": True,
+            },
+            "born_distribution": born_distribution,
+            "born_distribution_digest": born_distribution_digest,
+            "reference_distribution_digest_expected": expected_dist_digest,
+            "reference_distribution_digest_locked": reference_digest_locked,
+            "reference_distribution_digest_match": reference_digest_match,
+            "canonical_action_summary": {
+                "expected_informational_action": float(expected_action),
+                "class_mean_action": action_by_class_mean,
+            },
+            "closed_engineering": True,
+            "closed_final_theory": bool(reference_digest_match),
+        }
+
+    def _extract_ivi_invariant_components(
+        self,
+        trace: Dict[str, Any],
+        builder_derivation: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        grid_state = self._grid_state_from_trace(trace_obj)
+        closure_deficit = float(grid_state.get("closure_deficit", 0.0))
+
+        builder_obj = builder_derivation if isinstance(builder_derivation, dict) else {}
+        canonical_summary = (
+            builder_obj.get("canonical_action_summary", {})
+            if isinstance(builder_obj.get("canonical_action_summary", {}), dict)
+            else {}
+        )
+        gating_summary = (
+            builder_obj.get("gating_summary", {})
+            if isinstance(builder_obj.get("gating_summary", {}), dict)
+            else {}
+        )
+        expected_action = float(canonical_summary.get("expected_informational_action", 0.0))
+        samples_total = int(gating_summary.get("samples_total", 0))
+        samples_hard_gated = int(gating_summary.get("samples_hard_gated", 0))
+        hard_gate_rate = float(samples_hard_gated) / float(max(1, samples_total))
+
+        invariant_value = closure_deficit + expected_action + hard_gate_rate
+        payload = {
+            "version": "ivi_invariant_v1",
+            "name": "expected_unrealized_structure",
+            "formula": "I = closure_deficit + E_builder[action|class] + hard_gate_rate",
+            "value": float(invariant_value),
+            "components": {
+                "closure_deficit": float(closure_deficit),
+                "expected_builder_informational_action": float(expected_action),
+                "builder_hard_gate_rate": float(hard_gate_rate),
+            },
+            "quotient_anchor": {
+                "class_digest_potential": str(trace_obj.get("class_digest_potential", "")),
+            },
+            "builderbuldozer_bound": bool(builder_obj),
+        }
+        payload["digest"] = _stable_hash(json.dumps(payload, sort_keys=True, ensure_ascii=True))
+        return payload
+
+    def _evaluate_ivi_invariant_dynamics_law(
+        self,
+        trace: Dict[str, Any],
+        previous_trace: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        trace_obj = trace if isinstance(trace, dict) else {}
+        prev_obj = previous_trace if isinstance(previous_trace, dict) else {}
+        curr_inv = trace_obj.get("ivi_invariant", {}) if isinstance(trace_obj.get("ivi_invariant", {}), dict) else {}
+        prev_inv = prev_obj.get("ivi_invariant", {}) if isinstance(prev_obj.get("ivi_invariant", {}), dict) else {}
+
+        if not prev_inv:
+            return {
+                "name": "ivi_invariant_dynamics_law",
+                "enabled": False,
+                "passed": True,
+                "admissible_update": False,
+                "law_kind": "insufficient_history",
+                "detail": "no previous invariant payload; dynamics law not evaluated on first turn",
+            }
+
+        curr_val_raw = curr_inv.get("value", trace_obj.get("ivi_invariant_value", None))
+        prev_val_raw = prev_inv.get("value", prev_obj.get("ivi_invariant_value", None))
+        finite_vals = isinstance(curr_val_raw, (float, int)) and isinstance(prev_val_raw, (float, int))
+        if not finite_vals:
+            return {
+                "name": "ivi_invariant_dynamics_law",
+                "enabled": True,
+                "passed": False,
+                "admissible_update": False,
+                "law_kind": "invalid_payload",
+                "detail": "current/previous invariant values are missing or non-numeric",
+            }
+
+        curr_val = float(curr_val_raw)
+        prev_val = float(prev_val_raw)
+        if not (math.isfinite(curr_val) and math.isfinite(prev_val)):
+            return {
+                "name": "ivi_invariant_dynamics_law",
+                "enabled": True,
+                "passed": False,
+                "admissible_update": False,
+                "law_kind": "invalid_payload",
+                "detail": "current/previous invariant values are not finite",
+            }
+
+        curr_ver = str(curr_inv.get("version", ""))
+        prev_ver = str(prev_inv.get("version", ""))
+        same_version = curr_ver == "ivi_invariant_v1" and prev_ver == "ivi_invariant_v1"
+        has_payload_digests = bool(str(curr_inv.get("digest", ""))) and bool(str(prev_inv.get("digest", "")))
+        has_class_anchor = bool(str(trace_obj.get("class_digest_potential", ""))) and bool(
+            str(prev_obj.get("class_digest_potential", ""))
+        )
+        admissible_update = bool(same_version and has_payload_digests and has_class_anchor)
+
+        regime = str(trace_obj.get("regime_label", "")).strip() or self._relift_regime_label(
+            trace_obj.get("relift_conditioning", {})
+            if isinstance(trace_obj.get("relift_conditioning", {}), dict)
+            else {}
+        )
+        delta = curr_val - prev_val
+        tol_mono = 1e-9
+        tol_balanced = 0.25
+        tol_invariant = 1e-9
+
+        same_canonical_basis = bool(
+            str(trace_obj.get("class_digest_potential", ""))
+            and str(trace_obj.get("class_digest_potential", "")) == str(prev_obj.get("class_digest_potential", ""))
+            and str(trace_obj.get("potential_distribution_digest", ""))
+            and str(trace_obj.get("potential_distribution_digest", ""))
+            == str(prev_obj.get("potential_distribution_digest", ""))
+            and str(trace_obj.get("builderbuldozer_model_spec_digest", ""))
+            and str(trace_obj.get("builderbuldozer_model_spec_digest", ""))
+            == str(prev_obj.get("builderbuldozer_model_spec_digest", ""))
+        )
+
+        if not admissible_update:
+            return {
+                "name": "ivi_invariant_dynamics_law",
+                "enabled": True,
+                "passed": True,
+                "admissible_update": False,
+                "law_kind": "not_applicable",
+                "regime_label": regime,
+                "delta": float(delta),
+                "detail": "invariant dynamics law skipped: update missing admissibility prerequisites",
+            }
+
+        if same_canonical_basis:
+            passed = abs(delta) <= tol_invariant
+            law_kind = "invariant_under_canonical_equivalence"
+            detail = (
+                "same canonical basis implies invariant scalar"
+                if passed
+                else "same canonical basis but invariant scalar changed"
+            )
+            inequality = f"|I_t - I_(t-1)| <= {tol_invariant}"
+        else:
+            if regime == "alpha_dominant":
+                passed = delta <= tol_mono
+                law_kind = "monotone_nonincreasing"
+                detail = "alpha-dominant admissible update enforces I_t <= I_(t-1)"
+                inequality = f"I_t - I_(t-1) <= {tol_mono}"
+            elif regime == "beta_dominant":
+                passed = delta >= -tol_mono
+                law_kind = "monotone_nondecreasing"
+                detail = "beta-dominant admissible update enforces I_t >= I_(t-1)"
+                inequality = f"I_t - I_(t-1) >= {-tol_mono}"
+            else:
+                passed = abs(delta) <= tol_balanced
+                law_kind = "near_invariant_balanced"
+                detail = "balanced admissible update enforces near-invariance"
+                inequality = f"|I_t - I_(t-1)| <= {tol_balanced}"
+
+        return {
+            "name": "ivi_invariant_dynamics_law",
+            "enabled": True,
+            "passed": bool(passed),
+            "admissible_update": True,
+            "law_kind": law_kind,
+            "regime_label": regime,
+            "same_canonical_basis": same_canonical_basis,
+            "current_value": float(curr_val),
+            "previous_value": float(prev_val),
+            "delta": float(delta),
+            "inequality": inequality,
+            "detail": detail,
+        }
+
+    def _evaluate_builderbuldozer_spec_immutability(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        expected_version = self.BUILDERBULDOZER_SPEC_VERSION
+        expected_digest = self._builderbuldozer_spec_digest()
+        actual_version = str(payload.get("model_spec_version", "")) if isinstance(payload, dict) else ""
+        actual_digest = str(payload.get("model_spec_digest", "")) if isinstance(payload, dict) else ""
+        violations: List[str] = []
+        if actual_version != expected_version:
+            violations.append("builderbuldozer_spec_version_mismatch")
+        if actual_digest != expected_digest:
+            violations.append("builderbuldozer_spec_digest_mismatch")
+        return {
+            "name": "builderbuldozer_spec_immutability_gate",
+            "enabled": bool(payload),
+            "passed": len(violations) == 0,
+            "violations": violations,
+            "expected": {
+                "model_spec_version": expected_version,
+                "model_spec_digest": expected_digest,
+            },
+            "detail": "; ".join(violations) if violations else "builderbuldozer spec version/digest match locked protocol",
+        }
+
+    def _evaluate_builderbuldozer_reference_digest_lock(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        obj = payload if isinstance(payload, dict) else {}
+        enabled = bool(obj.get("enabled", False))
+        inputs = obj.get("inputs", {}) if isinstance(obj.get("inputs", {}), dict) else {}
+        num_trials = int(inputs.get("num_trials", 0))
+        seed_start = int(inputs.get("seed_start", 0))
+        expected_digest = self._expected_builderbuldozer_distribution_digest(num_trials, seed_start)
+        lock_enabled = bool(expected_digest)
+        born_distribution = obj.get("born_distribution", {}) if isinstance(obj.get("born_distribution", {}), dict) else {}
+        actual_digest = str(obj.get("born_distribution_digest", "")).strip()
+        if not actual_digest and born_distribution:
+            actual_digest = _stable_hash(json.dumps(born_distribution, sort_keys=True, ensure_ascii=True))
+        passed = bool(enabled and lock_enabled and actual_digest and actual_digest == expected_digest)
+        case_key = f"{num_trials}:{seed_start}"
+        if not enabled:
+            detail = "builderbuldozer derivation unavailable; reference digest lock not evaluated"
+        elif not lock_enabled:
+            detail = f"no reference digest lock configured for case {case_key}"
+        elif not actual_digest:
+            detail = "missing born_distribution_digest for reference lock verification"
+        elif passed:
+            detail = f"reference distribution digest lock satisfied for case {case_key}"
+        else:
+            detail = f"reference distribution digest mismatch for case {case_key}"
+        return {
+            "name": "builderbuldozer_reference_distribution_digest_lock",
+            "enabled": bool(enabled and lock_enabled),
+            "passed": bool(passed),
+            "case_key": case_key,
+            "expected_digest": expected_digest,
+            "actual_digest": actual_digest,
+            "detail": detail,
+        }
+
+    def run_builderbuldozer_ivi_derivation(self, trials: int = 4, seed_start: int = 0, source: str = "voice_builderbuldozer") -> Dict[str, Any]:
+        query = f"[builderbuldozer derive] trials={int(max(1, trials))} seed={int(seed_start)}"
+        out = self.add_statement_and_loop(query, source=source)
+        artifacts = out.get("integration_artifacts", {}) if isinstance(out.get("integration_artifacts", {}), dict) else {}
+        trace = artifacts.get("Trace", {}) if isinstance(artifacts.get("Trace", {}), dict) else {}
+        payload = trace.get("builderbuldozer_derivation", {}) if isinstance(trace.get("builderbuldozer_derivation", {}), dict) else {}
+        return {
+            "kind": "builderbuldozer_derivation",
+            "trials": int(max(1, trials)),
+            "seed_start": int(seed_start),
+            "derivation": payload,
+            "integration_artifacts": artifacts,
+            "progress": self.get_axiom_self_generation_progress(),
         }
 
     def _relift_regime_label(self, relift_conditioning: Dict[str, Any]) -> str:
@@ -1861,6 +2294,37 @@ class IVILoopController:
             "js_divergence": float(max(0.0, js)),
             "l1_distance": float(max(0.0, l1)),
         }
+
+    def _invariant_summary_by_regime(self, artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
+        buckets: Dict[str, List[float]] = {
+            "alpha_dominant": [],
+            "beta_dominant": [],
+            "balanced": [],
+        }
+        for item in artifacts:
+            if not isinstance(item, dict):
+                continue
+            trace = item.get("Trace", {}) if isinstance(item.get("Trace", {}), dict) else {}
+            regime = str(trace.get("regime_label", "")).strip() or self._relift_regime_label(
+                trace.get("relift_conditioning", {}) if isinstance(trace.get("relift_conditioning", {}), dict) else {}
+            )
+            if regime not in buckets:
+                regime = "balanced"
+            invariant_obj = trace.get("ivi_invariant", {}) if isinstance(trace.get("ivi_invariant", {}), dict) else {}
+            val = invariant_obj.get("value", trace.get("ivi_invariant_value", None))
+            if isinstance(val, (float, int)) and math.isfinite(float(val)):
+                buckets[regime].append(float(val))
+
+        out: Dict[str, Any] = {}
+        for regime, vals in buckets.items():
+            series = list(vals)
+            out[regime] = {
+                "count": len(series),
+                "series": series,
+                "mean": float(sum(series)) / float(max(1, len(series))),
+                "delta": float(series[-1] - series[0]) if len(series) >= 2 else 0.0,
+            }
+        return out
 
     def _k_collapse_bin(self, k_collapse: int) -> str:
         k = int(k_collapse)
@@ -2052,10 +2516,18 @@ class IVILoopController:
             )
             class_distribution = self._timeline_class_distribution(run.get("timeline", []))
             measure_stats = self._distribution_stats(class_distribution.get("by_class", []))
+            invariant_series = [
+                float(step.get("ivi_invariant_value", 0.0))
+                for step in run.get("timeline", [])
+                if isinstance(step, dict) and isinstance(step.get("ivi_invariant_value", None), (float, int))
+            ]
             reports[regime_name] = {
                 "forced_alpha_beta": forced_payload,
                 "class_distribution": class_distribution,
                 "measure_stats": measure_stats,
+                "ivi_invariant_series": invariant_series,
+                "ivi_invariant_mean": float(sum(invariant_series)) / float(max(1, len(invariant_series))),
+                "ivi_invariant_delta": float(invariant_series[-1] - invariant_series[0]) if len(invariant_series) >= 2 else 0.0,
                 "timeline": list(run.get("timeline", [])) if isinstance(run.get("timeline", []), list) else [],
                 "timeline_class_labels": [
                     str(step.get("class_label", ""))
@@ -2084,6 +2556,8 @@ class IVILoopController:
             if isinstance(reports.get("beta_dominant", {}), dict)
             else []
         )
+        alpha_delta = float(reports.get("alpha_dominant", {}).get("ivi_invariant_delta", 0.0))
+        beta_delta = float(reports.get("beta_dominant", {}).get("ivi_invariant_delta", 0.0))
 
         return {
             "kind": "regime_ab_experiment",
@@ -2098,6 +2572,11 @@ class IVILoopController:
                 "jaccard_overlap": float(len(overlap)) / float(max(1, len(union))),
                 "measure_divergence": measure_divergence,
                 "beta_kcollapse_conditional": beta_kcollapse,
+                "ivi_invariant_regime_trend": {
+                    "alpha_dominant_delta": alpha_delta,
+                    "beta_dominant_delta": beta_delta,
+                    "alpha_leq_beta_delta": bool(alpha_delta <= beta_delta),
+                },
             },
         }
 
@@ -2255,6 +2734,7 @@ class IVILoopController:
         e_count = int(counts.get("E", 0))
         derived_density = float(e_count) / float(max(1, s_count))
         class_distribution = self._class_distribution_by_regime(artifacts)
+        invariant_distribution = self._invariant_summary_by_regime(artifacts)
 
         return {
             "turns": turn_count,
@@ -2268,6 +2748,7 @@ class IVILoopController:
             "creative_novelty_rate": creative_novelty_rate,
             "latest_creativity_event": latest_creativity_event,
             "class_regime_distribution": class_distribution,
+            "ivi_invariant_by_regime": invariant_distribution,
         }
 
     def monitor_snapshot(self) -> Dict[str, Any]:
@@ -3035,26 +3516,123 @@ class IVILoopController:
             },
         }
 
-    def attach_openclaw_microcosm(self, repo_root: str) -> Dict[str, Any]:
-        micro = OpenClawMicrocosm.from_repo(repo_root)
+    def _default_openclaw_memory_paths(self, repo_root: str) -> List[str]:
+        root = os.path.abspath(os.path.expanduser(str(repo_root)))
+        candidates = [
+            os.path.join(self.grid.base_dir, "ivi_memory"),
+            os.path.join(os.path.dirname(root), "ivi_voice_codex_loop"),
+            os.path.join(os.path.dirname(root), "IVI"),
+        ]
+        out: List[str] = []
+        seen = set()
+        for path in candidates:
+            p = os.path.abspath(path)
+            if p in seen:
+                continue
+            seen.add(p)
+            if os.path.exists(p):
+                out.append(p)
+        return out
+
+    def attach_openclaw_microcosm(
+        self,
+        repo_root: str,
+        extra_memory_paths: Optional[List[str]] = None,
+        max_memory_files: int = 48,
+    ) -> Dict[str, Any]:
+        memory_paths = list(extra_memory_paths) if isinstance(extra_memory_paths, list) else self._default_openclaw_memory_paths(repo_root)
+        micro = OpenClawMicrocosm.from_repo(
+            repo_root,
+            extra_memory_paths=memory_paths,
+            max_memory_files=int(max(1, max_memory_files)),
+        )
         self._openclaw = micro
         return {
             "kind": "openclaw_attached",
             "openclaw": micro.summary(),
+            "voice_mode": self._openclaw_voice_mode,
+            "memory_paths": memory_paths,
         }
 
-    def _openclaw_walktalk(self, utterance: str) -> Dict[str, Any]:
+    def openclaw_sync_and_walktalk(
+        self,
+        repo_root: str,
+        utterance: str,
+        utterance_kind: Optional[str] = None,
+        extra_memory_paths: Optional[List[str]] = None,
+        max_memory_files: int = 48,
+    ) -> Dict[str, Any]:
+        attached = self.attach_openclaw_microcosm(
+            repo_root,
+            extra_memory_paths=extra_memory_paths,
+            max_memory_files=max_memory_files,
+        )
+        walk = self._openclaw_walktalk(utterance, utterance_kind=utterance_kind)
+        return {
+            "kind": "openclaw_sync_run",
+            "attached": attached,
+            "walktalk": walk,
+            "voice_mode": self._openclaw_voice_mode,
+            "progress": self.get_axiom_self_generation_progress(),
+        }
+
+    def _openclaw_voice_profile_snapshot(self) -> Dict[str, Any]:
+        if self._openclaw is None:
+            return {"enabled": False, "detail": "openclaw not attached"}
+        return {
+            "enabled": True,
+            "voice_mode": self._openclaw_voice_mode,
+            "openclaw": self._openclaw.summary(),
+        }
+
+    def _openclaw_voice_personalization(self, utterance: str, utterance_kind: str) -> Dict[str, Any]:
+        if self._openclaw is None or self._openclaw_voice_mode != "integrated":
+            return {
+                "enabled": False,
+                "voice_mode": self._openclaw_voice_mode,
+                "utterance_kind": str(utterance_kind or "statement"),
+                "original_utterance": str(utterance),
+                "conditioned_utterance": str(utterance),
+                "reason": "openclaw_not_attached_or_voice_mode_not_integrated",
+            }
+        return self._openclaw.personalize_voice_utterance(utterance, utterance_kind=utterance_kind)
+
+    def _inject_openclaw_voice_meta(self, context_packet: Dict[str, Any], voice_meta: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        packet = dict(context_packet) if isinstance(context_packet, dict) else {}
+        meta = packet.get("meta", {}) if isinstance(packet.get("meta", {}), dict) else {}
+        if isinstance(voice_meta, dict) and voice_meta:
+            meta["openclaw_voice_personalization"] = dict(voice_meta)
+        packet["meta"] = meta
+        return packet
+
+    def _openclaw_walktalk(self, utterance: str, utterance_kind: Optional[str] = None) -> Dict[str, Any]:
         if self._openclaw is None:
             raise RuntimeError("OpenClaw not attached. Use: /openclaw attach <repo_root>")
 
-        envelope = self._openclaw.walktalk_envelope(utterance)
-        result = self.add_insight(
-            text=f"[openclaw.walktalk] {utterance}",
-            source="voice_openclaw_walktalk",
-        )
+        route_kind = str(utterance_kind or "").strip().lower()
+        if route_kind not in {"statement", "question", "insight"}:
+            route_kind = self.grid.classify_utterance(utterance)
+        personalization = self._openclaw_voice_personalization(utterance, route_kind)
+        conditioned = str(personalization.get("conditioned_utterance", utterance))
+        envelope = self._openclaw.walktalk_envelope(utterance, utterance_kind=route_kind)
+        if route_kind == "question":
+            result = self.answer_question(
+                conditioned,
+                openclaw_personalization=personalization,
+            )
+            route = "question_projection"
+        else:
+            result = self.add_insight(
+                text=f"[openclaw.walktalk] {conditioned}",
+                source="voice_openclaw_walktalk",
+                openclaw_personalization=personalization,
+            )
+            route = "statement_constraint_injection"
         return {
             "kind": "walktalk",
             "envelope": envelope,
+            "voice_personalization": personalization,
+            "route": route,
             "result": result,
             "progress": self.get_axiom_self_generation_progress(),
         }
@@ -3195,6 +3773,8 @@ class IVILoopController:
                         "relift_conditioning_mode": str(relift_conditioning.get("conditioning_mode", "identity")),
                         "k_collapse": int(relift_conditioning.get("k_collapse", 1)),
                         "class_label": str(trace.get("class_label", "")),
+                        "ivi_invariant": dict(trace.get("ivi_invariant", {})) if isinstance(trace.get("ivi_invariant", {}), dict) else {},
+                        "ivi_invariant_value": float(trace.get("ivi_invariant_value", 0.0)),
                         "order_relation": self._build_order_relation_contract(
                             trace,
                             selection_meta=selection_meta,
@@ -3271,6 +3851,8 @@ class IVILoopController:
                     "relift_conditioning_mode": str(relift_conditioning.get("conditioning_mode", "identity")),
                     "k_collapse": int(relift_conditioning.get("k_collapse", 1)),
                     "class_label": str(trace.get("class_label", "")),
+                    "ivi_invariant": dict(trace.get("ivi_invariant", {})) if isinstance(trace.get("ivi_invariant", {}), dict) else {},
+                    "ivi_invariant_value": float(trace.get("ivi_invariant_value", 0.0)),
                     "order_relation": self._build_order_relation_contract(
                         trace,
                         selection_meta=selection_meta,
@@ -4254,7 +4836,12 @@ class IVILoopController:
             "OracleRequest": dict(insight_request.get("OracleRequest", {})),
         }
 
-    def add_insight(self, text: str, source: str = "voice_insight") -> Dict[str, Any]:
+    def add_insight(
+        self,
+        text: str,
+        source: str = "voice_insight",
+        openclaw_personalization: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         insight = text.strip()
         if not insight:
             raise ValueError("Insight text is empty.")
@@ -4268,12 +4855,17 @@ class IVILoopController:
             "violations": list(oracle_answer.get("violations", [])),
         }
 
-        result = self.add_statement_and_loop(insight, source=source)
+        result = self.add_statement_and_loop(
+            insight,
+            source=source,
+            openclaw_personalization=openclaw_personalization,
+        )
         return {
             "kind": "insight",
             "insight": insight,
             "oracle_answer": oracle_answer,
             "oracle_commitment": commitment,
+            "voice_personalization": dict(openclaw_personalization) if isinstance(openclaw_personalization, dict) else {},
             "result": result,
             "progress": self.get_axiom_self_generation_progress(),
         }
@@ -4292,8 +4884,12 @@ class IVILoopController:
                     "/semantic-map",
                     "/autoloop <steps>",
                     "/autoloop-regime <steps> [seed]",
+                    "/builderbuldozer-derive <trials> [seed]",
                     "/insight <text>",
                     "/openclaw attach <repo_root>",
+                    "/openclaw sync-run <repo_root> :: <utterance>",
+                    "/openclaw profile",
+                    "/openclaw mode <integrated|passthrough>",
                     "/walktalk <text>",
                     "/quit",
                 ],
@@ -4354,6 +4950,22 @@ class IVILoopController:
                 selection_mode="deterministic_replay",
                 seed_override=seed,
             )
+        if t.startswith("/builderbuldozer-derive"):
+            payload = t[len("/builderbuldozer-derive") :].strip()
+            trials = 4
+            seed = 0
+            if payload:
+                parts = payload.split()
+                try:
+                    trials = int(parts[0])
+                except ValueError as exc:
+                    raise ValueError("Usage: /builderbuldozer-derive <trials> [seed]") from exc
+                if len(parts) > 1:
+                    try:
+                        seed = int(parts[1])
+                    except ValueError as exc:
+                        raise ValueError("Usage: /builderbuldozer-derive <trials> [seed]") from exc
+            return self.run_builderbuldozer_ivi_derivation(trials=max(1, trials), seed_start=seed)
         if t.startswith("/autoloop"):
             payload = t[len("/autoloop") :].strip()
             steps = 3
@@ -4373,20 +4985,79 @@ class IVILoopController:
             return self.run_automated_self_generation_loop(max_steps=steps, source="voice_auto", selection_mode=mode)
         if t.startswith("/insight"):
             payload = t[len("/insight") :].strip()
-            return self.add_insight(payload, source="voice_insight")
+            personalization = self._openclaw_voice_personalization(payload, "insight")
+            return self.add_insight(
+                str(personalization.get("conditioned_utterance", payload)),
+                source="voice_insight",
+                openclaw_personalization=personalization,
+            )
         if t.startswith("/openclaw attach"):
             payload = t[len("/openclaw attach") :].strip()
             if not payload:
                 raise ValueError("Usage: /openclaw attach <repo_root>")
             return self.attach_openclaw_microcosm(payload)
+        if t.startswith("/openclaw sync-run"):
+            payload = t[len("/openclaw sync-run") :].strip()
+            if not payload or "::" not in payload:
+                raise ValueError("Usage: /openclaw sync-run <repo_root> :: <utterance>")
+            root_part, utterance_part = payload.split("::", 1)
+            repo_root = root_part.strip()
+            utterance = utterance_part.strip()
+            if not repo_root or not utterance:
+                raise ValueError("Usage: /openclaw sync-run <repo_root> :: <utterance>")
+            route_kind: Optional[str] = None
+            if utterance.lower().startswith("question:"):
+                route_kind = "question"
+                utterance = utterance.split(":", 1)[1].strip()
+            elif utterance.lower().startswith("statement:"):
+                route_kind = "statement"
+                utterance = utterance.split(":", 1)[1].strip()
+            return self.openclaw_sync_and_walktalk(
+                repo_root=repo_root,
+                utterance=utterance,
+                utterance_kind=route_kind,
+            )
+        if t == "/openclaw profile":
+            return {
+                "kind": "openclaw_profile",
+                "profile": self._openclaw_voice_profile_snapshot(),
+            }
+        if t.startswith("/openclaw mode"):
+            payload = t[len("/openclaw mode") :].strip().lower()
+            if payload not in {"integrated", "passthrough"}:
+                raise ValueError("Usage: /openclaw mode <integrated|passthrough>")
+            self._openclaw_voice_mode = payload
+            return {
+                "kind": "openclaw_mode",
+                "voice_mode": self._openclaw_voice_mode,
+                "openclaw_attached": self._openclaw is not None,
+            }
         if t.startswith("/walktalk"):
             payload = t[len("/walktalk") :].strip()
             if not payload:
                 raise ValueError("Usage: /walktalk <text>")
-            return self._openclaw_walktalk(payload)
+            route_kind: Optional[str] = None
+            if payload.lower().startswith("question:"):
+                route_kind = "question"
+                payload = payload.split(":", 1)[1].strip()
+            elif payload.lower().startswith("statement:"):
+                route_kind = "statement"
+                payload = payload.split(":", 1)[1].strip()
+            return self._openclaw_walktalk(payload, utterance_kind=route_kind)
 
-        out = self.ingest(t, source=source)
+        utterance_kind = self.grid.classify_utterance(t)
+        personalization = self._openclaw_voice_personalization(t, utterance_kind)
+        conditioned = str(personalization.get("conditioned_utterance", t))
+        if utterance_kind == "question":
+            out = self.answer_question(conditioned, openclaw_personalization=personalization)
+        else:
+            out = self.add_statement_and_loop(
+                conditioned,
+                source=source,
+                openclaw_personalization=personalization,
+            )
         out["progress"] = self.get_axiom_self_generation_progress()
+        out["voice_personalization"] = personalization
         state_checks = out.get("integration_artifacts", {}).get("StateChecks", {})
         trace = out.get("integration_artifacts", {}).get("Trace", {})
         insight_request = self.evaluate_user_insight_need(out["progress"], state_checks, trace)
@@ -4397,7 +5068,12 @@ class IVILoopController:
             out["OracleRequest"] = dict(insight_request.get("OracleRequest", {}))
         return out
 
-    def add_statement_and_loop(self, text: str, source: str = "voice") -> Dict[str, Any]:
+    def add_statement_and_loop(
+        self,
+        text: str,
+        source: str = "voice",
+        openclaw_personalization: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         st = self.grid.add_statement(text=text, source=source)
 
         # Derive (stub)
@@ -4412,6 +5088,7 @@ class IVILoopController:
 
         # Build a context packet for "derive" mode (what the system would use next)
         ctx = self.grid.build_context(query=text, mode="derive", max_triangles=12, closure_hops=2)
+        ctx = self._inject_openclaw_voice_meta(ctx, openclaw_personalization)
         artifacts = self._build_integration_artifacts(kind="statement", query=text, context_packet=ctx)
         self._append_integration_artifacts(artifacts)
 
@@ -4421,12 +5098,18 @@ class IVILoopController:
             "created": created,
             "metrics": metrics,
             "context_packet": ctx,
+            "voice_personalization": dict(openclaw_personalization) if isinstance(openclaw_personalization, dict) else {},
             "integration_artifacts": artifacts,
         }
 
-    def answer_question(self, question: str) -> Dict[str, Any]:
+    def answer_question(
+        self,
+        question: str,
+        openclaw_personalization: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         # Build a question-mode context packet
         ctx = self.grid.build_context(query=question, mode="question", max_triangles=10, closure_hops=2)
+        ctx = self._inject_openclaw_voice_meta(ctx, openclaw_personalization)
 
         # Minimal deterministic answer: list the most relevant equations and where they live
         eqs = ctx.get("equations", [])
@@ -4459,6 +5142,7 @@ class IVILoopController:
             "question": question,
             "context_packet": ctx,
             "suggested_refs": top,
+            "voice_personalization": dict(openclaw_personalization) if isinstance(openclaw_personalization, dict) else {},
             "integration_artifacts": artifacts,
         }
 
@@ -4476,6 +5160,11 @@ class IVILoopController:
                 recent_selected_digests.add(d)
 
         meta = context_packet.get("meta", {})
+        openclaw_voice_meta = (
+            meta.get("openclaw_voice_personalization", {})
+            if isinstance(meta.get("openclaw_voice_personalization", {}), dict)
+            else {}
+        )
         pot = meta.get("potential_distribution", [])
         collapse = meta.get("collapse_selection", [])
         formal_targets = meta.get("formal_targets", [])
@@ -4513,6 +5202,8 @@ class IVILoopController:
             "formal_targets": formal_targets,
             "role_projection": role_projection,
             "complexity_claim": complexity_claim,
+            "openclaw_voice_personalization": dict(openclaw_voice_meta),
+            "openclaw_voice_personalization_digest": str(openclaw_voice_meta.get("personalization_digest", "")),
         }
         if isinstance(self._last_relift_conditioning, dict):
             trace["relift_conditioning"] = dict(self._last_relift_conditioning)
@@ -4552,6 +5243,29 @@ class IVILoopController:
         trace["potential_distribution_digest"] = str(choice_law_replay.get("candidate_potentials_digest", ""))
         trace["potential_distribution_source"] = "choice_law_replay.candidate_potentials"
         trace["order_relation"] = self._build_order_relation_contract(trace)
+
+        builder_request = self._builderbuldozer_request_from_query(query)
+        builder_derivation: Dict[str, Any] = {}
+        if isinstance(builder_request, dict):
+            builder_derivation = self._compute_builderbuldozer_derivation(
+                trials=int(builder_request.get("trials", 4)),
+                seed_start=int(builder_request.get("seed_start", 0)),
+            )
+            trace["builderbuldozer_derivation"] = builder_derivation
+            trace["builderbuldozer_model_spec_version"] = str(builder_derivation.get("model_spec_version", ""))
+            trace["builderbuldozer_model_spec_digest"] = str(builder_derivation.get("model_spec_digest", ""))
+
+        ivi_invariant = self._extract_ivi_invariant_components(trace, builder_derivation=builder_derivation)
+        prev_invariant_obj = (
+            previous_trace.get("ivi_invariant", {})
+            if isinstance(previous_trace, dict) and isinstance(previous_trace.get("ivi_invariant", {}), dict)
+            else {}
+        )
+        prev_invariant_value = float(prev_invariant_obj.get("value", 0.0)) if isinstance(prev_invariant_obj.get("value", 0.0), (float, int)) else 0.0
+        trace["ivi_invariant"] = ivi_invariant
+        trace["ivi_invariant_value"] = float(ivi_invariant.get("value", 0.0))
+        trace["ivi_invariant_delta"] = float(trace["ivi_invariant_value"] - prev_invariant_value)
+        trace["ivi_invariant_previous_value"] = float(prev_invariant_value)
 
         closure_replay = self._closure_replay_payload(trace)
         trace["closure_rules_version"] = str(closure_replay.get("closure_rules_version", "closure_rules_v1"))
@@ -4751,6 +5465,113 @@ class IVILoopController:
             "locked_components": dict(self.POLICY_IMMUTABILITY_LOCK),
             "detail": "Autoloop cannot modify validator rules, promotion thresholds, or oracle trigger logic without external approval token.",
         }
+        invariant_value = float(ivi_invariant.get("value", 0.0)) if isinstance(ivi_invariant, dict) else float("inf")
+        invariant_check = {
+            "name": "ivi_invariant_payload_integrity",
+            "enabled": True,
+            "passed": bool(
+                isinstance(ivi_invariant, dict)
+                and str(ivi_invariant.get("version", "")) == "ivi_invariant_v1"
+                and math.isfinite(invariant_value)
+                and bool(str(ivi_invariant.get("digest", "")))
+            ),
+            "detail": "IVI invariant payload is finite, versioned, and digest-bound",
+        }
+        if not invariant_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "ivi_invariant_payload_invalid",
+                    "detail": str(invariant_check.get("detail", "IVI invariant payload invalid")),
+                }
+            )
+        invariant_dynamics_check = self._evaluate_ivi_invariant_dynamics_law(trace, previous_trace=previous_trace)
+        if (
+            invariant_dynamics_check.get("enabled", False)
+            and invariant_dynamics_check.get("admissible_update", False)
+            and not invariant_dynamics_check.get("passed", False)
+        ):
+            gaps.append(
+                {
+                    "code": "ivi_invariant_dynamics_law_failed",
+                    "detail": str(invariant_dynamics_check.get("detail", "IVI invariant dynamics law failed")),
+                }
+            )
+        builder_spec_immutability_check = self._evaluate_builderbuldozer_spec_immutability(builder_derivation)
+        builder_reference_digest_check = self._evaluate_builderbuldozer_reference_digest_lock(builder_derivation)
+        builder_closure_check = {
+            "name": "builderbuldozer_ivi_closure_contract",
+            "enabled": bool(builder_derivation),
+            "passed": bool(
+                isinstance(builder_derivation, dict)
+                and builder_derivation.get("enabled", False)
+                and builder_derivation.get("closed_engineering", False)
+                and builder_derivation.get("gating_summary", {}).get("hard_gate_semantics_defined", False)
+                and builder_derivation.get("gating_summary", {}).get("born_excludes_hard_gated", False)
+            ),
+            "detail": "builderbuldozer derivation is closed in IVI engineering/protocol sense",
+        }
+        invariant_law_enabled = bool(invariant_dynamics_check.get("enabled", False))
+        invariant_law_pass = bool(
+            not invariant_dynamics_check.get("enabled", False)
+            or not invariant_dynamics_check.get("admissible_update", False)
+            or invariant_dynamics_check.get("passed", False)
+        )
+        theory_closure_pass = bool(
+            builder_closure_check.get("passed", False)
+            and builder_spec_immutability_check.get("passed", False)
+            and builder_reference_digest_check.get("enabled", False)
+            and builder_reference_digest_check.get("passed", False)
+            and invariant_check.get("passed", False)
+            and invariant_law_enabled
+            and invariant_law_pass
+        )
+        theory_closure_check = {
+            "name": "builderbuldozer_theory_closure_contract",
+            "enabled": bool(builder_derivation),
+            "passed": theory_closure_pass,
+            "requirements": {
+                "builderbuldozer_ivi_closure_contract": bool(builder_closure_check.get("passed", False)),
+                "builderbuldozer_spec_immutability_gate": bool(builder_spec_immutability_check.get("passed", False)),
+                "builderbuldozer_reference_distribution_digest_lock": bool(builder_reference_digest_check.get("passed", False)),
+                "ivi_invariant_payload_integrity": bool(invariant_check.get("passed", False)),
+                "ivi_invariant_dynamics_law_enabled": bool(invariant_law_enabled),
+                "ivi_invariant_dynamics_law": bool(invariant_law_pass),
+            },
+            "detail": "theory closure requires spec lock, reference digest lock, and admissible invariant dynamics",
+        }
+        if builder_closure_check.get("enabled", False) and not builder_closure_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "builderbuldozer_ivi_closure_incomplete",
+                    "detail": "builderbuldozer derivation did not satisfy IVI closure contract",
+                }
+            )
+        if builder_spec_immutability_check.get("enabled", False) and not builder_spec_immutability_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "builderbuldozer_spec_immutability_violation",
+                    "detail": str(builder_spec_immutability_check.get("detail", "builderbuldozer spec immutability violation")),
+                }
+            )
+        if builder_reference_digest_check.get("enabled", False) and not builder_reference_digest_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "builderbuldozer_reference_distribution_digest_mismatch",
+                    "detail": str(
+                        builder_reference_digest_check.get(
+                            "detail",
+                            "builderbuldozer reference distribution digest mismatch",
+                        )
+                    ),
+                }
+            )
+        if theory_closure_check.get("enabled", False) and not theory_closure_check.get("passed", False):
+            gaps.append(
+                {
+                    "code": "builderbuldozer_theory_closure_incomplete",
+                    "detail": str(theory_closure_check.get("detail", "builderbuldozer theory closure incomplete")),
+                }
+            )
         purple_semantic_check = self._evaluate_purple_semantic_enforcement(trace, gaps)
 
         candidate = {
@@ -4792,6 +5613,12 @@ class IVILoopController:
                 "potential_collapse_sampling_seed_parity": sampling_seed_check,
                 "purple_semantic_enforcement": purple_semantic_check,
                 "policy_immutability_gate": policy_immutability_check,
+                "ivi_invariant_payload_integrity": invariant_check,
+                "ivi_invariant_dynamics_law": invariant_dynamics_check,
+                "builderbuldozer_spec_immutability_gate": builder_spec_immutability_check,
+                "builderbuldozer_reference_distribution_digest_lock": builder_reference_digest_check,
+                "builderbuldozer_ivi_closure_contract": builder_closure_check,
+                "builderbuldozer_theory_closure_contract": theory_closure_check,
                 "triangle_time_choice_contract": {
                     "enabled": True,
                     "passed": triangle_ok,
