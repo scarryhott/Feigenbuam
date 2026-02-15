@@ -4305,17 +4305,32 @@ class IVILoopController:
         if self._openclaw is None:
             raise RuntimeError("OpenClaw not attached. Use: /openclaw attach <repo_root>")
 
+        self._openclaw.refresh_environment()
+        self._openclaw.record_turn("user", utterance)
+
         route_kind = str(utterance_kind or "").strip().lower()
         if route_kind not in {"statement", "question", "insight"}:
             route_kind = self.grid.classify_utterance(utterance)
         personalization = self._openclaw_voice_personalization(utterance, route_kind)
         conditioned = str(personalization.get("conditioned_utterance", utterance))
         envelope = self._openclaw.walktalk_envelope(utterance, utterance_kind=route_kind)
+        envelope["context_block"] = self._openclaw.context_block()
+
+        openclaw_reply = self._openclaw.contextual_response(utterance)
+
         if route_kind == "question":
             result = self.answer_question(
                 conditioned,
                 openclaw_personalization=personalization,
             )
+            grid_answer = str(result.get("answer", "")) if isinstance(result, dict) else ""
+            has_real_refs = bool(result.get("suggested_refs")) if isinstance(result, dict) else False
+            if has_real_refs and grid_answer:
+                result["answer"] = grid_answer
+                result["summary"] = grid_answer
+            else:
+                result["answer"] = openclaw_reply
+                result["summary"] = openclaw_reply
             route = "question_projection"
         else:
             result = self.add_insight(
@@ -4323,7 +4338,12 @@ class IVILoopController:
                 source="voice_openclaw_walktalk",
                 openclaw_personalization=personalization,
             )
+            result["answer"] = openclaw_reply
+            result["summary"] = openclaw_reply
             route = "statement_constraint_injection"
+
+        self._openclaw.record_turn("openclaw", openclaw_reply)
+
         return {
             "kind": "walktalk",
             "envelope": envelope,

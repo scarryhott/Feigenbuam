@@ -270,113 +270,21 @@ def _auto_attach_openclaw_for_voice(loop: IVILoopController, settings: Settings)
     return "OpenClaw not attached. Run: /openclaw attach <repo_root>"
 
 
-def _enable_full_loop_for_voice(loop: IVILoopController) -> str:
+def _enable_full_loop_for_voice(loop: IVILoopController) -> None:
     loop._orchestrator_set_full_access(True)
     loop._orchestrator_set_proactive(True)
     loop._orchestrator_set_continuous(True)
     loop._orchestrator_set_daemon(True, interval_seconds=3.0)
-    default_routines = [
-        "Monitor local state and refine OpenClaw/Purple role alignment continuously.",
-        "Translate conversation into executable routines and run one admissible action now.",
-    ]
-    for routine in default_routines:
-        if routine not in list(loop._orchestrator_scheduled_routines):
-            loop._orchestrator_schedule_routine(routine)
-    return "Autonomy loop enabled: full-access + proactive + continuous + daemon"
 
 
-def _emit_oracle_prompt_if_needed(result: Dict[str, Any], full_output: bool) -> None:
-    if not full_output:
-        return
-    insight_request = result.get("insight_request", {}) if isinstance(result, dict) else {}
-    if isinstance(insight_request, dict) and insight_request.get("needed", False):
-        prompt = str(insight_request.get("prompt", "Please provide /insight <constraint>.")).strip()
-        print("oracle:", prompt)
-
-
-def _run_inter_agent_refinement_cycle(
-    loop: IVILoopController,
-    source: str,
-    full_output: bool,
-    user_utterance: str,
-    audio: Optional[VoiceAudioInterface] = None,
-) -> None:
-    purple_cycle = loop.voice_turn(
-        "Proactively refine OpenClaw and Purple role alignment and request needed insight.",
-        source=f"{source}_interagent",
-    )
-    followup = loop.voice_turn(
-        f"/walktalk question: The user said: {user_utterance}. Reply as OpenClaw with one concise next-step question or action-oriented suggestion.",
-        source=f"{source}_openclaw_followup",
-    )
-    if full_output:
-        print(
-            json.dumps(
-                {"kind": "inter_agent_cycle", "purple_result": purple_cycle, "openclaw_followup": followup},
-                ensure_ascii=False,
-                indent=2,
-            )
-        )
-    else:
-        rendered = _render_conversational_response(followup)
-        if rendered.startswith("/"):
-            rendered = "What should we prioritize first right now?"
-        if rendered:
-            print(rendered)
-            if audio is not None:
-                audio.speak(rendered)
-    _emit_oracle_prompt_if_needed(purple_cycle, full_output=full_output)
-
-
-def _auto_resolve_oracle_request(loop: IVILoopController, insight_request: Dict[str, Any], source: str, full_output: bool) -> None:
-    if not isinstance(insight_request, dict) or not insight_request.get("needed", False):
-        return
-    oracle = insight_request.get("OracleRequest", {}) if isinstance(insight_request.get("OracleRequest", {}), dict) else {}
-    options = oracle.get("options", []) if isinstance(oracle.get("options", []), list) else []
-    auto_constraint = None
-    for opt in options:
-        constraint = opt.get("constraint") if isinstance(opt, dict) else None
-        if isinstance(constraint, str) and constraint.strip():
-            auto_constraint = constraint.strip()
-            break
-    if not auto_constraint:
-        auto_constraint = str(oracle.get("recommended_question", oracle.get("minimal_question", "stagnation_closure_deficit_not_reducing"))).strip()
-    if not auto_constraint:
-        return
-    insight_text = f"auto-constraint: {auto_constraint}"
+def _purple_background_tick(loop: IVILoopController, source: str) -> None:
     try:
-        response = loop.voice_turn(f"/insight {insight_text}", source=f"{source}_auto_oracle")
-    except Exception as exc:
-        print(f"[oracle-auto] dispatch error: {exc}")
-        return
-    if full_output:
-        print(json.dumps({"kind": "oracle_auto_insight", "request": insight_request, "response": response}, ensure_ascii=False, indent=2))
+        loop.voice_turn("/orchestrator tick", source=f"{source}_purple_bg")
+    except Exception:
+        pass
 
 
-def _openclaw_runtime_controls(loop: IVILoopController) -> Dict[str, bool]:
-    mission = loop._autonomy_mission_snapshot()
-    openclaw_attached = loop._openclaw is not None
-    purple_ok = bool(mission.get("purple_semantic_passed", True))
-    closure_deficit = int(mission.get("closure_deficit_estimate", 0) or 0)
-    gap_rate = float(mission.get("gap_rate", 0.0) or 0.0)
-    active_mode = str(mission.get("active_order_mode", "")).strip().lower()
-
-    auto_action_enabled = bool(
-        openclaw_attached
-        and purple_ok
-        and active_mode not in {"order_1_projection_safe"}
-        and (closure_deficit > 0 or gap_rate > 0.05)
-    )
-    inter_agent_dialogue_enabled = bool(openclaw_attached and mission.get("enabled", True))
-    auto_oracle_enabled = bool(openclaw_attached and purple_ok)
-    return {
-        "auto_action_enabled": auto_action_enabled,
-        "inter_agent_dialogue_enabled": inter_agent_dialogue_enabled,
-        "auto_oracle_enabled": auto_oracle_enabled,
-    }
-
-
-def _dispatch_conversational_turn(loop: IVILoopController, cmd: str, source: str) -> Dict[str, Any]:
+def _dispatch_turn(loop: IVILoopController, cmd: str, source: str) -> Dict[str, Any]:
     text = str(cmd).strip()
     if text.startswith("/"):
         return loop.voice_turn(text, source=source)
@@ -385,38 +293,23 @@ def _dispatch_conversational_turn(loop: IVILoopController, cmd: str, source: str
 
 def _run_conversational_voice_session(loop: IVILoopController, source: str, full_output: bool) -> None:
     if full_output:
-        print("OpenClaw conversation is live. Talk naturally. Type /quit to exit.")
+        print("OpenClaw voice session active. Type /quit to exit.")
     prompt = "ivi> " if full_output else ""
     while True:
         try:
             line = input(prompt)
-        except EOFError:
-            if full_output:
-                print("Exiting voice mode.")
-            break
-        except KeyboardInterrupt:
-            if full_output:
-                print("\nExiting voice mode.")
+        except (EOFError, KeyboardInterrupt):
             break
 
         cmd = str(line).strip()
         if not cmd:
             continue
         if cmd in {"/quit", "/exit"}:
-            if full_output:
-                print("Exiting voice mode.")
             break
 
-        runtime_controls = _openclaw_runtime_controls(loop)
-        auto_action_enabled = bool(runtime_controls.get("auto_action_enabled", True))
-        inter_agent_dialogue_enabled = bool(runtime_controls.get("inter_agent_dialogue_enabled", True))
-        auto_oracle_enabled = bool(runtime_controls.get("auto_oracle_enabled", True))
-
         try:
-            result = _dispatch_conversational_turn(loop, cmd, source)
+            result = _dispatch_turn(loop, cmd, source)
         except KeyboardInterrupt:
-            if full_output:
-                print("\nExiting voice mode.")
             break
         except Exception as exc:
             print(f"error: {exc}")
@@ -426,68 +319,30 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
             print(json.dumps(result, ensure_ascii=False, indent=2))
         else:
             print(_render_conversational_response(result))
-        if full_output:
-            _emit_oracle_prompt_if_needed(result, full_output=full_output)
-        if auto_oracle_enabled:
-            _auto_resolve_oracle_request(loop, result.get("insight_request", {}), source, full_output)
 
-        if auto_action_enabled and not cmd.startswith("/"):
-            result_kind = str(result.get("kind", "")) if isinstance(result, dict) else ""
-            if result_kind in {"statement", "insight", "walktalk"}:
-                try:
-                    sched = loop.voice_turn(f"/orchestrator schedule {cmd}", source=source)
-                    tick = loop.voice_turn("/orchestrator tick", source=source)
-                    if full_output:
-                        print(json.dumps({"kind": "auto_action", "schedule": sched, "tick": tick}, ensure_ascii=False, indent=2))
-                except Exception as exc:
-                    if full_output:
-                        print(f"[agent] action dispatch error: {exc}")
-
-        if inter_agent_dialogue_enabled and cmd not in {"/monitor", "/progress", "/status"}:
-            try:
-                _run_inter_agent_refinement_cycle(
-                    loop=loop,
-                    source=source,
-                    full_output=full_output,
-                    user_utterance=cmd,
-                )
-            except Exception as exc:
-                if full_output:
-                    print(f"[inter-agent] cycle error: {exc}")
+        _purple_background_tick(loop, source)
 
 
 def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: bool, audio: VoiceAudioInterface) -> None:
     if full_output:
-        print("OpenClaw Live Audio Voice Session")
-        print("Speak naturally. Say '/quit' or 'quit voice mode' to exit.")
+        print("OpenClaw audio session active. Say 'quit' to exit.")
     exit_phrases = {"/quit", "/exit", "quit", "exit", "quit voice mode", "exit voice mode", "stop listening"}
 
     while True:
-        if full_output:
-            print("[audio] listening...")
         try:
             cmd = str(audio.listen_once()).strip()
         except KeyboardInterrupt:
-            if full_output:
-                print("\nExiting voice mode.")
             break
         if not cmd:
             continue
 
         if full_output:
-            print(f"you(audio)> {cmd}")
+            print(f"you> {cmd}")
         if cmd.lower() in exit_phrases:
-            if full_output:
-                print("Exiting voice mode.")
             break
 
-        runtime_controls = _openclaw_runtime_controls(loop)
-        auto_action_enabled = bool(runtime_controls.get("auto_action_enabled", True))
-        inter_agent_dialogue_enabled = bool(runtime_controls.get("inter_agent_dialogue_enabled", True))
-        auto_oracle_enabled = bool(runtime_controls.get("auto_oracle_enabled", True))
-
         try:
-            result = _dispatch_conversational_turn(loop, cmd, source)
+            result = _dispatch_turn(loop, cmd, source)
         except Exception as exc:
             message = f"error: {exc}"
             print(message)
@@ -495,45 +350,14 @@ def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: 
             continue
 
         if full_output:
-            rendered = json.dumps(result, ensure_ascii=False, indent=2)
-            print(rendered)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
             audio.speak(_render_conversational_response(result))
         else:
             rendered = _render_conversational_response(result)
             print(rendered)
             audio.speak(rendered)
 
-        if full_output:
-            _emit_oracle_prompt_if_needed(result, full_output=full_output)
-        if auto_oracle_enabled:
-            _auto_resolve_oracle_request(loop, result.get("insight_request", {}), source, full_output)
-
-        if auto_action_enabled and not cmd.startswith("/"):
-            result_kind = str(result.get("kind", "")) if isinstance(result, dict) else ""
-            if result_kind in {"statement", "insight", "walktalk"}:
-                try:
-                    sched = loop.voice_turn(f"/orchestrator schedule {cmd}", source=source)
-                    tick = loop.voice_turn("/orchestrator tick", source=source)
-                    if full_output:
-                        print(json.dumps({"kind": "auto_action", "schedule": sched, "tick": tick}, ensure_ascii=False, indent=2))
-                except Exception as exc:
-                    message = f"[agent] action dispatch error: {exc}"
-                    if full_output:
-                        print(message)
-
-        if inter_agent_dialogue_enabled and cmd not in {"/monitor", "/progress", "/status"}:
-            try:
-                _run_inter_agent_refinement_cycle(
-                    loop=loop,
-                    source=source,
-                    full_output=full_output,
-                    user_utterance=cmd,
-                    audio=audio,
-                )
-            except Exception as exc:
-                message = f"[inter-agent] cycle error: {exc}"
-                if full_output:
-                    print(message)
+        _purple_background_tick(loop, source)
 
 
 def cmd_voice(
@@ -553,10 +377,9 @@ def cmd_voice(
     loop = IVILoopController(grid)
     _restore_voice_controller_state(loop, state)
     attach_message = _auto_attach_openclaw_for_voice(loop, settings)
-    enable_message = _enable_full_loop_for_voice(loop)
+    _enable_full_loop_for_voice(loop)
     if full_output:
         print(attach_message)
-        print(enable_message)
     if audio_enabled:
         audio = VoiceAudioInterface(
             enabled=True,
