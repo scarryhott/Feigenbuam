@@ -408,3 +408,55 @@
 
 [openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
   - Derived: `D_5cbfdbd578de470b` → `E_07265af6c9ba0ebe` via `T_af0d1eb7a38661cb`
+- **S_4da737359c63f068**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_c3ec988e16ec9b53` → `E_07265af6c9ba0ebe` via `T_debe80bb8d3458c9`
+- **S_b47e22db2b511057**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_9b4136e30f06a159` → `E_07265af6c9ba0ebe` via `T_f1c78fcef9a57966`
+- **S_bd25922ade3f26fc**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_18bb39b4634d01f2` → `E_07265af6c9ba0ebe` via `T_4c53d4b43a08b015`
+- **S_b5248e289b177b2d**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_9cc9e390bce0261b` → `E_07265af6c9ba0ebe` via `T_fa6ae78b3aefd97d`
+- **S_ea09c769f36ae6f2**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_84a1f4974f3ffedd` → `E_07265af6c9ba0ebe` via `T_04113979fc94a33e`
+- **S_29855f151ea593e9**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_f0e7ddba6bc6e9a8` → `E_07265af6c9ba0ebe` via `T_f6fe4f352166d0ca`
+- **S_68de714d8b901c71**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_e854dcd511ad8dab` → `E_07265af6c9ba0ebe` via `T_940b233fb56562d7`
+- **S_303f29e8b7f85345**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_e6f30b79384df493` → `E_07265af6c9ba0ebe` via `T_45075686c1c7ab7a`
+- **S_fe0f0587b601dfed**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_e05dc7dd252f1149` → `E_07265af6c9ba0ebe` via `T_6b16654486996c05`
+- **S_a9b1c710001f6643**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_e9bf2ef677cab23c` → `E_07265af6c9ba0ebe` via `T_be6de509659ffcb6`
+- **S_0dbc7feecf62976f**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_2fb968dbdb1f562f` → `E_07265af6c9ba0ebe` via `T_d2dfc8ee1539a403`
+- **S_1d2cffae646027ad**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_dc24e4218818c5d4` → `E_07265af6c9ba0ebe` via `T_a08b9f727fb2a02f`
+- **S_665de86d0127dcb8**: OpenClaw/Purple autonomous mission refresh: Propose and execute one closure-reducing routine with trace-backed justification. Summarize action, execute refinement, and ask for user interaction only if a hard semantic constraint requires clarification.
+
+[openclaw.voice_persona anchor="OpenClaw Soul" style="direct" keywords="openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events" utterance_kind="statement"]
+  - Derived: `D_bc028bbe55a80266` → `E_07265af6c9ba0ebe` via `T_aefd3fee8f4f93fb`

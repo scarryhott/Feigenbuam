@@ -2,13 +2,13 @@
 
 ## Graph status
 
-- Counts: {'S': 115, 'D': 115, 'E': 21, 'T': 115}
+- Counts: {'S': 1, 'D': 1, 'E': 1, 'T': 1}
 
 - Orphan E (first 50): []
 
 - Orphan S (first 50): []
 
-- Degree: {'avg': 2.749003984063745, 'max': 78}
+- Degree: {'avg': 2.0, 'max': 2}
 
 
 ## Instructions

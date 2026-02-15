@@ -272,16 +272,13 @@ def _auto_attach_openclaw_for_voice(loop: IVILoopController, settings: Settings)
 
 def _enable_full_loop_for_voice(loop: IVILoopController) -> None:
     loop._orchestrator_set_full_access(True)
-    loop._orchestrator_set_proactive(True)
-    loop._orchestrator_set_continuous(True)
-    loop._orchestrator_set_daemon(True, interval_seconds=3.0)
+    loop._orchestrator_set_proactive(False)
+    loop._orchestrator_set_continuous(False)
+    loop._orchestrator_set_daemon(False)
 
 
 def _purple_background_tick(loop: IVILoopController, source: str) -> None:
-    try:
-        loop.voice_turn("/orchestrator tick", source=f"{source}_purple_bg")
-    except Exception:
-        pass
+    pass
 
 
 def _dispatch_turn(loop: IVILoopController, cmd: str, source: str) -> Dict[str, Any]:
@@ -318,7 +315,7 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
         if full_output:
             print(json.dumps(result, ensure_ascii=False, indent=2))
         else:
-            print(_render_conversational_response(result))
+            print(_render_conversational_response(result), flush=True)
 
         _purple_background_tick(loop, source)
 

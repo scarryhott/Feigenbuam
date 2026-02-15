@@ -1,0 +1,142 @@
+{
+  "statements": {
+    "S_403e85069b9c9d0b": {
+      "sid": "S_403e85069b9c9d0b",
+      "text": "[openclaw.walktalk] hello\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feigenbuam,ivi_voice_codex_loop,events\" utterance_kind=\"statement\"]",
+      "created_ts": 1771187937.333458,
+      "source": "voice_openclaw_walktalk",
+      "tags": []
+    }
+  },
+  "derivations": {
+    "D_efac38c42ff30b2f": {
+      "did": "D_efac38c42ff30b2f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_403e85069b9c9d0b"
+      ],
+      "conclusions": [
+        "E_68ef90ee16fcb939"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771187937.334597
+    }
+  },
+  "equations": {
+    "E_68ef90ee16fcb939": {
+      "eid": "E_68ef90ee16fcb939",
+      "lean_name": "openclaw_walktalk_hello_openclaw_voice_persona_anchor_opencl",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/data/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: [openclaw.walktalk] hello\n\n[openclaw.voice_persona anchor=\"OpenClaw Soul\" style=\"direct\" keywords=\"openclaw,soul,voice,personalization,ivi,preserve,users,harryscott,purple,feige...",
+      "version_hash": "b57a0ad8c4c673f7",
+      "created_ts": 1771187937.3341901
+    }
+  },
+  "triangles": {
+    "T_ffc31467d79ef271": {
+      "tid": "T_ffc31467d79ef271",
+      "sid": "S_403e85069b9c9d0b",
+      "did": "D_efac38c42ff30b2f",
+      "eid": "E_68ef90ee16fcb939",
+      "created_ts": 1771187937.334962
+    }
+  },
+  "sid_to_tids": {
+    "S_403e85069b9c9d0b": [
+      "T_ffc31467d79ef271"
+    ]
+  },
+  "eid_to_tids": {
+    "E_68ef90ee16fcb939": [
+      "T_ffc31467d79ef271"
+    ]
+  },
+  "did_to_tids": {
+    "D_efac38c42ff30b2f": [
+      "T_ffc31467d79ef271"
+    ]
+  },
+  "neighbors": {
+    "S_403e85069b9c9d0b": [
+      "D_efac38c42ff30b2f",
+      "E_68ef90ee16fcb939"
+    ],
+    "E_68ef90ee16fcb939": [
+      "D_efac38c42ff30b2f",
+      "S_403e85069b9c9d0b"
+    ],
+    "D_efac38c42ff30b2f": [
+      "S_403e85069b9c9d0b",
+      "E_68ef90ee16fcb939"
+    ]
+  },
+  "tf_s": {
+    "S_403e85069b9c9d0b": {
+      "openclaw": 0.13333333333333333,
+      "walktalk": 0.03333333333333333,
+      "hello": 0.03333333333333333,
+      "voice": 0.1,
+      "persona": 0.03333333333333333,
+      "anchor": 0.03333333333333333,
+      "soul": 0.06666666666666667,
+      "style": 0.03333333333333333,
+      "direct": 0.03333333333333333,
+      "keywords": 0.03333333333333333,
+      "personalization": 0.03333333333333333,
+      "ivi": 0.06666666666666667,
+      "preserve": 0.03333333333333333,
+      "users": 0.03333333333333333,
+      "harryscott": 0.03333333333333333,
+      "purple": 0.03333333333333333,
+      "feigenbuam": 0.03333333333333333,
+      "codex": 0.03333333333333333,
+      "loop": 0.03333333333333333,
+      "events": 0.03333333333333333,
+      "utterance": 0.03333333333333333,
+      "kind": 0.03333333333333333,
+      "statement": 0.03333333333333333
+    }
+  },
+  "tf_e": {
+    "E_68ef90ee16fcb939": {
+      "proposition": 0.04,
+      "derived": 0.04,
+      "from": 0.04,
+      "openclaw": 0.16,
+      "walktalk": 0.04,
+      "hello": 0.04,
+      "voice": 0.08,
+      "persona": 0.04,
+      "anchor": 0.04,
+      "soul": 0.08,
+      "style": 0.04,
+      "direct": 0.04,
+      "keywords": 0.04,
+      "personalization": 0.04,
+      "ivi": 0.04,
+      "preserve": 0.04,
+      "users": 0.04,
+      "harryscott": 0.04,
+      "purple": 0.04,
+      "feige": 0.04
+    }
+  },
+  "tf_d": {
+    "D_efac38c42ff30b2f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    }
+  },
+  "recent_triangle_trace": [
+    "T_ffc31467d79ef271",
+    "T_ffc31467d79ef271"
+  ]
+}

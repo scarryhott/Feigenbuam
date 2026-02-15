@@ -14,21 +14,51 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 _log = logging.getLogger(__name__)
 
 
-def _llm_chat(
+_OLLAMA_BASE_URL = "http://localhost:11434"
+_OPENAI_DEFAULT_MODEL = "gpt-4o-mini"
+_ENV_LOADED = False
+
+
+def _load_dotenv() -> None:
+    global _ENV_LOADED
+    if _ENV_LOADED:
+        return
+    _ENV_LOADED = True
+    for candidate in [
+        Path(__file__).resolve().parent.parent / ".env",
+        Path.cwd() / ".env",
+    ]:
+        if candidate.is_file():
+            try:
+                for line in candidate.read_text(encoding="utf-8").splitlines():
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    if "=" not in line:
+                        continue
+                    key, _, val = line.partition("=")
+                    key, val = key.strip(), val.strip()
+                    if key and val and key not in os.environ:
+                        os.environ[key] = val
+            except OSError:
+                pass
+            break
+
+
+def _llm_chat_openai(
     system: str,
     messages: List[Dict[str, str]],
     model: str = "",
     max_tokens: int = 512,
 ) -> str:
-    import urllib.request
     import ssl
+    import urllib.request
 
-    resolved_model = model or os.environ.get("OPENCLAW_MODEL", "gpt-4o-mini")
+    _load_dotenv()
     api_key = os.environ.get("OPENAI_API_KEY", "")
     if not api_key:
-        _log.debug("No OPENAI_API_KEY set")
         return ""
-
+    resolved_model = model or os.environ.get("OPENCLAW_MODEL", _OPENAI_DEFAULT_MODEL)
     chat_messages = [{"role": "system", "content": system}]
     chat_messages.extend(messages)
     body = json.dumps({
@@ -37,7 +67,6 @@ def _llm_chat(
         "max_tokens": max_tokens,
         "temperature": 0.7,
     }).encode("utf-8")
-
     req = urllib.request.Request(
         "https://api.openai.com/v1/chat/completions",
         data=body,
@@ -53,10 +82,63 @@ def _llm_chat(
             data = json.loads(resp.read().decode("utf-8"))
         choices = data.get("choices", [])
         if choices:
-            content = choices[0].get("message", {}).get("content", "")
-            return str(content).strip()
+            return str(choices[0].get("message", {}).get("content", "")).strip()
     except Exception as exc:
-        _log.debug("LLM call failed: %s", exc)
+        _log.debug("OpenAI LLM call failed: %s", exc)
+    return ""
+
+
+def _llm_chat_ollama(
+    system: str,
+    messages: List[Dict[str, str]],
+    model: str = "",
+    max_tokens: int = 512,
+) -> str:
+    import urllib.request
+
+    resolved_model = model or os.environ.get("OLLAMA_MODEL", "deepseek-coder:6.7b")
+    base_url = os.environ.get("OLLAMA_HOST", _OLLAMA_BASE_URL)
+    chat_messages = [{"role": "system", "content": system}]
+    chat_messages.extend(messages)
+    body = json.dumps({
+        "model": resolved_model,
+        "messages": chat_messages,
+        "stream": False,
+        "options": {"num_predict": max_tokens, "temperature": 0.7},
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        f"{base_url}/api/chat",
+        data=body,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        content = str(data.get("message", {}).get("content", "")).strip()
+        if "<think>" in content:
+            parts = content.split("</think>")
+            content = parts[-1].strip() if len(parts) > 1 else content
+        return content
+    except Exception as exc:
+        _log.debug("Ollama LLM call failed: %s", exc)
+    return ""
+
+
+def _llm_chat(
+    system: str,
+    messages: List[Dict[str, str]],
+    model: str = "",
+    max_tokens: int = 512,
+) -> str:
+    _load_dotenv()
+    reply = _llm_chat_openai(system, messages, model=model, max_tokens=max_tokens)
+    if reply:
+        return reply
+    if not os.environ.get("OPENAI_API_KEY", ""):
+        reply = _llm_chat_ollama(system, messages, model=model, max_tokens=max_tokens)
+        if reply:
+            return reply
     return ""
 
 
@@ -329,6 +411,8 @@ class OpenClawMicrocosm:
     memory_profile: Dict[str, Any]
     environment: Dict[str, Any] = field(default_factory=dict)
     conversation_history: List[Dict[str, str]] = field(default_factory=list)
+    known_projects: List[Dict[str, str]] = field(default_factory=list)
+    openclaw_skills: List[Any] = field(default_factory=list)
 
     @staticmethod
     def from_repo(
@@ -359,7 +443,7 @@ class OpenClawMicrocosm:
         merged_profile = _merge_voice_profiles(soul_profile, memory_profile)
         env = _gather_environment_context()
 
-        return OpenClawMicrocosm(
+        microcosm = OpenClawMicrocosm(
             repo_root=root,
             soul_path=soul_path,
             soul_text=soul_text,
@@ -367,7 +451,13 @@ class OpenClawMicrocosm:
             memory_profile=memory_profile,
             environment=env,
             conversation_history=[],
+            known_projects=[],
+            openclaw_skills=[],
         )
+        microcosm.known_projects = microcosm._scan_known_projects()
+        from .openclaw_actions import discover_skills
+        microcosm.openclaw_skills = discover_skills(workspace=str(root))
+        return microcosm
 
     def refresh_environment(self) -> Dict[str, Any]:
         self.environment = _gather_environment_context()
@@ -378,35 +468,89 @@ class OpenClawMicrocosm:
         if len(self.conversation_history) > 100:
             self.conversation_history = self.conversation_history[-100:]
 
+    def _scan_known_projects(self) -> List[Dict[str, str]]:
+        env = self.environment or {}
+        home = env.get("home", str(Path.home()))
+        projects: List[Dict[str, str]] = []
+        scan_roots = [
+            Path(home) / "Downloads",
+            Path(home) / "Purple",
+        ]
+        for root in scan_roots:
+            if not root.is_dir():
+                continue
+            try:
+                for item in sorted(root.iterdir()):
+                    if item.name.startswith(".") or not item.is_dir():
+                        continue
+                    contents: List[str] = []
+                    try:
+                        for f in list(item.iterdir())[:10]:
+                            if f.name.startswith("."):
+                                continue
+                            label = f"{f.name}/" if f.is_dir() else f.name
+                            contents.append(label)
+                    except OSError:
+                        pass
+                    if contents:
+                        projects.append({
+                            "name": item.name,
+                            "path": str(item),
+                            "files": ", ".join(contents[:6]),
+                        })
+                    if len(projects) >= 40:
+                        break
+            except OSError:
+                pass
+        return projects
+
     def context_block(self) -> str:
         env = self.environment or {}
+        known_projects = self.known_projects or []
         parts = [
-            f"# OpenClaw Context",
-            f"",
-            f"## Soul",
+            "# OpenClaw System Prompt",
+            "",
+            "You are OpenClaw, an autonomous AI assistant with full access to the user's local environment.",
+            "You have tools to interact with the filesystem and run commands. USE THEM when given tasks.",
+            "When given a task:",
+            "1. Use your tools to gather information (read files, list dirs, run commands)",
+            "2. Analyze what you find and report concisely",
+            "3. Take action: write files, save skills, run analysis",
+            "4. Suggest concrete next steps",
+            "Do NOT just describe what you would do. Actually do it using your tools.",
+            "Keep responses concise and action-oriented.",
+            "",
+            "## Soul",
             self.soul_text,
-            f"",
-            f"## Environment",
+            "",
+            "## Environment",
             f"- User: {env.get('user', '?')}",
             f"- Platform: {env.get('platform', '?')} {env.get('machine', '')}",
             f"- Hostname: {env.get('hostname', '?')}",
-            f"- Home: {env.get('home', '?')}",
             f"- CWD: {env.get('cwd', '?')}",
-            f"- Shell: {env.get('shell', '?')}",
-            f"- Time: {env.get('timestamp', '?')} ({env.get('timezone', '?')})",
-            f"",
-            f"## Workspace Files (cwd)",
+            f"- Time: {env.get('timestamp', '?')}",
+            "",
+            "## Workspace Files (cwd)",
+            ", ".join(env.get("cwd_files", [])[:15]),
+            "",
         ]
-        for f in env.get("cwd_files", []):
-            parts.append(f"  - {f}")
-        parts.append("")
-        parts.append("## Home Directories")
-        for d in env.get("home_dirs", []):
-            parts.append(f"  - {d}")
-        parts.append("")
+        if known_projects:
+            parts.append("## Known Projects")
+            for proj in known_projects[:15]:
+                parts.append(f"- {proj['name']} ({proj['path']}): {proj['files']}")
+            parts.append("")
+        from .openclaw_actions import format_skills_for_prompt, list_skills
+        if self.openclaw_skills:
+            parts.append(format_skills_for_prompt(self.openclaw_skills))
+        saved = list_skills(str(self.repo_root))
+        if saved:
+            parts.append("## User-Created Skills")
+            for s in saved:
+                parts.append(f"- {s['name']}: {s['preview'][:80]}")
+            parts.append("")
         if self.conversation_history:
             parts.append("## Recent Conversation")
-            for turn in self.conversation_history[-10:]:
+            for turn in self.conversation_history[-6:]:
                 role = turn.get("role", "?")
                 text = turn.get("text", "")
                 parts.append(f"[{role}] {text}")
@@ -461,14 +605,24 @@ class OpenClawMicrocosm:
         }
 
     def contextual_response(self, utterance: str) -> str:
+        from .openclaw_actions import llm_chat_with_tools
+
         system_prompt = self.context_block()
-        messages: List[Dict[str, str]] = []
+        messages: List[Dict[str, Any]] = []
         for turn in self.conversation_history[-20:]:
             role = "user" if turn.get("role") == "user" else "assistant"
             messages.append({"role": role, "content": turn.get("text", "")})
         if not messages or messages[-1].get("content") != utterance:
             messages.append({"role": "user", "content": utterance})
+        reply = llm_chat_with_tools(
+            system=system_prompt,
+            messages=messages,
+            base_path=str(self.repo_root),
+            max_tokens=1024,
+        )
+        if reply:
+            return reply
         reply = _llm_chat(system=system_prompt, messages=messages)
         if reply:
             return reply
-        return f"[OpenClaw context loaded but LLM unavailable — set OPENAI_API_KEY or OPENCLAW_MODEL]"
+        return "[LLM unavailable \u2014 check .env for OPENAI_API_KEY or start ollama]"

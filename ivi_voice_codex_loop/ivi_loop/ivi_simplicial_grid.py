@@ -4317,32 +4317,14 @@ class IVILoopController:
         envelope["context_block"] = self._openclaw.context_block()
 
         openclaw_reply = self._openclaw.contextual_response(utterance)
-
-        if route_kind == "question":
-            result = self.answer_question(
-                conditioned,
-                openclaw_personalization=personalization,
-            )
-            grid_answer = str(result.get("answer", "")) if isinstance(result, dict) else ""
-            has_real_refs = bool(result.get("suggested_refs")) if isinstance(result, dict) else False
-            if has_real_refs and grid_answer:
-                result["answer"] = grid_answer
-                result["summary"] = grid_answer
-            else:
-                result["answer"] = openclaw_reply
-                result["summary"] = openclaw_reply
-            route = "question_projection"
-        else:
-            result = self.add_insight(
-                text=f"[openclaw.walktalk] {conditioned}",
-                source="voice_openclaw_walktalk",
-                openclaw_personalization=personalization,
-            )
-            result["answer"] = openclaw_reply
-            result["summary"] = openclaw_reply
-            route = "statement_constraint_injection"
-
         self._openclaw.record_turn("openclaw", openclaw_reply)
+
+        result = {
+            "kind": route_kind or "question",
+            "answer": openclaw_reply,
+            "summary": openclaw_reply,
+        }
+        route = "question_projection" if route_kind == "question" else "statement_constraint_injection"
 
         return {
             "kind": "walktalk",
@@ -4350,7 +4332,7 @@ class IVILoopController:
             "voice_personalization": personalization,
             "route": route,
             "result": result,
-            "progress": self.get_axiom_self_generation_progress(),
+            "progress": {},
         }
 
     def run_automated_self_generation_loop(

@@ -1,8 +1,8 @@
 {
   "openclaw_repo_root": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop",
   "orchestrator_full_access": true,
-  "orchestrator_proactive_enabled": true,
-  "orchestrator_continuous_enabled": true,
-  "orchestrator_daemon_enabled": true,
-  "orchestrator_daemon_interval_seconds": 3.0
+  "orchestrator_proactive_enabled": false,
+  "orchestrator_continuous_enabled": false,
+  "orchestrator_daemon_enabled": false,
+  "orchestrator_daemon_interval_seconds": 5.0
 }
