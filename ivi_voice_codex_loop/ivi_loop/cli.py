@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -15,6 +17,7 @@ from .lean_gen import generate_lean_phase1
 from .analyze import analyze_state
 from .ask import ask_repo
 from .ivi_simplicial_grid import IVILoopController, IVISimplicialGrid
+from .ivi_gateway import IVIGateway
 from .voice_audio import VoiceAudioInterface
 
 
@@ -278,14 +281,70 @@ def _enable_full_loop_for_voice(loop: IVILoopController) -> None:
 
 
 def _purple_background_tick(loop: IVILoopController, source: str) -> None:
-    pass
+    """Derive goals and run an autonomous self-improvement cycle after each turn."""
+    try:
+        engine = getattr(loop, "_purple_goal_engine", None)
+        microcosm = getattr(loop, "_openclaw", None)
+        if engine is None or microcosm is None:
+            return
+        engine.derive_all(
+            loop_controller=loop,
+            conversation_history=getattr(microcosm, "conversation_history", []),
+            known_projects=getattr(microcosm, "known_projects", []),
+            environment=getattr(microcosm, "environment", {}),
+        )
+        result = engine.run_autonomous_cycle(microcosm)
+        if result:
+            import sys
+            print(f"\n[auto] {result}", file=sys.stderr, flush=True)
+    except Exception:
+        pass
 
 
 def _dispatch_turn(loop: IVILoopController, cmd: str, source: str) -> Dict[str, Any]:
     text = str(cmd).strip()
+    gateway: Optional[IVIGateway] = getattr(loop, "_ivi_gateway", None)
+
+    # Classify for gateway
+    action_class = "read"
     if text.startswith("/"):
-        return loop.voice_turn(text, source=source)
-    return loop.voice_turn(f"/walktalk question: {text}", source=source)
+        lower = text.lower()
+        if any(w in lower for w in ("write", "save", "set", "enable", "disable", "attach")):
+            action_class = "write"
+        elif any(w in lower for w in ("run", "exec", "lean")):
+            action_class = "execute"
+
+    if gateway is not None:
+        packet = gateway.ingress(
+            raw_input=text,
+            channel=source,
+            actor="user",
+            order1_classification="command" if text.startswith("/") else "question",
+            requested_action_class=action_class,
+            order_mode=getattr(loop, "_active_order_mode", "order_3_constrained_write"),
+        )
+        gateway.propose(packet)
+        report = gateway.verify(packet)
+        if not report.passed:
+            return {"kind": "gateway_blocked", "reason_codes": report.reason_codes,
+                    "detail": f"Action blocked: {', '.join(report.reason_codes)}"}
+
+    if text.startswith("/"):
+        result = loop.voice_turn(text, source=source)
+    else:
+        result = loop.voice_turn(f"/walktalk question: {text}", source=source)
+
+    # Attest after execution
+    if gateway is not None:
+        from .storage import append_attest
+        append_attest(
+            gateway._settings,
+            intent_id=packet.intent_id,
+            verifier_results=report.verifier_details if report else {},
+            committed=True,
+        )
+
+    return result
 
 
 def _run_conversational_voice_session(loop: IVILoopController, source: str, full_output: bool) -> None:
@@ -318,6 +377,18 @@ def _run_conversational_voice_session(loop: IVILoopController, source: str, full
             print(_render_conversational_response(result), flush=True)
 
         _purple_background_tick(loop, source)
+
+        engine = getattr(loop, "_purple_goal_engine", None)
+        if engine is not None:
+            proactive_prompt = engine.check_proactive()
+            if proactive_prompt:
+                try:
+                    proactive_result = _dispatch_turn(loop, proactive_prompt, source=f"{source}_proactive")
+                    rendered = _render_conversational_response(proactive_result)
+                    if rendered and rendered.strip():
+                        print(f"\n{rendered}", flush=True)
+                except Exception:
+                    pass
 
 
 def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: bool, audio: VoiceAudioInterface) -> None:
@@ -357,6 +428,216 @@ def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: 
         _purple_background_tick(loop, source)
 
 
+def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
+    """Run continuous self-improvement cycles without user input.
+    The heartbeat handles the 45s interval; this just keeps the process alive
+    and prints autonomous results as they happen.
+
+    Three feedback closures are active:
+    1. AI output → grid: every cycle's summary is fed back as claims
+    2. OS discovery: targets span the full OS, not just core files
+    3. Behavioral observation: skills that were active get confidence boosts
+    """
+    import time as _time
+    import signal
+    _stop = False
+
+    def _handle_sig(*_a: Any) -> None:
+        nonlocal _stop
+        _stop = True
+
+    signal.signal(signal.SIGINT, _handle_sig)
+    signal.signal(signal.SIGTERM, _handle_sig)
+
+    engine = getattr(loop, "_purple_goal_engine", None)
+    microcosm = getattr(loop, "_openclaw", None)
+    if engine is None or microcosm is None:
+        print("[autonomous] No goal engine or microcosm — cannot run.", flush=True)
+        return
+
+    # Import native intelligence, skills loop, and OS discovery
+    from .purple_native_intelligence import NativeAutonomousCycle, OSRuntimeDiscovery
+    from .purple_skills_loop import SelfGeneratingSkillsLoop
+    native = NativeAutonomousCycle()
+    skills_loop = SelfGeneratingSkillsLoop()
+    discovery = OSRuntimeDiscovery()
+
+    # Wire skills + grid ref into microcosm so contextual_response feedback works
+    microcosm._skills_loop = skills_loop
+    microcosm._loop_controller = loop
+
+    # Access the IVI Gateway for intent/attest co-signing
+    gateway: Optional[IVIGateway] = getattr(loop, "_ivi_gateway", None)
+
+    # --- OS/runtime discovery at startup ---
+    discovery.discover_from_environment()
+    disc_info = discovery.full_discovery()
+    print(
+        f"[autonomous] OS discovery: {disc_info['python_files']} Python files across "
+        f"{len(disc_info['scan_roots'])} roots, "
+        f"{len(disc_info['runtimes'])} runtimes, "
+        f"{disc_info['running_python_processes']} Python processes.",
+        file=sys.stderr, flush=True,
+    )
+
+    # Share discovery with the goal engine so it generates broader goals
+    engine._os_discovery = discovery
+
+    # Register discovered scan roots as navigation layers in the gateway
+    if gateway is not None:
+        for scan_root in disc_info.get("scan_roots", []):
+            kind = gateway.navigation.classify_path(scan_root)
+            lid = f"disc_{Path(scan_root).name}"
+            if lid not in gateway.navigation._layers:
+                gateway.navigation.enter_layer(
+                    layer_id=lid,
+                    kind=kind,
+                    root_path=scan_root,
+                    template=kind,
+                )
+        # Register discovered runtimes as runtime layers
+        for rt in disc_info.get("runtimes", []):
+            rt_name = rt.get("name", "")
+            rt_path = rt.get("path", "")
+            if rt_name and rt_path:
+                lid = f"rt_{rt_name}"
+                if lid not in gateway.navigation._layers:
+                    gateway.navigation.enter_layer(
+                        layer_id=lid,
+                        kind="runtime",
+                        root_path=str(Path(rt_path).parent),
+                        template="runtime",
+                    )
+        nav = gateway.navigation.status()
+        print(
+            f"[autonomous] Navigation: {len(nav['stack'])} layers, "
+            f"ops={','.join(nav['active_ops'][:4])}, "
+            f"{len(nav['active_invariants'])} invariants active.",
+            file=sys.stderr, flush=True,
+        )
+
+    print("[autonomous] Self-improvement loop started (native + skills + OS discovery). Ctrl+C to stop.", file=sys.stderr, flush=True)
+    cycle = 0
+    while not _stop:
+        try:
+            engine.derive_all(
+                loop_controller=loop,
+                conversation_history=getattr(microcosm, "conversation_history", []),
+                known_projects=getattr(microcosm, "known_projects", []),
+                environment=getattr(microcosm, "environment", {}),
+            )
+
+            # Run native cycles directly — no LLM, no 45s wait
+            ran_this_round = 0
+            candidates = [g for g in engine.state.goals if g.actionable and not g.executed]
+            for goal in candidates[:3]:
+                if _stop:
+                    break
+                # Extract file path from goal
+                target = engine._extract_target_file(goal.description)
+                if not target:
+                    continue
+                # --- Gateway intent before native cycle ---
+                if gateway is not None:
+                    gw_packet = gateway.ingress(
+                        raw_input=goal.description[:200],
+                        channel="autonomous",
+                        actor="purple_goal_engine",
+                        order1_classification="action",
+                        requested_action_class="read",
+                        requested_paths=[target],
+                        order_mode="order_4_bounded_autonomy",
+                    )
+                    gateway.propose(gw_packet)
+                    gw_report = gateway.verify(gw_packet)
+                    if not gw_report.passed:
+                        print(f"  [gateway] blocked: {', '.join(gw_report.reason_codes)}", file=sys.stderr, flush=True)
+                        continue
+
+                result_dict = native.run_native_cycle(target, grid=loop)
+                if result_dict is None:
+                    continue
+
+                goal.executed = True
+                engine.state.autonomous_cycles_run += 1
+                ran_this_round += 1
+                cycle += 1
+
+                fname = os.path.basename(target)
+                fns = result_dict.get("functions", 0)
+                cls = result_dict.get("classes", 0)
+                claims = result_dict.get("claims_added_to_grid", 0)
+                hi_cc = result_dict.get("high_complexity", [])
+                elapsed = result_dict.get("elapsed_s", 0)
+
+                # Tick the skills loop — extract skills from grid derivations
+                sk_result = skills_loop.tick(loop)
+                sk_new = sk_result.get("new_skills", 0)
+                sk_total = sk_result.get("total_skills", 0)
+
+                summary = f"Native: {fname} — {fns} functions, {cls} classes"
+                if hi_cc:
+                    summary += f", high complexity: {hi_cc[0]['name']}(cc={hi_cc[0]['complexity']})"
+                if claims:
+                    summary += f", {claims} claims → grid"
+                if sk_new:
+                    summary += f", +{sk_new} skills ({sk_total} total)"
+                summary += f" ({elapsed}s)"
+                print(f"[auto #{cycle}] {summary}", flush=True)
+                engine._log_to_purple(loop, summary)
+
+                # --- Gateway attest after native cycle ---
+                if gateway is not None:
+                    from .storage import append_attest as _append_attest
+                    _append_attest(
+                        gateway._settings,
+                        intent_id=gw_packet.intent_id,
+                        diff_stats={"claims": claims, "functions": fns, "classes": cls},
+                        committed=True,
+                    )
+
+                # --- Feedback closure 1: feed cycle summary back as grid claims ---
+                try:
+                    fb = skills_loop.observe_ai_output(summary, loop)
+                    fb_claims = fb.get("claims_fed", 0)
+                    fb_skills = fb.get("new_skills", 0)
+                    if fb_claims or fb_skills:
+                        print(f"  → feedback: {fb_claims} claims, +{fb_skills} skills", flush=True)
+                except Exception:
+                    pass
+
+                # --- Feedback closure 3: record skill activation ---
+                try:
+                    boosted = skills_loop.record_activation_from_output(summary)
+                    if boosted:
+                        pass  # silent — confidence adjustments are internal
+                except Exception:
+                    pass
+
+            if ran_this_round == 0:
+                print("[autonomous] No actionable goals — waiting.", file=sys.stderr, flush=True)
+
+        except Exception as exc:
+            print(f"[autonomous] error: {exc}", file=sys.stderr, flush=True)
+
+        # Only sleep between derive rounds, not between native cycles
+        for _ in range(45):
+            if _stop:
+                break
+            _time.sleep(1)
+
+    ni_status = native.status()
+    sk_status = skills_loop.status()
+    disc_final = len(discovery.discover_python_files())
+    print(
+        f"[autonomous] Stopped after {cycle} cycles. "
+        f"Native ratio: {ni_status['native_ratio']:.0%}. "
+        f"Skills: {sk_status['skills_active']}. "
+        f"OS files discovered: {disc_final}.",
+        file=sys.stderr, flush=True,
+    )
+
+
 def cmd_voice(
     settings: Settings,
     source: str = "voice",
@@ -367,6 +648,7 @@ def cmd_voice(
     tts_voice: Optional[str] = None,
     listen_timeout: float = 8.0,
     phrase_time_limit: float = 18.0,
+    autonomous: bool = False,
 ) -> int:
     state = _load_voice_state(settings)
     base_dir = _voice_layer_dir(settings)
@@ -375,6 +657,38 @@ def cmd_voice(
     _restore_voice_controller_state(loop, state)
     attach_message = _auto_attach_openclaw_for_voice(loop, settings)
     _enable_full_loop_for_voice(loop)
+
+    from .purple_goal_engine import PurpleGoalEngine
+    goal_engine = PurpleGoalEngine()
+    loop._purple_goal_engine = goal_engine
+
+    # Create the IVI Gateway — single runtime boundary for all effects
+    gateway = IVIGateway(
+        settings=settings,
+        orchestrator_state={
+            "full_access": True,
+            "consent_token_valid": True,
+            "active_order_mode": "order_3_constrained_write",
+            "max_order_mode": "order_4_bounded_autonomy" if autonomous else "order_3_constrained_write",
+        },
+        allowed_roots=[str(settings.root), str(base_dir), str(Path.home() / "Purple")],
+    )
+    loop._ivi_gateway = gateway
+
+    microcosm = getattr(loop, "_openclaw", None)
+    if microcosm is not None:
+        microcosm.goal_engine = goal_engine
+        microcosm._loop_controller = loop  # for native intelligence grid access
+        goal_engine.derive_all(
+            loop_controller=loop,
+            conversation_history=microcosm.conversation_history,
+            known_projects=microcosm.known_projects,
+            environment=microcosm.environment,
+        )
+        if autonomous:
+            goal_engine._autonomous_mode = True
+        else:
+            goal_engine.start_heartbeat(loop, microcosm, interval=45.0)
     if full_output:
         print(attach_message)
     if audio_enabled:
@@ -395,8 +709,13 @@ def cmd_voice(
             _run_conversational_voice_session(loop=loop, source=source, full_output=bool(full_output))
         else:
             _run_audio_voice_session(loop=loop, source=source, full_output=bool(full_output), audio=audio)
+    elif autonomous:
+        _run_autonomous_loop(loop=loop, source=source)
     else:
         _run_conversational_voice_session(loop=loop, source=source, full_output=bool(full_output))
+    goal_engine = getattr(loop, "_purple_goal_engine", None)
+    if goal_engine is not None:
+        goal_engine.stop_heartbeat()
     _save_voice_state(settings, _snapshot_voice_controller_state(loop))
     return 0
 
@@ -445,6 +764,7 @@ def main(argv: List[str] | None = None) -> int:
     sp_voice.add_argument("--tts-voice", type=str, default=None, help="optional TTS voice identifier")
     sp_voice.add_argument("--listen-timeout", type=float, default=8.0, help="seconds to wait for speech start")
     sp_voice.add_argument("--phrase-time-limit", type=float, default=18.0, help="max seconds per utterance")
+    sp_voice.add_argument("--autonomous", action="store_true", help="run self-improvement loop without user input")
 
     args = p.parse_args(argv)
     settings = Settings.load(root=Path(args.root))
@@ -478,6 +798,7 @@ def main(argv: List[str] | None = None) -> int:
             tts_voice=args.tts_voice,
             listen_timeout=float(args.listen_timeout),
             phrase_time_limit=float(args.phrase_time_limit),
+            autonomous=bool(args.autonomous),
         )
 
     return 2

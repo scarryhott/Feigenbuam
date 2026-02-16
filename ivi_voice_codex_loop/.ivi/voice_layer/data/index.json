@@ -1,0 +1,3868 @@
+{
+  "statements": {
+    "S_b06ddb45e6beb58f": {
+      "sid": "S_b06ddb45e6beb58f",
+      "text": "def extract_symbols: def extract_symbols(text) -> List[str]",
+      "created_ts": 1771208801.08454,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_8e7bb0d54782a4e5": {
+      "sid": "S_8e7bb0d54782a4e5",
+      "text": "def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]",
+      "created_ts": 1771208801.090901,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_832f96d02907cb60": {
+      "sid": "S_832f96d02907cb60",
+      "text": "extract_symbols complexity=7, candidate for refactor",
+      "created_ts": 1771208801.09853,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_6d37f49d56489e8f": {
+      "sid": "S_6d37f49d56489e8f",
+      "text": "if derive then __future__",
+      "created_ts": 1771208801.1053262,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_dbbf4b9ad599ccdb": {
+      "sid": "S_dbbf4b9ad599ccdb",
+      "text": "if derive then re",
+      "created_ts": 1771208801.113009,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_e57c2610439aeafe": {
+      "sid": "S_e57c2610439aeafe",
+      "text": "if derive then typing",
+      "created_ts": 1771208801.123161,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_e02896747d873680": {
+      "sid": "S_e02896747d873680",
+      "text": "if derive then ir",
+      "created_ts": 1771208801.133139,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_8a6480968e689f70": {
+      "sid": "S_8a6480968e689f70",
+      "text": "if extract_symbols then add",
+      "created_ts": 1771208801.144918,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_201f2ded9c2879d9": {
+      "sid": "S_201f2ded9c2879d9",
+      "text": "if extract_symbols then append",
+      "created_ts": 1771208801.15999,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_05e4e04d348f2065": {
+      "sid": "S_05e4e04d348f2065",
+      "text": "if extract_symbols then finditer",
+      "created_ts": 1771208801.1765308,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_e1c235810811410a": {
+      "sid": "S_e1c235810811410a",
+      "text": "if extract_symbols then group",
+      "created_ts": 1771208801.194011,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_7d167967fc223b6a": {
+      "sid": "S_7d167967fc223b6a",
+      "text": "if extract_symbols then lower",
+      "created_ts": 1771208801.215738,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_c5cc1c55d719e9b8": {
+      "sid": "S_c5cc1c55d719e9b8",
+      "text": "if derive_claims_from_text then append",
+      "created_ts": 1771208801.237809,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_c1af9298aeda784c": {
+      "sid": "S_c1af9298aeda784c",
+      "text": "if derive_claims_from_text then extract_symbols",
+      "created_ts": 1771208801.260799,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_86e2dd7949d6bbcf": {
+      "sid": "S_86e2dd7949d6bbcf",
+      "text": "if derive_claims_from_text then group",
+      "created_ts": 1771208801.283893,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_e1b1b3eda30f4977": {
+      "sid": "S_e1b1b3eda30f4977",
+      "text": "if derive_claims_from_text then make_claim",
+      "created_ts": 1771208801.3096719,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_f9c0d52fa9655274": {
+      "sid": "S_f9c0d52fa9655274",
+      "text": "if derive_claims_from_text then match",
+      "created_ts": 1771208801.3362129,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_acd38a821d572c58": {
+      "sid": "S_acd38a821d572c58",
+      "text": "def extract_symbols: def extract_symbols(text) -> List[str]",
+      "created_ts": 1771208815.807678,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_6e79fdf867018a90": {
+      "sid": "S_6e79fdf867018a90",
+      "text": "def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]",
+      "created_ts": 1771208815.839929,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_9600311a5fadffbe": {
+      "sid": "S_9600311a5fadffbe",
+      "text": "extract_symbols complexity=7, candidate for refactor",
+      "created_ts": 1771208815.871784,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_cf9622cbfed76b53": {
+      "sid": "S_cf9622cbfed76b53",
+      "text": "if derive then __future__",
+      "created_ts": 1771208815.905321,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_549df5ccfc5269f9": {
+      "sid": "S_549df5ccfc5269f9",
+      "text": "if derive then re",
+      "created_ts": 1771208815.9394948,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_2562c9c79b1b1cb5": {
+      "sid": "S_2562c9c79b1b1cb5",
+      "text": "if derive then typing",
+      "created_ts": 1771208815.9750662,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_a5e90e7a5ae60455": {
+      "sid": "S_a5e90e7a5ae60455",
+      "text": "if derive then ir",
+      "created_ts": 1771208816.014403,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_073f5b8026f71574": {
+      "sid": "S_073f5b8026f71574",
+      "text": "if extract_symbols then add",
+      "created_ts": 1771208816.053632,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_c9f54d42ee94f585": {
+      "sid": "S_c9f54d42ee94f585",
+      "text": "if extract_symbols then append",
+      "created_ts": 1771208816.094808,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_0dfd93a4d188f28d": {
+      "sid": "S_0dfd93a4d188f28d",
+      "text": "if extract_symbols then finditer",
+      "created_ts": 1771208816.140539,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_e45ef826c4140c5c": {
+      "sid": "S_e45ef826c4140c5c",
+      "text": "if extract_symbols then group",
+      "created_ts": 1771208816.1857522,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_7ce2b7cd2d0fbc42": {
+      "sid": "S_7ce2b7cd2d0fbc42",
+      "text": "if extract_symbols then lower",
+      "created_ts": 1771208816.2323892,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_c8c4035be3fb8020": {
+      "sid": "S_c8c4035be3fb8020",
+      "text": "if derive_claims_from_text then append",
+      "created_ts": 1771208816.279901,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_4131590730a17a9f": {
+      "sid": "S_4131590730a17a9f",
+      "text": "if derive_claims_from_text then extract_symbols",
+      "created_ts": 1771208816.329526,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_5e4e3eef3e47147b": {
+      "sid": "S_5e4e3eef3e47147b",
+      "text": "if derive_claims_from_text then group",
+      "created_ts": 1771208816.380845,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_0af88c0bde688cca": {
+      "sid": "S_0af88c0bde688cca",
+      "text": "if derive_claims_from_text then make_claim",
+      "created_ts": 1771208816.435507,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_3a939d2361430b74": {
+      "sid": "S_3a939d2361430b74",
+      "text": "if derive_claims_from_text then match",
+      "created_ts": 1771208816.489671,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_e9cc61107f66b7a4": {
+      "sid": "S_e9cc61107f66b7a4",
+      "text": "def extract_symbols: def extract_symbols(text) -> List[str]",
+      "created_ts": 1771253337.700897,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_e9ca38a768673c0c": {
+      "sid": "S_e9ca38a768673c0c",
+      "text": "def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]",
+      "created_ts": 1771253337.756874,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_d4d0efbbbba71219": {
+      "sid": "S_d4d0efbbbba71219",
+      "text": "extract_symbols complexity=7, candidate for refactor",
+      "created_ts": 1771253337.813202,
+      "source": "native_analysis",
+      "tags": []
+    },
+    "S_314a377e4c4f8cb6": {
+      "sid": "S_314a377e4c4f8cb6",
+      "text": "if derive then __future__",
+      "created_ts": 1771253337.870933,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_11cfaa1c8c9a5ae7": {
+      "sid": "S_11cfaa1c8c9a5ae7",
+      "text": "if derive then re",
+      "created_ts": 1771253337.93456,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_af15487f876c5ec3": {
+      "sid": "S_af15487f876c5ec3",
+      "text": "if derive then typing",
+      "created_ts": 1771253337.994329,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_42f31ad8f4c1d034": {
+      "sid": "S_42f31ad8f4c1d034",
+      "text": "if derive then ir",
+      "created_ts": 1771253338.0686378,
+      "source": "native_dependency",
+      "tags": []
+    },
+    "S_d322a3239e34d895": {
+      "sid": "S_d322a3239e34d895",
+      "text": "if extract_symbols then add",
+      "created_ts": 1771253338.1458602,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_e7706afab6b88793": {
+      "sid": "S_e7706afab6b88793",
+      "text": "if extract_symbols then append",
+      "created_ts": 1771253338.2380319,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_04eb469b3b78cb2d": {
+      "sid": "S_04eb469b3b78cb2d",
+      "text": "if extract_symbols then finditer",
+      "created_ts": 1771253338.361055,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_a4697c1f1c303fa3": {
+      "sid": "S_a4697c1f1c303fa3",
+      "text": "if extract_symbols then group",
+      "created_ts": 1771253338.477273,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_3c4e5c1a713ccc72": {
+      "sid": "S_3c4e5c1a713ccc72",
+      "text": "if extract_symbols then lower",
+      "created_ts": 1771253338.588375,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_e0c10d7ff6607a53": {
+      "sid": "S_e0c10d7ff6607a53",
+      "text": "if derive_claims_from_text then append",
+      "created_ts": 1771253338.697094,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_e621bf8e3c636caa": {
+      "sid": "S_e621bf8e3c636caa",
+      "text": "if derive_claims_from_text then extract_symbols",
+      "created_ts": 1771253338.8096929,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_59db7c10f134be67": {
+      "sid": "S_59db7c10f134be67",
+      "text": "if derive_claims_from_text then group",
+      "created_ts": 1771253338.9285262,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_68c6a2b791e73dfb": {
+      "sid": "S_68c6a2b791e73dfb",
+      "text": "if derive_claims_from_text then make_claim",
+      "created_ts": 1771253339.044524,
+      "source": "native_call_graph",
+      "tags": []
+    },
+    "S_fec1a64819c2fed7": {
+      "sid": "S_fec1a64819c2fed7",
+      "text": "if derive_claims_from_text then match",
+      "created_ts": 1771253339.126911,
+      "source": "native_call_graph",
+      "tags": []
+    }
+  },
+  "derivations": {
+    "D_444901548412b16e": {
+      "did": "D_444901548412b16e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_b06ddb45e6beb58f"
+      ],
+      "conclusions": [
+        "E_38d7f9dee0a41ed0"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.08726
+    },
+    "D_cd671d1eef14a45e": {
+      "did": "D_cd671d1eef14a45e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_8e7bb0d54782a4e5"
+      ],
+      "conclusions": [
+        "E_01a2dd24b79ed3bc"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.092451
+    },
+    "D_ebbb7e15ffbacc0f": {
+      "did": "D_ebbb7e15ffbacc0f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_832f96d02907cb60"
+      ],
+      "conclusions": [
+        "E_8a17348ffc02828b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.0994298
+    },
+    "D_e9219e339b75a69f": {
+      "did": "D_e9219e339b75a69f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_6d37f49d56489e8f"
+      ],
+      "conclusions": [
+        "E_fe67f0584c9f5ff4"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.106682
+    },
+    "D_18d00bc83c9b8756": {
+      "did": "D_18d00bc83c9b8756",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_dbbf4b9ad599ccdb"
+      ],
+      "conclusions": [
+        "E_89b4a6db3c0b718f"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.114744
+    },
+    "D_de346857196c0025": {
+      "did": "D_de346857196c0025",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e57c2610439aeafe"
+      ],
+      "conclusions": [
+        "E_1765b8dbb3a327db"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.12472
+    },
+    "D_c02e99eff94913a1": {
+      "did": "D_c02e99eff94913a1",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e02896747d873680"
+      ],
+      "conclusions": [
+        "E_750309f68446c7f1"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.134748
+    },
+    "D_2f4df63fd4a5f792": {
+      "did": "D_2f4df63fd4a5f792",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_8a6480968e689f70"
+      ],
+      "conclusions": [
+        "E_2b19aa0a54383535"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.146572
+    },
+    "D_5063c528222363d8": {
+      "did": "D_5063c528222363d8",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_201f2ded9c2879d9"
+      ],
+      "conclusions": [
+        "E_0a41057f3c7392a8"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.162281
+    },
+    "D_010aa493963f2de3": {
+      "did": "D_010aa493963f2de3",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_05e4e04d348f2065"
+      ],
+      "conclusions": [
+        "E_b9fb1d4489b0b879"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.178617
+    },
+    "D_3f13204ce89dee53": {
+      "did": "D_3f13204ce89dee53",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e1c235810811410a"
+      ],
+      "conclusions": [
+        "E_628df02e885b768b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.196067
+    },
+    "D_07c6f70970bb63dc": {
+      "did": "D_07c6f70970bb63dc",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_7d167967fc223b6a"
+      ],
+      "conclusions": [
+        "E_cab61900433fd8be"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.218323
+    },
+    "D_a8e1d0769a9be309": {
+      "did": "D_a8e1d0769a9be309",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_c5cc1c55d719e9b8"
+      ],
+      "conclusions": [
+        "E_dbe3660b0edf10ac"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.240514
+    },
+    "D_3b25fb60d6b97596": {
+      "did": "D_3b25fb60d6b97596",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_c1af9298aeda784c"
+      ],
+      "conclusions": [
+        "E_6d3075d129e92a30"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.263495
+    },
+    "D_d605434a54f6413e": {
+      "did": "D_d605434a54f6413e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_86e2dd7949d6bbcf"
+      ],
+      "conclusions": [
+        "E_7f52bb62811b5465"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.2866108
+    },
+    "D_af9f802ad454b6cd": {
+      "did": "D_af9f802ad454b6cd",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e1b1b3eda30f4977"
+      ],
+      "conclusions": [
+        "E_6eb4db87ce708dfa"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.312478
+    },
+    "D_6ed130f9cd9b4603": {
+      "did": "D_6ed130f9cd9b4603",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_f9c0d52fa9655274"
+      ],
+      "conclusions": [
+        "E_eeb6b3187ca30245"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208801.3400269
+    },
+    "D_abe96871fd4ee86f": {
+      "did": "D_abe96871fd4ee86f",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_acd38a821d572c58"
+      ],
+      "conclusions": [
+        "E_38d7f9dee0a41ed0"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208815.8115032
+    },
+    "D_dac4c470a9bd3a32": {
+      "did": "D_dac4c470a9bd3a32",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_6e79fdf867018a90"
+      ],
+      "conclusions": [
+        "E_01a2dd24b79ed3bc"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208815.843276
+    },
+    "D_b598ef00450a31d1": {
+      "did": "D_b598ef00450a31d1",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_9600311a5fadffbe"
+      ],
+      "conclusions": [
+        "E_8a17348ffc02828b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208815.875339
+    },
+    "D_ea32e7b49d9b2389": {
+      "did": "D_ea32e7b49d9b2389",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_cf9622cbfed76b53"
+      ],
+      "conclusions": [
+        "E_fe67f0584c9f5ff4"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208815.908891
+    },
+    "D_3833b0a6b1486b6a": {
+      "did": "D_3833b0a6b1486b6a",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_549df5ccfc5269f9"
+      ],
+      "conclusions": [
+        "E_89b4a6db3c0b718f"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208815.943261
+    },
+    "D_a592e0035301c0e4": {
+      "did": "D_a592e0035301c0e4",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_2562c9c79b1b1cb5"
+      ],
+      "conclusions": [
+        "E_1765b8dbb3a327db"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208815.978697
+    },
+    "D_517242db89265832": {
+      "did": "D_517242db89265832",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_a5e90e7a5ae60455"
+      ],
+      "conclusions": [
+        "E_750309f68446c7f1"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.0182772
+    },
+    "D_e45f015d473d66f0": {
+      "did": "D_e45f015d473d66f0",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_073f5b8026f71574"
+      ],
+      "conclusions": [
+        "E_2b19aa0a54383535"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.0578492
+    },
+    "D_21f8fd8b0b07c3bf": {
+      "did": "D_21f8fd8b0b07c3bf",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_c9f54d42ee94f585"
+      ],
+      "conclusions": [
+        "E_0a41057f3c7392a8"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.0988631
+    },
+    "D_25191ad7f7439123": {
+      "did": "D_25191ad7f7439123",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_0dfd93a4d188f28d"
+      ],
+      "conclusions": [
+        "E_b9fb1d4489b0b879"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.144618
+    },
+    "D_90c86aee7c31de66": {
+      "did": "D_90c86aee7c31de66",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e45ef826c4140c5c"
+      ],
+      "conclusions": [
+        "E_628df02e885b768b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.190677
+    },
+    "D_b8d775a098384f96": {
+      "did": "D_b8d775a098384f96",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_7ce2b7cd2d0fbc42"
+      ],
+      "conclusions": [
+        "E_cab61900433fd8be"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.2367518
+    },
+    "D_3511fadbd731642e": {
+      "did": "D_3511fadbd731642e",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_c8c4035be3fb8020"
+      ],
+      "conclusions": [
+        "E_dbe3660b0edf10ac"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.28463
+    },
+    "D_f0a70e1d68449ac5": {
+      "did": "D_f0a70e1d68449ac5",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_4131590730a17a9f"
+      ],
+      "conclusions": [
+        "E_6d3075d129e92a30"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.333981
+    },
+    "D_94b83250c317b00d": {
+      "did": "D_94b83250c317b00d",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_5e4e3eef3e47147b"
+      ],
+      "conclusions": [
+        "E_7f52bb62811b5465"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.385321
+    },
+    "D_4c3e8a35e621b82a": {
+      "did": "D_4c3e8a35e621b82a",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_0af88c0bde688cca"
+      ],
+      "conclusions": [
+        "E_6eb4db87ce708dfa"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.44034
+    },
+    "D_ce9dac0fac729e2b": {
+      "did": "D_ce9dac0fac729e2b",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_3a939d2361430b74"
+      ],
+      "conclusions": [
+        "E_eeb6b3187ca30245"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771208816.494456
+    },
+    "D_a371ca498599d3fc": {
+      "did": "D_a371ca498599d3fc",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e9cc61107f66b7a4"
+      ],
+      "conclusions": [
+        "E_38d7f9dee0a41ed0"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253337.706363
+    },
+    "D_38f9d9fd41a4e13a": {
+      "did": "D_38f9d9fd41a4e13a",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e9ca38a768673c0c"
+      ],
+      "conclusions": [
+        "E_01a2dd24b79ed3bc"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253337.761605
+    },
+    "D_1c012a9251f98752": {
+      "did": "D_1c012a9251f98752",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_d4d0efbbbba71219"
+      ],
+      "conclusions": [
+        "E_8a17348ffc02828b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253337.8179772
+    },
+    "D_829990258f2c6857": {
+      "did": "D_829990258f2c6857",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_314a377e4c4f8cb6"
+      ],
+      "conclusions": [
+        "E_fe67f0584c9f5ff4"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253337.876235
+    },
+    "D_48ee05e7b72474ce": {
+      "did": "D_48ee05e7b72474ce",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_11cfaa1c8c9a5ae7"
+      ],
+      "conclusions": [
+        "E_89b4a6db3c0b718f"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253337.939472
+    },
+    "D_770916038e1f35f1": {
+      "did": "D_770916038e1f35f1",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_af15487f876c5ec3"
+      ],
+      "conclusions": [
+        "E_1765b8dbb3a327db"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253337.999346
+    },
+    "D_412f170f0d90554d": {
+      "did": "D_412f170f0d90554d",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_42f31ad8f4c1d034"
+      ],
+      "conclusions": [
+        "E_750309f68446c7f1"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.074013
+    },
+    "D_a68e88c96cb406c8": {
+      "did": "D_a68e88c96cb406c8",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_d322a3239e34d895"
+      ],
+      "conclusions": [
+        "E_2b19aa0a54383535"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.151262
+    },
+    "D_1e3d877f93ff4d50": {
+      "did": "D_1e3d877f93ff4d50",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e7706afab6b88793"
+      ],
+      "conclusions": [
+        "E_0a41057f3c7392a8"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.24543
+    },
+    "D_e86fcef5ba86da08": {
+      "did": "D_e86fcef5ba86da08",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_04eb469b3b78cb2d"
+      ],
+      "conclusions": [
+        "E_b9fb1d4489b0b879"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.3689
+    },
+    "D_ae1d48466a6640d1": {
+      "did": "D_ae1d48466a6640d1",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_a4697c1f1c303fa3"
+      ],
+      "conclusions": [
+        "E_628df02e885b768b"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.486579
+    },
+    "D_40bed2f9f53a6e1b": {
+      "did": "D_40bed2f9f53a6e1b",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_3c4e5c1a713ccc72"
+      ],
+      "conclusions": [
+        "E_cab61900433fd8be"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.5943491
+    },
+    "D_228d46abe14ac7c3": {
+      "did": "D_228d46abe14ac7c3",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e0c10d7ff6607a53"
+      ],
+      "conclusions": [
+        "E_dbe3660b0edf10ac"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.703479
+    },
+    "D_c7bc5d06d2b2cce7": {
+      "did": "D_c7bc5d06d2b2cce7",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_e621bf8e3c636caa"
+      ],
+      "conclusions": [
+        "E_6d3075d129e92a30"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.822423
+    },
+    "D_99e54dc8fcd7df1d": {
+      "did": "D_99e54dc8fcd7df1d",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_59db7c10f134be67"
+      ],
+      "conclusions": [
+        "E_7f52bb62811b5465"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253338.937005
+    },
+    "D_6a2c2ec256fc26bf": {
+      "did": "D_6a2c2ec256fc26bf",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_68c6a2b791e73dfb"
+      ],
+      "conclusions": [
+        "E_6eb4db87ce708dfa"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253339.0512261
+    },
+    "D_c9b22ff3963b5d7a": {
+      "did": "D_c9b22ff3963b5d7a",
+      "rule": "phase1_stub_implication",
+      "premises": [
+        "S_fec1a64819c2fed7"
+      ],
+      "conclusions": [
+        "E_eeb6b3187ca30245"
+      ],
+      "notes": "Minimal scaffold: treat statement as candidate lemma statement.",
+      "created_ts": 1771253339.133409
+    }
+  },
+  "equations": {
+    "E_38d7f9dee0a41ed0": {
+      "eid": "E_38d7f9dee0a41ed0",
+      "lean_name": "def_extract_symbols_def_extract_symbols_text_list",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: def extract_symbols: def extract_symbols(text) -> List[str]",
+      "version_hash": "74d90c1d0a84d933",
+      "created_ts": 1771253337.703957
+    },
+    "E_01a2dd24b79ed3bc": {
+      "eid": "E_01a2dd24b79ed3bc",
+      "lean_name": "def_derive_claims_from_text_def_derive_claims",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]",
+      "version_hash": "29d948addbd61db2",
+      "created_ts": 1771253337.759285
+    },
+    "E_8a17348ffc02828b": {
+      "eid": "E_8a17348ffc02828b",
+      "lean_name": "extract_symbols_complexity_7_candidate_for_refactor",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: extract_symbols complexity=7, candidate for refactor",
+      "version_hash": "b6e04831b4ecb026",
+      "created_ts": 1771253337.815628
+    },
+    "E_fe67f0584c9f5ff4": {
+      "eid": "E_fe67f0584c9f5ff4",
+      "lean_name": "if_derive_then_future",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive then __future__",
+      "version_hash": "19a046fc9d1e0670",
+      "created_ts": 1771253337.873528
+    },
+    "E_89b4a6db3c0b718f": {
+      "eid": "E_89b4a6db3c0b718f",
+      "lean_name": "if_derive_then_re",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive then re",
+      "version_hash": "61fd626b91956c64",
+      "created_ts": 1771253337.937027
+    },
+    "E_1765b8dbb3a327db": {
+      "eid": "E_1765b8dbb3a327db",
+      "lean_name": "if_derive_then_typing",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive then typing",
+      "version_hash": "34a43b8066973355",
+      "created_ts": 1771253337.996881
+    },
+    "E_750309f68446c7f1": {
+      "eid": "E_750309f68446c7f1",
+      "lean_name": "if_derive_then_ir",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive then ir",
+      "version_hash": "a192bc19d68d83de",
+      "created_ts": 1771253338.071383
+    },
+    "E_2b19aa0a54383535": {
+      "eid": "E_2b19aa0a54383535",
+      "lean_name": "if_extract_symbols_then_add",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if extract_symbols then add",
+      "version_hash": "b4b006625f45132c",
+      "created_ts": 1771253338.148597
+    },
+    "E_0a41057f3c7392a8": {
+      "eid": "E_0a41057f3c7392a8",
+      "lean_name": "if_extract_symbols_then_append",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if extract_symbols then append",
+      "version_hash": "5cad72407076257f",
+      "created_ts": 1771253338.242134
+    },
+    "E_b9fb1d4489b0b879": {
+      "eid": "E_b9fb1d4489b0b879",
+      "lean_name": "if_extract_symbols_then_finditer",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if extract_symbols then finditer",
+      "version_hash": "ab65ef1982567ad1",
+      "created_ts": 1771253338.36511
+    },
+    "E_628df02e885b768b": {
+      "eid": "E_628df02e885b768b",
+      "lean_name": "if_extract_symbols_then_group",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if extract_symbols then group",
+      "version_hash": "5f4d1c5a63fcc58c",
+      "created_ts": 1771253338.483045
+    },
+    "E_cab61900433fd8be": {
+      "eid": "E_cab61900433fd8be",
+      "lean_name": "if_extract_symbols_then_lower",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if extract_symbols then lower",
+      "version_hash": "be67ab2fb29ddd6f",
+      "created_ts": 1771253338.5915442
+    },
+    "E_dbe3660b0edf10ac": {
+      "eid": "E_dbe3660b0edf10ac",
+      "lean_name": "if_derive_claims_from_text_then_append",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive_claims_from_text then append",
+      "version_hash": "6d43c900850f2053",
+      "created_ts": 1771253338.700156
+    },
+    "E_6d3075d129e92a30": {
+      "eid": "E_6d3075d129e92a30",
+      "lean_name": "if_derive_claims_from_text_then_extract_symbols",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive_claims_from_text then extract_symbols",
+      "version_hash": "20db6010e6703a64",
+      "created_ts": 1771253338.817138
+    },
+    "E_7f52bb62811b5465": {
+      "eid": "E_7f52bb62811b5465",
+      "lean_name": "if_derive_claims_from_text_then_group",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive_claims_from_text then group",
+      "version_hash": "46048b132f9db254",
+      "created_ts": 1771253338.9329438
+    },
+    "E_6eb4db87ce708dfa": {
+      "eid": "E_6eb4db87ce708dfa",
+      "lean_name": "if_derive_claims_from_text_then_make_claim",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive_claims_from_text then make_claim",
+      "version_hash": "5877fec7c3049a49",
+      "created_ts": 1771253339.04791
+    },
+    "E_eeb6b3187ca30245": {
+      "eid": "E_eeb6b3187ca30245",
+      "lean_name": "if_derive_claims_from_text_then_match",
+      "lean_file": "/Users/harryscott/Purple/Feigenbuam/ivi_voice_codex_loop/.ivi/voice_layer/lean/Derived/AutoDerived.lean",
+      "statement": "Proposition derived from: if derive_claims_from_text then match",
+      "version_hash": "baf48a67f15c5d1c",
+      "created_ts": 1771253339.130121
+    }
+  },
+  "triangles": {
+    "T_1f19aeb55de45a34": {
+      "tid": "T_1f19aeb55de45a34",
+      "sid": "S_b06ddb45e6beb58f",
+      "did": "D_444901548412b16e",
+      "eid": "E_38d7f9dee0a41ed0",
+      "created_ts": 1771208801.088183
+    },
+    "T_af3fe6d978269190": {
+      "tid": "T_af3fe6d978269190",
+      "sid": "S_8e7bb0d54782a4e5",
+      "did": "D_cd671d1eef14a45e",
+      "eid": "E_01a2dd24b79ed3bc",
+      "created_ts": 1771208801.092834
+    },
+    "T_2b325e7b4e8c7d3e": {
+      "tid": "T_2b325e7b4e8c7d3e",
+      "sid": "S_832f96d02907cb60",
+      "did": "D_ebbb7e15ffbacc0f",
+      "eid": "E_8a17348ffc02828b",
+      "created_ts": 1771208801.09995
+    },
+    "T_ca5e664526828870": {
+      "tid": "T_ca5e664526828870",
+      "sid": "S_6d37f49d56489e8f",
+      "did": "D_e9219e339b75a69f",
+      "eid": "E_fe67f0584c9f5ff4",
+      "created_ts": 1771208801.107405
+    },
+    "T_2a8761a4cdbb7909": {
+      "tid": "T_2a8761a4cdbb7909",
+      "sid": "S_dbbf4b9ad599ccdb",
+      "did": "D_18d00bc83c9b8756",
+      "eid": "E_89b4a6db3c0b718f",
+      "created_ts": 1771208801.1153631
+    },
+    "T_431780b71b933fa5": {
+      "tid": "T_431780b71b933fa5",
+      "sid": "S_e57c2610439aeafe",
+      "did": "D_de346857196c0025",
+      "eid": "E_1765b8dbb3a327db",
+      "created_ts": 1771208801.1254349
+    },
+    "T_2ae5211e7d794155": {
+      "tid": "T_2ae5211e7d794155",
+      "sid": "S_e02896747d873680",
+      "did": "D_c02e99eff94913a1",
+      "eid": "E_750309f68446c7f1",
+      "created_ts": 1771208801.135587
+    },
+    "T_2d47ba7b55c01fe3": {
+      "tid": "T_2d47ba7b55c01fe3",
+      "sid": "S_8a6480968e689f70",
+      "did": "D_2f4df63fd4a5f792",
+      "eid": "E_2b19aa0a54383535",
+      "created_ts": 1771208801.147531
+    },
+    "T_bb693541bf70cca5": {
+      "tid": "T_bb693541bf70cca5",
+      "sid": "S_201f2ded9c2879d9",
+      "did": "D_5063c528222363d8",
+      "eid": "E_0a41057f3c7392a8",
+      "created_ts": 1771208801.1633248
+    },
+    "T_17ca6a10b196d0c6": {
+      "tid": "T_17ca6a10b196d0c6",
+      "sid": "S_05e4e04d348f2065",
+      "did": "D_010aa493963f2de3",
+      "eid": "E_b9fb1d4489b0b879",
+      "created_ts": 1771208801.179614
+    },
+    "T_ae55bff99b611079": {
+      "tid": "T_ae55bff99b611079",
+      "sid": "S_e1c235810811410a",
+      "did": "D_3f13204ce89dee53",
+      "eid": "E_628df02e885b768b",
+      "created_ts": 1771208801.197226
+    },
+    "T_c1fa27a8aeabef72": {
+      "tid": "T_c1fa27a8aeabef72",
+      "sid": "S_7d167967fc223b6a",
+      "did": "D_07c6f70970bb63dc",
+      "eid": "E_cab61900433fd8be",
+      "created_ts": 1771208801.219668
+    },
+    "T_6f178861bab01766": {
+      "tid": "T_6f178861bab01766",
+      "sid": "S_c5cc1c55d719e9b8",
+      "did": "D_a8e1d0769a9be309",
+      "eid": "E_dbe3660b0edf10ac",
+      "created_ts": 1771208801.241832
+    },
+    "T_3bc241669f8745db": {
+      "tid": "T_3bc241669f8745db",
+      "sid": "S_c1af9298aeda784c",
+      "did": "D_3b25fb60d6b97596",
+      "eid": "E_6d3075d129e92a30",
+      "created_ts": 1771208801.264725
+    },
+    "T_ed7e1f14f74a060b": {
+      "tid": "T_ed7e1f14f74a060b",
+      "sid": "S_86e2dd7949d6bbcf",
+      "did": "D_d605434a54f6413e",
+      "eid": "E_7f52bb62811b5465",
+      "created_ts": 1771208801.288286
+    },
+    "T_e5e410a572f918d4": {
+      "tid": "T_e5e410a572f918d4",
+      "sid": "S_e1b1b3eda30f4977",
+      "did": "D_af9f802ad454b6cd",
+      "eid": "E_6eb4db87ce708dfa",
+      "created_ts": 1771208801.313778
+    },
+    "T_afeb8414267d3ae9": {
+      "tid": "T_afeb8414267d3ae9",
+      "sid": "S_f9c0d52fa9655274",
+      "did": "D_6ed130f9cd9b4603",
+      "eid": "E_eeb6b3187ca30245",
+      "created_ts": 1771208801.3415859
+    },
+    "T_64ff309684bd4872": {
+      "tid": "T_64ff309684bd4872",
+      "sid": "S_acd38a821d572c58",
+      "did": "D_abe96871fd4ee86f",
+      "eid": "E_38d7f9dee0a41ed0",
+      "created_ts": 1771208815.813202
+    },
+    "T_8a66b308378f1486": {
+      "tid": "T_8a66b308378f1486",
+      "sid": "S_6e79fdf867018a90",
+      "did": "D_dac4c470a9bd3a32",
+      "eid": "E_01a2dd24b79ed3bc",
+      "created_ts": 1771208815.844804
+    },
+    "T_7954394ff28d31ea": {
+      "tid": "T_7954394ff28d31ea",
+      "sid": "S_9600311a5fadffbe",
+      "did": "D_b598ef00450a31d1",
+      "eid": "E_8a17348ffc02828b",
+      "created_ts": 1771208815.876946
+    },
+    "T_0e81374637f6feda": {
+      "tid": "T_0e81374637f6feda",
+      "sid": "S_cf9622cbfed76b53",
+      "did": "D_ea32e7b49d9b2389",
+      "eid": "E_fe67f0584c9f5ff4",
+      "created_ts": 1771208815.9105651
+    },
+    "T_b2cb4c2bf7ddb064": {
+      "tid": "T_b2cb4c2bf7ddb064",
+      "sid": "S_549df5ccfc5269f9",
+      "did": "D_3833b0a6b1486b6a",
+      "eid": "E_89b4a6db3c0b718f",
+      "created_ts": 1771208815.944851
+    },
+    "T_0de4fea8fba7c302": {
+      "tid": "T_0de4fea8fba7c302",
+      "sid": "S_2562c9c79b1b1cb5",
+      "did": "D_a592e0035301c0e4",
+      "eid": "E_1765b8dbb3a327db",
+      "created_ts": 1771208815.980447
+    },
+    "T_17af6cd144e35ef1": {
+      "tid": "T_17af6cd144e35ef1",
+      "sid": "S_a5e90e7a5ae60455",
+      "did": "D_517242db89265832",
+      "eid": "E_750309f68446c7f1",
+      "created_ts": 1771208816.0203059
+    },
+    "T_d4255bca61dd04b7": {
+      "tid": "T_d4255bca61dd04b7",
+      "sid": "S_073f5b8026f71574",
+      "did": "D_e45f015d473d66f0",
+      "eid": "E_2b19aa0a54383535",
+      "created_ts": 1771208816.059712
+    },
+    "T_3907eba803fe03b6": {
+      "tid": "T_3907eba803fe03b6",
+      "sid": "S_c9f54d42ee94f585",
+      "did": "D_21f8fd8b0b07c3bf",
+      "eid": "E_0a41057f3c7392a8",
+      "created_ts": 1771208816.1012459
+    },
+    "T_adfe9ed0c7ecbe76": {
+      "tid": "T_adfe9ed0c7ecbe76",
+      "sid": "S_0dfd93a4d188f28d",
+      "did": "D_25191ad7f7439123",
+      "eid": "E_b9fb1d4489b0b879",
+      "created_ts": 1771208816.146493
+    },
+    "T_c7e86530759b2daf": {
+      "tid": "T_c7e86530759b2daf",
+      "sid": "S_e45ef826c4140c5c",
+      "did": "D_90c86aee7c31de66",
+      "eid": "E_628df02e885b768b",
+      "created_ts": 1771208816.192822
+    },
+    "T_c28a9b5aa42c20c4": {
+      "tid": "T_c28a9b5aa42c20c4",
+      "sid": "S_7ce2b7cd2d0fbc42",
+      "did": "D_b8d775a098384f96",
+      "eid": "E_cab61900433fd8be",
+      "created_ts": 1771208816.2388968
+    },
+    "T_b56eb946ebcfafef": {
+      "tid": "T_b56eb946ebcfafef",
+      "sid": "S_c8c4035be3fb8020",
+      "did": "D_3511fadbd731642e",
+      "eid": "E_dbe3660b0edf10ac",
+      "created_ts": 1771208816.286655
+    },
+    "T_3a0bba6d36dd77d4": {
+      "tid": "T_3a0bba6d36dd77d4",
+      "sid": "S_4131590730a17a9f",
+      "did": "D_f0a70e1d68449ac5",
+      "eid": "E_6d3075d129e92a30",
+      "created_ts": 1771208816.336098
+    },
+    "T_fade9bb221dc643b": {
+      "tid": "T_fade9bb221dc643b",
+      "sid": "S_5e4e3eef3e47147b",
+      "did": "D_94b83250c317b00d",
+      "eid": "E_7f52bb62811b5465",
+      "created_ts": 1771208816.387733
+    },
+    "T_6e3a282ee29f2800": {
+      "tid": "T_6e3a282ee29f2800",
+      "sid": "S_0af88c0bde688cca",
+      "did": "D_4c3e8a35e621b82a",
+      "eid": "E_6eb4db87ce708dfa",
+      "created_ts": 1771208816.443109
+    },
+    "T_bff64f9abe38f1b0": {
+      "tid": "T_bff64f9abe38f1b0",
+      "sid": "S_3a939d2361430b74",
+      "did": "D_ce9dac0fac729e2b",
+      "eid": "E_eeb6b3187ca30245",
+      "created_ts": 1771208816.4966779
+    },
+    "T_eb441bba55ad967e": {
+      "tid": "T_eb441bba55ad967e",
+      "sid": "S_e9cc61107f66b7a4",
+      "did": "D_a371ca498599d3fc",
+      "eid": "E_38d7f9dee0a41ed0",
+      "created_ts": 1771253337.708742
+    },
+    "T_761a457d5692ea8c": {
+      "tid": "T_761a457d5692ea8c",
+      "sid": "S_e9ca38a768673c0c",
+      "did": "D_38f9d9fd41a4e13a",
+      "eid": "E_01a2dd24b79ed3bc",
+      "created_ts": 1771253337.763941
+    },
+    "T_a841a7e9f8ce04b6": {
+      "tid": "T_a841a7e9f8ce04b6",
+      "sid": "S_d4d0efbbbba71219",
+      "did": "D_1c012a9251f98752",
+      "eid": "E_8a17348ffc02828b",
+      "created_ts": 1771253337.8202722
+    },
+    "T_b638d5191a9d0e35": {
+      "tid": "T_b638d5191a9d0e35",
+      "sid": "S_314a377e4c4f8cb6",
+      "did": "D_829990258f2c6857",
+      "eid": "E_fe67f0584c9f5ff4",
+      "created_ts": 1771253337.880841
+    },
+    "T_981c7b04f4c15931": {
+      "tid": "T_981c7b04f4c15931",
+      "sid": "S_11cfaa1c8c9a5ae7",
+      "did": "D_48ee05e7b72474ce",
+      "eid": "E_89b4a6db3c0b718f",
+      "created_ts": 1771253337.9419289
+    },
+    "T_606d222970f12f3a": {
+      "tid": "T_606d222970f12f3a",
+      "sid": "S_af15487f876c5ec3",
+      "did": "D_770916038e1f35f1",
+      "eid": "E_1765b8dbb3a327db",
+      "created_ts": 1771253338.002164
+    },
+    "T_e16542ba7082d7c2": {
+      "tid": "T_e16542ba7082d7c2",
+      "sid": "S_42f31ad8f4c1d034",
+      "did": "D_412f170f0d90554d",
+      "eid": "E_750309f68446c7f1",
+      "created_ts": 1771253338.078329
+    },
+    "T_6a972a23c3352f61": {
+      "tid": "T_6a972a23c3352f61",
+      "sid": "S_d322a3239e34d895",
+      "did": "D_a68e88c96cb406c8",
+      "eid": "E_2b19aa0a54383535",
+      "created_ts": 1771253338.153891
+    },
+    "T_c862cdce6d4ca195": {
+      "tid": "T_c862cdce6d4ca195",
+      "sid": "S_e7706afab6b88793",
+      "did": "D_1e3d877f93ff4d50",
+      "eid": "E_0a41057f3c7392a8",
+      "created_ts": 1771253338.252952
+    },
+    "T_59d7126843bb56a7": {
+      "tid": "T_59d7126843bb56a7",
+      "sid": "S_04eb469b3b78cb2d",
+      "did": "D_e86fcef5ba86da08",
+      "eid": "E_b9fb1d4489b0b879",
+      "created_ts": 1771253338.3739588
+    },
+    "T_5719b4d1f1e33371": {
+      "tid": "T_5719b4d1f1e33371",
+      "sid": "S_a4697c1f1c303fa3",
+      "did": "D_ae1d48466a6640d1",
+      "eid": "E_628df02e885b768b",
+      "created_ts": 1771253338.4898372
+    },
+    "T_7a55fb6c3513adcf": {
+      "tid": "T_7a55fb6c3513adcf",
+      "sid": "S_3c4e5c1a713ccc72",
+      "did": "D_40bed2f9f53a6e1b",
+      "eid": "E_cab61900433fd8be",
+      "created_ts": 1771253338.5971441
+    },
+    "T_e6430a44e549d81d": {
+      "tid": "T_e6430a44e549d81d",
+      "sid": "S_e0c10d7ff6607a53",
+      "did": "D_228d46abe14ac7c3",
+      "eid": "E_dbe3660b0edf10ac",
+      "created_ts": 1771253338.708359
+    },
+    "T_cfa7ea75257fda98": {
+      "tid": "T_cfa7ea75257fda98",
+      "sid": "S_e621bf8e3c636caa",
+      "did": "D_c7bc5d06d2b2cce7",
+      "eid": "E_6d3075d129e92a30",
+      "created_ts": 1771253338.825582
+    },
+    "T_0620a626345e23f5": {
+      "tid": "T_0620a626345e23f5",
+      "sid": "S_59db7c10f134be67",
+      "did": "D_99e54dc8fcd7df1d",
+      "eid": "E_7f52bb62811b5465",
+      "created_ts": 1771253338.9418812
+    },
+    "T_6ea23ba826aa5a69": {
+      "tid": "T_6ea23ba826aa5a69",
+      "sid": "S_68c6a2b791e73dfb",
+      "did": "D_6a2c2ec256fc26bf",
+      "eid": "E_6eb4db87ce708dfa",
+      "created_ts": 1771253339.0545049
+    },
+    "T_e5ae4b34da564da3": {
+      "tid": "T_e5ae4b34da564da3",
+      "sid": "S_fec1a64819c2fed7",
+      "did": "D_c9b22ff3963b5d7a",
+      "eid": "E_eeb6b3187ca30245",
+      "created_ts": 1771253339.136404
+    }
+  },
+  "sid_to_tids": {
+    "S_b06ddb45e6beb58f": [
+      "T_1f19aeb55de45a34"
+    ],
+    "S_8e7bb0d54782a4e5": [
+      "T_af3fe6d978269190"
+    ],
+    "S_832f96d02907cb60": [
+      "T_2b325e7b4e8c7d3e"
+    ],
+    "S_6d37f49d56489e8f": [
+      "T_ca5e664526828870"
+    ],
+    "S_dbbf4b9ad599ccdb": [
+      "T_2a8761a4cdbb7909"
+    ],
+    "S_e57c2610439aeafe": [
+      "T_431780b71b933fa5"
+    ],
+    "S_e02896747d873680": [
+      "T_2ae5211e7d794155"
+    ],
+    "S_8a6480968e689f70": [
+      "T_2d47ba7b55c01fe3"
+    ],
+    "S_201f2ded9c2879d9": [
+      "T_bb693541bf70cca5"
+    ],
+    "S_05e4e04d348f2065": [
+      "T_17ca6a10b196d0c6"
+    ],
+    "S_e1c235810811410a": [
+      "T_ae55bff99b611079"
+    ],
+    "S_7d167967fc223b6a": [
+      "T_c1fa27a8aeabef72"
+    ],
+    "S_c5cc1c55d719e9b8": [
+      "T_6f178861bab01766"
+    ],
+    "S_c1af9298aeda784c": [
+      "T_3bc241669f8745db"
+    ],
+    "S_86e2dd7949d6bbcf": [
+      "T_ed7e1f14f74a060b"
+    ],
+    "S_e1b1b3eda30f4977": [
+      "T_e5e410a572f918d4"
+    ],
+    "S_f9c0d52fa9655274": [
+      "T_afeb8414267d3ae9"
+    ],
+    "S_acd38a821d572c58": [
+      "T_64ff309684bd4872"
+    ],
+    "S_6e79fdf867018a90": [
+      "T_8a66b308378f1486"
+    ],
+    "S_9600311a5fadffbe": [
+      "T_7954394ff28d31ea"
+    ],
+    "S_cf9622cbfed76b53": [
+      "T_0e81374637f6feda"
+    ],
+    "S_549df5ccfc5269f9": [
+      "T_b2cb4c2bf7ddb064"
+    ],
+    "S_2562c9c79b1b1cb5": [
+      "T_0de4fea8fba7c302"
+    ],
+    "S_a5e90e7a5ae60455": [
+      "T_17af6cd144e35ef1"
+    ],
+    "S_073f5b8026f71574": [
+      "T_d4255bca61dd04b7"
+    ],
+    "S_c9f54d42ee94f585": [
+      "T_3907eba803fe03b6"
+    ],
+    "S_0dfd93a4d188f28d": [
+      "T_adfe9ed0c7ecbe76"
+    ],
+    "S_e45ef826c4140c5c": [
+      "T_c7e86530759b2daf"
+    ],
+    "S_7ce2b7cd2d0fbc42": [
+      "T_c28a9b5aa42c20c4"
+    ],
+    "S_c8c4035be3fb8020": [
+      "T_b56eb946ebcfafef"
+    ],
+    "S_4131590730a17a9f": [
+      "T_3a0bba6d36dd77d4"
+    ],
+    "S_5e4e3eef3e47147b": [
+      "T_fade9bb221dc643b"
+    ],
+    "S_0af88c0bde688cca": [
+      "T_6e3a282ee29f2800"
+    ],
+    "S_3a939d2361430b74": [
+      "T_bff64f9abe38f1b0"
+    ],
+    "S_e9cc61107f66b7a4": [
+      "T_eb441bba55ad967e"
+    ],
+    "S_e9ca38a768673c0c": [
+      "T_761a457d5692ea8c"
+    ],
+    "S_d4d0efbbbba71219": [
+      "T_a841a7e9f8ce04b6"
+    ],
+    "S_314a377e4c4f8cb6": [
+      "T_b638d5191a9d0e35"
+    ],
+    "S_11cfaa1c8c9a5ae7": [
+      "T_981c7b04f4c15931"
+    ],
+    "S_af15487f876c5ec3": [
+      "T_606d222970f12f3a"
+    ],
+    "S_42f31ad8f4c1d034": [
+      "T_e16542ba7082d7c2"
+    ],
+    "S_d322a3239e34d895": [
+      "T_6a972a23c3352f61"
+    ],
+    "S_e7706afab6b88793": [
+      "T_c862cdce6d4ca195"
+    ],
+    "S_04eb469b3b78cb2d": [
+      "T_59d7126843bb56a7"
+    ],
+    "S_a4697c1f1c303fa3": [
+      "T_5719b4d1f1e33371"
+    ],
+    "S_3c4e5c1a713ccc72": [
+      "T_7a55fb6c3513adcf"
+    ],
+    "S_e0c10d7ff6607a53": [
+      "T_e6430a44e549d81d"
+    ],
+    "S_e621bf8e3c636caa": [
+      "T_cfa7ea75257fda98"
+    ],
+    "S_59db7c10f134be67": [
+      "T_0620a626345e23f5"
+    ],
+    "S_68c6a2b791e73dfb": [
+      "T_6ea23ba826aa5a69"
+    ],
+    "S_fec1a64819c2fed7": [
+      "T_e5ae4b34da564da3"
+    ]
+  },
+  "eid_to_tids": {
+    "E_38d7f9dee0a41ed0": [
+      "T_1f19aeb55de45a34",
+      "T_64ff309684bd4872",
+      "T_eb441bba55ad967e"
+    ],
+    "E_01a2dd24b79ed3bc": [
+      "T_af3fe6d978269190",
+      "T_8a66b308378f1486",
+      "T_761a457d5692ea8c"
+    ],
+    "E_8a17348ffc02828b": [
+      "T_2b325e7b4e8c7d3e",
+      "T_7954394ff28d31ea",
+      "T_a841a7e9f8ce04b6"
+    ],
+    "E_fe67f0584c9f5ff4": [
+      "T_ca5e664526828870",
+      "T_0e81374637f6feda",
+      "T_b638d5191a9d0e35"
+    ],
+    "E_89b4a6db3c0b718f": [
+      "T_2a8761a4cdbb7909",
+      "T_b2cb4c2bf7ddb064",
+      "T_981c7b04f4c15931"
+    ],
+    "E_1765b8dbb3a327db": [
+      "T_431780b71b933fa5",
+      "T_0de4fea8fba7c302",
+      "T_606d222970f12f3a"
+    ],
+    "E_750309f68446c7f1": [
+      "T_2ae5211e7d794155",
+      "T_17af6cd144e35ef1",
+      "T_e16542ba7082d7c2"
+    ],
+    "E_2b19aa0a54383535": [
+      "T_2d47ba7b55c01fe3",
+      "T_d4255bca61dd04b7",
+      "T_6a972a23c3352f61"
+    ],
+    "E_0a41057f3c7392a8": [
+      "T_bb693541bf70cca5",
+      "T_3907eba803fe03b6",
+      "T_c862cdce6d4ca195"
+    ],
+    "E_b9fb1d4489b0b879": [
+      "T_17ca6a10b196d0c6",
+      "T_adfe9ed0c7ecbe76",
+      "T_59d7126843bb56a7"
+    ],
+    "E_628df02e885b768b": [
+      "T_ae55bff99b611079",
+      "T_c7e86530759b2daf",
+      "T_5719b4d1f1e33371"
+    ],
+    "E_cab61900433fd8be": [
+      "T_c1fa27a8aeabef72",
+      "T_c28a9b5aa42c20c4",
+      "T_7a55fb6c3513adcf"
+    ],
+    "E_dbe3660b0edf10ac": [
+      "T_6f178861bab01766",
+      "T_b56eb946ebcfafef",
+      "T_e6430a44e549d81d"
+    ],
+    "E_6d3075d129e92a30": [
+      "T_3bc241669f8745db",
+      "T_3a0bba6d36dd77d4",
+      "T_cfa7ea75257fda98"
+    ],
+    "E_7f52bb62811b5465": [
+      "T_ed7e1f14f74a060b",
+      "T_fade9bb221dc643b",
+      "T_0620a626345e23f5"
+    ],
+    "E_6eb4db87ce708dfa": [
+      "T_e5e410a572f918d4",
+      "T_6e3a282ee29f2800",
+      "T_6ea23ba826aa5a69"
+    ],
+    "E_eeb6b3187ca30245": [
+      "T_afeb8414267d3ae9",
+      "T_bff64f9abe38f1b0",
+      "T_e5ae4b34da564da3"
+    ]
+  },
+  "did_to_tids": {
+    "D_444901548412b16e": [
+      "T_1f19aeb55de45a34"
+    ],
+    "D_cd671d1eef14a45e": [
+      "T_af3fe6d978269190"
+    ],
+    "D_ebbb7e15ffbacc0f": [
+      "T_2b325e7b4e8c7d3e"
+    ],
+    "D_e9219e339b75a69f": [
+      "T_ca5e664526828870"
+    ],
+    "D_18d00bc83c9b8756": [
+      "T_2a8761a4cdbb7909"
+    ],
+    "D_de346857196c0025": [
+      "T_431780b71b933fa5"
+    ],
+    "D_c02e99eff94913a1": [
+      "T_2ae5211e7d794155"
+    ],
+    "D_2f4df63fd4a5f792": [
+      "T_2d47ba7b55c01fe3"
+    ],
+    "D_5063c528222363d8": [
+      "T_bb693541bf70cca5"
+    ],
+    "D_010aa493963f2de3": [
+      "T_17ca6a10b196d0c6"
+    ],
+    "D_3f13204ce89dee53": [
+      "T_ae55bff99b611079"
+    ],
+    "D_07c6f70970bb63dc": [
+      "T_c1fa27a8aeabef72"
+    ],
+    "D_a8e1d0769a9be309": [
+      "T_6f178861bab01766"
+    ],
+    "D_3b25fb60d6b97596": [
+      "T_3bc241669f8745db"
+    ],
+    "D_d605434a54f6413e": [
+      "T_ed7e1f14f74a060b"
+    ],
+    "D_af9f802ad454b6cd": [
+      "T_e5e410a572f918d4"
+    ],
+    "D_6ed130f9cd9b4603": [
+      "T_afeb8414267d3ae9"
+    ],
+    "D_abe96871fd4ee86f": [
+      "T_64ff309684bd4872"
+    ],
+    "D_dac4c470a9bd3a32": [
+      "T_8a66b308378f1486"
+    ],
+    "D_b598ef00450a31d1": [
+      "T_7954394ff28d31ea"
+    ],
+    "D_ea32e7b49d9b2389": [
+      "T_0e81374637f6feda"
+    ],
+    "D_3833b0a6b1486b6a": [
+      "T_b2cb4c2bf7ddb064"
+    ],
+    "D_a592e0035301c0e4": [
+      "T_0de4fea8fba7c302"
+    ],
+    "D_517242db89265832": [
+      "T_17af6cd144e35ef1"
+    ],
+    "D_e45f015d473d66f0": [
+      "T_d4255bca61dd04b7"
+    ],
+    "D_21f8fd8b0b07c3bf": [
+      "T_3907eba803fe03b6"
+    ],
+    "D_25191ad7f7439123": [
+      "T_adfe9ed0c7ecbe76"
+    ],
+    "D_90c86aee7c31de66": [
+      "T_c7e86530759b2daf"
+    ],
+    "D_b8d775a098384f96": [
+      "T_c28a9b5aa42c20c4"
+    ],
+    "D_3511fadbd731642e": [
+      "T_b56eb946ebcfafef"
+    ],
+    "D_f0a70e1d68449ac5": [
+      "T_3a0bba6d36dd77d4"
+    ],
+    "D_94b83250c317b00d": [
+      "T_fade9bb221dc643b"
+    ],
+    "D_4c3e8a35e621b82a": [
+      "T_6e3a282ee29f2800"
+    ],
+    "D_ce9dac0fac729e2b": [
+      "T_bff64f9abe38f1b0"
+    ],
+    "D_a371ca498599d3fc": [
+      "T_eb441bba55ad967e"
+    ],
+    "D_38f9d9fd41a4e13a": [
+      "T_761a457d5692ea8c"
+    ],
+    "D_1c012a9251f98752": [
+      "T_a841a7e9f8ce04b6"
+    ],
+    "D_829990258f2c6857": [
+      "T_b638d5191a9d0e35"
+    ],
+    "D_48ee05e7b72474ce": [
+      "T_981c7b04f4c15931"
+    ],
+    "D_770916038e1f35f1": [
+      "T_606d222970f12f3a"
+    ],
+    "D_412f170f0d90554d": [
+      "T_e16542ba7082d7c2"
+    ],
+    "D_a68e88c96cb406c8": [
+      "T_6a972a23c3352f61"
+    ],
+    "D_1e3d877f93ff4d50": [
+      "T_c862cdce6d4ca195"
+    ],
+    "D_e86fcef5ba86da08": [
+      "T_59d7126843bb56a7"
+    ],
+    "D_ae1d48466a6640d1": [
+      "T_5719b4d1f1e33371"
+    ],
+    "D_40bed2f9f53a6e1b": [
+      "T_7a55fb6c3513adcf"
+    ],
+    "D_228d46abe14ac7c3": [
+      "T_e6430a44e549d81d"
+    ],
+    "D_c7bc5d06d2b2cce7": [
+      "T_cfa7ea75257fda98"
+    ],
+    "D_99e54dc8fcd7df1d": [
+      "T_0620a626345e23f5"
+    ],
+    "D_6a2c2ec256fc26bf": [
+      "T_6ea23ba826aa5a69"
+    ],
+    "D_c9b22ff3963b5d7a": [
+      "T_e5ae4b34da564da3"
+    ]
+  },
+  "neighbors": {
+    "S_b06ddb45e6beb58f": [
+      "D_444901548412b16e",
+      "E_38d7f9dee0a41ed0"
+    ],
+    "E_38d7f9dee0a41ed0": [
+      "D_444901548412b16e",
+      "S_b06ddb45e6beb58f",
+      "D_abe96871fd4ee86f",
+      "S_acd38a821d572c58",
+      "D_a371ca498599d3fc",
+      "S_e9cc61107f66b7a4"
+    ],
+    "D_444901548412b16e": [
+      "S_b06ddb45e6beb58f",
+      "E_38d7f9dee0a41ed0"
+    ],
+    "S_8e7bb0d54782a4e5": [
+      "D_cd671d1eef14a45e",
+      "E_01a2dd24b79ed3bc"
+    ],
+    "E_01a2dd24b79ed3bc": [
+      "D_cd671d1eef14a45e",
+      "S_8e7bb0d54782a4e5",
+      "D_dac4c470a9bd3a32",
+      "S_6e79fdf867018a90",
+      "D_38f9d9fd41a4e13a",
+      "S_e9ca38a768673c0c"
+    ],
+    "D_cd671d1eef14a45e": [
+      "S_8e7bb0d54782a4e5",
+      "E_01a2dd24b79ed3bc"
+    ],
+    "S_832f96d02907cb60": [
+      "D_ebbb7e15ffbacc0f",
+      "E_8a17348ffc02828b"
+    ],
+    "E_8a17348ffc02828b": [
+      "D_ebbb7e15ffbacc0f",
+      "S_832f96d02907cb60",
+      "D_b598ef00450a31d1",
+      "S_9600311a5fadffbe",
+      "D_1c012a9251f98752",
+      "S_d4d0efbbbba71219"
+    ],
+    "D_ebbb7e15ffbacc0f": [
+      "S_832f96d02907cb60",
+      "E_8a17348ffc02828b"
+    ],
+    "S_6d37f49d56489e8f": [
+      "D_e9219e339b75a69f",
+      "E_fe67f0584c9f5ff4"
+    ],
+    "E_fe67f0584c9f5ff4": [
+      "D_e9219e339b75a69f",
+      "S_6d37f49d56489e8f",
+      "D_ea32e7b49d9b2389",
+      "S_cf9622cbfed76b53",
+      "D_829990258f2c6857",
+      "S_314a377e4c4f8cb6"
+    ],
+    "D_e9219e339b75a69f": [
+      "S_6d37f49d56489e8f",
+      "E_fe67f0584c9f5ff4"
+    ],
+    "S_dbbf4b9ad599ccdb": [
+      "D_18d00bc83c9b8756",
+      "E_89b4a6db3c0b718f"
+    ],
+    "E_89b4a6db3c0b718f": [
+      "D_18d00bc83c9b8756",
+      "S_dbbf4b9ad599ccdb",
+      "D_3833b0a6b1486b6a",
+      "S_549df5ccfc5269f9",
+      "D_48ee05e7b72474ce",
+      "S_11cfaa1c8c9a5ae7"
+    ],
+    "D_18d00bc83c9b8756": [
+      "S_dbbf4b9ad599ccdb",
+      "E_89b4a6db3c0b718f"
+    ],
+    "S_e57c2610439aeafe": [
+      "D_de346857196c0025",
+      "E_1765b8dbb3a327db"
+    ],
+    "E_1765b8dbb3a327db": [
+      "D_de346857196c0025",
+      "S_e57c2610439aeafe",
+      "D_a592e0035301c0e4",
+      "S_2562c9c79b1b1cb5",
+      "D_770916038e1f35f1",
+      "S_af15487f876c5ec3"
+    ],
+    "D_de346857196c0025": [
+      "S_e57c2610439aeafe",
+      "E_1765b8dbb3a327db"
+    ],
+    "S_e02896747d873680": [
+      "D_c02e99eff94913a1",
+      "E_750309f68446c7f1"
+    ],
+    "E_750309f68446c7f1": [
+      "D_c02e99eff94913a1",
+      "S_e02896747d873680",
+      "D_517242db89265832",
+      "S_a5e90e7a5ae60455",
+      "D_412f170f0d90554d",
+      "S_42f31ad8f4c1d034"
+    ],
+    "D_c02e99eff94913a1": [
+      "S_e02896747d873680",
+      "E_750309f68446c7f1"
+    ],
+    "S_8a6480968e689f70": [
+      "D_2f4df63fd4a5f792",
+      "E_2b19aa0a54383535"
+    ],
+    "E_2b19aa0a54383535": [
+      "D_2f4df63fd4a5f792",
+      "S_8a6480968e689f70",
+      "D_e45f015d473d66f0",
+      "S_073f5b8026f71574",
+      "D_a68e88c96cb406c8",
+      "S_d322a3239e34d895"
+    ],
+    "D_2f4df63fd4a5f792": [
+      "S_8a6480968e689f70",
+      "E_2b19aa0a54383535"
+    ],
+    "S_201f2ded9c2879d9": [
+      "D_5063c528222363d8",
+      "E_0a41057f3c7392a8"
+    ],
+    "E_0a41057f3c7392a8": [
+      "D_5063c528222363d8",
+      "S_201f2ded9c2879d9",
+      "D_21f8fd8b0b07c3bf",
+      "S_c9f54d42ee94f585",
+      "D_1e3d877f93ff4d50",
+      "S_e7706afab6b88793"
+    ],
+    "D_5063c528222363d8": [
+      "S_201f2ded9c2879d9",
+      "E_0a41057f3c7392a8"
+    ],
+    "S_05e4e04d348f2065": [
+      "D_010aa493963f2de3",
+      "E_b9fb1d4489b0b879"
+    ],
+    "E_b9fb1d4489b0b879": [
+      "D_010aa493963f2de3",
+      "S_05e4e04d348f2065",
+      "D_25191ad7f7439123",
+      "S_0dfd93a4d188f28d",
+      "D_e86fcef5ba86da08",
+      "S_04eb469b3b78cb2d"
+    ],
+    "D_010aa493963f2de3": [
+      "S_05e4e04d348f2065",
+      "E_b9fb1d4489b0b879"
+    ],
+    "S_e1c235810811410a": [
+      "D_3f13204ce89dee53",
+      "E_628df02e885b768b"
+    ],
+    "E_628df02e885b768b": [
+      "D_3f13204ce89dee53",
+      "S_e1c235810811410a",
+      "D_90c86aee7c31de66",
+      "S_e45ef826c4140c5c",
+      "D_ae1d48466a6640d1",
+      "S_a4697c1f1c303fa3"
+    ],
+    "D_3f13204ce89dee53": [
+      "S_e1c235810811410a",
+      "E_628df02e885b768b"
+    ],
+    "S_7d167967fc223b6a": [
+      "D_07c6f70970bb63dc",
+      "E_cab61900433fd8be"
+    ],
+    "E_cab61900433fd8be": [
+      "D_07c6f70970bb63dc",
+      "S_7d167967fc223b6a",
+      "D_b8d775a098384f96",
+      "S_7ce2b7cd2d0fbc42",
+      "D_40bed2f9f53a6e1b",
+      "S_3c4e5c1a713ccc72"
+    ],
+    "D_07c6f70970bb63dc": [
+      "S_7d167967fc223b6a",
+      "E_cab61900433fd8be"
+    ],
+    "S_c5cc1c55d719e9b8": [
+      "D_a8e1d0769a9be309",
+      "E_dbe3660b0edf10ac"
+    ],
+    "E_dbe3660b0edf10ac": [
+      "D_a8e1d0769a9be309",
+      "S_c5cc1c55d719e9b8",
+      "D_3511fadbd731642e",
+      "S_c8c4035be3fb8020",
+      "D_228d46abe14ac7c3",
+      "S_e0c10d7ff6607a53"
+    ],
+    "D_a8e1d0769a9be309": [
+      "S_c5cc1c55d719e9b8",
+      "E_dbe3660b0edf10ac"
+    ],
+    "S_c1af9298aeda784c": [
+      "D_3b25fb60d6b97596",
+      "E_6d3075d129e92a30"
+    ],
+    "E_6d3075d129e92a30": [
+      "D_3b25fb60d6b97596",
+      "S_c1af9298aeda784c",
+      "D_f0a70e1d68449ac5",
+      "S_4131590730a17a9f",
+      "D_c7bc5d06d2b2cce7",
+      "S_e621bf8e3c636caa"
+    ],
+    "D_3b25fb60d6b97596": [
+      "S_c1af9298aeda784c",
+      "E_6d3075d129e92a30"
+    ],
+    "S_86e2dd7949d6bbcf": [
+      "D_d605434a54f6413e",
+      "E_7f52bb62811b5465"
+    ],
+    "E_7f52bb62811b5465": [
+      "D_d605434a54f6413e",
+      "S_86e2dd7949d6bbcf",
+      "D_94b83250c317b00d",
+      "S_5e4e3eef3e47147b",
+      "D_99e54dc8fcd7df1d",
+      "S_59db7c10f134be67"
+    ],
+    "D_d605434a54f6413e": [
+      "S_86e2dd7949d6bbcf",
+      "E_7f52bb62811b5465"
+    ],
+    "S_e1b1b3eda30f4977": [
+      "D_af9f802ad454b6cd",
+      "E_6eb4db87ce708dfa"
+    ],
+    "E_6eb4db87ce708dfa": [
+      "D_af9f802ad454b6cd",
+      "S_e1b1b3eda30f4977",
+      "D_4c3e8a35e621b82a",
+      "S_0af88c0bde688cca",
+      "D_6a2c2ec256fc26bf",
+      "S_68c6a2b791e73dfb"
+    ],
+    "D_af9f802ad454b6cd": [
+      "S_e1b1b3eda30f4977",
+      "E_6eb4db87ce708dfa"
+    ],
+    "S_f9c0d52fa9655274": [
+      "D_6ed130f9cd9b4603",
+      "E_eeb6b3187ca30245"
+    ],
+    "E_eeb6b3187ca30245": [
+      "D_6ed130f9cd9b4603",
+      "S_f9c0d52fa9655274",
+      "D_ce9dac0fac729e2b",
+      "S_3a939d2361430b74",
+      "D_c9b22ff3963b5d7a",
+      "S_fec1a64819c2fed7"
+    ],
+    "D_6ed130f9cd9b4603": [
+      "S_f9c0d52fa9655274",
+      "E_eeb6b3187ca30245"
+    ],
+    "S_acd38a821d572c58": [
+      "D_abe96871fd4ee86f",
+      "E_38d7f9dee0a41ed0"
+    ],
+    "D_abe96871fd4ee86f": [
+      "S_acd38a821d572c58",
+      "E_38d7f9dee0a41ed0"
+    ],
+    "S_6e79fdf867018a90": [
+      "D_dac4c470a9bd3a32",
+      "E_01a2dd24b79ed3bc"
+    ],
+    "D_dac4c470a9bd3a32": [
+      "S_6e79fdf867018a90",
+      "E_01a2dd24b79ed3bc"
+    ],
+    "S_9600311a5fadffbe": [
+      "D_b598ef00450a31d1",
+      "E_8a17348ffc02828b"
+    ],
+    "D_b598ef00450a31d1": [
+      "S_9600311a5fadffbe",
+      "E_8a17348ffc02828b"
+    ],
+    "S_cf9622cbfed76b53": [
+      "D_ea32e7b49d9b2389",
+      "E_fe67f0584c9f5ff4"
+    ],
+    "D_ea32e7b49d9b2389": [
+      "S_cf9622cbfed76b53",
+      "E_fe67f0584c9f5ff4"
+    ],
+    "S_549df5ccfc5269f9": [
+      "D_3833b0a6b1486b6a",
+      "E_89b4a6db3c0b718f"
+    ],
+    "D_3833b0a6b1486b6a": [
+      "S_549df5ccfc5269f9",
+      "E_89b4a6db3c0b718f"
+    ],
+    "S_2562c9c79b1b1cb5": [
+      "D_a592e0035301c0e4",
+      "E_1765b8dbb3a327db"
+    ],
+    "D_a592e0035301c0e4": [
+      "S_2562c9c79b1b1cb5",
+      "E_1765b8dbb3a327db"
+    ],
+    "S_a5e90e7a5ae60455": [
+      "D_517242db89265832",
+      "E_750309f68446c7f1"
+    ],
+    "D_517242db89265832": [
+      "S_a5e90e7a5ae60455",
+      "E_750309f68446c7f1"
+    ],
+    "S_073f5b8026f71574": [
+      "D_e45f015d473d66f0",
+      "E_2b19aa0a54383535"
+    ],
+    "D_e45f015d473d66f0": [
+      "S_073f5b8026f71574",
+      "E_2b19aa0a54383535"
+    ],
+    "S_c9f54d42ee94f585": [
+      "D_21f8fd8b0b07c3bf",
+      "E_0a41057f3c7392a8"
+    ],
+    "D_21f8fd8b0b07c3bf": [
+      "S_c9f54d42ee94f585",
+      "E_0a41057f3c7392a8"
+    ],
+    "S_0dfd93a4d188f28d": [
+      "D_25191ad7f7439123",
+      "E_b9fb1d4489b0b879"
+    ],
+    "D_25191ad7f7439123": [
+      "S_0dfd93a4d188f28d",
+      "E_b9fb1d4489b0b879"
+    ],
+    "S_e45ef826c4140c5c": [
+      "D_90c86aee7c31de66",
+      "E_628df02e885b768b"
+    ],
+    "D_90c86aee7c31de66": [
+      "S_e45ef826c4140c5c",
+      "E_628df02e885b768b"
+    ],
+    "S_7ce2b7cd2d0fbc42": [
+      "D_b8d775a098384f96",
+      "E_cab61900433fd8be"
+    ],
+    "D_b8d775a098384f96": [
+      "S_7ce2b7cd2d0fbc42",
+      "E_cab61900433fd8be"
+    ],
+    "S_c8c4035be3fb8020": [
+      "D_3511fadbd731642e",
+      "E_dbe3660b0edf10ac"
+    ],
+    "D_3511fadbd731642e": [
+      "S_c8c4035be3fb8020",
+      "E_dbe3660b0edf10ac"
+    ],
+    "S_4131590730a17a9f": [
+      "D_f0a70e1d68449ac5",
+      "E_6d3075d129e92a30"
+    ],
+    "D_f0a70e1d68449ac5": [
+      "S_4131590730a17a9f",
+      "E_6d3075d129e92a30"
+    ],
+    "S_5e4e3eef3e47147b": [
+      "D_94b83250c317b00d",
+      "E_7f52bb62811b5465"
+    ],
+    "D_94b83250c317b00d": [
+      "S_5e4e3eef3e47147b",
+      "E_7f52bb62811b5465"
+    ],
+    "S_0af88c0bde688cca": [
+      "D_4c3e8a35e621b82a",
+      "E_6eb4db87ce708dfa"
+    ],
+    "D_4c3e8a35e621b82a": [
+      "S_0af88c0bde688cca",
+      "E_6eb4db87ce708dfa"
+    ],
+    "S_3a939d2361430b74": [
+      "D_ce9dac0fac729e2b",
+      "E_eeb6b3187ca30245"
+    ],
+    "D_ce9dac0fac729e2b": [
+      "S_3a939d2361430b74",
+      "E_eeb6b3187ca30245"
+    ],
+    "S_e9cc61107f66b7a4": [
+      "D_a371ca498599d3fc",
+      "E_38d7f9dee0a41ed0"
+    ],
+    "D_a371ca498599d3fc": [
+      "S_e9cc61107f66b7a4",
+      "E_38d7f9dee0a41ed0"
+    ],
+    "S_e9ca38a768673c0c": [
+      "D_38f9d9fd41a4e13a",
+      "E_01a2dd24b79ed3bc"
+    ],
+    "D_38f9d9fd41a4e13a": [
+      "S_e9ca38a768673c0c",
+      "E_01a2dd24b79ed3bc"
+    ],
+    "S_d4d0efbbbba71219": [
+      "D_1c012a9251f98752",
+      "E_8a17348ffc02828b"
+    ],
+    "D_1c012a9251f98752": [
+      "S_d4d0efbbbba71219",
+      "E_8a17348ffc02828b"
+    ],
+    "S_314a377e4c4f8cb6": [
+      "D_829990258f2c6857",
+      "E_fe67f0584c9f5ff4"
+    ],
+    "D_829990258f2c6857": [
+      "S_314a377e4c4f8cb6",
+      "E_fe67f0584c9f5ff4"
+    ],
+    "S_11cfaa1c8c9a5ae7": [
+      "D_48ee05e7b72474ce",
+      "E_89b4a6db3c0b718f"
+    ],
+    "D_48ee05e7b72474ce": [
+      "S_11cfaa1c8c9a5ae7",
+      "E_89b4a6db3c0b718f"
+    ],
+    "S_af15487f876c5ec3": [
+      "D_770916038e1f35f1",
+      "E_1765b8dbb3a327db"
+    ],
+    "D_770916038e1f35f1": [
+      "S_af15487f876c5ec3",
+      "E_1765b8dbb3a327db"
+    ],
+    "S_42f31ad8f4c1d034": [
+      "D_412f170f0d90554d",
+      "E_750309f68446c7f1"
+    ],
+    "D_412f170f0d90554d": [
+      "S_42f31ad8f4c1d034",
+      "E_750309f68446c7f1"
+    ],
+    "S_d322a3239e34d895": [
+      "D_a68e88c96cb406c8",
+      "E_2b19aa0a54383535"
+    ],
+    "D_a68e88c96cb406c8": [
+      "S_d322a3239e34d895",
+      "E_2b19aa0a54383535"
+    ],
+    "S_e7706afab6b88793": [
+      "D_1e3d877f93ff4d50",
+      "E_0a41057f3c7392a8"
+    ],
+    "D_1e3d877f93ff4d50": [
+      "S_e7706afab6b88793",
+      "E_0a41057f3c7392a8"
+    ],
+    "S_04eb469b3b78cb2d": [
+      "D_e86fcef5ba86da08",
+      "E_b9fb1d4489b0b879"
+    ],
+    "D_e86fcef5ba86da08": [
+      "S_04eb469b3b78cb2d",
+      "E_b9fb1d4489b0b879"
+    ],
+    "S_a4697c1f1c303fa3": [
+      "D_ae1d48466a6640d1",
+      "E_628df02e885b768b"
+    ],
+    "D_ae1d48466a6640d1": [
+      "S_a4697c1f1c303fa3",
+      "E_628df02e885b768b"
+    ],
+    "S_3c4e5c1a713ccc72": [
+      "D_40bed2f9f53a6e1b",
+      "E_cab61900433fd8be"
+    ],
+    "D_40bed2f9f53a6e1b": [
+      "S_3c4e5c1a713ccc72",
+      "E_cab61900433fd8be"
+    ],
+    "S_e0c10d7ff6607a53": [
+      "D_228d46abe14ac7c3",
+      "E_dbe3660b0edf10ac"
+    ],
+    "D_228d46abe14ac7c3": [
+      "S_e0c10d7ff6607a53",
+      "E_dbe3660b0edf10ac"
+    ],
+    "S_e621bf8e3c636caa": [
+      "D_c7bc5d06d2b2cce7",
+      "E_6d3075d129e92a30"
+    ],
+    "D_c7bc5d06d2b2cce7": [
+      "S_e621bf8e3c636caa",
+      "E_6d3075d129e92a30"
+    ],
+    "S_59db7c10f134be67": [
+      "D_99e54dc8fcd7df1d",
+      "E_7f52bb62811b5465"
+    ],
+    "D_99e54dc8fcd7df1d": [
+      "S_59db7c10f134be67",
+      "E_7f52bb62811b5465"
+    ],
+    "S_68c6a2b791e73dfb": [
+      "D_6a2c2ec256fc26bf",
+      "E_6eb4db87ce708dfa"
+    ],
+    "D_6a2c2ec256fc26bf": [
+      "S_68c6a2b791e73dfb",
+      "E_6eb4db87ce708dfa"
+    ],
+    "S_fec1a64819c2fed7": [
+      "D_c9b22ff3963b5d7a",
+      "E_eeb6b3187ca30245"
+    ],
+    "D_c9b22ff3963b5d7a": [
+      "S_fec1a64819c2fed7",
+      "E_eeb6b3187ca30245"
+    ]
+  },
+  "tf_s": {
+    "S_b06ddb45e6beb58f": {
+      "def": 0.2222222222222222,
+      "extract": 0.2222222222222222,
+      "symbols": 0.2222222222222222,
+      "text": 0.1111111111111111,
+      "list": 0.1111111111111111,
+      "str": 0.1111111111111111
+    },
+    "S_8e7bb0d54782a4e5": {
+      "def": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.21428571428571427,
+      "prov": 0.07142857142857142,
+      "list": 0.07142857142857142,
+      "logicclaim": 0.07142857142857142
+    },
+    "S_832f96d02907cb60": {
+      "extract": 0.14285714285714285,
+      "symbols": 0.14285714285714285,
+      "complexity": 0.14285714285714285,
+      "7": 0.14285714285714285,
+      "candidate": 0.14285714285714285,
+      "for": 0.14285714285714285,
+      "refactor": 0.14285714285714285
+    },
+    "S_6d37f49d56489e8f": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "future": 0.25
+    },
+    "S_dbbf4b9ad599ccdb": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "re": 0.25
+    },
+    "S_e57c2610439aeafe": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "typing": 0.25
+    },
+    "S_e02896747d873680": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "ir": 0.25
+    },
+    "S_8a6480968e689f70": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "add": 0.2
+    },
+    "S_201f2ded9c2879d9": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "append": 0.2
+    },
+    "S_05e4e04d348f2065": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "finditer": 0.2
+    },
+    "S_e1c235810811410a": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "group": 0.2
+    },
+    "S_7d167967fc223b6a": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "lower": 0.2
+    },
+    "S_c5cc1c55d719e9b8": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "append": 0.14285714285714285
+    },
+    "S_c1af9298aeda784c": {
+      "if": 0.125,
+      "derive": 0.125,
+      "claims": 0.125,
+      "from": 0.125,
+      "text": 0.125,
+      "then": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125
+    },
+    "S_86e2dd7949d6bbcf": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "group": 0.14285714285714285
+    },
+    "S_e1b1b3eda30f4977": {
+      "if": 0.125,
+      "derive": 0.125,
+      "claims": 0.125,
+      "from": 0.125,
+      "text": 0.125,
+      "then": 0.125,
+      "make": 0.125,
+      "claim": 0.125
+    },
+    "S_f9c0d52fa9655274": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "match": 0.14285714285714285
+    },
+    "S_acd38a821d572c58": {
+      "def": 0.2222222222222222,
+      "extract": 0.2222222222222222,
+      "symbols": 0.2222222222222222,
+      "text": 0.1111111111111111,
+      "list": 0.1111111111111111,
+      "str": 0.1111111111111111
+    },
+    "S_6e79fdf867018a90": {
+      "def": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.21428571428571427,
+      "prov": 0.07142857142857142,
+      "list": 0.07142857142857142,
+      "logicclaim": 0.07142857142857142
+    },
+    "S_9600311a5fadffbe": {
+      "extract": 0.14285714285714285,
+      "symbols": 0.14285714285714285,
+      "complexity": 0.14285714285714285,
+      "7": 0.14285714285714285,
+      "candidate": 0.14285714285714285,
+      "for": 0.14285714285714285,
+      "refactor": 0.14285714285714285
+    },
+    "S_cf9622cbfed76b53": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "future": 0.25
+    },
+    "S_549df5ccfc5269f9": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "re": 0.25
+    },
+    "S_2562c9c79b1b1cb5": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "typing": 0.25
+    },
+    "S_a5e90e7a5ae60455": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "ir": 0.25
+    },
+    "S_073f5b8026f71574": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "add": 0.2
+    },
+    "S_c9f54d42ee94f585": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "append": 0.2
+    },
+    "S_0dfd93a4d188f28d": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "finditer": 0.2
+    },
+    "S_e45ef826c4140c5c": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "group": 0.2
+    },
+    "S_7ce2b7cd2d0fbc42": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "lower": 0.2
+    },
+    "S_c8c4035be3fb8020": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "append": 0.14285714285714285
+    },
+    "S_4131590730a17a9f": {
+      "if": 0.125,
+      "derive": 0.125,
+      "claims": 0.125,
+      "from": 0.125,
+      "text": 0.125,
+      "then": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125
+    },
+    "S_5e4e3eef3e47147b": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "group": 0.14285714285714285
+    },
+    "S_0af88c0bde688cca": {
+      "if": 0.125,
+      "derive": 0.125,
+      "claims": 0.125,
+      "from": 0.125,
+      "text": 0.125,
+      "then": 0.125,
+      "make": 0.125,
+      "claim": 0.125
+    },
+    "S_3a939d2361430b74": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "match": 0.14285714285714285
+    },
+    "S_e9cc61107f66b7a4": {
+      "def": 0.2222222222222222,
+      "extract": 0.2222222222222222,
+      "symbols": 0.2222222222222222,
+      "text": 0.1111111111111111,
+      "list": 0.1111111111111111,
+      "str": 0.1111111111111111
+    },
+    "S_e9ca38a768673c0c": {
+      "def": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.21428571428571427,
+      "prov": 0.07142857142857142,
+      "list": 0.07142857142857142,
+      "logicclaim": 0.07142857142857142
+    },
+    "S_d4d0efbbbba71219": {
+      "extract": 0.14285714285714285,
+      "symbols": 0.14285714285714285,
+      "complexity": 0.14285714285714285,
+      "7": 0.14285714285714285,
+      "candidate": 0.14285714285714285,
+      "for": 0.14285714285714285,
+      "refactor": 0.14285714285714285
+    },
+    "S_314a377e4c4f8cb6": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "future": 0.25
+    },
+    "S_11cfaa1c8c9a5ae7": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "re": 0.25
+    },
+    "S_af15487f876c5ec3": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "typing": 0.25
+    },
+    "S_42f31ad8f4c1d034": {
+      "if": 0.25,
+      "derive": 0.25,
+      "then": 0.25,
+      "ir": 0.25
+    },
+    "S_d322a3239e34d895": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "add": 0.2
+    },
+    "S_e7706afab6b88793": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "append": 0.2
+    },
+    "S_04eb469b3b78cb2d": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "finditer": 0.2
+    },
+    "S_a4697c1f1c303fa3": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "group": 0.2
+    },
+    "S_3c4e5c1a713ccc72": {
+      "if": 0.2,
+      "extract": 0.2,
+      "symbols": 0.2,
+      "then": 0.2,
+      "lower": 0.2
+    },
+    "S_e0c10d7ff6607a53": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "append": 0.14285714285714285
+    },
+    "S_e621bf8e3c636caa": {
+      "if": 0.125,
+      "derive": 0.125,
+      "claims": 0.125,
+      "from": 0.125,
+      "text": 0.125,
+      "then": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125
+    },
+    "S_59db7c10f134be67": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "group": 0.14285714285714285
+    },
+    "S_68c6a2b791e73dfb": {
+      "if": 0.125,
+      "derive": 0.125,
+      "claims": 0.125,
+      "from": 0.125,
+      "text": 0.125,
+      "then": 0.125,
+      "make": 0.125,
+      "claim": 0.125
+    },
+    "S_fec1a64819c2fed7": {
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "claims": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "text": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "match": 0.14285714285714285
+    }
+  },
+  "tf_e": {
+    "E_38d7f9dee0a41ed0": {
+      "proposition": 0.08333333333333333,
+      "derived": 0.08333333333333333,
+      "from": 0.08333333333333333,
+      "def": 0.16666666666666666,
+      "extract": 0.16666666666666666,
+      "symbols": 0.16666666666666666,
+      "text": 0.08333333333333333,
+      "list": 0.08333333333333333,
+      "str": 0.08333333333333333
+    },
+    "E_01a2dd24b79ed3bc": {
+      "proposition": 0.058823529411764705,
+      "derived": 0.058823529411764705,
+      "from": 0.1764705882352941,
+      "def": 0.11764705882352941,
+      "derive": 0.11764705882352941,
+      "claims": 0.11764705882352941,
+      "text": 0.1764705882352941,
+      "prov": 0.058823529411764705,
+      "list": 0.058823529411764705,
+      "logicclaim": 0.058823529411764705
+    },
+    "E_8a17348ffc02828b": {
+      "proposition": 0.1,
+      "derived": 0.1,
+      "from": 0.1,
+      "extract": 0.1,
+      "symbols": 0.1,
+      "complexity": 0.1,
+      "7": 0.1,
+      "candidate": 0.1,
+      "for": 0.1,
+      "refactor": 0.1
+    },
+    "E_fe67f0584c9f5ff4": {
+      "proposition": 0.14285714285714285,
+      "derived": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "future": 0.14285714285714285
+    },
+    "E_89b4a6db3c0b718f": {
+      "proposition": 0.14285714285714285,
+      "derived": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "re": 0.14285714285714285
+    },
+    "E_1765b8dbb3a327db": {
+      "proposition": 0.14285714285714285,
+      "derived": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "typing": 0.14285714285714285
+    },
+    "E_750309f68446c7f1": {
+      "proposition": 0.14285714285714285,
+      "derived": 0.14285714285714285,
+      "from": 0.14285714285714285,
+      "if": 0.14285714285714285,
+      "derive": 0.14285714285714285,
+      "then": 0.14285714285714285,
+      "ir": 0.14285714285714285
+    },
+    "E_2b19aa0a54383535": {
+      "proposition": 0.125,
+      "derived": 0.125,
+      "from": 0.125,
+      "if": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125,
+      "then": 0.125,
+      "add": 0.125
+    },
+    "E_0a41057f3c7392a8": {
+      "proposition": 0.125,
+      "derived": 0.125,
+      "from": 0.125,
+      "if": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125,
+      "then": 0.125,
+      "append": 0.125
+    },
+    "E_b9fb1d4489b0b879": {
+      "proposition": 0.125,
+      "derived": 0.125,
+      "from": 0.125,
+      "if": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125,
+      "then": 0.125,
+      "finditer": 0.125
+    },
+    "E_628df02e885b768b": {
+      "proposition": 0.125,
+      "derived": 0.125,
+      "from": 0.125,
+      "if": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125,
+      "then": 0.125,
+      "group": 0.125
+    },
+    "E_cab61900433fd8be": {
+      "proposition": 0.125,
+      "derived": 0.125,
+      "from": 0.125,
+      "if": 0.125,
+      "extract": 0.125,
+      "symbols": 0.125,
+      "then": 0.125,
+      "lower": 0.125
+    },
+    "E_dbe3660b0edf10ac": {
+      "proposition": 0.1,
+      "derived": 0.1,
+      "from": 0.2,
+      "if": 0.1,
+      "derive": 0.1,
+      "claims": 0.1,
+      "text": 0.1,
+      "then": 0.1,
+      "append": 0.1
+    },
+    "E_6d3075d129e92a30": {
+      "proposition": 0.09090909090909091,
+      "derived": 0.09090909090909091,
+      "from": 0.18181818181818182,
+      "if": 0.09090909090909091,
+      "derive": 0.09090909090909091,
+      "claims": 0.09090909090909091,
+      "text": 0.09090909090909091,
+      "then": 0.09090909090909091,
+      "extract": 0.09090909090909091,
+      "symbols": 0.09090909090909091
+    },
+    "E_7f52bb62811b5465": {
+      "proposition": 0.1,
+      "derived": 0.1,
+      "from": 0.2,
+      "if": 0.1,
+      "derive": 0.1,
+      "claims": 0.1,
+      "text": 0.1,
+      "then": 0.1,
+      "group": 0.1
+    },
+    "E_6eb4db87ce708dfa": {
+      "proposition": 0.09090909090909091,
+      "derived": 0.09090909090909091,
+      "from": 0.18181818181818182,
+      "if": 0.09090909090909091,
+      "derive": 0.09090909090909091,
+      "claims": 0.09090909090909091,
+      "text": 0.09090909090909091,
+      "then": 0.09090909090909091,
+      "make": 0.09090909090909091,
+      "claim": 0.09090909090909091
+    },
+    "E_eeb6b3187ca30245": {
+      "proposition": 0.1,
+      "derived": 0.1,
+      "from": 0.2,
+      "if": 0.1,
+      "derive": 0.1,
+      "claims": 0.1,
+      "text": 0.1,
+      "then": 0.1,
+      "match": 0.1
+    }
+  },
+  "tf_d": {
+    "D_444901548412b16e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_cd671d1eef14a45e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_ebbb7e15ffbacc0f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_e9219e339b75a69f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_18d00bc83c9b8756": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_de346857196c0025": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_c02e99eff94913a1": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_2f4df63fd4a5f792": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_5063c528222363d8": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_010aa493963f2de3": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_3f13204ce89dee53": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_07c6f70970bb63dc": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a8e1d0769a9be309": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_3b25fb60d6b97596": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_d605434a54f6413e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_af9f802ad454b6cd": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_6ed130f9cd9b4603": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_abe96871fd4ee86f": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_dac4c470a9bd3a32": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_b598ef00450a31d1": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_ea32e7b49d9b2389": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_3833b0a6b1486b6a": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a592e0035301c0e4": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_517242db89265832": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_e45f015d473d66f0": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_21f8fd8b0b07c3bf": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_25191ad7f7439123": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_90c86aee7c31de66": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_b8d775a098384f96": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_3511fadbd731642e": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_f0a70e1d68449ac5": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_94b83250c317b00d": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_4c3e8a35e621b82a": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_ce9dac0fac729e2b": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a371ca498599d3fc": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_38f9d9fd41a4e13a": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_1c012a9251f98752": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_829990258f2c6857": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_48ee05e7b72474ce": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_770916038e1f35f1": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_412f170f0d90554d": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_a68e88c96cb406c8": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_1e3d877f93ff4d50": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_e86fcef5ba86da08": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_ae1d48466a6640d1": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_40bed2f9f53a6e1b": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_228d46abe14ac7c3": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_c7bc5d06d2b2cce7": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_99e54dc8fcd7df1d": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_6a2c2ec256fc26bf": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    },
+    "D_c9b22ff3963b5d7a": {
+      "phase1": 0.09090909090909091,
+      "stub": 0.09090909090909091,
+      "implication": 0.09090909090909091,
+      "minimal": 0.09090909090909091,
+      "scaffold": 0.09090909090909091,
+      "treat": 0.09090909090909091,
+      "statement": 0.18181818181818182,
+      "as": 0.09090909090909091,
+      "candidate": 0.09090909090909091,
+      "lemma": 0.09090909090909091
+    }
+  },
+  "recent_triangle_trace": [
+    "T_afeb8414267d3ae9",
+    "T_b2cb4c2bf7ddb064",
+    "T_af3fe6d978269190",
+    "T_b56eb946ebcfafef",
+    "T_6f178861bab01766",
+    "T_8a66b308378f1486",
+    "T_e5e410a572f918d4",
+    "T_3bc241669f8745db",
+    "T_2a8761a4cdbb7909",
+    "T_6e3a282ee29f2800",
+    "T_fade9bb221dc643b",
+    "T_afeb8414267d3ae9",
+    "T_ed7e1f14f74a060b",
+    "T_6e3a282ee29f2800",
+    "T_3bc241669f8745db",
+    "T_0e81374637f6feda",
+    "T_e5e410a572f918d4",
+    "T_b56eb946ebcfafef",
+    "T_6f178861bab01766",
+    "T_ca5e664526828870",
+    "T_8a66b308378f1486",
+    "T_3a0bba6d36dd77d4",
+    "T_bff64f9abe38f1b0",
+    "T_e5e410a572f918d4",
+    "T_8a66b308378f1486",
+    "T_6e3a282ee29f2800",
+    "T_3a0bba6d36dd77d4",
+    "T_ed7e1f14f74a060b",
+    "T_b56eb946ebcfafef",
+    "T_af3fe6d978269190",
+    "T_bff64f9abe38f1b0",
+    "T_6f178861bab01766",
+    "T_fade9bb221dc643b",
+    "T_afeb8414267d3ae9",
+    "T_3bc241669f8745db",
+    "T_eb441bba55ad967e",
+    "T_3a0bba6d36dd77d4",
+    "T_64ff309684bd4872",
+    "T_d4255bca61dd04b7",
+    "T_af3fe6d978269190",
+    "T_eb441bba55ad967e",
+    "T_3bc241669f8745db",
+    "T_3907eba803fe03b6",
+    "T_2d47ba7b55c01fe3",
+    "T_c7e86530759b2daf",
+    "T_bb693541bf70cca5",
+    "T_1f19aeb55de45a34",
+    "T_c28a9b5aa42c20c4",
+    "T_761a457d5692ea8c",
+    "T_af3fe6d978269190",
+    "T_761a457d5692ea8c",
+    "T_8a66b308378f1486",
+    "T_bff64f9abe38f1b0",
+    "T_ed7e1f14f74a060b",
+    "T_6f178861bab01766",
+    "T_b56eb946ebcfafef",
+    "T_e5e410a572f918d4",
+    "T_3a0bba6d36dd77d4",
+    "T_fade9bb221dc643b",
+    "T_3bc241669f8745db",
+    "T_afeb8414267d3ae9",
+    "T_a841a7e9f8ce04b6",
+    "T_1f19aeb55de45a34",
+    "T_a841a7e9f8ce04b6",
+    "T_7954394ff28d31ea",
+    "T_eb441bba55ad967e",
+    "T_2b325e7b4e8c7d3e",
+    "T_64ff309684bd4872",
+    "T_17ca6a10b196d0c6",
+    "T_d4255bca61dd04b7",
+    "T_c7e86530759b2daf",
+    "T_adfe9ed0c7ecbe76",
+    "T_3bc241669f8745db",
+    "T_2d47ba7b55c01fe3",
+    "T_b638d5191a9d0e35",
+    "T_0de4fea8fba7c302",
+    "T_17af6cd144e35ef1",
+    "T_0e81374637f6feda",
+    "T_6f178861bab01766",
+    "T_431780b71b933fa5",
+    "T_afeb8414267d3ae9",
+    "T_2a8761a4cdbb7909",
+    "T_b638d5191a9d0e35",
+    "T_ed7e1f14f74a060b",
+    "T_2ae5211e7d794155",
+    "T_bff64f9abe38f1b0",
+    "T_fade9bb221dc643b",
+    "T_981c7b04f4c15931",
+    "T_981c7b04f4c15931",
+    "T_0e81374637f6feda",
+    "T_2a8761a4cdbb7909",
+    "T_ca5e664526828870",
+    "T_0de4fea8fba7c302",
+    "T_b2cb4c2bf7ddb064",
+    "T_afeb8414267d3ae9",
+    "T_fade9bb221dc643b",
+    "T_b638d5191a9d0e35",
+    "T_17af6cd144e35ef1",
+    "T_bff64f9abe38f1b0",
+    "T_2ae5211e7d794155",
+    "T_606d222970f12f3a",
+    "T_981c7b04f4c15931",
+    "T_bff64f9abe38f1b0",
+    "T_2ae5211e7d794155",
+    "T_431780b71b933fa5",
+    "T_b2cb4c2bf7ddb064",
+    "T_606d222970f12f3a",
+    "T_b638d5191a9d0e35",
+    "T_0de4fea8fba7c302",
+    "T_17af6cd144e35ef1",
+    "T_0e81374637f6feda",
+    "T_2a8761a4cdbb7909",
+    "T_ca5e664526828870",
+    "T_e16542ba7082d7c2",
+    "T_2ae5211e7d794155",
+    "T_2a8761a4cdbb7909",
+    "T_e16542ba7082d7c2",
+    "T_b638d5191a9d0e35",
+    "T_ca5e664526828870",
+    "T_0e81374637f6feda",
+    "T_17af6cd144e35ef1",
+    "T_431780b71b933fa5",
+    "T_981c7b04f4c15931",
+    "T_0de4fea8fba7c302",
+    "T_606d222970f12f3a",
+    "T_b2cb4c2bf7ddb064",
+    "T_6a972a23c3352f61",
+    "T_c28a9b5aa42c20c4",
+    "T_6a972a23c3352f61",
+    "T_adfe9ed0c7ecbe76",
+    "T_17ca6a10b196d0c6",
+    "T_d4255bca61dd04b7",
+    "T_3a0bba6d36dd77d4",
+    "T_ae55bff99b611079",
+    "T_c7e86530759b2daf",
+    "T_bb693541bf70cca5",
+    "T_2d47ba7b55c01fe3",
+    "T_c1fa27a8aeabef72",
+    "T_3907eba803fe03b6",
+    "T_c862cdce6d4ca195",
+    "T_c7e86530759b2daf",
+    "T_c862cdce6d4ca195",
+    "T_bb693541bf70cca5",
+    "T_c28a9b5aa42c20c4",
+    "T_17ca6a10b196d0c6",
+    "T_3907eba803fe03b6",
+    "T_d4255bca61dd04b7",
+    "T_adfe9ed0c7ecbe76",
+    "T_6a972a23c3352f61",
+    "T_ae55bff99b611079",
+    "T_2d47ba7b55c01fe3",
+    "T_c1fa27a8aeabef72",
+    "T_59d7126843bb56a7",
+    "T_3907eba803fe03b6",
+    "T_2d47ba7b55c01fe3",
+    "T_59d7126843bb56a7",
+    "T_c862cdce6d4ca195",
+    "T_c7e86530759b2daf",
+    "T_bb693541bf70cca5",
+    "T_d4255bca61dd04b7",
+    "T_adfe9ed0c7ecbe76",
+    "T_c1fa27a8aeabef72",
+    "T_c28a9b5aa42c20c4",
+    "T_ae55bff99b611079",
+    "T_6a972a23c3352f61",
+    "T_5719b4d1f1e33371",
+    "T_c28a9b5aa42c20c4",
+    "T_17ca6a10b196d0c6",
+    "T_59d7126843bb56a7",
+    "T_ae55bff99b611079",
+    "T_3bc241669f8745db",
+    "T_c7e86530759b2daf",
+    "T_c1fa27a8aeabef72",
+    "T_3a0bba6d36dd77d4",
+    "T_adfe9ed0c7ecbe76",
+    "T_3907eba803fe03b6",
+    "T_c862cdce6d4ca195",
+    "T_bb693541bf70cca5",
+    "T_7a55fb6c3513adcf",
+    "T_adfe9ed0c7ecbe76",
+    "T_c862cdce6d4ca195",
+    "T_ae55bff99b611079",
+    "T_2d47ba7b55c01fe3",
+    "T_d4255bca61dd04b7",
+    "T_17ca6a10b196d0c6",
+    "T_bb693541bf70cca5",
+    "T_6a972a23c3352f61",
+    "T_c7e86530759b2daf",
+    "T_c1fa27a8aeabef72",
+    "T_5719b4d1f1e33371",
+    "T_7a55fb6c3513adcf",
+    "T_e6430a44e549d81d",
+    "T_bff64f9abe38f1b0",
+    "T_afeb8414267d3ae9",
+    "T_ed7e1f14f74a060b",
+    "T_761a457d5692ea8c",
+    "T_8a66b308378f1486",
+    "T_e5e410a572f918d4",
+    "T_6e3a282ee29f2800",
+    "T_3bc241669f8745db",
+    "T_fade9bb221dc643b",
+    "T_6f178861bab01766",
+    "T_b56eb946ebcfafef",
+    "T_e6430a44e549d81d",
+    "T_cfa7ea75257fda98",
+    "T_ed7e1f14f74a060b",
+    "T_b56eb946ebcfafef",
+    "T_6f178861bab01766",
+    "T_e5e410a572f918d4",
+    "T_bff64f9abe38f1b0",
+    "T_6e3a282ee29f2800",
+    "T_fade9bb221dc643b",
+    "T_3a0bba6d36dd77d4",
+    "T_cfa7ea75257fda98",
+    "T_e6430a44e549d81d",
+    "T_3bc241669f8745db",
+    "T_afeb8414267d3ae9",
+    "T_0620a626345e23f5",
+    "T_bff64f9abe38f1b0",
+    "T_b56eb946ebcfafef",
+    "T_cfa7ea75257fda98",
+    "T_ed7e1f14f74a060b",
+    "T_e6430a44e549d81d",
+    "T_6f178861bab01766",
+    "T_fade9bb221dc643b",
+    "T_3bc241669f8745db",
+    "T_e5e410a572f918d4",
+    "T_6e3a282ee29f2800",
+    "T_0620a626345e23f5",
+    "T_afeb8414267d3ae9",
+    "T_6ea23ba826aa5a69",
+    "T_bff64f9abe38f1b0",
+    "T_b56eb946ebcfafef",
+    "T_3bc241669f8745db",
+    "T_6e3a282ee29f2800",
+    "T_e5e410a572f918d4",
+    "T_3a0bba6d36dd77d4",
+    "T_fade9bb221dc643b",
+    "T_0620a626345e23f5",
+    "T_ed7e1f14f74a060b",
+    "T_6ea23ba826aa5a69",
+    "T_e6430a44e549d81d",
+    "T_afeb8414267d3ae9",
+    "T_e5ae4b34da564da3",
+    "T_6ea23ba826aa5a69",
+    "T_afeb8414267d3ae9",
+    "T_0620a626345e23f5",
+    "T_e5e410a572f918d4",
+    "T_bff64f9abe38f1b0",
+    "T_ed7e1f14f74a060b",
+    "T_fade9bb221dc643b",
+    "T_b56eb946ebcfafef",
+    "T_3bc241669f8745db",
+    "T_6e3a282ee29f2800",
+    "T_e5ae4b34da564da3",
+    "T_6f178861bab01766"
+  ]
+}

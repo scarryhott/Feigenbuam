@@ -1,0 +1,51 @@
+{"sid": "S_b06ddb45e6beb58f", "text": "def extract_symbols: def extract_symbols(text) -> List[str]", "created_ts": 1771208801.08454, "source": "native_analysis", "tags": []}
+{"sid": "S_8e7bb0d54782a4e5", "text": "def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]", "created_ts": 1771208801.090901, "source": "native_analysis", "tags": []}
+{"sid": "S_832f96d02907cb60", "text": "extract_symbols complexity=7, candidate for refactor", "created_ts": 1771208801.09853, "source": "native_analysis", "tags": []}
+{"sid": "S_6d37f49d56489e8f", "text": "if derive then __future__", "created_ts": 1771208801.1053262, "source": "native_dependency", "tags": []}
+{"sid": "S_dbbf4b9ad599ccdb", "text": "if derive then re", "created_ts": 1771208801.113009, "source": "native_dependency", "tags": []}
+{"sid": "S_e57c2610439aeafe", "text": "if derive then typing", "created_ts": 1771208801.123161, "source": "native_dependency", "tags": []}
+{"sid": "S_e02896747d873680", "text": "if derive then ir", "created_ts": 1771208801.133139, "source": "native_dependency", "tags": []}
+{"sid": "S_8a6480968e689f70", "text": "if extract_symbols then add", "created_ts": 1771208801.144918, "source": "native_call_graph", "tags": []}
+{"sid": "S_201f2ded9c2879d9", "text": "if extract_symbols then append", "created_ts": 1771208801.15999, "source": "native_call_graph", "tags": []}
+{"sid": "S_05e4e04d348f2065", "text": "if extract_symbols then finditer", "created_ts": 1771208801.1765308, "source": "native_call_graph", "tags": []}
+{"sid": "S_e1c235810811410a", "text": "if extract_symbols then group", "created_ts": 1771208801.194011, "source": "native_call_graph", "tags": []}
+{"sid": "S_7d167967fc223b6a", "text": "if extract_symbols then lower", "created_ts": 1771208801.215738, "source": "native_call_graph", "tags": []}
+{"sid": "S_c5cc1c55d719e9b8", "text": "if derive_claims_from_text then append", "created_ts": 1771208801.237809, "source": "native_call_graph", "tags": []}
+{"sid": "S_c1af9298aeda784c", "text": "if derive_claims_from_text then extract_symbols", "created_ts": 1771208801.260799, "source": "native_call_graph", "tags": []}
+{"sid": "S_86e2dd7949d6bbcf", "text": "if derive_claims_from_text then group", "created_ts": 1771208801.283893, "source": "native_call_graph", "tags": []}
+{"sid": "S_e1b1b3eda30f4977", "text": "if derive_claims_from_text then make_claim", "created_ts": 1771208801.3096719, "source": "native_call_graph", "tags": []}
+{"sid": "S_f9c0d52fa9655274", "text": "if derive_claims_from_text then match", "created_ts": 1771208801.3362129, "source": "native_call_graph", "tags": []}
+{"sid": "S_acd38a821d572c58", "text": "def extract_symbols: def extract_symbols(text) -> List[str]", "created_ts": 1771208815.807678, "source": "native_analysis", "tags": []}
+{"sid": "S_6e79fdf867018a90", "text": "def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]", "created_ts": 1771208815.839929, "source": "native_analysis", "tags": []}
+{"sid": "S_9600311a5fadffbe", "text": "extract_symbols complexity=7, candidate for refactor", "created_ts": 1771208815.871784, "source": "native_analysis", "tags": []}
+{"sid": "S_cf9622cbfed76b53", "text": "if derive then __future__", "created_ts": 1771208815.905321, "source": "native_dependency", "tags": []}
+{"sid": "S_549df5ccfc5269f9", "text": "if derive then re", "created_ts": 1771208815.9394948, "source": "native_dependency", "tags": []}
+{"sid": "S_2562c9c79b1b1cb5", "text": "if derive then typing", "created_ts": 1771208815.9750662, "source": "native_dependency", "tags": []}
+{"sid": "S_a5e90e7a5ae60455", "text": "if derive then ir", "created_ts": 1771208816.014403, "source": "native_dependency", "tags": []}
+{"sid": "S_073f5b8026f71574", "text": "if extract_symbols then add", "created_ts": 1771208816.053632, "source": "native_call_graph", "tags": []}
+{"sid": "S_c9f54d42ee94f585", "text": "if extract_symbols then append", "created_ts": 1771208816.094808, "source": "native_call_graph", "tags": []}
+{"sid": "S_0dfd93a4d188f28d", "text": "if extract_symbols then finditer", "created_ts": 1771208816.140539, "source": "native_call_graph", "tags": []}
+{"sid": "S_e45ef826c4140c5c", "text": "if extract_symbols then group", "created_ts": 1771208816.1857522, "source": "native_call_graph", "tags": []}
+{"sid": "S_7ce2b7cd2d0fbc42", "text": "if extract_symbols then lower", "created_ts": 1771208816.2323892, "source": "native_call_graph", "tags": []}
+{"sid": "S_c8c4035be3fb8020", "text": "if derive_claims_from_text then append", "created_ts": 1771208816.279901, "source": "native_call_graph", "tags": []}
+{"sid": "S_4131590730a17a9f", "text": "if derive_claims_from_text then extract_symbols", "created_ts": 1771208816.329526, "source": "native_call_graph", "tags": []}
+{"sid": "S_5e4e3eef3e47147b", "text": "if derive_claims_from_text then group", "created_ts": 1771208816.380845, "source": "native_call_graph", "tags": []}
+{"sid": "S_0af88c0bde688cca", "text": "if derive_claims_from_text then make_claim", "created_ts": 1771208816.435507, "source": "native_call_graph", "tags": []}
+{"sid": "S_3a939d2361430b74", "text": "if derive_claims_from_text then match", "created_ts": 1771208816.489671, "source": "native_call_graph", "tags": []}
+{"sid": "S_e9cc61107f66b7a4", "text": "def extract_symbols: def extract_symbols(text) -> List[str]", "created_ts": 1771253337.700897, "source": "native_analysis", "tags": []}
+{"sid": "S_e9ca38a768673c0c", "text": "def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]", "created_ts": 1771253337.756874, "source": "native_analysis", "tags": []}
+{"sid": "S_d4d0efbbbba71219", "text": "extract_symbols complexity=7, candidate for refactor", "created_ts": 1771253337.813202, "source": "native_analysis", "tags": []}
+{"sid": "S_314a377e4c4f8cb6", "text": "if derive then __future__", "created_ts": 1771253337.870933, "source": "native_dependency", "tags": []}
+{"sid": "S_11cfaa1c8c9a5ae7", "text": "if derive then re", "created_ts": 1771253337.93456, "source": "native_dependency", "tags": []}
+{"sid": "S_af15487f876c5ec3", "text": "if derive then typing", "created_ts": 1771253337.994329, "source": "native_dependency", "tags": []}
+{"sid": "S_42f31ad8f4c1d034", "text": "if derive then ir", "created_ts": 1771253338.0686378, "source": "native_dependency", "tags": []}
+{"sid": "S_d322a3239e34d895", "text": "if extract_symbols then add", "created_ts": 1771253338.1458602, "source": "native_call_graph", "tags": []}
+{"sid": "S_e7706afab6b88793", "text": "if extract_symbols then append", "created_ts": 1771253338.2380319, "source": "native_call_graph", "tags": []}
+{"sid": "S_04eb469b3b78cb2d", "text": "if extract_symbols then finditer", "created_ts": 1771253338.361055, "source": "native_call_graph", "tags": []}
+{"sid": "S_a4697c1f1c303fa3", "text": "if extract_symbols then group", "created_ts": 1771253338.477273, "source": "native_call_graph", "tags": []}
+{"sid": "S_3c4e5c1a713ccc72", "text": "if extract_symbols then lower", "created_ts": 1771253338.588375, "source": "native_call_graph", "tags": []}
+{"sid": "S_e0c10d7ff6607a53", "text": "if derive_claims_from_text then append", "created_ts": 1771253338.697094, "source": "native_call_graph", "tags": []}
+{"sid": "S_e621bf8e3c636caa", "text": "if derive_claims_from_text then extract_symbols", "created_ts": 1771253338.8096929, "source": "native_call_graph", "tags": []}
+{"sid": "S_59db7c10f134be67", "text": "if derive_claims_from_text then group", "created_ts": 1771253338.9285262, "source": "native_call_graph", "tags": []}
+{"sid": "S_68c6a2b791e73dfb", "text": "if derive_claims_from_text then make_claim", "created_ts": 1771253339.044524, "source": "native_call_graph", "tags": []}
+{"sid": "S_fec1a64819c2fed7", "text": "if derive_claims_from_text then match", "created_ts": 1771253339.126911, "source": "native_call_graph", "tags": []}

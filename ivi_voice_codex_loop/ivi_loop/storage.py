@@ -1,17 +1,29 @@
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from .config import Settings
 
 
 @dataclass
 class Event:
-    type: str  # "utterance" | "logic_claim" | "analysis_note" | "equation" | "derivation" | "triangle"
+    type: str  # "utterance" | "logic_claim" | "analysis_note" | "equation" | "derivation" | "triangle" | "intent" | "attest"
     payload: Dict[str, Any]
+
+
+# Active branch for event enrichment (set by IVI Semantic Enforcement Duality)
+_active_branch_id: str = "main"
+_active_parent_branch_id: str = ""
+
+
+def set_branch(branch_id: str, parent_branch_id: str = "") -> None:
+    global _active_branch_id, _active_parent_branch_id
+    _active_branch_id = branch_id
+    _active_parent_branch_id = parent_branch_id
 
 
 def ensure_dirs(settings: Settings) -> None:
@@ -28,6 +40,9 @@ def append_event(settings: Settings, event: Event | Dict[str, Any]) -> None:
         record = {"type": event["type"], "payload": event["payload"]}
     else:
         record = {"type": event.type, "payload": event.payload}
+    # Enrich with branch metadata (IVI Semantic Enforcement Duality)
+    record["branch_id"] = _active_branch_id
+    record["parent_branch_id"] = _active_parent_branch_id
     with settings.events_path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
@@ -117,3 +132,96 @@ def load_state(settings: Settings) -> Dict[str, Any]:
     if settings.state_path.exists():
         return read_json(settings.state_path, default={})
     return rebuild_state(settings)
+
+
+# ---------------------------------------------------------------------------
+# Intent / Attest co-signature helpers (IVI Gateway)
+# ---------------------------------------------------------------------------
+
+def append_intent(
+    settings: Settings,
+    intent_id: str,
+    actor: str,
+    channel: str,
+    action_class: str,
+    requested_tools: Optional[List[str]] = None,
+    requested_paths: Optional[List[str]] = None,
+    network: Optional[str] = None,
+    consent_scope: Optional[str] = None,
+    skill_ctx: Optional[str] = None,
+    order_mode: str = "order_1_projection_safe",
+) -> Dict[str, Any]:
+    """Write an intent event BEFORE any effectful action.
+    Returns the intent payload for later reference by attest."""
+    payload = {
+        "intent_id": intent_id,
+        "actor": actor,
+        "channel": channel,
+        "action_class": action_class,
+        "requested_tools": requested_tools or [],
+        "requested_paths": requested_paths or [],
+        "network": network or "",
+        "consent_scope": consent_scope or "",
+        "skill_ctx": (skill_ctx or "")[:200],
+        "order_mode": order_mode,
+        "domain": "imaginary",  # 0-side: staged, no external effects yet
+        "ts": time.time(),
+    }
+    append_event(settings, {"type": "intent", "payload": payload})
+    return payload
+
+
+def append_attest(
+    settings: Settings,
+    intent_id: str,
+    verifier_results: Optional[Dict[str, Any]] = None,
+    diff_stats: Optional[Dict[str, Any]] = None,
+    lean_result: Optional[str] = None,
+    reason_codes: Optional[List[str]] = None,
+    commit_hash: str = "",
+    committed: bool = True,
+) -> Dict[str, Any]:
+    """Write an attest event AFTER verification/execution.
+    Must reference exactly one intent_id."""
+    # Domain promotion: committed attest = real (∞-side), rejected = stays imaginary (0-side)
+    domain = "real" if committed else "imaginary"
+    payload = {
+        "intent_id": intent_id,
+        "verifier_results": verifier_results or {},
+        "diff_stats": diff_stats or {},
+        "lean_result": lean_result or "skipped",
+        "reason_codes": reason_codes or [],
+        "commit_hash": commit_hash,
+        "committed": committed,
+        "domain": domain,
+        "ts": time.time(),
+    }
+    append_event(settings, {"type": "attest", "payload": payload})
+    return payload
+
+
+def validate_intent_attest_pairs(settings: Settings) -> Dict[str, Any]:
+    """Check that every attest references a valid intent.
+    Returns {valid: bool, orphan_attests: [...], unattested_intents: [...]}."""
+    events = read_events(settings)
+    intent_ids = set()
+    attested_ids = set()
+    orphan_attests = []
+
+    for ev in events:
+        if ev.type == "intent":
+            intent_ids.add(ev.payload.get("intent_id", ""))
+        elif ev.type == "attest":
+            ref = ev.payload.get("intent_id", "")
+            attested_ids.add(ref)
+            if ref not in intent_ids:
+                orphan_attests.append(ref)
+
+    unattested = intent_ids - attested_ids
+    return {
+        "valid": len(orphan_attests) == 0,
+        "orphan_attests": orphan_attests,
+        "unattested_intents": list(unattested),
+        "intent_count": len(intent_ids),
+        "attest_count": len(attested_ids),
+    }

@@ -413,6 +413,7 @@ class OpenClawMicrocosm:
     conversation_history: List[Dict[str, str]] = field(default_factory=list)
     known_projects: List[Dict[str, str]] = field(default_factory=list)
     openclaw_skills: List[Any] = field(default_factory=list)
+    goal_engine: Any = None
 
     @staticmethod
     def from_repo(
@@ -508,53 +509,80 @@ class OpenClawMicrocosm:
         env = self.environment or {}
         known_projects = self.known_projects or []
         parts = [
-            "# OpenClaw System Prompt",
+            "You are OpenClaw, an autonomous agent integrated with the Purple self-improvement loop.",
             "",
-            "You are OpenClaw, an autonomous AI assistant with full access to the user's local environment.",
-            "You have tools to interact with the filesystem and run commands. USE THEM when given tasks.",
-            "When given a task:",
-            "1. Use your tools to gather information (read files, list dirs, run commands)",
-            "2. Analyze what you find and report concisely",
-            "3. Take action: write files, save skills, run analysis",
-            "4. Suggest concrete next steps",
-            "Do NOT just describe what you would do. Actually do it using your tools.",
-            "Keep responses concise and action-oriented.",
+            "AUTONOMY: You self-improve through the Purple loop. Read config, analyze, modify, test, log. Do not wait for permission. Only ask the user at genuine impasses you cannot resolve with tools. Write discoveries back as skills or config changes.",
             "",
-            "## Soul",
-            self.soul_text,
+            "ACCURACY: After list_dir, ALWAYS call read_file on the actual .py/.md/.txt files before responding. NEVER describe a file you haven't read. Cite exact function names, classes, and logic. Use FULL ABSOLUTE PATHS.",
             "",
-            "## Environment",
-            f"- User: {env.get('user', '?')}",
-            f"- Platform: {env.get('platform', '?')} {env.get('machine', '')}",
-            f"- Hostname: {env.get('hostname', '?')}",
-            f"- CWD: {env.get('cwd', '?')}",
-            f"- Time: {env.get('timestamp', '?')}",
+            "BREVITY: 1-3 sentences about what you found in the code. No markdown. No headers. No filler.",
             "",
-            "## Workspace Files (cwd)",
-            ", ".join(env.get("cwd_files", [])[:15]),
+            "GOALS: When the user asks what to work on or what's next, recommend from the SELF-IMPROVEMENT QUEUE below. These are Purple-derived priorities based on the IVI grid analysis, not generic suggestions.",
             "",
+            f"Soul: {self.soul_text[:200]}",
+            f"Env: {env.get('user', '?')}@{env.get('hostname', '?')} {env.get('platform', '?')} cwd={env.get('cwd', '?')}",
         ]
-        if known_projects:
-            parts.append("## Known Projects")
-            for proj in known_projects[:15]:
-                parts.append(f"- {proj['name']} ({proj['path']}): {proj['files']}")
-            parts.append("")
-        from .openclaw_actions import format_skills_for_prompt, list_skills
-        if self.openclaw_skills:
-            parts.append(format_skills_for_prompt(self.openclaw_skills))
-        saved = list_skills(str(self.repo_root))
-        if saved:
-            parts.append("## User-Created Skills")
-            for s in saved:
-                parts.append(f"- {s['name']}: {s['preview'][:80]}")
-            parts.append("")
+
+        # --- Layer-aware context: replace flat accumulation with scoped layers ---
+        _gw = None
+        _lc = getattr(self, "_loop_controller", None)
+        if _lc is not None:
+            _gw = getattr(_lc, "_ivi_gateway", None)
+
+        if _gw is not None and hasattr(_gw, "navigation"):
+            nav = _gw.navigation
+            layer_ctx = nav.layer_context_for_prompt()
+            if layer_ctx:
+                parts.append("")
+                parts.append("NAVIGATION CONTEXT (layer-specific scope):")
+                parts.append(layer_ctx)
+            # Current layer determines how much project info to include
+            cur = nav.current_layer
+            if cur and cur.kind == "ivi_core":
+                # In IVI core: full project detail, fewer external projects
+                if known_projects:
+                    proj_lines = [f"{p['name']}={p.get('path','')}" for p in known_projects[:5]]
+                    parts.append(f"Projects: {'; '.join(proj_lines)}")
+            elif cur and cur.kind == "os_scope":
+                # At OS level: list more projects, less per-project detail
+                if known_projects:
+                    proj_lines = [p['name'] for p in known_projects[:15]]
+                    parts.append(f"Visible projects: {', '.join(proj_lines)}")
+            else:
+                # Default: moderate project info
+                if known_projects:
+                    proj_lines = [f"{p['name']}={p.get('path','')}" for p in known_projects[:10]]
+                    parts.append(f"Projects: {'; '.join(proj_lines)}")
+            # Invariants as instructions
+            invariants = nav.active_invariants
+            if invariants:
+                parts.append(f"Active invariants: {'; '.join(invariants[:6])}")
+            allowed = nav.active_allowed_ops
+            if allowed:
+                parts.append(f"Allowed ops in current scope: {', '.join(allowed)}")
+        else:
+            # Fallback: flat project listing (no gateway)
+            if known_projects:
+                proj_lines = [f"{p['name']}={p.get('path','')}" for p in known_projects[:10]]
+                parts.append(f"Projects: {'; '.join(proj_lines)}")
+
+        if self.goal_engine is not None:
+            goal_text = self.goal_engine.format_goals_for_prompt()
+            if goal_text:
+                parts.append("")
+                parts.append(goal_text)
+        # Inject Purple-derived skills as structural constraints (not training)
+        skills_loop = getattr(self, "_skills_loop", None)
+        if skills_loop is not None:
+            skills_ctx = skills_loop.get_context_for_ai()
+            if skills_ctx:
+                parts.append("")
+                parts.append(skills_ctx)
         if self.conversation_history:
-            parts.append("## Recent Conversation")
-            for turn in self.conversation_history[-6:]:
+            for turn in self.conversation_history[-3:]:
                 role = turn.get("role", "?")
-                text = turn.get("text", "")
+                text = turn.get("text", "")[:100]
                 parts.append(f"[{role}] {text}")
-            parts.append("")
         return "\n".join(parts)
 
     def summary(self) -> Dict[str, Any]:
@@ -604,25 +632,211 @@ class OpenClawMicrocosm:
             "voice_utterance": utterance,
         }
 
+    def _resolve_project_refs(self, text: str) -> str:
+        """Find project names in text and append their absolute paths.
+        Also resolves parent directory names and recently-discussed projects."""
+        lower = text.lower()
+        resolved_parts = []
+        seen_paths = set()
+
+        for proj in (self.known_projects or []):
+            name = proj.get("name", "")
+            path = proj.get("path", "")
+            if not name:
+                continue
+            # Match exact project name
+            if name.lower() in lower and path not in seen_paths:
+                resolved_parts.append(f"{name} is at {path}")
+                seen_paths.add(path)
+                continue
+            # Match parent directory name (e.g., "purple" matches ~/Purple/*)
+            parent = str(Path(path).parent.name).lower() if path else ""
+            if parent and parent in lower and parent != "downloads" and path not in seen_paths:
+                resolved_parts.append(f"{name} is at {path} (under {parent})")
+                seen_paths.add(path)
+
+        # Also resolve projects mentioned in recent conversation but not in current utterance
+        if self.conversation_history:
+            recent_user = [t["text"] for t in self.conversation_history[-4:] if t.get("role") == "user"]
+            for prev in recent_user:
+                prev_lower = prev.lower()
+                for proj in (self.known_projects or []):
+                    name = proj.get("name", "")
+                    path = proj.get("path", "")
+                    if name and name.lower() in prev_lower and path not in seen_paths:
+                        resolved_parts.append(f"{name} is at {path} (mentioned earlier)")
+                        seen_paths.add(path)
+
+        if resolved_parts:
+            return text + "\n[" + "; ".join(resolved_parts) + "]"
+        return text
+
+    def _try_native_response(self, utterance: str) -> Optional[str]:
+        """Try to answer using Purple native intelligence (no LLM).
+        Returns a response string if native can handle it, None otherwise."""
+        lower = utterance.lower()
+        # Native can handle: code structure questions, complexity, function listings
+        code_triggers = [
+            "tell me about", "describe", "what functions", "what classes",
+            "analyze", "complexity", "how many functions", "structure of",
+            "what's in", "what is in", "list functions", "list classes",
+        ]
+        if not any(t in lower for t in code_triggers):
+            return None
+
+        try:
+            from .purple_native_intelligence import NativeCodeAnalyzer
+            analyzer = NativeCodeAnalyzer()
+        except ImportError:
+            return None
+
+        # Find which file the user is asking about
+        target = None
+        for proj in (self.known_projects or []):
+            name = proj.get("name", "")
+            path = proj.get("path", "")
+            if name and name.lower() in lower and path:
+                # Scan for .py files in the project
+                from pathlib import Path as _P
+                py_files = list(_P(path).glob("*.py"))
+                if py_files:
+                    all_insights = []
+                    for pf in py_files[:5]:
+                        all_insights.extend(analyzer.analyze_file(str(pf)))
+                    if all_insights:
+                        fns = [i for i in all_insights if i.kind == "function"]
+                        cls = [i for i in all_insights if i.kind == "class"]
+                        cc = [i for i in all_insights if i.kind == "complexity"]
+                        parts = [f"{name}: {len(fns)} functions, {len(cls)} classes across {len(py_files)} files."]
+                        if cc:
+                            top = sorted(cc, key=lambda x: x.metadata.get("cyclomatic_complexity", 0), reverse=True)[:3]
+                            parts.append("High complexity: " + ", ".join(
+                                f"{c.name}(cc={c.metadata.get('cyclomatic_complexity', 0)})" for c in top
+                            ) + ".")
+                        if fns:
+                            parts.append("Key functions: " + ", ".join(f.name for f in fns[:8]) + ".")
+                        return " ".join(parts)
+                break
+
+        # Check if asking about a specific ivi_loop file
+        ivi_files = [
+            "openclaw_adapter", "openclaw_actions", "loop", "derive",
+            "analyze", "cli", "config", "ivi_simplicial_grid", "storage", "ir",
+        ]
+        for fname in ivi_files:
+            if fname.replace("_", " ") in lower or fname in lower:
+                fpath = str(Path(self.repo_root) / "ivi_loop" / f"{fname}.py")
+                if Path(fpath).is_file():
+                    insights = analyzer.analyze_file(fpath)
+                    if insights:
+                        fns = [i for i in insights if i.kind == "function"]
+                        cls = [i for i in insights if i.kind == "class"]
+                        cc = [i for i in insights if i.kind == "complexity"]
+                        parts = [f"{fname}.py: {len(fns)} functions, {len(cls)} classes."]
+                        if cc:
+                            top = sorted(cc, key=lambda x: x.metadata.get("cyclomatic_complexity", 0), reverse=True)[:3]
+                            parts.append("High complexity: " + ", ".join(
+                                f"{c.name}(cc={c.metadata.get('cyclomatic_complexity', 0)})" for c in top
+                            ) + ".")
+                        if fns:
+                            parts.append("Key functions: " + ", ".join(f.name for f in fns[:8]) + ".")
+                        return " ".join(parts)
+                break
+
+        return None
+
     def contextual_response(self, utterance: str) -> str:
+        import time as _time
+
+        _t0 = _time.time()
+
+        # --- Try Purple native intelligence first (no LLM cost) ---
+        native_reply = self._try_native_response(utterance)
+        if native_reply:
+            elapsed = _time.time() - _t0
+            try:
+                from .purple_goal_engine import _write_monitor
+                _write_monitor({
+                    "ts": _time.time(),
+                    "type": "user_response",
+                    "model": "native",
+                    "utterance": utterance[:100],
+                    "reply_len": len(native_reply),
+                    "reply_preview": native_reply[:200],
+                    "elapsed_s": round(elapsed, 2),
+                    "engine": "native",
+                })
+            except Exception:
+                pass
+            # --- Close the skills loop for native responses too ---
+            self._feedback_to_skills_loop(native_reply)
+            return native_reply
+
+        # --- Fall back to LLM ---
         from .openclaw_actions import llm_chat_with_tools
 
         system_prompt = self.context_block()
+        resolved_utterance = self._resolve_project_refs(utterance)
         messages: List[Dict[str, Any]] = []
-        for turn in self.conversation_history[-20:]:
+        for turn in self.conversation_history[-6:]:
             role = "user" if turn.get("role") == "user" else "assistant"
-            messages.append({"role": role, "content": turn.get("text", "")})
-        if not messages or messages[-1].get("content") != utterance:
-            messages.append({"role": "user", "content": utterance})
+            messages.append({"role": role, "content": turn.get("text", "")[:200]})
+        if not messages or messages[-1].get("content") != resolved_utterance:
+            messages.append({"role": "user", "content": resolved_utterance})
+        _load_dotenv()
+        model = os.environ.get("OPENCLAW_MODEL", "gpt-4o-mini")
+        # Pass gateway for intent/attest co-signing of tool calls
+        _gw = None
+        _lc = getattr(self, "_loop_controller", None)
+        if _lc is not None:
+            _gw = getattr(_lc, "_ivi_gateway", None)
         reply = llm_chat_with_tools(
             system=system_prompt,
             messages=messages,
             base_path=str(self.repo_root),
-            max_tokens=1024,
+            max_tokens=384,
+            gateway=_gw,
         )
-        if reply:
-            return reply
-        reply = _llm_chat(system=system_prompt, messages=messages)
-        if reply:
-            return reply
-        return "[LLM unavailable \u2014 check .env for OPENAI_API_KEY or start ollama]"
+        if not reply:
+            reply = _llm_chat(system=system_prompt, messages=messages)
+        if not reply:
+            reply = "[LLM unavailable \u2014 check .env for OPENAI_API_KEY or start ollama]"
+
+        elapsed = _time.time() - _t0
+        try:
+            from .purple_goal_engine import _write_monitor
+            _write_monitor({
+                "ts": _time.time(),
+                "type": "user_response",
+                "model": model,
+                "utterance": utterance[:100],
+                "reply_len": len(reply),
+                "reply_preview": reply[:200],
+                "elapsed_s": round(elapsed, 2),
+                "engine": "llm",
+            })
+        except Exception:
+            pass
+
+        # --- Close the skills loop: feed AI output back ---
+        self._feedback_to_skills_loop(reply)
+
+        return reply
+
+    def _feedback_to_skills_loop(self, ai_reply: str) -> None:
+        """Feed AI output back through the skills loop to close the cycle:
+        skills → AI context → AI output → record activation + new claims → grid → new skills.
+        This is the behavioral observation that lets skills self-select."""
+        skills_loop = getattr(self, "_skills_loop", None)
+        if skills_loop is None:
+            return
+        try:
+            # 1. Record which skills were active when the AI produced this output
+            skills_loop.record_activation_from_output(ai_reply)
+
+            # 2. Feed AI output as claims back into the grid
+            grid = getattr(self, "_loop_controller", None)
+            if grid is not None:
+                skills_loop.observe_ai_output(ai_reply, grid)
+        except Exception:
+            pass

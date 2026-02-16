@@ -1,0 +1,104 @@
+# Derivations Phase 1
+
+- **S_b06ddb45e6beb58f**: def extract_symbols: def extract_symbols(text) -> List[str]
+  - Derived: `D_444901548412b16e` → `E_38d7f9dee0a41ed0` via `T_1f19aeb55de45a34`
+- **S_8e7bb0d54782a4e5**: def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]
+  - Derived: `D_cd671d1eef14a45e` → `E_01a2dd24b79ed3bc` via `T_af3fe6d978269190`
+- **S_832f96d02907cb60**: extract_symbols complexity=7, candidate for refactor
+  - Derived: `D_ebbb7e15ffbacc0f` → `E_8a17348ffc02828b` via `T_2b325e7b4e8c7d3e`
+- **S_6d37f49d56489e8f**: if derive then __future__
+  - Derived: `D_e9219e339b75a69f` → `E_fe67f0584c9f5ff4` via `T_ca5e664526828870`
+- **S_dbbf4b9ad599ccdb**: if derive then re
+  - Derived: `D_18d00bc83c9b8756` → `E_89b4a6db3c0b718f` via `T_2a8761a4cdbb7909`
+- **S_e57c2610439aeafe**: if derive then typing
+  - Derived: `D_de346857196c0025` → `E_1765b8dbb3a327db` via `T_431780b71b933fa5`
+- **S_e02896747d873680**: if derive then ir
+  - Derived: `D_c02e99eff94913a1` → `E_750309f68446c7f1` via `T_2ae5211e7d794155`
+- **S_8a6480968e689f70**: if extract_symbols then add
+  - Derived: `D_2f4df63fd4a5f792` → `E_2b19aa0a54383535` via `T_2d47ba7b55c01fe3`
+- **S_201f2ded9c2879d9**: if extract_symbols then append
+  - Derived: `D_5063c528222363d8` → `E_0a41057f3c7392a8` via `T_bb693541bf70cca5`
+- **S_05e4e04d348f2065**: if extract_symbols then finditer
+  - Derived: `D_010aa493963f2de3` → `E_b9fb1d4489b0b879` via `T_17ca6a10b196d0c6`
+- **S_e1c235810811410a**: if extract_symbols then group
+  - Derived: `D_3f13204ce89dee53` → `E_628df02e885b768b` via `T_ae55bff99b611079`
+- **S_7d167967fc223b6a**: if extract_symbols then lower
+  - Derived: `D_07c6f70970bb63dc` → `E_cab61900433fd8be` via `T_c1fa27a8aeabef72`
+- **S_c5cc1c55d719e9b8**: if derive_claims_from_text then append
+  - Derived: `D_a8e1d0769a9be309` → `E_dbe3660b0edf10ac` via `T_6f178861bab01766`
+- **S_c1af9298aeda784c**: if derive_claims_from_text then extract_symbols
+  - Derived: `D_3b25fb60d6b97596` → `E_6d3075d129e92a30` via `T_3bc241669f8745db`
+- **S_86e2dd7949d6bbcf**: if derive_claims_from_text then group
+  - Derived: `D_d605434a54f6413e` → `E_7f52bb62811b5465` via `T_ed7e1f14f74a060b`
+- **S_e1b1b3eda30f4977**: if derive_claims_from_text then make_claim
+  - Derived: `D_af9f802ad454b6cd` → `E_6eb4db87ce708dfa` via `T_e5e410a572f918d4`
+- **S_f9c0d52fa9655274**: if derive_claims_from_text then match
+  - Derived: `D_6ed130f9cd9b4603` → `E_eeb6b3187ca30245` via `T_afeb8414267d3ae9`
+- **S_acd38a821d572c58**: def extract_symbols: def extract_symbols(text) -> List[str]
+  - Derived: `D_abe96871fd4ee86f` → `E_38d7f9dee0a41ed0` via `T_64ff309684bd4872`
+- **S_6e79fdf867018a90**: def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]
+  - Derived: `D_dac4c470a9bd3a32` → `E_01a2dd24b79ed3bc` via `T_8a66b308378f1486`
+- **S_9600311a5fadffbe**: extract_symbols complexity=7, candidate for refactor
+  - Derived: `D_b598ef00450a31d1` → `E_8a17348ffc02828b` via `T_7954394ff28d31ea`
+- **S_cf9622cbfed76b53**: if derive then __future__
+  - Derived: `D_ea32e7b49d9b2389` → `E_fe67f0584c9f5ff4` via `T_0e81374637f6feda`
+- **S_549df5ccfc5269f9**: if derive then re
+  - Derived: `D_3833b0a6b1486b6a` → `E_89b4a6db3c0b718f` via `T_b2cb4c2bf7ddb064`
+- **S_2562c9c79b1b1cb5**: if derive then typing
+  - Derived: `D_a592e0035301c0e4` → `E_1765b8dbb3a327db` via `T_0de4fea8fba7c302`
+- **S_a5e90e7a5ae60455**: if derive then ir
+  - Derived: `D_517242db89265832` → `E_750309f68446c7f1` via `T_17af6cd144e35ef1`
+- **S_073f5b8026f71574**: if extract_symbols then add
+  - Derived: `D_e45f015d473d66f0` → `E_2b19aa0a54383535` via `T_d4255bca61dd04b7`
+- **S_c9f54d42ee94f585**: if extract_symbols then append
+  - Derived: `D_21f8fd8b0b07c3bf` → `E_0a41057f3c7392a8` via `T_3907eba803fe03b6`
+- **S_0dfd93a4d188f28d**: if extract_symbols then finditer
+  - Derived: `D_25191ad7f7439123` → `E_b9fb1d4489b0b879` via `T_adfe9ed0c7ecbe76`
+- **S_e45ef826c4140c5c**: if extract_symbols then group
+  - Derived: `D_90c86aee7c31de66` → `E_628df02e885b768b` via `T_c7e86530759b2daf`
+- **S_7ce2b7cd2d0fbc42**: if extract_symbols then lower
+  - Derived: `D_b8d775a098384f96` → `E_cab61900433fd8be` via `T_c28a9b5aa42c20c4`
+- **S_c8c4035be3fb8020**: if derive_claims_from_text then append
+  - Derived: `D_3511fadbd731642e` → `E_dbe3660b0edf10ac` via `T_b56eb946ebcfafef`
+- **S_4131590730a17a9f**: if derive_claims_from_text then extract_symbols
+  - Derived: `D_f0a70e1d68449ac5` → `E_6d3075d129e92a30` via `T_3a0bba6d36dd77d4`
+- **S_5e4e3eef3e47147b**: if derive_claims_from_text then group
+  - Derived: `D_94b83250c317b00d` → `E_7f52bb62811b5465` via `T_fade9bb221dc643b`
+- **S_0af88c0bde688cca**: if derive_claims_from_text then make_claim
+  - Derived: `D_4c3e8a35e621b82a` → `E_6eb4db87ce708dfa` via `T_6e3a282ee29f2800`
+- **S_3a939d2361430b74**: if derive_claims_from_text then match
+  - Derived: `D_ce9dac0fac729e2b` → `E_eeb6b3187ca30245` via `T_bff64f9abe38f1b0`
+- **S_e9cc61107f66b7a4**: def extract_symbols: def extract_symbols(text) -> List[str]
+  - Derived: `D_a371ca498599d3fc` → `E_38d7f9dee0a41ed0` via `T_eb441bba55ad967e`
+- **S_e9ca38a768673c0c**: def derive_claims_from_text: def derive_claims_from_text(text, prov) -> List[LogicClaim]
+  - Derived: `D_38f9d9fd41a4e13a` → `E_01a2dd24b79ed3bc` via `T_761a457d5692ea8c`
+- **S_d4d0efbbbba71219**: extract_symbols complexity=7, candidate for refactor
+  - Derived: `D_1c012a9251f98752` → `E_8a17348ffc02828b` via `T_a841a7e9f8ce04b6`
+- **S_314a377e4c4f8cb6**: if derive then __future__
+  - Derived: `D_829990258f2c6857` → `E_fe67f0584c9f5ff4` via `T_b638d5191a9d0e35`
+- **S_11cfaa1c8c9a5ae7**: if derive then re
+  - Derived: `D_48ee05e7b72474ce` → `E_89b4a6db3c0b718f` via `T_981c7b04f4c15931`
+- **S_af15487f876c5ec3**: if derive then typing
+  - Derived: `D_770916038e1f35f1` → `E_1765b8dbb3a327db` via `T_606d222970f12f3a`
+- **S_42f31ad8f4c1d034**: if derive then ir
+  - Derived: `D_412f170f0d90554d` → `E_750309f68446c7f1` via `T_e16542ba7082d7c2`
+- **S_d322a3239e34d895**: if extract_symbols then add
+  - Derived: `D_a68e88c96cb406c8` → `E_2b19aa0a54383535` via `T_6a972a23c3352f61`
+- **S_e7706afab6b88793**: if extract_symbols then append
+  - Derived: `D_1e3d877f93ff4d50` → `E_0a41057f3c7392a8` via `T_c862cdce6d4ca195`
+- **S_04eb469b3b78cb2d**: if extract_symbols then finditer
+  - Derived: `D_e86fcef5ba86da08` → `E_b9fb1d4489b0b879` via `T_59d7126843bb56a7`
+- **S_a4697c1f1c303fa3**: if extract_symbols then group
+  - Derived: `D_ae1d48466a6640d1` → `E_628df02e885b768b` via `T_5719b4d1f1e33371`
+- **S_3c4e5c1a713ccc72**: if extract_symbols then lower
+  - Derived: `D_40bed2f9f53a6e1b` → `E_cab61900433fd8be` via `T_7a55fb6c3513adcf`
+- **S_e0c10d7ff6607a53**: if derive_claims_from_text then append
+  - Derived: `D_228d46abe14ac7c3` → `E_dbe3660b0edf10ac` via `T_e6430a44e549d81d`
+- **S_e621bf8e3c636caa**: if derive_claims_from_text then extract_symbols
+  - Derived: `D_c7bc5d06d2b2cce7` → `E_6d3075d129e92a30` via `T_cfa7ea75257fda98`
+- **S_59db7c10f134be67**: if derive_claims_from_text then group
+  - Derived: `D_99e54dc8fcd7df1d` → `E_7f52bb62811b5465` via `T_0620a626345e23f5`
+- **S_68c6a2b791e73dfb**: if derive_claims_from_text then make_claim
+  - Derived: `D_6a2c2ec256fc26bf` → `E_6eb4db87ce708dfa` via `T_6ea23ba826aa5a69`
+- **S_fec1a64819c2fed7**: if derive_claims_from_text then match
+  - Derived: `D_c9b22ff3963b5d7a` → `E_eeb6b3187ca30245` via `T_e5ae4b34da564da3`
