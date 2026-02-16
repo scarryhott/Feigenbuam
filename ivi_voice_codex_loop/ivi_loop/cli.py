@@ -295,8 +295,7 @@ def _purple_background_tick(loop: IVILoopController, source: str) -> None:
         )
         result = engine.run_autonomous_cycle(microcosm)
         if result:
-            import sys
-            print(f"\n[auto] {result}", file=sys.stderr, flush=True)
+            pass  # background tick — silent
     except Exception:
         pass
 
@@ -429,14 +428,15 @@ def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: 
 
 
 def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
-    """Run continuous self-improvement cycles without user input.
-    The heartbeat handles the 45s interval; this just keeps the process alive
-    and prints autonomous results as they happen.
+    """Run fully autonomous self-improvement forever.
 
-    Three feedback closures are active:
-    1. AI output → grid: every cycle's summary is fed back as claims
-    2. OS discovery: targets span the full OS, not just core files
-    3. Behavioral observation: skills that were active get confidence boosts
+    Full cycle: analyze → improve → test → commit → learn.
+    Only asks the user a question at genuine impasses it cannot resolve.
+    Otherwise it runs perpetually: discovering targets, improving code,
+    testing changes, committing successes, and rolling back failures.
+
+    The system has full OS access gated by the IVI Gateway.
+    Every effectful action is co-signed via intent/attest.
     """
     import time as _time
     import signal
@@ -451,16 +451,37 @@ def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
 
     engine = getattr(loop, "_purple_goal_engine", None)
     microcosm = getattr(loop, "_openclaw", None)
+    from .conversation_layer import ConversationLayer
+    voice = ConversationLayer()
+
     if engine is None or microcosm is None:
-        print("[autonomous] No goal engine or microcosm — cannot run.", flush=True)
+        voice.say("I can't start — missing goal engine or microcosm.")
         return
 
-    # Import native intelligence, skills loop, and OS discovery
+    # Import all subsystems
     from .purple_native_intelligence import NativeAutonomousCycle, OSRuntimeDiscovery
     from .purple_skills_loop import SelfGeneratingSkillsLoop
+    from .ivi_potential_monitor import PotentialMonitor
+    from .autonomous_executor import AutonomousExecutor
+    from .morpheus_channel import MorpheusChannel, HumanGoalTracker
+    from .triangle_time import TriangleClock, TriangleSpace, TrianglePlace, TriangleTimeScheduler
     native = NativeAutonomousCycle()
     skills_loop = SelfGeneratingSkillsLoop()
     discovery = OSRuntimeDiscovery()
+    potential_monitor = PotentialMonitor(settings=settings)
+
+    # Initialize triangle time — the system evolves in triangle time, not wall clock
+    tri_clock = TriangleClock()
+    tri_space = TriangleSpace(clock=tri_clock)
+    tri_place = TrianglePlace(clock=tri_clock, space=tri_space)
+    tri_scheduler = TriangleTimeScheduler(
+        clock=tri_clock, space=tri_space, place=tri_place,
+    )
+    # Attach clock to the grid so every add_triangle() ticks triangle time
+    if hasattr(loop, 'grid'):
+        loop.grid._triangle_clock = tri_clock
+    elif hasattr(loop, '_grid'):
+        loop._grid._triangle_clock = tri_clock
 
     # Wire skills + grid ref into microcosm so contextual_response feedback works
     microcosm._skills_loop = skills_loop
@@ -472,16 +493,17 @@ def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
     # --- OS/runtime discovery at startup ---
     discovery.discover_from_environment()
     disc_info = discovery.full_discovery()
-    print(
-        f"[autonomous] OS discovery: {disc_info['python_files']} Python files across "
-        f"{len(disc_info['scan_roots'])} roots, "
-        f"{len(disc_info['runtimes'])} runtimes, "
-        f"{disc_info['running_python_processes']} Python processes.",
-        file=sys.stderr, flush=True,
+    voice.discovery_done(
+        python_files=disc_info['python_files'],
+        roots=len(disc_info['scan_roots']),
+        runtimes=len(disc_info['runtimes']),
     )
 
-    # Share discovery with the goal engine so it generates broader goals
+    # Share discovery and triangle subsystems with the goal engine
     engine._os_discovery = discovery
+    engine._triangle_space = tri_space
+    engine._triangle_clock = tri_clock
+    engine._skills_loop = skills_loop
 
     # Register discovered scan roots as navigation layers in the gateway
     if gateway is not None:
@@ -495,7 +517,6 @@ def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
                     root_path=scan_root,
                     template=kind,
                 )
-        # Register discovered runtimes as runtime layers
         for rt in disc_info.get("runtimes", []):
             rt_name = rt.get("name", "")
             rt_path = rt.get("path", "")
@@ -509,17 +530,71 @@ def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
                         template="runtime",
                     )
         nav = gateway.navigation.status()
-        print(
-            f"[autonomous] Navigation: {len(nav['stack'])} layers, "
-            f"ops={','.join(nav['active_ops'][:4])}, "
-            f"{len(nav['active_invariants'])} invariants active.",
-            file=sys.stderr, flush=True,
-        )
+        voice.navigation_ready(layers=len(nav['stack']), ops=len(nav['active_ops']))
 
-    print("[autonomous] Self-improvement loop started (native + skills + OS discovery). Ctrl+C to stop.", file=sys.stderr, flush=True)
+    # Initialize the autonomous executor — full cycle orchestrator
+    repo_root = str(Path(__file__).resolve().parent.parent)
+    # Initialize the Morpheus channel — continuous human goal input
+    morpheus_persist = str(Path(repo_root) / ".ivi" / "morpheus_tracker.json")
+    morpheus_tracker = HumanGoalTracker(persist_path=morpheus_persist)
+    morpheus = MorpheusChannel(
+        tracker=morpheus_tracker,
+        repo_root=repo_root,
+    )
+    morpheus.start()
+
+    executor = AutonomousExecutor(
+        settings=settings,
+        gateway=gateway,
+        repo_root=repo_root,
+        morpheus_tracker=morpheus_tracker,
+    )
+
+    # Start continuous potential monitor (background thread, quiet)
+    potential_monitor.start(
+        gateway=gateway,
+        grid=loop,
+        native_cycle=native,
+        skills_loop=skills_loop,
+        interval=30.0,
+        print_reports=False,
+    )
+
+    # Pass conversation layer to morpheus so it speaks through it
+    morpheus._voice = voice
+
+    voice.greeting()
+
     cycle = 0
+    last_acted_tick = 0
+    idle_rounds = 0
+    MAX_IDLE_BEFORE_REDISCOVER = 5
+
     while not _stop:
         try:
+            # --- Check Morpheus channel for stop/status/goals commands ---
+            if morpheus.stop_requested:
+                _stop = True
+                break
+            if morpheus.status_requested:
+                morpheus.print_status(executor.status(), engine)
+            if morpheus.goals_requested:
+                morpheus.print_goals(engine)
+            if morpheus.help_requested:
+                morpheus.print_help()
+            if morpheus.guidance_requested:
+                morpheus.print_guidance_status()
+
+            guidance = morpheus.guidance_snapshot()
+
+            # --- Drain human goals from Morpheus and inject with highest priority ---
+            human_goals = morpheus.drain_goals()
+            if human_goals:
+                injected = engine.inject_human_goals(human_goals)
+                if injected:
+                    voice.goal_received(injected)
+
+            # --- Derive self-improvement goals (lower priority than human goals) ---
             engine.derive_all(
                 loop_controller=loop,
                 conversation_history=getattr(microcosm, "conversation_history", []),
@@ -527,114 +602,172 @@ def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
                 environment=getattr(microcosm, "environment", {}),
             )
 
-            # Run native cycles directly — no LLM, no 45s wait
             ran_this_round = 0
             candidates = [g for g in engine.state.goals if g.actionable and not g.executed]
-            for goal in candidates[:3]:
-                if _stop:
+
+            if guidance.get("paused", False):
+                # In paused mode, only execute explicit human goals.
+                candidates = [g for g in candidates if g.source == "morpheus"]
+
+            max_per_round = int(guidance.get("max_goals_per_round", 2))
+
+            for goal in candidates[:max_per_round]:
+                if _stop or morpheus.stop_requested:
+                    _stop = True
                     break
-                # Extract file path from goal
+
+                # Check for impasse — Morpheus input resolves it
+                if executor.has_pending_question:
+                    # Check if Morpheus already provided guidance
+                    new_goals = morpheus.drain_goals()
+                    if new_goals:
+                        engine.inject_human_goals(new_goals)
+                        executor.clear_question()
+                        voice.impasse_cleared()
+                    else:
+                        voice.impasse_hit(executor.pending_question)
+                        # Wait up to 30s for human input
+                        for _ in range(30):
+                            new_goals = morpheus.drain_goals()
+                            if new_goals:
+                                engine.inject_human_goals(new_goals)
+                                executor.clear_question()
+                                voice.impasse_cleared()
+                                break
+                            if morpheus.stop_requested:
+                                _stop = True
+                                break
+                            _time.sleep(1)
+                        else:
+                            # No guidance — skip this impasse and try other goals
+                            executor.clear_question()
+                            voice.impasse_skipped()
+                            continue
+
+                is_human_goal = goal.source == "morpheus"
                 target = engine._extract_target_file(goal.description)
+
+                # For human goals without an explicit file, use LLM to interpret
+                if not target and is_human_goal:
+                    target = repo_root  # default to repo root for broad goals
+
                 if not target:
                     continue
-                # --- Gateway intent before native cycle ---
-                if gateway is not None:
-                    gw_packet = gateway.ingress(
-                        raw_input=goal.description[:200],
-                        channel="autonomous",
-                        actor="purple_goal_engine",
-                        order1_classification="action",
-                        requested_action_class="read",
-                        requested_paths=[target],
-                        order_mode="order_4_bounded_autonomy",
-                    )
-                    gateway.propose(gw_packet)
-                    gw_report = gateway.verify(gw_packet)
-                    if not gw_report.passed:
-                        print(f"  [gateway] blocked: {', '.join(gw_report.reason_codes)}", file=sys.stderr, flush=True)
-                        continue
 
-                result_dict = native.run_native_cycle(target, grid=loop)
-                if result_dict is None:
-                    continue
+                if is_human_goal:
+                    voice.goal_working(goal.description)
+
+                # --- Run full autonomous cycle ---
+                result = executor.run_cycle(
+                    target=target,
+                    native_cycle=native,
+                    grid=loop,
+                    microcosm=microcosm,
+                    skills_loop=skills_loop,
+                    goal_description=goal.description,
+                )
 
                 goal.executed = True
+                goal.result = result.summary()
                 engine.state.autonomous_cycles_run += 1
                 ran_this_round += 1
                 cycle += 1
 
-                fname = os.path.basename(target)
-                fns = result_dict.get("functions", 0)
-                cls = result_dict.get("classes", 0)
-                claims = result_dict.get("claims_added_to_grid", 0)
-                hi_cc = result_dict.get("high_complexity", [])
-                elapsed = result_dict.get("elapsed_s", 0)
-
-                # Tick the skills loop — extract skills from grid derivations
-                sk_result = skills_loop.tick(loop)
-                sk_new = sk_result.get("new_skills", 0)
-                sk_total = sk_result.get("total_skills", 0)
-
-                summary = f"Native: {fname} — {fns} functions, {cls} classes"
-                if hi_cc:
-                    summary += f", high complexity: {hi_cc[0]['name']}(cc={hi_cc[0]['complexity']})"
-                if claims:
-                    summary += f", {claims} claims → grid"
-                if sk_new:
-                    summary += f", +{sk_new} skills ({sk_total} total)"
-                summary += f" ({elapsed}s)"
-                print(f"[auto #{cycle}] {summary}", flush=True)
-                engine._log_to_purple(loop, summary)
-
-                # --- Gateway attest after native cycle ---
-                if gateway is not None:
-                    from .storage import append_attest as _append_attest
-                    _append_attest(
-                        gateway._settings,
-                        intent_id=gw_packet.intent_id,
-                        diff_stats={"claims": claims, "functions": fns, "classes": cls},
-                        committed=True,
+                should_surface = is_human_goal or bool(guidance.get("surface_updates", False))
+                if should_surface:
+                    voice.cycle_result(
+                        summary=result.summary(),
+                        committed=result.committed,
+                        tests_passed=result.tests_passed,
+                        is_human_goal=is_human_goal,
                     )
+                engine._log_to_purple(loop, result.summary())
 
-                # --- Feedback closure 1: feed cycle summary back as grid claims ---
-                try:
-                    fb = skills_loop.observe_ai_output(summary, loop)
-                    fb_claims = fb.get("claims_fed", 0)
-                    fb_skills = fb.get("new_skills", 0)
-                    if fb_claims or fb_skills:
-                        print(f"  → feedback: {fb_claims} claims, +{fb_skills} skills", flush=True)
-                except Exception:
-                    pass
+                # Report human goal results back to Morpheus
+                if is_human_goal:
+                    morpheus.report_result(goal.id, result.summary(), result.committed)
 
-                # --- Feedback closure 3: record skill activation ---
-                try:
-                    boosted = skills_loop.record_activation_from_output(summary)
-                    if boosted:
-                        pass  # silent — confidence adjustments are internal
-                except Exception:
-                    pass
+                # Gateway attest for the full cycle
+                if gateway is not None and not result.impasse:
+                    try:
+                        from .storage import append_attest as _append_attest
+                        _append_attest(
+                            gateway._settings,
+                            intent_id=f"cycle_{cycle}",
+                            diff_stats={
+                                "target": target,
+                                "committed": result.committed,
+                                "tests_passed": result.tests_passed,
+                                "llm_used": result.llm_used,
+                                "human_goal": is_human_goal,
+                            },
+                            committed=result.committed,
+                        )
+                    except Exception:
+                        pass
 
-            if ran_this_round == 0:
-                print("[autonomous] No actionable goals — waiting.", file=sys.stderr, flush=True)
+            if ran_this_round > 0:
+                idle_rounds = 0
+            else:
+                idle_rounds += 1
+                if idle_rounds >= MAX_IDLE_BEFORE_REDISCOVER:
+                    voice.idle(idle_rounds, MAX_IDLE_BEFORE_REDISCOVER)
+                    discovery.discover_from_environment()
+                    engine._os_discovery = discovery
+                    engine._discovered_files = []
+                    idle_rounds = 0
+                    anticipated = morpheus_tracker.anticipate_next()
+                    if anticipated:
+                        voice.anticipated(anticipated)
+                else:
+                    voice.idle(idle_rounds, MAX_IDLE_BEFORE_REDISCOVER)
 
         except Exception as exc:
-            print(f"[autonomous] error: {exc}", file=sys.stderr, flush=True)
+            voice.error(str(exc))
 
-        # Only sleep between derive rounds, not between native cycles
-        for _ in range(45):
-            if _stop:
-                break
-            _time.sleep(1)
+        # --- Triangle-time scheduling: wait for new triangles, not wall clock ---
+        if ran_this_round > 0:
+            last_acted_tick = tri_clock.now
+            # Update triangle space after producing new knowledge
+            tri_space.update_from_grid(loop)
+            place_state = tri_place.sample()
+            if place_state["in_place"]:
+                voice.triangle_place_reached(place_state['closure'])
 
+        # Check if human goals are waiting — don't sleep if Morpheus needs us
+        has_human_pending = morpheus.pending_goal_count() > 0
+        if has_human_pending:
+            # Keep loop responsive to incoming guidance/goals.
+            pass
+        else:
+            # Wait for triangle evolution or Morpheus input
+            should, reason = tri_scheduler.should_act(last_acted_tick)
+            if not should:
+                wait_result = tri_scheduler.wait_for_evolution(min_ticks=1)
+                if wait_result["ticks_received"] > 0:
+                    voice.new_triangles(wait_result["ticks_received"])
+            elif reason != "homeostatic":
+                if "silence" in reason:
+                    voice.silence_generating()
+
+        if _stop or morpheus.stop_requested:
+            _stop = True
+
+    # --- Shutdown ---
+    morpheus.stop()
+    monitor_final = potential_monitor.stop()
+    tri_status = tri_scheduler.status()
     ni_status = native.status()
     sk_status = skills_loop.status()
+    exec_status = executor.status()
+    morph_status = morpheus_tracker.status()
     disc_final = len(discovery.discover_python_files())
-    print(
-        f"[autonomous] Stopped after {cycle} cycles. "
-        f"Native ratio: {ni_status['native_ratio']:.0%}. "
-        f"Skills: {sk_status['skills_active']}. "
-        f"OS files discovered: {disc_final}.",
-        file=sys.stderr, flush=True,
+
+    voice.shutdown_report(
+        cycle=cycle,
+        exec_status=exec_status,
+        morph_status=morph_status,
+        tri_status=tri_status,
     )
 
 

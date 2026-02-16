@@ -74,17 +74,6 @@ class PurpleGoalEngine:
 
     PROACTIVE_THRESHOLD = 0.75
 
-    _TARGET_FILES = [
-        "openclaw_adapter.py", "openclaw_actions.py", "loop.py",
-        "derive.py", "analyze.py", "cli.py", "config.py",
-        "ivi_simplicial_grid.py", "storage.py", "ir.py",
-        "purple_native_intelligence.py", "purple_goal_engine.py",
-    ]
-    _GOAL_TEMPLATES = [
-        ("autonomy", 0.9, "Read {file}, find one reusable pattern, and call save_skill to persist it."),
-        ("closure", 0.8, "Read {file}, identify one function that could be improved, and call save_skill with the improved version."),
-        ("gap", 0.7, "Read {file}, find an untested code path, and call save_skill with a test or validation routine for it."),
-    ]
     _EXECUTED_GOAL_TTL = 300
 
     def __init__(self) -> None:
@@ -101,6 +90,10 @@ class PurpleGoalEngine:
         self._autonomous_mode = False  # when True, heartbeat is suppressed
         self._os_discovery: Any = None  # OSRuntimeDiscovery instance
         self._discovered_files: List[str] = []  # full OS file list
+        self._triangle_space: Any = None  # TriangleSpace for topology
+        self._triangle_clock: Any = None  # TriangleClock for time-based priority
+        self._skills_loop: Any = None     # SelfGeneratingSkillsLoop for skill gaps
+        self._completed_goal_ids: set = set()  # stable dedup across rounds
 
     @property
     def state(self) -> PurpleGoalState:
@@ -124,74 +117,302 @@ class PurpleGoalEngine:
         return self._discovered_files
 
     def derive_goals_from_grid(self, loop_controller: Any) -> List[DerivedGoal]:
+        """Derive goals from the ACTUAL grid state — not templates.
+
+        Sources:
+          1. Orphan analysis   — statements/equations not yet in triangles
+          2. Triangle density   — sparse regions that need more derivation
+          3. Execution history  — learn from what worked vs failed
+          4. File coverage      — files with no grid presence yet
+          5. Closure deficit    — overall grid health
+        """
         goals: List[DerivedGoal] = []
+        repo_root = str(Path(__file__).resolve().parent.parent)
+        now_ts = time.time()
+
+        # --- Read actual grid state ---
         try:
             snapshot = loop_controller._autonomy_mission_snapshot()
         except Exception:
             snapshot = {}
-
         self._state.autonomy_prompt = str(snapshot.get("next_prompt", ""))
         self._state.closure_deficit = int(snapshot.get("closure_deficit_estimate", 0))
         self._state.gap_rate = float(snapshot.get("gap_rate", 0.0))
         self._state.derived_density = float(snapshot.get("derived_density", 0.0))
 
-        # Determine the primary workspace — the dir containing ivi_loop/
-        repo_root = str(Path(__file__).resolve().parent.parent)
-        if not Path(repo_root).joinpath("ivi_loop").is_dir():
-            repo_root = str(Path.home() / 'Purple')
+        # Get the raw grid index
+        g = None
+        if hasattr(loop_controller, 'grid'):
+            g = loop_controller.grid
+        elif hasattr(loop_controller, '_grid'):
+            g = loop_controller._grid
+        idx = getattr(g, 'idx', None) if g else None
 
-        # Rotate target file based on cycle count
-        cycle = self._state.autonomous_cycles_run
+        # --- Source 1: Orphan statements (in grid but no triangle) ---
+        if idx is not None:
+            all_sids = set(idx.statements.keys())
+            triangulated_sids = set()
+            for tr in idx.triangles.values():
+                triangulated_sids.add(tr.get("sid", ""))
+            orphan_sids = list(all_sids - triangulated_sids)
 
-        # --- Tier 1: core ivi_loop files (high priority, stable rotation) ---
-        n_core = len(self._TARGET_FILES)
+            if orphan_sids:
+                # Pick the most recent orphans — they're the freshest knowledge gaps
+                orphan_stmts = []
+                for sid in orphan_sids:
+                    st = idx.statements.get(sid, {})
+                    orphan_stmts.append((sid, st.get("text", ""), st.get("ts", 0)))
+                orphan_stmts.sort(key=lambda x: x[2], reverse=True)
 
-        conditions = [
-            bool(self._state.autonomy_prompt),
-            self._state.closure_deficit > 0,
-            self._state.gap_rate > 0.1,
-        ]
+                for sid, text, ts in orphan_stmts[:3]:
+                    short = text[:120] if text else sid
+                    goals.append(DerivedGoal(
+                        id=f"orphan_{sid[:16]}",
+                        source="grid_orphan",
+                        description=(
+                            f"Orphan statement needs derivation: '{short}'. "
+                            f"Find the source file, analyze it, and derive this into a triangle."
+                        ),
+                        priority=0.9,
+                        suggested_tools=["read_file", "save_skill"],
+                        expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                    ))
 
-        for i, (label, pri, tmpl) in enumerate(self._GOAL_TEMPLATES):
-            if not conditions[i]:
-                continue
-            file_idx = (cycle + i) % n_core
-            target = self._TARGET_FILES[file_idx]
-            target_path = f"{repo_root}/ivi_loop/{target}"
-            if not Path(target_path).is_file():
-                continue
-            goal_id = f"purple_{label}_{cycle}_{file_idx}"
-            ctx = f" Context: {self._state.autonomy_prompt[:80]}" if label == "autonomy" else ""
-            goals.append(DerivedGoal(
-                id=goal_id,
-                source="purple_mission",
-                description=tmpl.format(file=target_path) + ctx,
-                priority=pri,
-                suggested_tools=["read_file", "save_skill"],
-                expires_ts=time.time() + self._EXECUTED_GOAL_TTL,
-            ))
+        # --- Source 2: Sparse regions — find files with fewest triangles ---
+        file_triangle_count: Dict[str, int] = {}
+        if idx is not None and idx.triangles:
+            for tr in idx.triangles.values():
+                st = idx.statements.get(tr.get("sid", ""), {})
+                text = str(st.get("text", ""))
+                # Try to extract a filename from the statement text
+                match = re.search(r'([\w_]+\.py)', text)
+                if match:
+                    fname = match.group(1)
+                    file_triangle_count[fname] = file_triangle_count.get(fname, 0) + 1
 
-        # --- Tier 2: OS-discovered files (broader reach, lower priority) ---
-        discovered = self.discover_os_targets()
-        if discovered:
-            # Pick files by rotating through the discovered list
-            n_disc = len(discovered)
-            for offset in range(2):  # up to 2 discovered-file goals per cycle
-                disc_idx = (cycle + offset) % n_disc
-                disc_path = discovered[disc_idx]
-                # Skip if it's already a core target
-                if Path(disc_path).name in self._TARGET_FILES:
-                    continue
+            # Find Python files that exist but have few/no triangles
+            ivi_dir = Path(repo_root) / "ivi_loop"
+            if ivi_dir.is_dir():
+                for py_file in sorted(ivi_dir.glob("*.py")):
+                    if py_file.name.startswith("__"):
+                        continue
+                    count = file_triangle_count.get(py_file.name, 0)
+                    if count < 5:  # under-represented in grid
+                        goals.append(DerivedGoal(
+                            id=f"sparse_{py_file.name}",
+                            source="grid_sparse",
+                            description=(
+                                f"{py_file.name} has only {count} triangles in the grid. "
+                                f"Analyze {py_file} to extract insights and build grid coverage."
+                            ),
+                            priority=0.85 - (count * 0.05),  # fewer triangles = higher priority
+                            suggested_tools=["read_file", "save_skill"],
+                            expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                        ))
+
+        # --- Source 3: Learn from execution history ---
+        succeeded_files: set = set()
+        failed_files: set = set()
+        for entry in self._state.execution_log[-20:]:
+            target = self._extract_target_file(entry.get("description", ""))
+            if target:
+                fname = Path(target).name
+                if entry.get("result", "") and "error" not in entry.get("result", "").lower():
+                    succeeded_files.add(fname)
+                else:
+                    failed_files.add(fname)
+
+        # Retry files that failed — there might be new grid context to help
+        for fname in failed_files - succeeded_files:
+            fpath = Path(repo_root) / "ivi_loop" / fname
+            if fpath.is_file():
                 goals.append(DerivedGoal(
-                    id=f"purple_discover_{cycle}_{offset}",
-                    source="os_discovery",
-                    description=f"Read {disc_path}, extract structural patterns and feed claims to the IVI grid.",
-                    priority=0.6,
+                    id=f"retry_{fname}",
+                    source="execution_retry",
+                    description=(
+                        f"{fname} failed previously. Retry with current grid context — "
+                        f"new triangles may provide missing structural information."
+                    ),
+                    priority=0.7,
                     suggested_tools=["read_file", "save_skill"],
-                    expires_ts=time.time() + self._EXECUTED_GOAL_TTL,
+                    expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
                 ))
 
+        # --- Source 4: Closure deficit — when grid is unhealthy ---
+        if self._state.closure_deficit > 50:
+            goals.append(DerivedGoal(
+                id="closure_deficit",
+                source="grid_closure",
+                description=(
+                    f"Grid closure deficit is {self._state.closure_deficit}. "
+                    f"Run broad analysis across the codebase to feed new claims and reduce the gap."
+                ),
+                priority=0.8,
+                suggested_tools=["read_file", "list_dir"],
+                expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+            ))
+
+        # --- Source 5: Triangle space topology (densest/sparsest regions) ---
+        tri_space = self._triangle_space
+        if tri_space is not None:
+            tri_space.update_from_grid(loop_controller)
+            sparsest = tri_space.sparsest_region()
+            densest = tri_space.densest_region()
+
+            # Target sparsest region — grow where knowledge is thinnest
+            if sparsest and sparsest.sids:
+                sparse_stmts = []
+                if idx is not None:
+                    for sid in list(sparsest.sids)[:3]:
+                        st = idx.statements.get(sid, {})
+                        sparse_stmts.append(str(st.get("text", sid))[:80])
+                context = "; ".join(sparse_stmts) if sparse_stmts else "unknown"
+                goals.append(DerivedGoal(
+                    id=f"sparse_region_{sparsest.region_id}",
+                    source="triangle_topology",
+                    description=(
+                        f"Sparsest knowledge region ({len(sparsest.tids)} triangles, "
+                        f"density={sparsest.density:.2f}). Topics: {context}. "
+                        f"Analyze related files to increase density and connect this region."
+                    ),
+                    priority=0.88,
+                    suggested_tools=["read_file", "save_skill"],
+                    expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                ))
+
+            # Strengthen densest region — deepen the strongest knowledge
+            if densest and densest != sparsest and len(tri_space._regions) > 2:
+                goals.append(DerivedGoal(
+                    id=f"deepen_{densest.region_id}",
+                    source="triangle_topology",
+                    description=(
+                        f"Densest region ({len(densest.tids)} triangles, "
+                        f"density={densest.density:.2f}) could be deepened. "
+                        f"Find cross-file dependencies within this region to add connecting triangles."
+                    ),
+                    priority=0.65,
+                    suggested_tools=["read_file", "save_skill"],
+                    expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                ))
+
+            # Connect isolated regions — bridge disconnected knowledge
+            if len(tri_space._regions) > 1:
+                regions_sorted = sorted(
+                    tri_space._regions.values(),
+                    key=lambda r: len(r.tids),
+                )
+                smallest = regions_sorted[0]
+                if smallest != densest and smallest.sids:
+                    goals.append(DerivedGoal(
+                        id=f"bridge_{smallest.region_id}",
+                        source="triangle_topology",
+                        description=(
+                            f"Isolated region ({len(smallest.tids)} triangles) is disconnected. "
+                            f"Find shared concepts between this region and the main knowledge graph "
+                            f"to bridge them with connecting derivations."
+                        ),
+                        priority=0.82,
+                        suggested_tools=["read_file", "save_skill"],
+                        expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                    ))
+
+            # Frontier analysis — growth points at the edge of triangle space
+            frontier = tri_space.frontier_sids()
+            if frontier and idx is not None:
+                frontier_stmts = []
+                for sid in list(frontier)[:5]:
+                    st = idx.statements.get(sid, {})
+                    frontier_stmts.append(str(st.get("text", ""))[:60])
+                frontier_stmts = [s for s in frontier_stmts if s]
+                if frontier_stmts:
+                    goals.append(DerivedGoal(
+                        id="frontier",
+                        source="triangle_frontier",
+                        description=(
+                            f"{len(frontier)} statements at the frontier of triangle space. "
+                            f"These are growth points: {'; '.join(frontier_stmts[:3])}. "
+                            f"Derive them to expand the verified knowledge boundary."
+                        ),
+                        priority=0.87,
+                        suggested_tools=["read_file", "save_skill"],
+                        expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                    ))
+
+        # --- Source 6: Skill gap analysis ---
+        sk_loop = self._skills_loop
+        if sk_loop is not None:
+            sk_summary = sk_loop.injector.summary()
+            by_kind = sk_summary.get("by_kind", {})
+            total_sk = sk_summary.get("total_skills", 0)
+            if total_sk > 0:
+                # Find underrepresented skill kinds
+                expected_kinds = ["rule", "pattern", "constraint", "derivation"]
+                for kind in expected_kinds:
+                    count = by_kind.get(kind, 0)
+                    ratio = count / max(1, total_sk)
+                    if ratio < 0.1 and total_sk > 5:  # < 10% of skills
+                        goals.append(DerivedGoal(
+                            id=f"skillgap_{kind}",
+                            source="skill_gap",
+                            description=(
+                                f"Only {count}/{total_sk} skills are '{kind}' type ({ratio:.0%}). "
+                                f"Analyze files that would produce {kind} skills "
+                                f"to balance the skill distribution."
+                            ),
+                            priority=0.72,
+                            suggested_tools=["read_file", "save_skill"],
+                            expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                        ))
+
+        # --- Source 7: Triangle-time priority adjustment ---
+        # Goals targeting areas with no recent triangle activity get boosted
+        tri_clock = self._triangle_clock
+        if tri_clock is not None and tri_clock.now > 0:
+            for goal in goals:
+                # Boost goals about areas with no recent activity
+                if goal.source in ("grid_sparse", "triangle_topology", "triangle_frontier"):
+                    # These are already about underserved areas — boost by silence
+                    silence = tri_clock.silence_duration()
+                    if silence > 30:
+                        goal.priority = min(goal.priority + 0.05, 0.95)
+
+        # --- Source 8: OS-discovered files not yet in grid ---
+        discovered = self.discover_os_targets()
+        if discovered and idx is not None:
+            # Which discovered files have zero grid presence?
+            known_fnames = set(file_triangle_count.keys()) if idx.triangles else set()
+            unknown = [p for p in discovered if Path(p).name not in known_fnames]
+            if unknown:
+                # Pick the most interesting-looking ones (not __init__, not tiny)
+                candidates = []
+                for p in unknown:
+                    try:
+                        size = Path(p).stat().st_size
+                        if size > 200:  # skip trivially small files
+                            candidates.append((p, size))
+                    except OSError:
+                        continue
+                candidates.sort(key=lambda x: x[1], reverse=True)  # largest first
+                for disc_path, size in candidates[:2]:
+                    goals.append(DerivedGoal(
+                        id=f"discover_{Path(disc_path).name}",
+                        source="os_discovery",
+                        description=(
+                            f"Discovered {disc_path} ({size} bytes) — not yet in the grid. "
+                            f"Analyze to expand knowledge coverage."
+                        ),
+                        priority=0.6,
+                        suggested_tools=["read_file", "save_skill"],
+                        expires_ts=now_ts + self._EXECUTED_GOAL_TTL,
+                    ))
+
+        # Filter out already-completed goals
+        goals = [g for g in goals if g.id not in self._completed_goal_ids]
         return goals
+
+    def mark_goal_completed(self, goal_id: str) -> None:
+        """Mark a goal as completed so it won't be re-derived."""
+        self._completed_goal_ids.add(goal_id)
 
     def derive_goals_from_conversation(
         self,
@@ -221,6 +442,36 @@ class PurpleGoalEngine:
 
         return goals
 
+    def inject_human_goals(self, human_goals: List[Any]) -> int:
+        """Inject human goals from MorpheusChannel with highest priority.
+        Human goals always go to the front of the queue — Neo serves Morpheus first.
+        Returns number of goals injected."""
+        if not human_goals:
+            return 0
+        injected = 0
+        with _goal_lock:
+            for hg in human_goals:
+                goal = DerivedGoal(
+                    id=hg.id,
+                    source="morpheus",
+                    description=hg.description,
+                    priority=1.0,  # always highest
+                    actionable=True,
+                    suggested_tools=["read_file", "write_file", "run_command",
+                                     "run_tests", "git_commit", "save_skill"],
+                    expires_ts=0,  # human goals never expire
+                )
+                # Insert at front, after any other active human goals
+                insert_idx = 0
+                for i, g in enumerate(self._state.goals):
+                    if g.source == "morpheus" and not g.executed:
+                        insert_idx = i + 1
+                    else:
+                        break
+                self._state.goals.insert(insert_idx, goal)
+                injected += 1
+        return injected
+
     def derive_all(
         self,
         loop_controller: Any = None,
@@ -249,14 +500,19 @@ class PurpleGoalEngine:
         all_goals = [g for g in all_goals if g.id not in executed_ids]
 
         with _goal_lock:
+            # Preserve human goals — they never get evicted
+            human_goals = [
+                g for g in self._state.goals
+                if g.source == "morpheus" and not g.executed
+            ]
             # Keep recently-executed goals; expire old ones to make room
             old_executed = [
                 g for g in self._state.goals
                 if g.executed and (g.expires_ts == 0 or g.expires_ts > now)
             ]
-            # Cap executed history to 4 so fresh goals always have room
             old_executed = old_executed[-4:]
-            self._state.goals = old_executed + all_goals[:8 - len(old_executed)]
+            remaining_slots = max(0, 8 - len(human_goals) - len(old_executed))
+            self._state.goals = human_goals + old_executed + all_goals[:remaining_slots]
             self._state.last_derivation_ts = now
 
         return self._state.goals

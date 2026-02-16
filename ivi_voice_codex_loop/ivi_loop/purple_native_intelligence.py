@@ -569,12 +569,16 @@ class IVIClaimGenerator:
         if not batch_allowed:
             return 0
 
+        # Fast batch path: add_statement + derive only, skip per-claim
+        # compute_graph_metrics / build_context / integration_artifacts
+        g = grid.grid if hasattr(grid, 'grid') else grid
         for claim in batch:
             try:
-                grid.add_statement_and_loop(
-                    claim["text"],
+                st = g.add_statement(
+                    text=claim["text"],
                     source=claim.get("source", "native_analysis"),
                 )
+                g.derive_phase1_minimal(st.sid)
                 count += 1
             except Exception:
                 pass

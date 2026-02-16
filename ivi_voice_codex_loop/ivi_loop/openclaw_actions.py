@@ -15,6 +15,7 @@ import re
 import shutil
 import subprocess
 import ssl
+import sys
 import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -256,6 +257,52 @@ TOOLS = [
             },
         },
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "git_commit",
+            "description": "Stage and commit files to git. Provide paths to stage and a commit message. If paths is empty, stages all changed files.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "message": {"type": "string", "description": "Commit message describing what changed."},
+                    "paths": {"type": "array", "items": {"type": "string"}, "description": "Files to stage. Empty array = git add -A."},
+                    "cwd": {"type": "string", "description": "Git repo root directory."},
+                },
+                "required": ["message"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "run_tests",
+            "description": "Run tests in a directory. Tries pytest first, falls back to 'python -m py_compile' for syntax checking. Returns pass/fail with output.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "description": "Directory or file to test."},
+                    "command": {"type": "string", "description": "Custom test command. If empty, auto-detects."},
+                },
+                "required": ["path"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "git_diff",
+            "description": "Show git diff of staged or unstaged changes. Useful before committing to review what changed.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "cwd": {"type": "string", "description": "Git repo root directory."},
+                    "staged": {"type": "boolean", "description": "If true, show staged changes (--cached). Default false."},
+                },
+                "required": [],
+            },
+        },
+    },
 ]
 
 
@@ -274,11 +321,17 @@ def execute_tool(name: str, arguments: Dict[str, Any], base_path: str = ".", gat
             action_class = "read"
             if name in ("write_file", "save_skill"):
                 action_class = "write"
-            elif name == "run_command":
-                action_class = "execute"
+            elif name in ("run_command", "run_tests"):
+                action_class = "run_tests" if name == "run_tests" else "execute"
+            elif name in ("git_commit",):
+                action_class = "git_commit"
+            elif name == "git_diff":
+                action_class = "read"
             req_paths = []
             if "path" in arguments:
                 req_paths = [str(arguments["path"])]
+            if "cwd" in arguments and arguments["cwd"]:
+                req_paths.append(str(arguments["cwd"]))
 
             gw_packet = gateway.ingress(
                 raw_input=f"tool:{name} {json.dumps(arguments)[:150]}",
@@ -308,6 +361,12 @@ def execute_tool(name: str, arguments: Dict[str, Any], base_path: str = ".", gat
             result = _exec_write_file(arguments)
         elif name == "save_skill":
             result = _exec_save_skill(arguments, base_path)
+        elif name == "git_commit":
+            result = _exec_git_commit(arguments)
+        elif name == "run_tests":
+            result = _exec_run_tests(arguments)
+        elif name == "git_diff":
+            result = _exec_git_diff(arguments)
         else:
             result = f"Unknown tool: {name}"
     except Exception as exc:
@@ -426,6 +485,131 @@ def _exec_save_skill(args: Dict[str, Any], base_path: str) -> str:
     header = f'"""\nSkill: {name}\n{description}\n"""\n\n'
     skill_path.write_text(header + code, encoding="utf-8")
     return f"Skill saved: {skill_path}"
+
+
+def _exec_git_commit(args: Dict[str, Any]) -> str:
+    """Stage files and commit to git."""
+    message = str(args.get("message", "autonomous improvement"))
+    paths = args.get("paths", [])
+    cwd = args.get("cwd") or None
+    try:
+        # Stage
+        if paths:
+            for p in paths:
+                subprocess.run(["git", "add", str(p)], cwd=cwd, capture_output=True, timeout=10)
+        else:
+            subprocess.run(["git", "add", "-A"], cwd=cwd, capture_output=True, timeout=10)
+        # Check if there's anything to commit
+        status = subprocess.run(
+            ["git", "status", "--porcelain"], cwd=cwd, capture_output=True, text=True, timeout=10,
+        )
+        if not status.stdout.strip():
+            return "Nothing to commit — working tree clean."
+        # Commit
+        result = subprocess.run(
+            ["git", "commit", "-m", message],
+            cwd=cwd, capture_output=True, text=True, timeout=15,
+        )
+        output = (result.stdout + result.stderr).strip()
+        if result.returncode != 0:
+            return f"Git commit failed: {output[:500]}"
+        return f"Committed: {output[:300]}"
+    except subprocess.TimeoutExpired:
+        return "Git commit timed out."
+    except OSError as exc:
+        return f"Git error: {exc}"
+
+
+def _exec_run_tests(args: Dict[str, Any]) -> str:
+    """Run tests: try pytest, fall back to py_compile."""
+    path = str(args.get("path", "."))
+    custom_cmd = args.get("command", "")
+    try:
+        if custom_cmd:
+            result = subprocess.run(
+                custom_cmd, shell=True, capture_output=True, text=True,
+                timeout=60, cwd=path if Path(path).is_dir() else None,
+            )
+        else:
+            # Try pytest first
+            result = subprocess.run(
+                [sys.executable, "-m", "pytest", path, "-x", "--tb=short", "-q"],
+                capture_output=True, text=True, timeout=60,
+            )
+            _combined = (result.stdout + result.stderr).lower()
+            if "no module named pytest" in _combined:
+                # pytest not installed — fall back to compile check
+                if Path(path).is_file():
+                    result = subprocess.run(
+                        [sys.executable, "-m", "py_compile", path],
+                        capture_output=True, text=True, timeout=15,
+                    )
+                elif Path(path).is_dir():
+                    py_files = list(Path(path).rglob("*.py"))[:20]
+                    outputs = []
+                    for pf in py_files:
+                        r = subprocess.run(
+                            [sys.executable, "-m", "py_compile", str(pf)],
+                            capture_output=True, text=True, timeout=10,
+                        )
+                        if r.returncode != 0:
+                            outputs.append(f"FAIL: {pf.name}: {r.stderr[:100]}")
+                        else:
+                            outputs.append(f"OK: {pf.name}")
+                    return "\n".join(outputs) if outputs else "No Python files found."
+            elif result.returncode != 0 and "no tests ran" in _combined:
+                # Fall back to compile check
+                if Path(path).is_file():
+                    result = subprocess.run(
+                        [sys.executable, "-m", "py_compile", path],
+                        capture_output=True, text=True, timeout=15,
+                    )
+                elif Path(path).is_dir():
+                    py_files = list(Path(path).rglob("*.py"))[:20]
+                    outputs = []
+                    for pf in py_files:
+                        r = subprocess.run(
+                            [sys.executable, "-m", "py_compile", str(pf)],
+                            capture_output=True, text=True, timeout=10,
+                        )
+                        if r.returncode != 0:
+                            outputs.append(f"FAIL: {pf.name}: {r.stderr[:100]}")
+                        else:
+                            outputs.append(f"OK: {pf.name}")
+                    return "\n".join(outputs) if outputs else "No Python files found."
+
+        output = ""
+        if result.stdout:
+            output += result.stdout[:3000]
+        if result.stderr:
+            output += f"\n[stderr] {result.stderr[:1500]}"
+        passed = result.returncode == 0
+        return f"{'PASSED' if passed else 'FAILED'} (exit {result.returncode})\n{output.strip()}"
+    except subprocess.TimeoutExpired:
+        return "Tests timed out after 60s."
+    except OSError as exc:
+        return f"Test error: {exc}"
+
+
+def _exec_git_diff(args: Dict[str, Any]) -> str:
+    """Show git diff."""
+    cwd = args.get("cwd") or None
+    staged = args.get("staged", False)
+    try:
+        cmd = ["git", "diff"]
+        if staged:
+            cmd.append("--cached")
+        result = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=10)
+        diff = result.stdout.strip()
+        if not diff:
+            return "No changes detected."
+        if len(diff) > 3000:
+            diff = diff[:3000] + "\n... (truncated)"
+        return diff
+    except subprocess.TimeoutExpired:
+        return "Git diff timed out."
+    except OSError as exc:
+        return f"Git error: {exc}"
 
 
 def list_skills(base_path: str = ".") -> List[Dict[str, str]]:

@@ -1169,6 +1169,15 @@ class IVISimplicialGrid:
         self._add_neighbor(eid, sid)
 
         self._save_index()
+
+        # Advance triangle time — every new triangle ticks the clock
+        _tclock = getattr(self, '_triangle_clock', None)
+        if _tclock is not None:
+            try:
+                _tclock.tick(tid=tid, sid=sid, did=did, eid=eid)
+            except Exception:
+                pass
+
         return tr
 
     def _add_neighbor(self, a: str, b: str) -> None:

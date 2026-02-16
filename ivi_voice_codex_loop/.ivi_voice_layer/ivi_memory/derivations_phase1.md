@@ -6438,3 +6438,1194 @@ The heartbeat handles
   - Derived: `D_307ed29c59df428c` → `E_93fb6676bc7a0e24` via `T_458caba011d654a3`
 - **S_d7f0f53a7a6d3d8f**: pattern:context_manager at config.py:48
   - Derived: `D_6b5cfd4f96e41512` → `E_10aadacdf74ccd54` via `T_fd18e7086e2415a2`
+- **S_3fdd6f39b1686db5**: if config then __future__
+  - Derived: `D_1382ffb919c769ca` → `E_174e664d2a6409fb` via `T_78af28a39536a7ce`
+- **S_00c7c1a9801d986c**: if config then json
+  - Derived: `D_cab4bd7a2bbb55c4` → `E_a9e595977e4f47ab` via `T_8edda88e25bcfca1`
+- **S_a757baff2671ff76**: if config then dataclasses
+  - Derived: `D_3d932254b5c3b554` → `E_9e79f88b4a902fd6` via `T_5f1f40638957a6a3`
+- **S_b8c3955eeaaefa5d**: if config then pathlib
+  - Derived: `D_4873f970074595cf` → `E_fa75ba537501556f` via `T_9a206240f2ee59dd`
+- **S_af438923e298645c**: if config then typing
+  - Derived: `D_079e07239a213aa2` → `E_c762b2b0b8090132` via `T_24ac985e73c83d21`
+- **S_3841eaa367e2f9dd**: if read_analysis_config then FileNotFoundError
+  - Derived: `D_c79f1cc3f6523dd9` → `E_0847af73062e664c` via `T_7662321d608f9226`
+- **S_b0c54c2a35a4e717**: if read_analysis_config then exists
+  - Derived: `D_244fb60d22fc420a` → `E_5da490caf84192f9` via `T_2c9f353b33457dd1`
+- **S_7b8cf55f3fdf6c1e**: if read_analysis_config then load
+  - Derived: `D_4a9161c1ca4f3149` → `E_8cc41e752506aebd` via `T_e0dcab5f650008b1`
+- **S_f4c59f0e4b0dfddc**: if load then Settings
+  - Derived: `D_bbf29e465287a427` → `E_d73340d7c59c4e12` via `T_3f2c6aa4afa71e91`
+- **S_c7e3f9ce3d7ef9b9**: if load then resolve
+  - Derived: `D_7517365e63c0099a` → `E_923c94aca6003434` via `T_85666ee441de35e9`
+- **S_cfc9f9491ed60a39**: def _now_ts: def _now_ts() -> float
+  - Derived: `D_933a669503fd435b` → `E_ddcb0f891ad2319a` via `T_7bda3baff0c63426`
+- **S_83adffd33c51d9f6**: def _stable_hash: def _stable_hash(s) -> str
+  - Derived: `D_16490fcf570c9605` → `E_1494a2eaa745e986` via `T_0b39ddd636ea1082`
+- **S_8b0f1b4702580eed**: def _ensure_dir: def _ensure_dir(p) -> None
+  - Derived: `D_0a9c47c522bb98c8` → `E_09cb5d7324dfeae4` via `T_c38c943b551c1d97`
+- **S_df461371b0088229**: def _jsonl_append: def _jsonl_append(path, obj) -> None
+  - Derived: `D_01b687e030646e42` → `E_4e9bca48dc69a35d` via `T_6595129a8abb9cfb`
+- **S_ad341b2798ab5ba2**: def _json_read: def _json_read(path, default) -> Any
+  - Derived: `D_9b9a342f5f5fc108` → `E_6fba95267fe8b2a2` via `T_6ba76b9b97ca432a`
+- **S_85827cff251f9828**: def _json_write: def _json_write(path, obj) -> None
+  - Derived: `D_aae2a4e8f40839fd` → `E_0bf9a127a15660a7` via `T_89d3dd533ed8cc03`
+- **S_2bac3e849c7bb401**: def validate_trace_backed_references: def validate_trace_backed_references(trace, references) -> Tuple[bool, List[str]]: Ensure every reference is grounded in the current trace.
+
+Currently enforced:
+  - Derived: `D_79b2e35aaaa9b44a` → `E_fbf92a7d27332d7e` via `T_a3d2cccf2a5aa838`
+- **S_d929e3beeef05ab2**: def _validation_level_index: def _validation_level_index(level) -> int
+  - Derived: `D_446219147c75791c` → `E_667edd3164f610e1` via `T_a62d5e0e4b3c4ecd`
+- **S_cddc5169076aaba7**: def _transform_impl_digest: def _transform_impl_digest(impl_ref) -> str
+  - Derived: `D_a9293ce83caf15bb` → `E_00d98f97b68bd03e` via `T_97f6e03691bf8889`
+- **S_df3effc3502a8401**: def _feature_test_passes: def _feature_test_passes(trace, feature_test) -> bool
+  - Derived: `D_10d3311091e92bec` → `E_1bb116b0ed6b873d` via `T_7cf439fa5f70bf14`
+- **S_0b2f714cc7ca6064**: def evaluate_regime_feature_tests: def evaluate_regime_feature_tests(trace, claim) -> Dict[str, Any]
+  - Derived: `D_821a5a8a3d3b409d` → `E_4e8e40a2d7463dc0` via `T_47a235eca1967082`
+- **S_5f7fb1b9f930f874**: def evaluate_validation_promotion_level: def evaluate_validation_promotion_level(current_level, previous_level) -> Dict[str, Any]
+  - Derived: `D_33b75f5b1f4c9d65` → `E_cc3be3704664eb64` via `T_076be40a4fe90af7`
+- **S_f3deeee7b64957a5**: def run_complexity_counterexample_search: def run_complexity_counterexample_search(trace, claim) -> Dict[str, Any]: Lightweight adversarial hook: try candidate traces that may expose a mismatch
+be
+  - Derived: `D_23cc3d6b2c115bb1` → `E_74ba175a93e48abd` via `T_ea1f7a5197e1b795`
+- **S_fbfd5c0c13874590**: def build_triangle_time_choice_artifact: def build_triangle_time_choice_artifact(trace) -> Dict[str, Any]: Build triangle-time choice operator artifact over the current connection state.
+  - Derived: `D_53f18af61e48f5c1` → `E_87b9f594d6ea8eb4` via `T_6322867814c0ea1e`
+- **S_8f8e363ee081df62**: def validate_triangle_time_choice_artifact: def validate_triangle_time_choice_artifact(artifact) -> Tuple[bool, List[str]]
+  - Derived: `D_b1832225aae7c943` → `E_da620ed8b4d8af55` via `T_f31a97de5af62778`
+- **S_634d4b2e07f9172e**: def evaluate_p_np_state_check_option: def evaluate_p_np_state_check_option(claim) -> Dict[str, Any]: Order-1 state check option for complexity claims.
+
+This check is intentionally r
+  - Derived: `D_d33988dbe2e66b62` → `E_d6a06c842bf6ec26` via `T_b04abc787b4354a4`
+- **S_711fafd63ab8c603**: def _validate_role_projection_structure: def _validate_role_projection_structure(trace, projection) -> List[str]
+  - Derived: `D_bd270023512e40fb` → `E_b363018403eaafea` via `T_c973bcac4a4775f5`
+- **S_4e46009c6b8c5746**: def validate_role_exchange_trace_consistency: def validate_role_exchange_trace_consistency(trace) -> Tuple[bool, List[str]]: Practical proxy for self-dual commutation in runtime traces.
+
+We enforce th
+  - Derived: `D_c06ca4e735d89c3d` → `E_3efb3cc12910b850` via `T_98d320982edc8f5a`
+- **S_3ab6bb4fcea32b79**: def validate_complexity_claim_schema: def validate_complexity_claim_schema(claim) -> Tuple[bool, List[str]]: Enforce representation-conditioned complexity claims.
+
+We allow restricted claim
+  - Derived: `D_d5f1e8f5cb386e8f` → `E_a92ba445c310105c` via `T_21a90db6a25567bc`
+- **S_f635ee4bbdaef37f**: def _tokenize: def _tokenize(text) -> List[str]
+  - Derived: `D_5a84c239d375a796` → `E_29724d34b56bdfbb` via `T_6dd5b60ee999dcbe`
+- **S_bec3bb046aad8240**: def _tf: def _tf(text) -> Dict[str, float]
+  - Derived: `D_56ef27aeaeec08c5` → `E_8ea79e693b712525` via `T_9a5f7c3517aa7d29`
+- **S_339e05d78d6a8bf3**: def _cosine_sparse: def _cosine_sparse(a, b) -> float
+  - Derived: `D_aec9e975a2d8bdbb` → `E_c850c607c35f1999` via `T_a852dbc8f304757d`
+- **S_0325ae214ae32ab0**: def _digest_reflexive_state: def _digest_reflexive_state(S) -> str
+  - Derived: `D_c9d4f064870a3959` → `E_7178e08abc277c88` via `T_0c0ac5ecee75eff5`
+- **S_f0deb5f8d91cb07b**: def _digest_reflexive_delta: def _digest_reflexive_delta(d) -> str
+  - Derived: `D_eb9214d75a1e4c86` → `E_2ebd429078ea36ee` via `T_92ef1e7799e40a32`
+- **S_4a2f29ff93395bc0**: def _propose_reflexive_deltas: def _propose_reflexive_deltas(S) -> List[ReflexiveDelta]
+  - Derived: `D_3b090564ae8c08f6` → `E_a6bdeefb6a45a6ba` via `T_a82bece33f7d15be`
+- **S_87d28c4d72f8fe02**: def _select_reflexive_delta: def _select_reflexive_delta(candidates) -> Optional[ReflexiveDelta]
+  - Derived: `D_1da4fcc7cf14cd28` → `E_06e6870220a8e5bb` via `T_e05c35d28dbcddb1`
+- **S_ab4497cdf12a35d4**: def _check_reflexive_delta: def _check_reflexive_delta(S, d) -> ReflexiveWitness
+  - Derived: `D_bd16e5f88e9a336f` → `E_0ffefb849cbf19a5` via `T_b8168386b8d47c79`
+- **S_148b454e603ad0b8**: def _commit_reflexive_delta: def _commit_reflexive_delta(S, d, w) -> ReflexiveState
+  - Derived: `D_10c913dca66bc265` → `E_b5c8b10a61851033` via `T_142e99929a208561`
+- **S_c6290ebfec95296c**: def run_reflexive_refinement_step: def run_reflexive_refinement_step(S) -> Dict[str, Any]
+  - Derived: `D_fbbb4cb357353e17` → `E_95b50a9120079040` via `T_25024cbae59bcab3`
+- **S_7b6168853d4f1f10**: def build_reflexive_state_from_trace: def build_reflexive_state_from_trace(trace) -> ReflexiveState
+  - Derived: `D_3e310e14a96b7c25` → `E_6935debac57bd2d2` via `T_01ed6a14a9209b1d`
+- **S_f9bc649f8ea56d2b**: def set_branch: def set_branch(branch_id, parent_branch_id) -> None
+  - Derived: `D_da6e0c7dbc2e6546` → `E_f8a7740e50ccb02c` via `T_6be6d4e6e19725fb`
+- **S_a0072cf958d510d3**: def ensure_dirs: def ensure_dirs(settings) -> None
+  - Derived: `D_2ffd9c09700d9e46` → `E_bf9fd8938ed7ef63` via `T_5f41f0b6be1f7b44`
+- **S_d49ea4aa6c6bdfed**: def append_event: def append_event(settings, event) -> None
+  - Derived: `D_524a41e0c2a18c8a` → `E_bdbf226285e7f50a` via `T_91ab035e6161ff67`
+- **S_563a3126ee632515**: def read_events: def read_events(settings) -> List[Event]
+  - Derived: `D_484e4eac7889e015` → `E_87e7f0fc95b4181a` via `T_24d58a1f00219eb9`
+- **S_b8388f80b64e08b2**: def write_json: def write_json(path, obj) -> None
+  - Derived: `D_7fb4cf2128a0e293` → `E_f0469cc171a03ec6` via `T_8826214b4ddac19c`
+- **S_aec908e2f062955d**: def read_json: def read_json(path, default) -> Any
+  - Derived: `D_3d04d1f002fbba86` → `E_db4bb2a8c9bfdfb8` via `T_996395fbb524c5b4`
+- **S_aa970b23a033b8f7**: def rebuild_state: def rebuild_state(settings) -> Dict[str, Any]: Compute the current view from the append-only event log.
+  - Derived: `D_d5d21badca37067a` → `E_cc6afa8e4651069b` via `T_4e33508989ba85a6`
+- **S_e657a63f41351dcf**: def load_state: def load_state(settings) -> Dict[str, Any]
+  - Derived: `D_02f2df9dbc87bb58` → `E_e58b6f86df98cc03` via `T_03bc7bbce321195d`
+- **S_ace7d757579cefc8**: def append_intent: def append_intent(settings, intent_id, actor, channel, action_class) -> Dict[str, Any]: Write an intent event BEFORE any effectful action.
+Returns the intent payload fo
+  - Derived: `D_154b38a0d07da2c9` → `E_f154851d88c39a9a` via `T_6279f9ea0861d7d6`
+- **S_2811a6dbaff57be9**: def append_attest: def append_attest(settings, intent_id, verifier_results, diff_stats, lean_result) -> Dict[str, Any]: Write an attest event AFTER verification/execution.
+Must reference exactly one i
+  - Derived: `D_389e6e52e9290f89` → `E_db2594090141769f` via `T_ef2f3e9da1d4f9de`
+- **S_8c266f95467b33f0**: def validate_intent_attest_pairs: def validate_intent_attest_pairs(settings) -> Dict[str, Any]: Check that every attest references a valid intent.
+Returns {valid: bool, orphan_
+  - Derived: `D_345459f084c07723` → `E_c0e292b971b63dcc` via `T_ec4dd450b4fd74e1`
+- **S_3b8c09b4c02ed454**: class Event: class Event
+  - Derived: `D_a6d55a6ce25d7821` → `E_ba59162c976b208e` via `T_3042a9ccc6533f28`
+- **S_9cc1bf123f5c0a8c**: pattern:context_manager at storage.py:46
+  - Derived: `D_f8b94413ccc56234` → `E_062f1a083f62c97b` via `T_168df7e0a28be828`
+- **S_0d757ad1691f00da**: pattern:context_manager at storage.py:54
+  - Derived: `D_902e8b77ff543d5e` → `E_27644139211b9556` via `T_83d33b11cf1d79f6`
+- **S_9aaaa87b1d37d193**: pattern:context_manager at storage.py:66
+  - Derived: `D_6d203a67d5d99a29` → `E_d6c3f913bdcfad07` via `T_1249cc0a8ce6ca32`
+- **S_4d7829633ec24590**: pattern:context_manager at storage.py:73
+  - Derived: `D_0cf66e8a94518532` → `E_83b18e3f023eda61` via `T_2bc696e2ae788a63`
+- **S_42686489bc0efe26**: rebuild_state complexity=9, candidate for refactor
+  - Derived: `D_8b611da7ef00d350` → `E_d149f79a93a602b6` via `T_7b242cc4adce42b9`
+- **S_211c07f4c588bcb0**: append_intent complexity=6, candidate for refactor
+  - Derived: `D_69e9190dbeda13fa` → `E_236980ce8fd722b6` via `T_fe16b4edc5794916`
+- **S_ebec97f70e147d2e**: if storage then __future__
+  - Derived: `D_0f858c5d59e6cb6b` → `E_45a83f9b88b8d54c` via `T_bbf68af0e2b481ab`
+- **S_9aa2284611b7951c**: if storage then json
+  - Derived: `D_8b9d07f578037dcf` → `E_4f0d7e31537d8de7` via `T_b153a64be9d973fe`
+- **S_042737175632ae4b**: if storage then time
+  - Derived: `D_b2ef2e2e2474c55d` → `E_bf399d40fce36e8a` via `T_30b8cdfe87712488`
+- **S_6b0f00e4175c67a7**: if storage then dataclasses
+  - Derived: `D_a0887636bc97d6a4` → `E_9da853cd7d401f49` via `T_c0d5a46bac0be6b2`
+- **S_dadad2260804246c**: if storage then pathlib
+  - Derived: `D_201b8426de282d43` → `E_71f1a9feb128ef5d` via `T_c68f6fa274c2f518`
+- **S_1d6a8bdb0c933ae1**: if storage then typing
+  - Derived: `D_7212f8ca018fd26e` → `E_03277790ff58e3cb` via `T_35c5776407f2eb48`
+- **S_8dff71cbab43aa9d**: if storage then config
+  - Derived: `D_7d80f00681a02817` → `E_85cf0c5822f91690` via `T_5dc41abc40dfeaa9`
+- **S_c275a0e871bcdfc0**: if ensure_dirs then mkdir
+  - Derived: `D_fec82630fed067f9` → `E_6b27dfff4b231c7f` via `T_391f15755dca3777`
+- **S_0e49d4e05721b1e5**: if append_event then dumps
+  - Derived: `D_e684dcd4c0ebc4dc` → `E_d314c0590a0de623` via `T_13ff6171eb5f2de1`
+- **S_9fdc2334eafb9bc3**: if append_event then ensure_dirs
+  - Derived: `D_7587a4840bb7a8df` → `E_2f6b65c975e83039` via `T_916d26693ef67403`
+- **S_0ad0fc83c49795a9**: if append_event then write
+  - Derived: `D_8ad72103517e7411` → `E_8f81c4bb5b0c0e34` via `T_bfd733efbff3531b`
+- **S_aa1354b10ab81bc5**: if read_events then Event
+  - Derived: `D_c645286f9c12568c` → `E_21702c4c86d76d41` via `T_e88a89635d3c9fe4`
+- **S_21e8ba2c9df98191**: def now_iso: def now_iso() -> str
+  - Derived: `D_5f9d827e23f64659` → `E_44352dac6d8b5c95` via `T_af7462bfaa961d5e`
+- **S_eaac4647addc8985**: def stable_hash: def stable_hash(obj) -> str
+  - Derived: `D_d05a2cd9ca4b270e` → `E_4cb02003dd55b6ee` via `T_0e1a43ae9a429846`
+- **S_3c94cbffd725768e**: def make_utterance: def make_utterance(role, text, is_question, prov) -> Utterance
+  - Derived: `D_b10bda182ebe9247` → `E_350d38d0eba397f2` via `T_d2a173d103e54904`
+- **S_59e6343b68fac9a7**: def make_claim: def make_claim(text, kind, symbols, confidence, status) -> LogicClaim
+  - Derived: `D_6b9d7fb3fc7b5960` → `E_23f779e16f1796f6` via `T_65550a38c515f53f`
+- **S_f6e7a81013300dc3**: def make_note: def make_note(title, body, prov) -> AnalysisNote
+  - Derived: `D_c94f48b122c798ff` → `E_9dd37e6d1b1b7076` via `T_4777cc10674e9670`
+- **S_d6959858da2a2261**: def _sanitize_ident: def _sanitize_ident(s) -> str
+  - Derived: `D_2cb6ccc905e1f175` → `E_d8ce19b25653b4aa` via `T_5bc5db519f6f0fec`
+- **S_06ab1759c6e937ef**: def make_equation_from_claim: def make_equation_from_claim(claim, statement_id, prov) -> Equation
+  - Derived: `D_8d8a831d568c1a9c` → `E_ef5028f3926c9c0b` via `T_4d1a332a973fb5af`
+- **S_0260778cf1f889d4**: def make_derivation_step: def make_derivation_step(statement_id, claim_id, equation_id, relation, notes) -> DerivationStep
+  - Derived: `D_45fe50091e8f109d` → `E_8a4e21a45e3cc97e` via `T_b2e421508dd98b79`
+- **S_76219f4e67f76e55**: def make_triangle: def make_triangle(statement_id, derivation_id, equation_id, prov) -> Triangle
+  - Derived: `D_64812feb0f987d42` → `E_f9c52108cf044ca1` via `T_cbd0e57470d7f914`
+- **S_525cbbc1b3f59aa5**: def to_dict: def to_dict(self) -> Dict[str, Any]
+  - Derived: `D_1c734ac6bbe4c9db` → `E_1088c07dc52c30aa` via `T_f7ed83a4f3285dab`
+- **S_b211cab7d8ee72eb**: def to_dict: def to_dict(self) -> Dict[str, Any]
+  - Derived: `D_4d2af6e2389d6bae` → `E_1088c07dc52c30aa` via `T_646b3ebf2f0a4d3b`
+- **S_a37031476d0274ba**: def to_dict: def to_dict(self) -> Dict[str, Any]
+  - Derived: `D_47149d0691a557b0` → `E_1088c07dc52c30aa` via `T_124ecc4c226985d5`
+- **S_359611bdd18ed61e**: def to_dict: def to_dict(self) -> Dict[str, Any]
+  - Derived: `D_47d3d4c733dea8fb` → `E_1088c07dc52c30aa` via `T_60c0638b45e152e8`
+- **S_766ee5209a9768e3**: def to_dict: def to_dict(self) -> Dict[str, Any]
+  - Derived: `D_e80a8bfb088dffac` → `E_1088c07dc52c30aa` via `T_d742ad119ead2fcf`
+- **S_2d010e3af0816b93**: def to_dict: def to_dict(self) -> Dict[str, Any]
+  - Derived: `D_0a2b93ffc542360c` → `E_1088c07dc52c30aa` via `T_d10fd31f52da787e`
+- **S_a142bda11f4333a6**: def to_dict: def to_dict(self) -> Dict[str, Any]
+  - Derived: `D_acb2c92e09530f5d` → `E_1088c07dc52c30aa` via `T_356243adda31b30e`
+- **S_7474c2baf40ef025**: class Provenance: class Provenance
+  - Derived: `D_02efea7d8bce6627` → `E_c8a1c2220451704d` via `T_b56628c90f566381`
+- **S_18b3879f3d37dbc9**: class Utterance: class Utterance
+  - Derived: `D_033f326726d08d07` → `E_e2bf4f7ad1a056c6` via `T_f5ffa97459b0fe32`
+- **S_2347a53c167ead6b**: class Equation: class Equation
+  - Derived: `D_9d3e0dc88e12664e` → `E_b1537e0305b16a9c` via `T_b0b67facee42ccbc`
+- **S_0f1e1bdff46542d8**: class DerivationStep: class DerivationStep
+  - Derived: `D_265563babd0b42bb` → `E_fe400c6cef5b5cca` via `T_dfbdcad1c0158190`
+- **S_519a304c9d2ecdd0**: class Triangle: class Triangle
+  - Derived: `D_e312abfd6561f371` → `E_d6fbc70a11051dc6` via `T_b78fef7375bba79c`
+- **S_fefdca90ab8a1398**: class LogicClaim: class LogicClaim
+  - Derived: `D_52d61e6e213618ce` → `E_456a150c50a9a96a` via `T_2ce5f2319d095e88`
+- **S_55747d8e61ee0e33**: class AnalysisNote: class AnalysisNote
+  - Derived: `D_0e2958daf1c208d5` → `E_bd0594e55d3063c4` via `T_ef09130e79d7abf8`
+- **S_0be55df93bc31f85**: if ir then __future__
+  - Derived: `D_094490eaaa30528d` → `E_a5f875c262f22d5d` via `T_ee1dd5258e79bfa6`
+- **S_ac0e134c969230a0**: if ir then hashlib
+  - Derived: `D_e9318707369b7bc6` → `E_ce91abb6507cc0b8` via `T_27785f18ce69e022`
+- **S_012996d503bcb3ad**: if ir then json
+  - Derived: `D_55987d906f33a511` → `E_48b19955ae3de269` via `T_ca51bc334b94ee07`
+- **S_c4207d137fead0f8**: if ir then re
+  - Derived: `D_69ed24253f9e3b46` → `E_dd09b33036187bf8` via `T_5c6bf88abe6fc968`
+- **S_5a35ec70ed923c87**: if ir then dataclasses
+  - Derived: `D_dfef0fb00d5dd751` → `E_0c6d3cd897da243b` via `T_50d4b8465e31d196`
+- **S_554c8988de2da3c4**: if ir then datetime
+  - Derived: `D_ae7101bb36771a5d` → `E_cf944eba222f4921` via `T_12edcb5626006f0a`
+- **S_886400aef618af81**: if ir then typing
+  - Derived: `D_ac6ee76048bd0da6` → `E_38bf135462490b77` via `T_7c2143567847bed9`
+- **S_893523ff24b6aea5**: def analyze_file: def analyze_file(self, file_path) -> List[CodeInsight]: Extract structural insights from a Python file.
+  - Derived: `D_e19aeec70d4e8e23` → `E_cc8437d1d9bf7d64` via `T_779d0c144fe519cb`
+- **S_d15b00826aa25b42**: def _extract_functions: def _extract_functions(self, tree, path) -> List[CodeInsight]
+  - Derived: `D_7c8cd55319a82ae8` → `E_f93596c60a557189` via `T_7fa2b22a936d40e4`
+- **S_8c182a20bb77f0a4**: def _extract_classes: def _extract_classes(self, tree, path) -> List[CodeInsight]
+  - Derived: `D_b3c06f52bcc4f0e6` → `E_4f50781c8a33b99e` via `T_d63d8a8beb3aac50`
+- **S_f28badd9169b23e4**: def _extract_patterns: def _extract_patterns(self, tree, path, source) -> List[CodeInsight]: Detect reusable patterns: decorators, context managers, error handling, etc.
+  - Derived: `D_f447c7ab3f7cefcb` → `E_647fba5a83e8b4f0` via `T_9fb25be2b61fb4df`
+- **S_ffc7cf2f139c81b6**: def _extract_complexity: def _extract_complexity(self, tree, path) -> List[CodeInsight]: Compute cyclomatic complexity approximation for functions.
+  - Derived: `D_ee57e061d43fa54c` → `E_2fba55cf8f7445d4` via `T_eb0663c41c996584`
+- **S_ed22eb9b14fb009e**: def _extract_imports: def _extract_imports(self, tree, path) -> List[CodeInsight]: Extract dependency graph from imports.
+  - Derived: `D_bc2009a840b7c833` → `E_f1aafa6e61cf4184` via `T_1d5ebe27fac2b3d0`
+- **S_128526d7a6891f01**: def _extract_call_graph: def _extract_call_graph(self, tree, path) -> List[CodeInsight]: Extract function→function call relationships as IVI derivation chains.
+These bec
+  - Derived: `D_6dc43f70e2ecfb61` → `E_e60156744be733c6` via `T_34e231faa673d72d`
+- **S_0a1b774a04793c17**: def __init__: def __init__(self) -> None
+  - Derived: `D_23b264b0915901a9` → `E_844a190f7eebcd4f` via `T_298fc590d0ed3e5b`
+- **S_30140fa995204fcc**: def add_scan_root: def add_scan_root(self, path) -> None: Add a directory root to scan for Python files.
+  - Derived: `D_fb3bcb2770e7d914` → `E_6c271db85ef01ab3` via `T_7d56bf31e2a5fc82`
+- **S_68856315d34a5e47**: def discover_from_environment: def discover_from_environment(self) -> None: Auto-discover scan roots from the OS environment.
+  - Derived: `D_814f81cc9c911270` → `E_91ead8578c74591c` via `T_f9859b2a5f56eb5d`
+- **S_446cdf149f72f906**: def discover_python_files: def discover_python_files(self, max_files, max_depth) -> List[str]: Discover Python files across all scan roots.
+  - Derived: `D_0746559b8a170dba` → `E_190ff0196d846d15` via `T_06b4c239e0af2981`
+- **S_d8f1ec762ef540c8**: def _walk_python_files: def _walk_python_files(self, root, max_depth, _depth) -> List[Path]: Recursively find .py files, respecting ignored dirs and depth limit.
+  - Derived: `D_2765869f0a79f688` → `E_32cf399094616c4e` via `T_bd27f78b10cefb23`
+- **S_42e680188701880e**: def discover_runtimes: def discover_runtimes(self) -> List[Dict[str, Any]]: Discover Python runtimes available on the system.
+  - Derived: `D_6cecbceaaf439649` → `E_6f9a4055de44d104` via `T_ca5bedda4a391744`
+- **S_c18be1f02257f4b4**: def discover_running_python_processes: def discover_running_python_processes(self) -> List[Dict[str, Any]]: Discover currently running Python processes (lightweight, no sudo).
+  - Derived: `D_04f880ffe444af64` → `E_ad9541dbf4b47bbd` via `T_d8d91dbc1479ebcc`
+- **S_b7096d451c2410b7**: def full_discovery: def full_discovery(self) -> Dict[str, Any]: Run complete OS/runtime discovery and return summary.
+  - Derived: `D_f502d22ee3969a3b` → `E_f070aa5afee6d53d` via `T_7521578953abef4c`
+- **S_bd7d7864eb1ac981**: def insights_to_claims: def insights_to_claims(self, insights) -> List[Dict[str, Any]]: Convert code insights into claim-like dicts that can be fed to the grid.
+  - Derived: `D_9a49ece09a215fb4` → `E_4d1c286bf5ef620f` via `T_3ffb77c6f30e6928`
+- **S_fe6aa61cb88ccb5e**: def feed_claims_to_grid: def feed_claims_to_grid(self, grid, claims) -> int: Feed native claims into the IVI grid through the semantic enforcement duality.
+O
+  - Derived: `D_69055da68e7b9f14` → `E_f8a6a56e79618cd2` via `T_76a77c26184f16c7`
+- **S_0eb5eb2a42c67621**: def __init__: def __init__(self) -> None
+  - Derived: `D_32fc4cb7e5e854e7` → `E_844a190f7eebcd4f` via `T_5b2a9f12169e834d`
+- **S_0b4964e2926a9938**: def _init_builtin_capabilities: def _init_builtin_capabilities(self) -> None: Register capabilities that Purple already has natively.
+  - Derived: `D_381c03bd836f23b5` → `E_70a927692489e223` via `T_0c9af297ad19b862`
+- **S_04b5931610f27f2e**: def register: def register(self, cap) -> None
+  - Derived: `D_c40c6d60d701ee15` → `E_90b54e255cd39a91` via `T_843adac1bba5928b`
+- **S_79d0b1fad10ef745**: def can_handle_natively: def can_handle_natively(self, task) -> Optional[NativeCapability]: Check if any native capability can handle this task.
+  - Derived: `D_318834e7da7f0632` → `E_20ff6e6595931d44` via `T_8ba3da9c4e8eed45`
+- **S_556fe282ce7e56f5**: def record_invocation: def record_invocation(self, name, success) -> None
+  - Derived: `D_717375bcac0aec61` → `E_1b412eba62292f92` via `T_a88074cd6414adb1`
+- **S_127520462ed8c254**: def summary: def summary(self) -> Dict[str, Any]
+  - Derived: `D_be0e8374ab684f72` → `E_32e3f84ed48ed68d` via `T_5d2bddce73bb0c80`
+- **S_d362ab04c163a5f0**: def analyze_closure: def analyze_closure(grid) -> Dict[str, Any]: Use the grid's own closure computation to find what's missing.
+  - Derived: `D_7e8ed1a757a3be51` → `E_f9eb31fb49c742bf` via `T_43ec54f2e8afe776`
+- **S_c94ebd63fcaf1625**: def build_native_context: def build_native_context(grid, query) -> Dict[str, Any]: Use the grid's own build_context (TF-IDF + Born sampling) natively.
+  - Derived: `D_00cfd021e693e9f3` → `E_639161d15aed051a` via `T_682da86ff6ab678c`
+- **S_40f67b48763f64ec**: def detect_gaps: def detect_gaps(grid) -> List[Dict[str, Any]]: Find structural gaps in the grid — areas where closure is incomplete.
+  - Derived: `D_f9ee0ec6f05604c1` → `E_a0d58b06d588c839` via `T_113707104d5f8d21`
+- **S_8a8331d54422ad14**: def trace_coverage: def trace_coverage(grid) -> Dict[str, Any]: Analyze what percentage of the grid has been visited by trace.
+  - Derived: `D_115ffd4382cc0cba` → `E_7fb82df07753351a` via `T_c67ff4f82f8373e7`
+- **S_370c8f28dd149c14**: def __init__: def __init__(self) -> None
+  - Derived: `D_ce948074573a6aa4` → `E_844a190f7eebcd4f` via `T_172560bf76352c55`
+- **S_6d63f0b53ffdd43c**: def run_native_cycle: def run_native_cycle(self, target_file, grid) -> Optional[Dict[str, Any]]: Run a self-improvement cycle using only native analysis.
+Returns a result dict o
+  - Derived: `D_bd1be8d1dcc3a3e4` → `E_0a989a986cf6877a` via `T_e7d7a42f6825b3b5`
+- **S_929563b8f4269cc1**: def should_use_native: def should_use_native(self, task_description) -> bool: Decide whether to use native analysis or fall back to LLM.
+  - Derived: `D_c015540ea840a927` → `E_8dd7880b26317df2` via `T_06e1bde86a792327`
+- **S_a4c50db40c4afe61**: def _write_monitor: def _write_monitor(entry) -> None: Append a JSON line to the persistent monitor log.
+  - Derived: `D_e95ce537c0fd7107` → `E_55f571201d7e18be` via `T_aa08b0205d317af1`
+- **S_9e11b5151b777a60**: def __init__: def __init__(self) -> None
+  - Derived: `D_9f645b007b441584` → `E_844a190f7eebcd4f` via `T_a23bbc41e3215eb8`
+- **S_ff1035bbc5fcc2b1**: def state: def state(self) -> PurpleGoalState
+  - Derived: `D_dff95e4854b088d9` → `E_6e5253c4965c1027` via `T_fb7c64337d5d8974`
+- **S_5f705ddc554a1d74**: def discover_os_targets: def discover_os_targets(self) -> List[str]: Use OSRuntimeDiscovery to find all Python files across the OS.
+Returns the full
+  - Derived: `D_bfc80cba2f392951` → `E_504640854edeed8b` via `T_f7df055cebe0681b`
+- **S_517fdb382d3b8f33**: def derive_goals_from_grid: def derive_goals_from_grid(self, loop_controller) -> List[DerivedGoal]
+  - Derived: `D_9a6afd4012dc1d22` → `E_31c81b7ccc58b3f7` via `T_c5a4c751d82838a8`
+- **S_e6608ed8cc3bcf65**: def derive_goals_from_conversation: def derive_goals_from_conversation(self, conversation_history, known_projects) -> List[DerivedGoal]
+  - Derived: `D_f20f2955c5339ac4` → `E_2829699160b159a3` via `T_c54e377621da02f1`
+- **S_8cba87685bc07852**: def derive_all: def derive_all(self, loop_controller, conversation_history, known_projects, environment) -> List[DerivedGoal]
+  - Derived: `D_6103c693721d45b3` → `E_a7ce76fa6f1b1dca` via `T_d07fc285518f78b0`
+- **S_ebe4c0da4a82d30a**: def format_goals_for_prompt: def format_goals_for_prompt(self) -> str
+  - Derived: `D_a963390ea74fdb00` → `E_59b1bee962cfa4b3` via `T_5f199e587d768b56`
+- **S_952231982dbb65d3**: def _get_gateway: def _get_gateway(self, microcosm) -> Any: Access the IVI Gateway through the microcosm's loop controller.
+  - Derived: `D_1f8971921172badb` → `E_3c632d2fd02d1cf6` via `T_95caf9b8a9d2b204`
+- **S_7b7b316563d6f166**: def run_autonomous_cycle: def run_autonomous_cycle(self, microcosm) -> Optional[str]: Execute the highest-priority unexecuted goal autonomously.
+Tries native Purple i
+  - Derived: `D_b89ce968f4ceff47` → `E_01e3fcb5eeccf1a5` via `T_5e904b9b2ae9285d`
+- **S_d329985a8234fd50**: def _try_native_cycle: def _try_native_cycle(self, goal, microcosm) -> Optional[str]: Try to execute a goal using native Purple intelligence (no LLM).
+Returns a resul
+  - Derived: `D_879dc58359fcd525` → `E_b26dd93766d9f101` via `T_39cea44bd304ea40`
+- **S_f940fae110234d9a**: def _extract_target_file: def _extract_target_file(description) -> Optional[str]: Extract an absolute file path from a goal description.
+  - Derived: `D_e163cac5cef16d91` → `E_83bebb31889f9055` via `T_2ba625e4eed40218`
+- **S_d21e335322508da0**: def _execute_goal: def _execute_goal(self, goal, microcosm) -> Optional[str]: Use llm_chat_with_tools to autonomously execute a goal.
+Includes context about t
+  - Derived: `D_3f2e3de95cb5235f` → `E_450fa8e39858074a` via `T_78cbf8638b143730`
+- **S_d56746b7d30cc9f6**: def _log_to_purple: def _log_to_purple(self, loop_controller, text) -> None: Feed autonomous results directly into the Purple grid without
+going through voic
+  - Derived: `D_1b96f194fcfac481` → `E_4b7e8f08fa4b6d46` via `T_8986457636e7be0f`
+- **S_51e2242ce69eb09d**: def check_proactive: def check_proactive(self) -> Optional[str]
+  - Derived: `D_7ed510285efdca8c` → `E_1c33ad016a183f62` via `T_aa46c2dd24819804`
+- **S_0b28c6d923a2db7d**: def _maybe_queue_proactive: def _maybe_queue_proactive(self) -> None
+  - Derived: `D_0d63035080c06178` → `E_5e1b17d605b818c5` via `T_c5685c3a2eeb9c65`
+- **S_946a8a0c5cc29242**: def start_heartbeat: def start_heartbeat(self, loop_controller, microcosm, interval) -> None
+  - Derived: `D_4fa6b3ee68139fa8` → `E_5a0e260fecc0e8c9` via `T_4b62e39918473bdc`
+- **S_18f295082a5b15b2**: def stop_heartbeat: def stop_heartbeat(self) -> None
+  - Derived: `D_6c4e888422447ad2` → `E_99510f38a22e7a63` via `T_4cd0c9d20cc6f7e2`
+- **S_23196f1336fa0d80**: def _tick: def _tick() -> None
+  - Derived: `D_995325af12c1c9c2` → `E_ae45469c196908ac` via `T_4bb3948166e42d49`
+- **S_18fdaf928fc676da**: class DerivedGoal: class DerivedGoal
+  - Derived: `D_88a0be16f7cffe07` → `E_16e2c00372aa09ab` via `T_d2a4cf0aef650856`
+- **S_4915c91e6fc19576**: class PurpleGoalState: class PurpleGoalState
+  - Derived: `D_82cb7a9759e82fd7` → `E_6601ccc333246dbd` via `T_97068c4a19d954b3`
+- **S_0fc72b4d36e29327**: class PurpleGoalEngine: class PurpleGoalEngine: Autonomous self-improvement engine driven by Purple IVI grid state.
+  - Derived: `D_aaa94cc9c0fcfa2e` → `E_9ac2425b25dc7a9f` via `T_cd471610c33d1f4b`
+- **S_965d9892a69a0124**: pattern:error_handling at purple_goal_engine.py:34
+  - Derived: `D_11aa54350797c8e2` → `E_bf0508fb899225fa` via `T_53ef9a4ee563cc2e`
+- **S_3d5fdb5fdc9e0c7b**: pattern:context_manager at purple_goal_engine.py:37
+  - Derived: `D_4d1476b5ef00aa28` → `E_7c28aaa50b3b9bba` via `T_aa1fa260cb465fb4`
+- **S_7a486319cec0c436**: pattern:error_handling at purple_goal_engine.py:128
+  - Derived: `D_4540e14bb6dcd34f` → `E_eaae261400261aed` via `T_7f53cd553188ad3a`
+- **S_50de84ea3ffb5746**: pattern:context_manager at purple_goal_engine.py:247
+  - Derived: `D_725e490602a5c47f` → `E_c73629446f0f1979` via `T_89ebcc1e75af9474`
+- **S_3ae9b442b4827a3e**: pattern:context_manager at purple_goal_engine.py:251
+  - Derived: `D_5bf0d8ee6f0f1e8e` → `E_52ca7ec0d2775742` via `T_a7a8801dfdd4b301`
+- **S_bc2e1234d7fd908a**: pattern:context_manager at purple_goal_engine.py:265
+  - Derived: `D_e7312f0815f96cd7` → `E_9131e0e87afd4f03` via `T_99ee5798a2887ff0`
+- **S_78f3b11d6fe68dc5**: pattern:context_manager at purple_goal_engine.py:299
+  - Derived: `D_0270914634b82573` → `E_e48a1b1cbd10b41c` via `T_68624173a0ae736c`
+- **S_bea37b03d5d337bf**: pattern:error_handling at purple_goal_engine.py:333
+  - Derived: `D_afb8be39f7d24e35` → `E_ca376cd51bdddf86` via `T_2f41aeb1c433b98b`
+- **S_cccea0f14a5386a8**: def _load_dotenv: def _load_dotenv() -> None
+  - Derived: `D_ded0006d41e5c485` → `E_57efdc223acbcd79` via `T_9f905b0ba9406144`
+- **S_5b4decd7740ce9fe**: def _llm_chat_openai: def _llm_chat_openai(system, messages, model, max_tokens) -> str
+  - Derived: `D_a5408ae860e6fb41` → `E_61e46a8c94f8ddd5` via `T_f7d877f595bdf7f9`
+- **S_7bb85f1eb1790eaa**: def _llm_chat_ollama: def _llm_chat_ollama(system, messages, model, max_tokens) -> str
+  - Derived: `D_8d74d2a39ed43090` → `E_bc594ffae37a40e7` via `T_7940a6a9c92836f1`
+- **S_6111a4f5d6589293**: def _llm_chat: def _llm_chat(system, messages, model, max_tokens) -> str
+  - Derived: `D_b1b6f26a73c08ec8` → `E_de6757c7a4d472d3` via `T_095b5375b477e5ce`
+- **S_680ae2312c1ed61a**: def _soul_anchor_line: def _soul_anchor_line(soul_text) -> str
+  - Derived: `D_0a4edad1c5dd3f2c` → `E_9089befc0ce5c510` via `T_f2b976d474d86132`
+- **S_d069fcef90a12ee2**: def _soul_keywords: def _soul_keywords(soul_text, limit) -> List[str]
+  - Derived: `D_d7c59bbc3f3cff29` → `E_1870ce8cf786977f` via `T_0d34f8d24155ff84`
+- **S_4ec0114464a5ea69**: def _voice_style_hint: def _voice_style_hint(soul_text) -> str
+  - Derived: `D_ce4b0a52b5b29bd8` → `E_35b244325edebe7b` via `T_03d435b4f3f0910a`
+- **S_f9a3f7183246a32d**: def _soul_voice_profile: def _soul_voice_profile(soul_text) -> Dict[str, Any]
+  - Derived: `D_fdd0b4b1fd785e83` → `E_84528b5eccc527ad` via `T_0659cf469514488d`
+- **S_f03b1f2923fb0d61**: def _is_ignored_path: def _is_ignored_path(path) -> bool
+  - Derived: `D_b2e3dd5ee94fa012` → `E_5a6ac84a3d51bd27` via `T_7e0aa3029999d402`
+- **S_2bc2c6b9ea1fdd1e**: def _iter_memory_files: def _iter_memory_files(path) -> List[Path]
+  - Derived: `D_7a8b851a2f85e71c` → `E_5cb80fea43a67b43` via `T_4ac5b2da374d8149`
+- **S_a55d828dbfb61554**: def _collect_memory_documents: def _collect_memory_documents(repo_root, soul_path, extra_memory_paths, max_files, max_chars_per_file) -> List[Tuple[Path, str]]
+  - Derived: `D_5b73ba5f045c304e` → `E_7942cad090de7788` via `T_9b921b3510a85c9d`
+- **S_48a09dfd24c68fbf**: def _memory_voice_profile: def _memory_voice_profile(memory_docs) -> Dict[str, Any]
+  - Derived: `D_dd26578c0d640151` → `E_64a42b44fc4e8c6a` via `T_0af7064f26d4288e`
+- **S_f87afc4d9102f814**: def _merge_voice_profiles: def _merge_voice_profiles(soul_profile, memory_profile) -> Dict[str, Any]
+  - Derived: `D_b1d01f2fdcf192c0` → `E_f5de799ed834cb5e` via `T_9ef7416aab133a6c`
+- **S_1c4a7fee8b3d36c4**: def _find_soul_path: def _find_soul_path(repo_root) -> Optional[Path]
+  - Derived: `D_861d0f602481c871` → `E_e763e5d0c523e675` via `T_77a62b085e3c4591`
+- **S_4d34d8f8053565be**: def _gather_environment_context: def _gather_environment_context() -> Dict[str, Any]
+  - Derived: `D_05d3d42acb5dbbe8` → `E_6e6862444ec332ef` via `T_c54d9cbc2fed3f8f`
+- **S_ae6579cfeaf63fde**: def from_repo: def from_repo(repo_root, extra_memory_paths, max_memory_files) -> 'OpenClawMicrocosm'
+  - Derived: `D_3cabee3fc3b645d4` → `E_4ea5078985f3e02e` via `T_f89486d19ffc6428`
+- **S_aa1c1a6014d5b41a**: def refresh_environment: def refresh_environment(self) -> Dict[str, Any]
+  - Derived: `D_365e6c069b022f54` → `E_67eb4d3929e4f1dc` via `T_4ebc584d91440a06`
+- **S_b9c6d939b3ac126d**: def record_turn: def record_turn(self, role, text) -> None
+  - Derived: `D_3cd55c850febbc77` → `E_e50ef3015e745917` via `T_b99e153a7708634e`
+- **S_f339cf8826352937**: def _scan_known_projects: def _scan_known_projects(self) -> List[Dict[str, str]]
+  - Derived: `D_506f6e59e4721684` → `E_dcd82dcc68e38131` via `T_333c29efadbabde4`
+- **S_298dfa159b67904e**: def context_block: def context_block(self) -> str
+  - Derived: `D_c5bafb9d360cbca9` → `E_50310a06509e0c6f` via `T_05f9ee4fc919f296`
+- **S_034e6db56fe4e8cc**: def summary: def summary(self) -> Dict[str, Any]
+  - Derived: `D_210c131398180a52` → `E_32e3f84ed48ed68d` via `T_760a9f4fa70d0484`
+- **S_0fa4a3aef45880de**: def personalize_voice_utterance: def personalize_voice_utterance(self, utterance, utterance_kind) -> Dict[str, Any]
+  - Derived: `D_4e3b8d14c63242f5` → `E_a7a79cf276989f35` via `T_43eb31f00d4f75f7`
+- **S_c217fdc3a2a5588a**: def walktalk_envelope: def walktalk_envelope(self, utterance, utterance_kind) -> Dict[str, Any]
+  - Derived: `D_358250a08c132f9d` → `E_c776e4c06bb68520` via `T_a03928624644ddfd`
+- **S_b9b954f63193d99f**: def _resolve_project_refs: def _resolve_project_refs(self, text) -> str: Find project names in text and append their absolute paths.
+Also resolves parent
+  - Derived: `D_236c8864a00f7f98` → `E_deae1949b5d46ccf` via `T_7cbf1417d9970b7f`
+- **S_22726cdbdc68fdff**: def _try_native_response: def _try_native_response(self, utterance) -> Optional[str]: Try to answer using Purple native intelligence (no LLM).
+Returns a response stri
+  - Derived: `D_5aabb40374162064` → `E_703b26ac128e5347` via `T_863f1a24ef902ffe`
+- **S_763a7efff0a61256**: def contextual_response: def contextual_response(self, utterance) -> str
+  - Derived: `D_c1b10a08a80a2c50` → `E_fbfffd53e07bd564` via `T_9aed1c9ec6828478`
+- **S_bc3a8da01984f342**: def _feedback_to_skills_loop: def _feedback_to_skills_loop(self, ai_reply) -> None: Feed AI output back through the skills loop to close the cycle:
+skills → AI cont
+  - Derived: `D_08bd595917544720` → `E_d4057b846767c2b4` via `T_5bda845f47db52a1`
+- **S_6d52fa4a42c786d3**: class OpenClawMicrocosm: class OpenClawMicrocosm
+  - Derived: `D_2ae0998eaf8e61dd` → `E_f3027d0e97f77512` via `T_ec9db8e3cdb783f8`
+- **S_5015b5c8ca04dbdf**: pattern:error_handling at openclaw_adapter.py:79
+  - Derived: `D_0c7ee9000543da20` → `E_f5b0875948160bc3` via `T_8bfcb56daafae922`
+- **S_843d943c03060cb9**: pattern:error_handling at openclaw_adapter.py:115
+  - Derived: `D_4ca47fd65fb6109d` → `E_5ea5af92cb409436` via `T_1c4aa41859327463`
+- **S_239ab7a0556cd836**: def _parse_skill_md: def _parse_skill_md(skill_path) -> Optional[OpenClawSkill]
+  - Derived: `D_33abec9815716780` → `E_a55dee6009d98361` via `T_175f3e9abd67c73c`
+- **S_f40c35da440f7155**: def _gate_skill: def _gate_skill(skill) -> Tuple[bool, str]
+  - Derived: `D_8139172bb40073cf` → `E_d7840887fd0f80fc` via `T_fd1a9921b339847a`
+- **S_1fd95eb80c7e5f2d**: def discover_skills: def discover_skills(openclaw_repo, workspace) -> List[OpenClawSkill]
+  - Derived: `D_bea744b0d5971d30` → `E_95697a49f09139be` via `T_9bb46de5fa50b41f`
+- **S_abf45146d7503a4e**: def format_skills_for_prompt: def format_skills_for_prompt(skills, max_skills) -> str
+  - Derived: `D_b2ea7b8a805a58f5` → `E_ba74593629f08225` via `T_b9d2a8d15e3ece3c`
+- **S_83b2db1408217ce5**: def _ensure_skills_dir: def _ensure_skills_dir(base_path) -> Path
+  - Derived: `D_4d42ad4815d4a621` → `E_5f9c65a94af8035a` via `T_8df43171039a4473`
+- **S_33ca0fcabfb5aefa**: def execute_tool: def execute_tool(name, arguments, base_path, gateway) -> str
+  - Derived: `D_293abb534538ed07` → `E_05b55ffa4a94afa3` via `T_a0a9d5b774a558d1`
+- **S_031ae72f7483f9b8**: def _exec_read_file: def _exec_read_file(args) -> str
+  - Derived: `D_da55ca18589dd229` → `E_e5c524b0a234fa94` via `T_208e7a4de82cfdfb`
+- **S_7b678806e87700c3**: def _exec_list_dir: def _exec_list_dir(args) -> str
+  - Derived: `D_91baedab29c9ef81` → `E_2a6e0b6a13458d00` via `T_f5010778162913aa`
+- **S_13cd5ec701c683db**: def _exec_run_command: def _exec_run_command(args) -> str
+  - Derived: `D_6c0f4e3869169d2e` → `E_2391a3823e829372` via `T_78ccbd2e51bce591`
+- **S_76378f503d8b6007**: def _exec_write_file: def _exec_write_file(args) -> str
+  - Derived: `D_107c0332f5bd859c` → `E_0470631be20b8553` via `T_c5953f27b32983d4`
+- **S_6c93a3c6b40b2c03**: def _exec_save_skill: def _exec_save_skill(args, base_path) -> str
+  - Derived: `D_9587ba485afa3001` → `E_d7e26cb963d25994` via `T_1b4106589fc16d9d`
+- **S_c82ff65646cd9d8b**: def _exec_git_commit: def _exec_git_commit(args) -> str: Stage files and commit to git.
+  - Derived: `D_1eb3922b6355a1cd` → `E_c4a32817ee89938e` via `T_684264e7630ef175`
+- **S_2051f84b65bd9477**: def _exec_run_tests: def _exec_run_tests(args) -> str: Run tests: try pytest, fall back to py_compile.
+  - Derived: `D_f0513e1c756f2239` → `E_b07b75a28c9b9330` via `T_b1d7eff261d2c606`
+- **S_7fbce58e0e58c901**: def _exec_git_diff: def _exec_git_diff(args) -> str: Show git diff.
+  - Derived: `D_d9e614b946b086c6` → `E_70904b9180b37025` via `T_395e12ba3d437a0e`
+- **S_70743449cac884ba**: def list_skills: def list_skills(base_path) -> List[Dict[str, str]]
+  - Derived: `D_8f7a1b8ff40d379e` → `E_556f7cffcb54e4ba` via `T_b88b4ab8835838a4`
+- **S_e0e5df01e79be714**: def _estimate_tokens: def _estimate_tokens(messages, tools) -> int
+  - Derived: `D_b0b20fb508222513` → `E_a1b2f6d4769f7161` via `T_794e37b5cc90eea9`
+- **S_0c9dbf0a1c36c155**: def _compact_tool_messages: def _compact_tool_messages(messages, budget_chars) -> List[Dict[str, Any]]
+  - Derived: `D_831a55838226b7cb` → `E_991ac1e88ae0a675` via `T_6216f31cf70505a1`
+- **S_f130d7319e3fc3e1**: def llm_chat_with_tools: def llm_chat_with_tools(system, messages, base_path, model, max_tokens) -> str
+  - Derived: `D_d0f8c86b772bc277` → `E_bf6a2ac675d8477c` via `T_28846b383ff10497`
+- **S_6be7048b101bb105**: def _api_call: def _api_call(msgs, tc) -> Tuple[Optional[Dict[str, Any]], bool]
+  - Derived: `D_9afa1976ebf366e7` → `E_b09fa2e657711cf1` via `T_8b048a353e6f485b`
+- **S_63a9b057309cafbd**: class OpenClawSkill: class OpenClawSkill
+  - Derived: `D_78257d26de5962ca` → `E_51594cdbf56a658e` via `T_e68ba30428e471f7`
+- **S_485e5bfd2dbcdc36**: pattern:error_handling at openclaw_actions.py:42
+  - Derived: `D_2c63ac620aaffc14` → `E_29f536d75e3dd865` via `T_3811c434f7c7f5cc`
+- **S_45b2b7e615de5aad**: pattern:error_handling at openclaw_actions.py:353
+  - Derived: `D_171ec1bf8902c4ab` → `E_ec6909b728603c53` via `T_1e04fe06a8fd53ed`
+- **S_aab351eaf7d084a2**: pattern:error_handling at openclaw_actions.py:398
+  - Derived: `D_d5ba62b828e5bd4b` → `E_9e71c31b863edd66` via `T_db37b1376649a572`
+- **S_7470a64f4bc8a609**: pattern:error_handling at openclaw_actions.py:414
+  - Derived: `D_9d9eac77e7a2d078` → `E_3878a18649f98f8d` via `T_8ee7a62e95090e1c`
+- **S_2dd5b07175e3378d**: pattern:error_handling at openclaw_actions.py:430
+  - Derived: `D_423bf32074628daf` → `E_d939f92b4a807636` via `T_9374f439f0d04182`
+- **S_bcaf81269d376296**: pattern:error_handling at openclaw_actions.py:456
+  - Derived: `D_2a4eb06f3f6caa9b` → `E_5bd94b6062310ebc` via `T_5ca5144593e04d20`
+- **S_e9713d37e0a32f65**: pattern:error_handling at openclaw_actions.py:471
+  - Derived: `D_82662a74a8c3772f` → `E_f4cfc5adb3e1cbdd` via `T_65fb159fc284067b`
+- **S_b7007b149d134235**: pattern:error_handling at openclaw_actions.py:495
+  - Derived: `D_dd5e270e1b15a5b1` → `E_6d82b1f0a5d409ff` via `T_e9a58d0697f38bd1`
+- **S_ba18bbfd26bd4b1a**: pattern:error_handling at openclaw_actions.py:527
+  - Derived: `D_1e1a0993799566c3` → `E_39bf57bcae0c76e2` via `T_3027439adc94d46c`
+- **S_da581c489dc51508**: pattern:error_handling at openclaw_actions.py:598
+  - Derived: `D_7c2df50b6482785a` → `E_cbdc56803c8bc84a` via `T_4b30e732395ad005`
+- **S_854dc42830385e0b**: def _load_dotenv: def _load_dotenv() -> None
+  - Derived: `D_acb8e0990e69538b` → `E_57efdc223acbcd79` via `T_1b7aa111ee08c5eb`
+- **S_ec5ff882fedcef9f**: def _llm_chat_openai: def _llm_chat_openai(system, messages, model, max_tokens) -> str
+  - Derived: `D_6d502975bb0cb348` → `E_61e46a8c94f8ddd5` via `T_35581f275b0e950b`
+- **S_795eb306583a9aee**: def _llm_chat_ollama: def _llm_chat_ollama(system, messages, model, max_tokens) -> str
+  - Derived: `D_dd9dca0834c8ee7f` → `E_bc594ffae37a40e7` via `T_df4784315cf57c62`
+- **S_26fb8a013e3af3b8**: def _llm_chat: def _llm_chat(system, messages, model, max_tokens) -> str
+  - Derived: `D_c98d280642fa5aee` → `E_de6757c7a4d472d3` via `T_d91df371a7e1269f`
+- **S_4387ae948cf6d571**: def _soul_anchor_line: def _soul_anchor_line(soul_text) -> str
+  - Derived: `D_2818cf157aac3037` → `E_9089befc0ce5c510` via `T_14f97c70b5b56e54`
+- **S_401af7e98b12d3a4**: def _soul_keywords: def _soul_keywords(soul_text, limit) -> List[str]
+  - Derived: `D_2790f57f2a9a6cc8` → `E_1870ce8cf786977f` via `T_acae6fcd3b7f37ca`
+- **S_14eeef832f068827**: def _voice_style_hint: def _voice_style_hint(soul_text) -> str
+  - Derived: `D_17e7183384c3f013` → `E_35b244325edebe7b` via `T_243834aebd013307`
+- **S_234a838c6da41617**: def _soul_voice_profile: def _soul_voice_profile(soul_text) -> Dict[str, Any]
+  - Derived: `D_5228be15823c5bef` → `E_84528b5eccc527ad` via `T_0cef65f39f3cb2cd`
+- **S_bb1612f5509557dd**: def _is_ignored_path: def _is_ignored_path(path) -> bool
+  - Derived: `D_287e37c69b19b89c` → `E_5a6ac84a3d51bd27` via `T_f51936400edc1752`
+- **S_b531e9f44315ac92**: def _iter_memory_files: def _iter_memory_files(path) -> List[Path]
+  - Derived: `D_40f4dd5fb1ea0fcc` → `E_5cb80fea43a67b43` via `T_b7590f5ffa5628bd`
+- **S_1e7dbeed7ab1d3b1**: def _collect_memory_documents: def _collect_memory_documents(repo_root, soul_path, extra_memory_paths, max_files, max_chars_per_file) -> List[Tuple[Path, str]]
+  - Derived: `D_adc9f48537839555` → `E_7942cad090de7788` via `T_230af99df5790e62`
+- **S_2c2407ce88f7573e**: def _memory_voice_profile: def _memory_voice_profile(memory_docs) -> Dict[str, Any]
+  - Derived: `D_56094552e5b2d556` → `E_64a42b44fc4e8c6a` via `T_c861a29ea4181a4f`
+- **S_57b8a4819eee66e3**: def _merge_voice_profiles: def _merge_voice_profiles(soul_profile, memory_profile) -> Dict[str, Any]
+  - Derived: `D_c0218deaec4e31ce` → `E_f5de799ed834cb5e` via `T_02afeab315f3ad87`
+- **S_9b452ed50de73a67**: def _find_soul_path: def _find_soul_path(repo_root) -> Optional[Path]
+  - Derived: `D_d8e2e4c9e7717a93` → `E_e763e5d0c523e675` via `T_784e30f6b9f57c2d`
+- **S_9dd287c96c8c4395**: def _gather_environment_context: def _gather_environment_context() -> Dict[str, Any]
+  - Derived: `D_afcab318486387a1` → `E_6e6862444ec332ef` via `T_cefc989ec9614cd5`
+- **S_6b64a16815ea6107**: def from_repo: def from_repo(repo_root, extra_memory_paths, max_memory_files) -> 'OpenClawMicrocosm'
+  - Derived: `D_995aa5afc77fcd3e` → `E_4ea5078985f3e02e` via `T_2f380ec3dec30748`
+- **S_87be5856b5b3661b**: def refresh_environment: def refresh_environment(self) -> Dict[str, Any]
+  - Derived: `D_45200f0ce1196709` → `E_67eb4d3929e4f1dc` via `T_0ee1ff3c04433e8a`
+- **S_c72484650e685139**: def record_turn: def record_turn(self, role, text) -> None
+  - Derived: `D_ca3aa8810d143657` → `E_e50ef3015e745917` via `T_5d6eb9f64d4cb83a`
+- **S_bac435aeb0316bae**: def _scan_known_projects: def _scan_known_projects(self) -> List[Dict[str, str]]
+  - Derived: `D_302d904dde63bb2e` → `E_dcd82dcc68e38131` via `T_fc4a23a833fcff99`
+- **S_90b6aa27af5ea425**: def context_block: def context_block(self) -> str
+  - Derived: `D_5beef00c00eea850` → `E_50310a06509e0c6f` via `T_c86352bc698c9f7b`
+- **S_5451e577f55c05ff**: def summary: def summary(self) -> Dict[str, Any]
+  - Derived: `D_d5966b68bc9e4e3f` → `E_32e3f84ed48ed68d` via `T_af1a768092c44501`
+- **S_1660c8cdd2c268b6**: def personalize_voice_utterance: def personalize_voice_utterance(self, utterance, utterance_kind) -> Dict[str, Any]
+  - Derived: `D_2c4d1b44f7f264b5` → `E_a7a79cf276989f35` via `T_c71c12a229833ad7`
+- **S_0cdc534902a00df3**: def walktalk_envelope: def walktalk_envelope(self, utterance, utterance_kind) -> Dict[str, Any]
+  - Derived: `D_15efa506fc7a6163` → `E_c776e4c06bb68520` via `T_314e39cbd73c737d`
+- **S_f14eddd5e45136a0**: def _resolve_project_refs: def _resolve_project_refs(self, text) -> str: Find project names in text and append their absolute paths.
+Also resolves parent
+  - Derived: `D_01aa2df83d862ca0` → `E_deae1949b5d46ccf` via `T_a390d85073e6dda7`
+- **S_9343931ef297c4f9**: def _try_native_response: def _try_native_response(self, utterance) -> Optional[str]: Try to answer using Purple native intelligence (no LLM).
+Returns a response stri
+  - Derived: `D_85e9d8a9f8831204` → `E_703b26ac128e5347` via `T_2fc8cbb7d8083f72`
+- **S_59e1a48b86f8dfcd**: def contextual_response: def contextual_response(self, utterance) -> str
+  - Derived: `D_92ca2d4b3e75b92e` → `E_fbfffd53e07bd564` via `T_2bba71e8a197d403`
+- **S_fb2a689a936b227b**: def _histogram: def _histogram(vals, bins) -> Dict[str, int]
+  - Derived: `D_2cd3d12f2bd52c1c` → `E_4839837cc95d0cfb` via `T_a4c55d2b93b8bd64`
+- **S_2de635a127116847**: def analyze_state: def analyze_state(settings) -> Dict[str, Any]
+  - Derived: `D_a44cede3e2e23d85` → `E_dd820c3a50f64da1` via `T_0c040883fbc376a8`
+- **S_ce1601f9939f6969**: _histogram complexity=7, candidate for refactor
+  - Derived: `D_05cb1f349bf79ed9` → `E_09eeb2635eef8461` via `T_69d1387b3c54e820`
+- **S_bf3f1a49e8503d93**: analyze_state complexity=14, candidate for refactor
+  - Derived: `D_aa0d17992480621f` → `E_5889294a93b88a51` via `T_437d6424b2c7fa71`
+- **S_3a66f315f311d469**: if analyze then __future__
+  - Derived: `D_f80e8a1523c811eb` → `E_2efc7de56b4e9001` via `T_07b39ca588e540c8`
+- **S_62581790e2dd21e2**: if analyze then typing
+  - Derived: `D_8b7b0010082215c6` → `E_2066f94260f2420b` via `T_727059c44026b10b`
+- **S_3f02df8329cf5661**: if analyze then config
+  - Derived: `D_c3b186be40cd122f` → `E_eda07a3e6deb9940` via `T_1280466647b0b8c6`
+- **S_753ab193aef51df0**: if analyze then storage
+  - Derived: `D_2c12bde20667ba6b` → `E_35e811d009fbc685` via `T_8f34c4ba14be770c`
+- **S_ef5e8754d1b67083**: if analyze_state then _histogram
+  - Derived: `D_caf3f6304a9f6dfb` → `E_6f009914745c61f2` via `T_3ffd0d704c296b33`
+- **S_a4dcb9d67353af83**: if analyze_state then append
+  - Derived: `D_aa53306b111b54ee` → `E_fd88d857f02d130a` via `T_574f960ee91e5eab`
+- **S_304fd95328001e6e**: if analyze_state then get
+  - Derived: `D_b939d47fc973b8b7` → `E_2ba88e7617fddd0b` via `T_a5e8df58df6fc090`
+- **S_3aba646aaabc6422**: if analyze_state then keys
+  - Derived: `D_08d15937e071a175` → `E_d5b62f72058efae1` via `T_d75b0f4e25f6c81b`
+- **S_9163c0b2a6db2447**: if analyze_state then load_state
+  - Derived: `D_b6b31f8a8c671e3d` → `E_f1df422d76e3cf21` via `T_065261aa0aae9216`
+- **S_e4703d2eeadb2663**: def _histogram: def _histogram(vals, bins) -> Dict[str, int]
+  - Derived: `D_c0e84a990016372a` → `E_4839837cc95d0cfb` via `T_5c403584382c4bc5`
+- **S_a983fe006a4c9fa6**: def analyze_state: def analyze_state(settings) -> Dict[str, Any]
+  - Derived: `D_6348c86078a1ed8d` → `E_dd820c3a50f64da1` via `T_d2f22c5d700efaf2`
+- **S_a98caf5aeaa227f5**: _histogram complexity=7, candidate for refactor
+  - Derived: `D_c685da8aac72a1a2` → `E_09eeb2635eef8461` via `T_cf0b35cf7a7f5042`
+- **S_db5f57a8dda06e82**: analyze_state complexity=14, candidate for refactor
+  - Derived: `D_6983248bb5f89414` → `E_5889294a93b88a51` via `T_7fbc3f657f982c4e`
+- **S_7d366107c8187d62**: if analyze then __future__
+  - Derived: `D_4907b330f3e8d9af` → `E_2efc7de56b4e9001` via `T_61e38abddb8ddd93`
+- **S_ec14d8da53785c9e**: if analyze then typing
+  - Derived: `D_986e7c5dab9aeaef` → `E_2066f94260f2420b` via `T_8ea2a612f4d46cf7`
+- **S_53e80c7589935429**: if analyze then config
+  - Derived: `D_a35af84c8fcdf5bc` → `E_eda07a3e6deb9940` via `T_24d0eefcd9f94add`
+- **S_b486f437535b158f**: if analyze then storage
+  - Derived: `D_7e22c0e3a4830238` → `E_35e811d009fbc685` via `T_9d0e14d429f0af88`
+- **S_2424d7a769e8c1c1**: if analyze_state then _histogram
+  - Derived: `D_6e735f2a12b3273b` → `E_6f009914745c61f2` via `T_8630128ffba0209b`
+- **S_bf9da3976e90d8da**: if analyze_state then append
+  - Derived: `D_386c395d66a7af75` → `E_fd88d857f02d130a` via `T_04027a9630a8a984`
+- **S_1080396ba14286e2**: if analyze_state then get
+  - Derived: `D_0e672002f291a8a3` → `E_2ba88e7617fddd0b` via `T_f2264282de10b1c0`
+- **S_4d8eb2201b91a597**: if analyze_state then keys
+  - Derived: `D_3573fd42d5d19fee` → `E_d5b62f72058efae1` via `T_0dd428fb4bc50f56`
+- **S_f8770ce42422b6c4**: if analyze_state then load_state
+  - Derived: `D_84488cc370d1f7af` → `E_f1df422d76e3cf21` via `T_128c392ecfca5747`
+- **S_c04a07a7b22b106d**: def _has_ripgrep: def _has_ripgrep() -> bool
+  - Derived: `D_942f178f4488d48e` → `E_f67776d1115913dd` via `T_3f9b14bb482ad5bf`
+- **S_8ddf77be2f1b654f**: def _should_skip_path: def _should_skip_path(path, root) -> bool
+  - Derived: `D_c01082aa8adbc06b` → `E_ab9f6dddf6a0e81f` via `T_0d70436cec5db7c0`
+- **S_f2a1a56ea757883a**: def _read_context_lines: def _read_context_lines(path, line_no_1based, context) -> Tuple[List[str], List[str]]
+  - Derived: `D_ffc34895bf4ace76` → `E_5ee526c94c83e569` via `T_a5e5348e3fb9fea2`
+- **S_e3120849cb17d969**: def ripgrep_search: def ripgrep_search(root, query, max_hits, context, glob) -> List[Hit]
+  - Derived: `D_43517ffda5530c81` → `E_8f259510b4dc72d6` via `T_24cd78aac3b4e400`
+- **S_fa44cd8fc7544af3**: def _rank_hits: def _rank_hits(hits, query) -> List[Hit]
+  - Derived: `D_878f48f63545eabc` → `E_b2410f1ed5356146` via `T_b1b9b5a32ea2b7fb`
+- **S_1606ad3e2bfd6520**: def summarize_hits: def summarize_hits(query, hits, max_files) -> Dict[str, object]
+  - Derived: `D_728c7737bec634f5` → `E_1400a21b7f18ee73` via `T_6e30c9d28b8452eb`
+- **S_2cd4144324e0903a**: def ask_repo: def ask_repo(root, query, max_hits, context, glob) -> str
+  - Derived: `D_628f83d575b2049c` → `E_63119adfbf08ae5f` via `T_b545f513ca296b6b`
+- **S_39b478db31da7511**: class Hit: class Hit
+  - Derived: `D_c02f540256387492` → `E_3a5320b37048c546` via `T_3468e6a1116c20c1`
+- **S_7bf23a1d3e42a083**: pattern:error_handling at ask.py:34
+  - Derived: `D_5c2e5c981d0fc5ee` → `E_6d59ffcd75dc1fd0` via `T_921e6bf9d251f1bf`
+- **S_638b3331a9363492**: pattern:error_handling at ask.py:42
+  - Derived: `D_1f9a2c2c2c4888e8` → `E_2239a8a6c2d0b925` via `T_143b878d904a1426`
+- **S_2e8b59f927855c22**: pattern:error_handling at ask.py:54
+  - Derived: `D_2b52005568ee8a8c` → `E_a732c7aeb8a2693f` via `T_7519dc4a47f3d04e`
+- **S_be0afc777e38c594**: pattern:error_handling at ask.py:92
+  - Derived: `D_8120eebe3e76830b` → `E_6bb8aeed96ffeaa6` via `T_35061e995b03996d`
+- **S_7bf43cd816bbe3a7**: ripgrep_search complexity=10, candidate for refactor
+  - Derived: `D_54a49102132323ba` → `E_7cf9980b17589007` via `T_433c7d8cff424a3a`
+- **S_ffa1a608164f0b37**: summarize_hits complexity=6, candidate for refactor
+  - Derived: `D_bc43eb9d0a9c500c` → `E_e64e356e4b220bd6` via `T_83abde0a16fd30d0`
+- **S_f6c12434ecc096db**: if ask then __future__
+  - Derived: `D_91d8b399206f52b4` → `E_d072e48588eb2e01` via `T_14454b7c32a29733`
+- **S_e9607e4d3fd2f4f6**: if ask then re
+  - Derived: `D_e7ae5d92fde2b937` → `E_9c2e51543e302e51` via `T_bfd2d315eef4addf`
+- **S_77d60be7a2fb5dab**: if ask then subprocess
+  - Derived: `D_616f70629562ea95` → `E_c03870612780ae68` via `T_0c8ec2ddc69ec281`
+- **S_05deeb46265403e5**: if ask then dataclasses
+  - Derived: `D_8e4e41957ca5f481` → `E_9e1b9dc74e774084` via `T_86c0e881e38a9380`
+- **S_878a69ca8b36a5c6**: if ask then pathlib
+  - Derived: `D_41f7f3ed6202bf13` → `E_885695aa7e1d3cd2` via `T_8d5900ebe9fb8a96`
+- **S_f78c9962e6433f8e**: if ask then typing
+  - Derived: `D_dbadbdb85a2fcede` → `E_8eb037bd401efcd0` via `T_e2e1106dceae047a`
+- **S_9c4a68c62583d94b**: if _has_ripgrep then run
+  - Derived: `D_eeda1c628bbc47a9` → `E_f79ddfec3c6e4581` via `T_26961dd9a533f698`
+- **S_774c842e4794bc6b**: if _should_skip_path then relative_to
+  - Derived: `D_a97bbf2ec549d6b8` → `E_30402e0b49469876` via `T_e5fa56a0cef3e9be`
+- **S_258a679969adc5e3**: if _read_context_lines then read_text
+  - Derived: `D_e9a496625b8aaca0` → `E_be1435901f6c6a05` via `T_cbc3ce8378e4769a`
+- **S_1073977332b1c670**: if _read_context_lines then splitlines
+  - Derived: `D_0e21a24da138677f` → `E_c3a4e87cbd36bc39` via `T_42c5420a9477d86d`
+- **S_4ced355c43a353d2**: if ripgrep_search then Hit
+  - Derived: `D_fa7300b60d08a63f` → `E_9e0df3426bcdebe7` via `T_ab686d52e7e76236`
+- **S_9cd36b97d67c3946**: if ripgrep_search then Path
+  - Derived: `D_0914787e0c20b231` → `E_7da0058f3dd73992` via `T_def1422abe45a4f2`
+- **S_dceb6d3957104c13**: if ripgrep_search then RuntimeError
+  - Derived: `D_00500b9172b99589` → `E_8bc9d664e621c670` via `T_d0abbc62e6a548d5`
+- **S_27f01cdade1cb716**: if ripgrep_search then _has_ripgrep
+  - Derived: `D_dd13a5da56af856b` → `E_2abc9ba5d78bd9b6` via `T_e283acf0abd1d7f7`
+- **S_0c523bfa303392e5**: if ripgrep_search then _read_context_lines
+  - Derived: `D_39591369a871863a` → `E_556c96531a652d7b` via `T_6fa0da4040e59288`
+- **S_34b7ef2e4fab1e04**: if _rank_hits then append
+  - Derived: `D_7e89e9765b82c975` → `E_67ce6a743417b359` via `T_8dfec2251dd4656e`
+- **S_95c63eb282890255**: def summary: def summary(self) -> str
+  - Derived: `D_d81c6b1a7ab06922` → `E_5272e7fcb12c9329` via `T_b554b8f9e0582a33`
+- **S_f5254a1d665b5a7d**: def __init__: def __init__(self, threshold) -> None
+  - Derived: `D_8280bbdcc6797211` → `E_1655736ec3bf42f5` via `T_74f0a47a0a84a690`
+- **S_66f27d6969480ac0**: def record_error: def record_error(self, error) -> None
+  - Derived: `D_d23ae94b1c0ed235` → `E_97aa39159645cca7` via `T_d524079e9873d226`
+- **S_61d14e3d290b4e34**: def record_gateway_block: def record_gateway_block(self) -> None
+  - Derived: `D_b5e4ddf66257d8be` → `E_9510d69e64f07b9f` via `T_139a1a6547b9c87a`
+- **S_a2fa948f674187a6**: def record_gateway_pass: def record_gateway_pass(self) -> None
+  - Derived: `D_e815ef9f1d3570fd` → `E_f629d713d1d60dd1` via `T_0ae73db3ab80b091`
+- **S_824622aea51a073e**: def record_llm_output: def record_llm_output(self, output) -> None
+  - Derived: `D_95073f821e6ef0c6` → `E_fd8b1c5db5ee6e4a` via `T_5fc3a70162275f47`
+- **S_7c7f77964c238e4e**: def record_test_result: def record_test_result(self, target, passed) -> None
+  - Derived: `D_7123f74b25540c02` → `E_e76f9dc8eaf180d0` via `T_cddda9c3a61e0453`
+- **S_caafcdf1a11c9624**: def record_success: def record_success(self) -> None: Reset all counters on a successful cycle.
+  - Derived: `D_c91e8dde63a22b8f` → `E_96c8e6b84c42fb45` via `T_db738ed33116658a`
+- **S_9b4df0fc770217e2**: def check: def check(self) -> Tuple[bool, str]: Check if we're at an impasse. Returns (is_impasse, reason).
+  - Derived: `D_2d423b77f5983906` → `E_2083fb385febb6db` via `T_0afd5ff9e740f544`
+- **S_e0ded9ebdc172d69**: def __init__: def __init__(self, settings, gateway, repo_root, morpheus_tracker) -> None
+  - Derived: `D_186c981c30b95726` → `E_f15457e63aa1d102` via `T_71bab57f033a4bc3`
+- **S_0d1ad2f93d7175ad**: def has_pending_question: def has_pending_question(self) -> bool
+  - Derived: `D_810063129a84b3ca` → `E_1979d25bba5b8f17` via `T_6bb6dbf4b6c9d073`
+- **S_82e23bf6e0a556f5**: def pending_question: def pending_question(self) -> str
+  - Derived: `D_6dd922d2f63f916e` → `E_eec0dc01ce1a1a9e` via `T_598ece937d8a7659`
+- **S_79eac71e1170dd1b**: def clear_question: def clear_question(self) -> None
+  - Derived: `D_59e6b56075038a15` → `E_d05f282c30bb156e` via `T_f224fdbdec1327aa`
+- **S_5154299b98550612**: def run_cycle: def run_cycle(self, target, native_cycle, grid, microcosm) -> CycleResult: Run one full autonomous cycle on a target file/directory.
+  - Derived: `D_cb4b5f92812c095d` → `E_6283a7e16b9681c9` via `T_ad067f9563b50f35`
+- **S_dd7009f48f055188**: def _run_llm_improvement: def _run_llm_improvement(self, target, goal_description, microcosm) -> str: Use LLM + tools to make actual improvements to the target.
+  - Derived: `D_1388672da797fd7a` → `E_4d38ade652a15b28` via `T_356cbaa87726f047`
+- **S_3f06fb34136cab31**: def _run_tests: def _run_tests(self, target) -> Tuple[bool, str]: Run tests on the target. Returns (passed, output).
+  - Derived: `D_0902eeee436e8d77` → `E_7dc6283c1d53d963` via `T_f225328e02503036`
+- **S_481018fd2cc372be**: def _git_commit: def _git_commit(self, target, goal_description) -> Tuple[bool, str]: Stage and commit changes.
+  - Derived: `D_396e4c335aba8281` → `E_d78d38fe0860b7f7` via `T_b724b13183a05780`
+- **S_8109775c59fef9d5**: def _git_rollback: def _git_rollback(self, target) -> None: Discard uncommitted changes after test failure.
+  - Derived: `D_c58379da54dcf2ea` → `E_bbeb7fbfccb050a7` via `T_5278f0e3276e6e45`
+- **S_44baf5ef3e6fcc74**: def status: def status(self) -> Dict[str, Any]
+  - Derived: `D_9d686e9284ddb297` → `E_f479720345a03b9c` via `T_5305adec0fa66e3a`
+- **S_83ec588a2fd60a19**: class CycleResult: class CycleResult: Result of one full autonomous cycle.
+  - Derived: `D_e737d7984bf4ba8b` → `E_e24ccb49d98f3a10` via `T_d70bdf2896864455`
+- **S_dd31b78dc6cf99a0**: class ImpasseDetector: class ImpasseDetector: Detects when the system is genuinely stuck and should ask the user.
+
+Impasse con
+  - Derived: `D_8f59eb53d341dc87` → `E_95b468384ebf07d0` via `T_70de64780878d3b1`
+- **S_c25efd5e1d726d26**: class AutonomousExecutor: class AutonomousExecutor: Orchestrates full autonomous improvement cycles.
+
+Each cycle: analyze → improve
+  - Derived: `D_a4ba32c70954208f` → `E_291781260daa614b` via `T_148a2873ab052bcf`
+- **S_4eff484679d80620**: pattern:error_handling at autonomous_executor.py:332
+  - Derived: `D_107ce101003776b8` → `E_b15095da0dce296f` via `T_6933d3a512594afb`
+- **S_fddc07082c932fe4**: pattern:error_handling at autonomous_executor.py:348
+  - Derived: `D_098671a8b63efbc0` → `E_cb30d152e7ac494e` via `T_44f3ca2f8ac1f14b`
+- **S_aca1d04fdd787b24**: pattern:error_handling at autonomous_executor.py:415
+  - Derived: `D_377cf49f8dedfd6b` → `E_e98c1f8b4e01c4d5` via `T_09769e67d8eb4f51`
+- **S_ceef1b8e26152e5c**: pattern:error_handling at autonomous_executor.py:453
+  - Derived: `D_445670844d94cdcb` → `E_18b477fa2b267b2d` via `T_64bcc02de6398d6c`
+- **S_71f450a579a56bf9**: pattern:error_handling at autonomous_executor.py:215
+  - Derived: `D_a35686fd2cb0d491` → `E_bcf5d4ebc5f300b3` via `T_3cb78e576a13efa2`
+- **S_1cf52c55b19edb8f**: pattern:error_handling at autonomous_executor.py:263
+  - Derived: `D_0b9f99cc6d578603` → `E_0ed88acbbcbf641c` via `T_e781db0c382433b1`
+- **S_43e13609c8a1c2a3**: pattern:error_handling at autonomous_executor.py:371
+  - Derived: `D_c370674b9646849a` → `E_25e460c4000c4bed` via `T_bfd2cdb9c0030aad`
+- **S_a77db097b02a4f24**: pattern:error_handling at autonomous_executor.py:397
+  - Derived: `D_fbba615ee09095b2` → `E_8753bb01360fee11` via `T_70eabc4323eeb61b`
+- **S_31fffdf8747bf37e**: def is_question: def is_question(text) -> bool
+  - Derived: `D_aea9ff1df0197cd8` → `E_97410b2c955449c2` via `T_6a63e2e53f2c865b`
+- **S_f5591bd6f569dd02**: if classify then __future__
+  - Derived: `D_204c86d31f28fdcb` → `E_711590492d600de2` via `T_f7133fa8d30d2ce2`
+- **S_2eedb15e9e1d01f4**: if classify then re
+  - Derived: `D_d7a3910755373085` → `E_963f6fe175089a0b` via `T_3247d56c3239524c`
+- **S_dc8e4e3081ac7731**: if is_question then endswith
+  - Derived: `D_07e2c58020a4f908` → `E_f0d1a20aff81a22c` via `T_50cbcd6d222d428f`
+- **S_dc3fa256a56650f3**: if is_question then lower
+  - Derived: `D_ead105a63b3e2962` → `E_d783f9509404bec0` via `T_a24a0f339395afaf`
+- **S_28dcbd6138190be8**: if is_question then split
+  - Derived: `D_1c0df66b7266512e` → `E_685dfcfd14631144` via `T_4b63c6751d258a99`
+- **S_d02f1e3074308486**: if is_question then strip
+  - Derived: `D_027b84a0c162cfd2` → `E_5857e6cbc1dfce39` via `T_75e5354fdea79562`
+- **S_46da71b1a4aec783**: def _histogram: def _histogram(vals, bins) -> Dict[str, int]
+  - Derived: `D_6b558a60b3b4ed52` → `E_4839837cc95d0cfb` via `T_3f643aafa4cafc7e`
+- **S_44a0ae2016fb9d74**: def cmd_init: def cmd_init(settings) -> int
+  - Derived: `D_836b5bd9d571fad3` → `E_7a68982534df656b` via `T_983caae8d3c63f38`
+- **S_b521efc93cfa4b53**: def analyze_state: def analyze_state(settings) -> Dict[str, Any]
+  - Derived: `D_e310bb4f95a69872` → `E_dd820c3a50f64da1` via `T_cce0a9969a6ec01a`
+- **S_4575fb161a065a53**: def cmd_say: def cmd_say(settings, text) -> int
+  - Derived: `D_69cd3571e0eba3d1` → `E_a826bfd189f09d50` via `T_89c606eb80939f1d`
+- **S_2dd9e8b5054f71f1**: _histogram complexity=7, candidate for refactor
+  - Derived: `D_31b2a3af08faca1e` → `E_09eeb2635eef8461` via `T_8b83b298f6f32bc2`
+- **S_b472c4040dc62300**: def cmd_import: def cmd_import(settings, path) -> int
+  - Derived: `D_230162992a8249a6` → `E_34bf46c203b3ba6b` via `T_ef4c35b2ff704c0c`
+- **S_6a691147f3f4243d**: analyze_state complexity=14, candidate for refactor
+  - Derived: `D_1a864af54a832dfa` → `E_5889294a93b88a51` via `T_8d7583ca06e28118`
+- **S_22dd6e93416c8d2d**: def cmd_derive_from_inbox: def cmd_derive_from_inbox(settings) -> int
+  - Derived: `D_ffc9170bf06a6c2f` → `E_1998c4fdcfbb5d2d` via `T_1a45dbce818f4119`
+- **S_64ddf395fb3c5452**: if analyze then __future__
+  - Derived: `D_4ac29b7d35198caa` → `E_2efc7de56b4e9001` via `T_ecdf6dc969ab8b03`
+- **S_814a98b93e58a2a4**: def cmd_lean: def cmd_lean(settings) -> int
+  - Derived: `D_e4f4716fbf28db8e` → `E_87ecfdcb60c3099c` via `T_a01dbfdc763333cb`
+- **S_167033fe874035c0**: if analyze then typing
+  - Derived: `D_a7e9337c3b13ab06` → `E_2066f94260f2420b` via `T_2e490148160135c0`
+- **S_1d78feac805da10f**: def cmd_analyze: def cmd_analyze(settings) -> int
+  - Derived: `D_bd87cb5f05fc1da9` → `E_9d668a19d085e60b` via `T_69c499fdfe2ecf6b`
+- **S_190fa9dcef6ad559**: if analyze then config
+  - Derived: `D_2f14d7bf131a9e6a` → `E_eda07a3e6deb9940` via `T_686181ee32c42f0c`
+- **S_1b5280c38534836d**: def cmd_note: def cmd_note(settings, title, body) -> int
+  - Derived: `D_584b85f0bf9a603f` → `E_9a923d055a558d6f` via `T_d72f61783ab62d81`
+- **S_3feaf3ccf0b82aa6**: if analyze then storage
+  - Derived: `D_ad0ab9881e99010c` → `E_35e811d009fbc685` via `T_db7e2307d94bc644`
+- **S_580851508bdeabb0**: def cmd_status: def cmd_status(settings) -> int
+  - Derived: `D_1a9254d219f65c71` → `E_d85ee74d143dade1` via `T_ba9f6e056618717e`
+- **S_c96a97558bdb7bd6**: if analyze_state then _histogram
+  - Derived: `D_562bd9baf0759252` → `E_6f009914745c61f2` via `T_f9dd71c61d874d61`
+- **S_6b72fb339b5751bc**: def cmd_ask: def cmd_ask(settings, query, max_hits, context, glob) -> int
+  - Derived: `D_d6c4b42187cab4bb` → `E_4ed9c72185372160` via `T_b710e71313e1676b`
+- **S_66f6c0e2e18530f7**: if analyze_state then append
+  - Derived: `D_8120076f96f7b6b7` → `E_fd88d857f02d130a` via `T_976a9096066978d4`
+- **S_39b88522c2ad939c**: def _voice_state_path: def _voice_state_path(settings) -> Path
+  - Derived: `D_0df400b6c3fa5196` → `E_1f6e32973c69e2ce` via `T_c7527c30d7f96630`
+- **S_d7394fc9008d0196**: if analyze_state then get
+  - Derived: `D_ee5688946f8b3f0f` → `E_2ba88e7617fddd0b` via `T_05cbde7660963486`
+- **S_fc104112f311d3ba**: def _voice_layer_dir: def _voice_layer_dir(settings) -> Path
+  - Derived: `D_3709663aac378e74` → `E_d694e467eac21675` via `T_03427ad16ea8ff42`
+- **S_b9171f4282f23d1a**: if analyze_state then keys
+  - Derived: `D_dcdf1834c7907c03` → `E_d5b62f72058efae1` via `T_4f44808419e3dd33`
+- **S_ae0d130b4b82b214**: def _load_voice_state: def _load_voice_state(settings) -> Dict[str, Any]
+  - Derived: `D_1a26a51c1ea31c0f` → `E_1052786eeae98710` via `T_1f4e2dc503bd2b7a`
+- **S_acedf9194f87326a**: if analyze_state then load_state
+  - Derived: `D_00416be965a38d3d` → `E_f1df422d76e3cf21` via `T_d2b546e67bae7b0b`
+- **S_c1c1c2fc6cab02fa**: def _save_voice_state: def _save_voice_state(settings, state) -> None
+  - Derived: `D_fdd3c4ff34fc4ee7` → `E_bd5a41753ee34719` via `T_c1ef0717ff292a35`
+- **S_2483e9f46393d949**: def _has_ripgrep: def _has_ripgrep() -> bool
+  - Derived: `D_bb219bfeeb02e5bb` → `E_f67776d1115913dd` via `T_7281c971cb13c52c`
+- **S_8ba3ed9ce26e5d94**: def _snapshot_voice_controller_state: def _snapshot_voice_controller_state(loop) -> Dict[str, Any]
+  - Derived: `D_a62106773e8b24f8` → `E_0c87cd6f1969100d` via `T_3faee30f21e9f204`
+- **S_c955c79b90e6dc33**: def summarize_hits: def summarize_hits(query, hits, max_files) -> Dict[str, object]
+  - Derived: `D_40c087b8a04a5b1e` → `E_1400a21b7f18ee73` via `T_99217a9269709686`
+- **S_273efed8934fc241**: def run_voice_cli_turn: def run_voice_cli_turn(settings, text) -> Dict[str, Any]
+  - Derived: `D_eaabed155319813e` → `E_3bfbcf4c58dc5a3d` via `T_45ca40dc48b3bf08`
+- **S_9b7756d9097060bc**: def ask_repo: def ask_repo(root, query, max_hits, context, glob) -> str
+  - Derived: `D_6ebb7bef05f89d4e` → `E_63119adfbf08ae5f` via `T_f318224a4a187ddd`
+- **S_3406af63a4f861a2**: def _extract_conversation_text: def _extract_conversation_text(payload) -> str
+  - Derived: `D_08f1d12cce2d44de` → `E_c02985db1e4737bb` via `T_6a72ea9857f136c8`
+- **S_d9b033d614606506**: class Hit: class Hit
+  - Derived: `D_7c64e16ea95c99a4` → `E_3a5320b37048c546` via `T_ec51913939d07309`
+- **S_7a1abc1f5dd0a244**: def _render_conversational_response: def _render_conversational_response(result) -> str
+  - Derived: `D_d3c6158a35ac5b8c` → `E_854eb2eb43c5273f` via `T_507d1f95c42128a8`
+- **S_f7438b1ccde42ef0**: pattern:error_handling at ask.py:34
+  - Derived: `D_ee6cc98ac56fa931` → `E_6d59ffcd75dc1fd0` via `T_a9158a9a3ef781d1`
+- **S_9d852dc5110ba17d**: def _auto_attach_openclaw_for_voice: def _auto_attach_openclaw_for_voice(loop, settings) -> str
+  - Derived: `D_33ed4c495e1b7805` → `E_180d5b8cc8b3a74b` via `T_d47235be3b7a0b21`
+- **S_ef90773dad653700**: pattern:error_handling at ask.py:42
+  - Derived: `D_241628e533650446` → `E_2239a8a6c2d0b925` via `T_50b3650d012bf55a`
+- **S_b8384d4fef2805b5**: def _enable_full_loop_for_voice: def _enable_full_loop_for_voice(loop) -> None
+  - Derived: `D_efcc37f9ea09d57f` → `E_c65b1a238230ee38` via `T_e1403525c007d74b`
+- **S_587e1c44820773df**: pattern:error_handling at ask.py:54
+  - Derived: `D_d9a17457d9c0f832` → `E_a732c7aeb8a2693f` via `T_683f6b1b5ce89914`
+- **S_4c36641a556b567b**: def _purple_background_tick: def _purple_background_tick(loop, source) -> None: Derive goals and run an autonomous self-improvement cycle after each turn.
+  - Derived: `D_c6fd1f6e65b992c3` → `E_3b14b7b2739d1190` via `T_ca8daf92bd096136`
+- **S_5c0c943664a53e80**: pattern:error_handling at ask.py:92
+  - Derived: `D_7685a8ab2685ed4d` → `E_6bb8aeed96ffeaa6` via `T_5060d5b0aa8d94e2`
+- **S_9e8dd269b5fe0c88**: def _dispatch_turn: def _dispatch_turn(loop, cmd, source) -> Dict[str, Any]
+  - Derived: `D_18cf28e90c7964c4` → `E_1bd11fad6137baac` via `T_96f5ace9773c7fe3`
+- **S_5787b3dacad520e9**: ripgrep_search complexity=10, candidate for refactor
+  - Derived: `D_44ae4c531913f1b2` → `E_7cf9980b17589007` via `T_93bcfafd33559edb`
+- **S_ba3e9c4aa06b35ba**: def _run_conversational_voice_session: def _run_conversational_voice_session(loop, source, full_output) -> None
+  - Derived: `D_71436dd47480c2d6` → `E_db45fec695e9d8a2` via `T_9163a65cdf73b764`
+- **S_6fff1752141926f5**: summarize_hits complexity=6, candidate for refactor
+  - Derived: `D_561b0af834363ba6` → `E_e64e356e4b220bd6` via `T_c3a4646354c24900`
+- **S_039ebd504ab30f04**: def _run_audio_voice_session: def _run_audio_voice_session(loop, source, full_output, audio) -> None
+  - Derived: `D_3043b4e482e83444` → `E_dc901a0a2ef5ae90` via `T_d1a734a10d47e9ad`
+- **S_988034b1f6cda79a**: if ask then re
+  - Derived: `D_4d96b46ddf8241b1` → `E_9c2e51543e302e51` via `T_2c181ee1ec290e56`
+- **S_10e0a5cdc7670bbe**: def _run_autonomous_loop: def _run_autonomous_loop(loop, source) -> None: Run fully autonomous self-improvement forever.
+
+Full cycle: analyze → improve →
+  - Derived: `D_66fc717ed9b8a576` → `E_1d62f349ecd8ca0c` via `T_173b612ee68e3986`
+- **S_fad0a6375709dc5a**: if ask then subprocess
+  - Derived: `D_19bfda11bbce5595` → `E_c03870612780ae68` via `T_bfdedfffde5a3394`
+- **S_3e6357f5bf28390e**: def cmd_voice: def cmd_voice(settings, source, full_output, audio_enabled, asr_engine) -> int
+  - Derived: `D_57db4530293c4911` → `E_423962f1b6ec3d1b` via `T_6975fb60d02175cc`
+- **S_46f61dfe3c643d50**: if ask then pathlib
+  - Derived: `D_f0414edac111469c` → `E_885695aa7e1d3cd2` via `T_45023ed250f4f19a`
+- **S_8eea439ea6200214**: def main: def main(argv) -> int
+  - Derived: `D_5a77f19ac871c0e7` → `E_a04db0c042f749b1` via `T_9435fc4c28ccd44e`
+- **S_e1dce5e514ae63f0**: if ask then typing
+  - Derived: `D_4c13290e6352112c` → `E_8eb037bd401efcd0` via `T_aeff6371468ff630`
+- **S_196f4c9eb373bf06**: def _sanitize: def _sanitize(text) -> str
+  - Derived: `D_432c0d71e83ef24f` → `E_2e35d562f5a4173f` via `T_80e8e3be7b76df91`
+- **S_774dedc08345833e**: if _has_ripgrep then run
+  - Derived: `D_b8ffc17031bd9ccd` → `E_f79ddfec3c6e4581` via `T_01ba080ae70e5e1c`
+- **S_984f9dcc247d966b**: def _handle_sig: def _handle_sig() -> None
+  - Derived: `D_be2b86e5a9ac9731` → `E_d4d2a9443340f34c` via `T_4b81a4dd70c5b37a`
+- **S_5a7d3e04e61caf48**: if _should_skip_path then relative_to
+  - Derived: `D_18983500630377a0` → `E_30402e0b49469876` via `T_b246421ca9eaca59`
+- **S_1ad1c93b6d0a6b65**: pattern:error_handling at cli.py:147
+  - Derived: `D_1151dedfafe1a06d` → `E_ebeb05437ffd5154` via `T_84ea99da3cc8a472`
+- **S_942831f8529a58b9**: if _read_context_lines then read_text
+  - Derived: `D_a7c1e7fb80e60a1d` → `E_be1435901f6c6a05` via `T_0bceae474ebc78ec`
+- **S_4077d0d066d7bf19**: def read_analysis_config: def read_analysis_config(path) -> Dict[str, Any]
+  - Derived: `D_fe77dace8a88bc44` → `E_adedcec5981ca0c9` via `T_ece44f0b45f3d118`
+- **S_4416f24c14a8b23e**: if ripgrep_search then Hit
+  - Derived: `D_864ca2b604c4fc9c` → `E_9e0df3426bcdebe7` via `T_8ff8e7656abed2e7`
+- **S_043358b53c8b6d82**: def load: def load(root, analysis_config_path) -> 'Settings'
+  - Derived: `D_8f3b1c6f74500aa6` → `E_242d5a191b8bc389` via `T_46b26b456c4e8c36`
+- **S_7a8e2af84c32acdf**: if ripgrep_search then Path
+  - Derived: `D_7209c4c66ac48edb` → `E_7da0058f3dd73992` via `T_e8730fef0e72d4ed`
+- **S_03b32fb052cbe29b**: class Settings: class Settings
+  - Derived: `D_f119f07180c4dcd9` → `E_93fb6676bc7a0e24` via `T_76e0edf1931692ee`
+- **S_fd7a28b10f3a09cf**: if ripgrep_search then RuntimeError
+  - Derived: `D_b88c4cb9b6032f4c` → `E_8bc9d664e621c670` via `T_f96f8ef96948ec67`
+- **S_74a279a3b1d5e232**: pattern:context_manager at config.py:48
+  - Derived: `D_3b00189c45968d33` → `E_10aadacdf74ccd54` via `T_e709b8272fc965ed`
+- **S_e544b0a343694314**: if ripgrep_search then _has_ripgrep
+  - Derived: `D_094aeb362d923e3a` → `E_2abc9ba5d78bd9b6` via `T_ec11135e1484f092`
+- **S_5edaf3bd12f0aaa8**: if config then __future__
+  - Derived: `D_c88d7ebcf908f19c` → `E_174e664d2a6409fb` via `T_a466c7f342e63424`
+- **S_993c245f07596cf2**: if ripgrep_search then _read_context_lines
+  - Derived: `D_34de24059cd62f9e` → `E_556c96531a652d7b` via `T_a9b4710a4e3f5d50`
+- **S_40de0b8e67052423**: if config then json
+  - Derived: `D_db135f673e83980d` → `E_a9e595977e4f47ab` via `T_de03d584e44804e6`
+- **S_720724160d897cc1**: if _rank_hits then append
+  - Derived: `D_2f9cab4f8263042d` → `E_67ce6a743417b359` via `T_f0c8f986dad50b52`
+- **S_bbe2976bbf5109ae**: if config then dataclasses
+  - Derived: `D_0174f2892bdcedf0` → `E_9e79f88b4a902fd6` via `T_dc48e086954fab23`
+- **S_415aaf6c488f24bf**: def summary: def summary(self) -> str
+  - Derived: `D_adfc2943d98bad1f` → `E_5272e7fcb12c9329` via `T_875921d3300b891d`
+- **S_cc874bc3fce0655f**: if config then pathlib
+  - Derived: `D_755cdbdb2992f813` → `E_fa75ba537501556f` via `T_9975457c39b095f8`
+- **S_d52951e7109d3570**: def __init__: def __init__(self, threshold) -> None
+  - Derived: `D_34bbaf09407920da` → `E_1655736ec3bf42f5` via `T_19c4af78f80102c3`
+- **S_335cd29820699c06**: if config then typing
+  - Derived: `D_0adabdd90a5c2c00` → `E_c762b2b0b8090132` via `T_0f9d919dbbd1e2f9`
+- **S_45f3deca9dab2ad7**: def record_error: def record_error(self, error) -> None
+  - Derived: `D_a62589cfaa6d0ede` → `E_97aa39159645cca7` via `T_83d774e0303811a6`
+- **S_0a69353e1039014b**: if read_analysis_config then FileNotFoundError
+  - Derived: `D_14a0c58c445679aa` → `E_0847af73062e664c` via `T_fbb153ce54829d05`
+- **S_b6c4254f591bbe6f**: def record_gateway_block: def record_gateway_block(self) -> None
+  - Derived: `D_f94bb3ec4b81c8e8` → `E_9510d69e64f07b9f` via `T_6cd4a8282b123ef4`
+- **S_2c782852cf46a96d**: if read_analysis_config then exists
+  - Derived: `D_82c8d45c82921242` → `E_5da490caf84192f9` via `T_d0e1a9e655d94dc7`
+- **S_66e1b51ad354497b**: def record_gateway_pass: def record_gateway_pass(self) -> None
+  - Derived: `D_aecd690a40482b5d` → `E_f629d713d1d60dd1` via `T_9ffe519a563aafed`
+- **S_5066fbc86dde8210**: if read_analysis_config then load
+  - Derived: `D_e8a1fd3365536721` → `E_8cc41e752506aebd` via `T_5c3801d00536e6a4`
+- **S_3cc9c3f0c356fa10**: def record_llm_output: def record_llm_output(self, output) -> None
+  - Derived: `D_8766f8e9efad2972` → `E_fd8b1c5db5ee6e4a` via `T_60c0746bcb461b4b`
+- **S_cb9f9b4a8e2df950**: if load then Settings
+  - Derived: `D_4008fdaf005708f7` → `E_d73340d7c59c4e12` via `T_5deb93a7e4f6dedf`
+- **S_32b5ab2cef2179cc**: def record_test_result: def record_test_result(self, target, passed) -> None
+  - Derived: `D_80c3f7fdd7b61574` → `E_e76f9dc8eaf180d0` via `T_a01671c26e8062b7`
+- **S_4ddd3d8424b2945e**: if load then resolve
+  - Derived: `D_078bb889e87e7cb3` → `E_923c94aca6003434` via `T_ec956ca9f8443d46`
+- **S_25d8b33c02cbe1bb**: def record_success: def record_success(self) -> None: Reset all counters on a successful cycle.
+  - Derived: `D_3139aee5100987d7` → `E_96c8e6b84c42fb45` via `T_bf93e7b0f6673549`
+- **S_ef26ae28b517d7be**: def __init__: def __init__(self, quiet) -> None
+  - Derived: `D_cffb01992e3abb04` → `E_008626d5ffa202bc` via `T_8c0c96da4f1e4280`
+- **S_00f4e0fe1a71a044**: def __init__: def __init__(self, settings, gateway, repo_root, morpheus_tracker) -> None
+  - Derived: `D_491dfd15b7630bd4` → `E_f15457e63aa1d102` via `T_89d209a30373a6da`
+- **S_a1d6a65abbdeeb12**: def say: def say(self, message) -> None: Say something to the human.
+  - Derived: `D_7bbdb52720451c80` → `E_a0ef741ffbaa2bdc` via `T_4778102c45974c6b`
+- **S_e33a3b99bde19bc1**: def has_pending_question: def has_pending_question(self) -> bool
+  - Derived: `D_2891b2ebaf43b1bd` → `E_1979d25bba5b8f17` via `T_0734a8fb6d74241f`
+- **S_ef7cb7027e875395**: def _quiet_note: def _quiet_note(self) -> None: Track suppressed messages.
+  - Derived: `D_26b1569facc3045d` → `E_96dd868135e822ac` via `T_49bf5fbbddfb1437`
+- **S_a050bb2c7fbc4eeb**: def pending_question: def pending_question(self) -> str
+  - Derived: `D_12887acfe534a8b7` → `E_eec0dc01ce1a1a9e` via `T_f62087c4c72627a4`
+- **S_24e771ab50b578a6**: def greeting: def greeting(self) -> None
+  - Derived: `D_b7f79b00f334ccbd` → `E_7f60363e255ab1f7` via `T_ab7635466207b580`
+- **S_23e276df3f84f220**: def clear_question: def clear_question(self) -> None
+  - Derived: `D_c4131084a1935ada` → `E_d05f282c30bb156e` via `T_1131b8636fc360c9`
+- **S_abb1fa7e20d6e6be**: def discovery_done: def discovery_done(self, python_files, roots, runtimes) -> None
+  - Derived: `D_fbce106df5d9240c` → `E_097f7ab206a29444` via `T_48e1d389c2269d03`
+- **S_45112fcb47ebb7f3**: def _run_llm_improvement: def _run_llm_improvement(self, target, goal_description, microcosm) -> str: Use LLM + tools to make actual improvements to the target.
+  - Derived: `D_adba17ca64159437` → `E_4d38ade652a15b28` via `T_505b40e03e805e73`
+- **S_acca4231d3281131**: def navigation_ready: def navigation_ready(self, layers, ops) -> None
+  - Derived: `D_6c285d6ece8cd3c8` → `E_a80a75b5c6c72654` via `T_5d8d6334b86efae7`
+- **S_e803fc6fef07911e**: def _git_commit: def _git_commit(self, target, goal_description) -> Tuple[bool, str]: Stage and commit changes.
+  - Derived: `D_7fd5d5d8f79da28b` → `E_d78d38fe0860b7f7` via `T_6a94c17bdb38d2cf`
+- **S_17ec7f207703e807**: def goal_received: def goal_received(self, count) -> None
+  - Derived: `D_28672598d9dee8d5` → `E_dc8a16fae190d653` via `T_75446bb486e72f8a`
+- **S_e5155bf2104c7fb2**: def _git_rollback: def _git_rollback(self, target) -> None: Discard uncommitted changes after test failure.
+  - Derived: `D_ee73af324cb0aa4a` → `E_bbeb7fbfccb050a7` via `T_578bce5319a1e384`
+- **S_a572074506e66a14**: def goal_working: def goal_working(self, description) -> None
+  - Derived: `D_e1e3ed7900343f55` → `E_d2310bbbf1dcb83f` via `T_ff3f06494caec2b8`
+- **S_d859bb6e0ffa1e86**: class CycleResult: class CycleResult: Result of one full autonomous cycle.
+  - Derived: `D_b38c3d5c9a3c7148` → `E_e24ccb49d98f3a10` via `T_5ae513bd15edfe7e`
+- **S_5a4619af8b5a9f39**: def goal_completed: def goal_completed(self, result, committed) -> None
+  - Derived: `D_d23f98db6883d585` → `E_b1ee71579ea40fa1` via `T_944406293ff30ff4`
+- **S_c4f0e7c45a3ab3c3**: class ImpasseDetector: class ImpasseDetector: Detects when the system is genuinely stuck and should ask the user.
+
+Impasse con
+  - Derived: `D_9f37d6793e3a7f57` → `E_95b468384ebf07d0` via `T_04b16fda55a59d2e`
+- **S_99a49f4707cb75b5**: def goal_queued: def goal_queued(self, goal_id, description) -> None
+  - Derived: `D_ab9f02ab2cf8b136` → `E_325d6fa1b8f66045` via `T_cc04234889b6baeb`
+- **S_2ec8b81af8f80c68**: class AutonomousExecutor: class AutonomousExecutor: Orchestrates full autonomous improvement cycles.
+
+Each cycle: analyze → improve
+  - Derived: `D_d5353a1a66ff5094` → `E_291781260daa614b` via `T_bb4900c93cde4dfe`
+- **S_3868ea442e6cb799**: def satisfaction_recorded: def satisfaction_recorded(self, rating) -> None
+  - Derived: `D_ce62cd257dcaa424` → `E_902e5b340171677b` via `T_c36992de6f60ecdd`
+- **S_3c08ea49e464f898**: pattern:error_handling at autonomous_executor.py:332
+  - Derived: `D_4f4cdb8d3f191f17` → `E_b15095da0dce296f` via `T_97c77f32a24e1a4e`
+- **S_7e4beb6d28de750b**: def impasse_cleared: def impasse_cleared(self) -> None
+  - Derived: `D_057b9e5c5b7ea163` → `E_0a72984cf6db0ff5` via `T_f3769d4d0a2ce93b`
+- **S_1603596fee3639bc**: pattern:error_handling at autonomous_executor.py:348
+  - Derived: `D_1c1da85c29852ea5` → `E_cb30d152e7ac494e` via `T_c718f60900dcd9a8`
+- **S_df14051ae0ad387e**: def impasse_skipped: def impasse_skipped(self) -> None
+  - Derived: `D_7be0fa548a130fe8` → `E_1429c4068a2f0572` via `T_716ff9687e7575c7`
+- **S_a627389072a836ca**: pattern:error_handling at autonomous_executor.py:415
+  - Derived: `D_6499ff57e0818f48` → `E_e98c1f8b4e01c4d5` via `T_b96a5698a00dcfe4`
+- **S_8dc253ac522cc72a**: def cycle_result: def cycle_result(self, summary, committed, tests_passed, is_human_goal) -> None
+  - Derived: `D_32465a1229d7f90a` → `E_d048b3ec25403bc7` via `T_f77a3c6a49427ebc`
+- **S_a39c7e896674caf9**: pattern:error_handling at autonomous_executor.py:453
+  - Derived: `D_03bd16a773555189` → `E_18b477fa2b267b2d` via `T_2e5a1252bde82455`
+- **S_0ff44e66819ec5a1**: def idle: def idle(self, rounds, max_rounds) -> None
+  - Derived: `D_4f58a71b6db880c2` → `E_b4c588d6abdfce1e` via `T_3847b29e7a13fbac`
+- **S_5676547fa460c78b**: pattern:error_handling at autonomous_executor.py:215
+  - Derived: `D_5ba630ed0c7b2db7` → `E_bcf5d4ebc5f300b3` via `T_a41b7286d14360c9`
+- **S_99f3c21f52e22ff4**: def anticipated: def anticipated(self, description) -> None
+  - Derived: `D_e8b4941e066749be` → `E_ac90a583e5101d88` via `T_0b797ae87f526a91`
+- **S_5274972684b64975**: pattern:error_handling at autonomous_executor.py:263
+  - Derived: `D_98c94280f3fc700f` → `E_0ed88acbbcbf641c` via `T_c2b150567e88e82a`
+- **S_7dd3fe1ecc4b7d18**: def triangle_place_reached: def triangle_place_reached(self, closure) -> None
+  - Derived: `D_56b3e616aefdd47a` → `E_7fc7cefb8fc1462c` via `T_7816502200636d12`
+- **S_b1e2a9f05a5a971b**: pattern:error_handling at autonomous_executor.py:371
+  - Derived: `D_c8adecf88f38d6a5` → `E_25e460c4000c4bed` via `T_892a7d59eb7b03be`
+- **S_55a0a5ae078b47b6**: def new_triangles: def new_triangles(self, count) -> None
+  - Derived: `D_6c05a0fb71b76277` → `E_1598842a46aea946` via `T_02b16280e01f2d4c`
+- **S_a3c057c1fa8943c7**: pattern:error_handling at autonomous_executor.py:397
+  - Derived: `D_e9e896e9f842655b` → `E_8753bb01360fee11` via `T_0a1e842f784469ca`
+- **S_fd601f6801aa0727**: def silence_generating: def silence_generating(self) -> None
+  - Derived: `D_cc86b4af1173899a` → `E_9c4bff29f17d7659` via `T_4da023eba17a838e`
+- **S_5c02ef33ef8e4788**: def is_question: def is_question(text) -> bool
+  - Derived: `D_4426c72f159a73ce` → `E_97410b2c955449c2` via `T_cc580f100c0210f5`
+- **S_adc630bdb464430b**: def status_report: def status_report(self, executor_status, tracker_status, tri_status, engine) -> None
+  - Derived: `D_0c7758bbec1f3e3b` → `E_cd14461835c07ae6` via `T_767659dd2320d97d`
+- **S_26df68cb20bec852**: def _histogram: def _histogram(vals, bins) -> Dict[str, int]
+  - Derived: `D_c460fd69e3a71b18` → `E_4839837cc95d0cfb` via `T_9ceb400b7157eba2`
+- **S_65b4d06a2d665c94**: def analyze_state: def analyze_state(settings) -> Dict[str, Any]
+  - Derived: `D_cddd9336f10af70c` → `E_dd820c3a50f64da1` via `T_bd078642ee79c763`
+- **S_0f014384e64d461f**: _histogram complexity=7, candidate for refactor
+  - Derived: `D_707571878c4087e4` → `E_09eeb2635eef8461` via `T_a0a090cfe73fd621`
+- **S_ec42407084c4a9f6**: analyze_state complexity=14, candidate for refactor
+  - Derived: `D_33671a876cbe2310` → `E_5889294a93b88a51` via `T_3bdb113eaef2d82e`
+- **S_d4bcb6758787ac56**: if analyze then __future__
+  - Derived: `D_133e52421a8b01fd` → `E_2efc7de56b4e9001` via `T_e3c3d8281b13a689`
+- **S_5a56f7e62f00cb13**: if analyze then typing
+  - Derived: `D_bdf65159740e3815` → `E_2066f94260f2420b` via `T_f82c5935f83d8905`
+- **S_ca9ce71587386903**: if analyze then config
+  - Derived: `D_0cc7c0600861e10d` → `E_eda07a3e6deb9940` via `T_4d45c012fded1e01`
+- **S_57fa9c08f8da4638**: if analyze then storage
+  - Derived: `D_482483c95d0a7204` → `E_35e811d009fbc685` via `T_c6ddee2dc47c0b28`
+- **S_13e4864339236ceb**: if analyze_state then _histogram
+  - Derived: `D_9eb8aac565f8ae85` → `E_6f009914745c61f2` via `T_5b3adc0a9722b9e4`
+- **S_a45ee26319fb6a65**: if analyze_state then append
+  - Derived: `D_eddf2f8484476453` → `E_fd88d857f02d130a` via `T_d23e4ca086744ea1`
+- **S_8899bcebd5645220**: if analyze_state then get
+  - Derived: `D_3170b17f77cfdb0d` → `E_2ba88e7617fddd0b` via `T_f66b3344088847a2`
+- **S_9a2d027372d5c3ae**: if analyze_state then keys
+  - Derived: `D_7f3c43cd128a16db` → `E_d5b62f72058efae1` via `T_d737f49415980aa7`
+- **S_9f31c6bd00fe24c4**: if analyze_state then load_state
+  - Derived: `D_4bdb51eeae1514a7` → `E_f1df422d76e3cf21` via `T_53b2e81051fe6cf2`
+- **S_6db2016c9c3669b1**: def _has_ripgrep: def _has_ripgrep() -> bool
+  - Derived: `D_17a968baa9648a44` → `E_f67776d1115913dd` via `T_c8ca6500bb8c10eb`
+- **S_d9269542e1733a62**: def _should_skip_path: def _should_skip_path(path, root) -> bool
+  - Derived: `D_35f160a28d89f386` → `E_ab9f6dddf6a0e81f` via `T_3e7f47fddc7388fa`
+- **S_07734b065b2b39bc**: def _read_context_lines: def _read_context_lines(path, line_no_1based, context) -> Tuple[List[str], List[str]]
+  - Derived: `D_4183d8f1959c4c02` → `E_5ee526c94c83e569` via `T_78943b99988a261a`
+- **S_bf4621a6d6fe1101**: def ripgrep_search: def ripgrep_search(root, query, max_hits, context, glob) -> List[Hit]
+  - Derived: `D_8f2b9159912abd9f` → `E_8f259510b4dc72d6` via `T_1f80b9c3e3fb89d3`
+- **S_17b02fa8b1f5fbb3**: def _rank_hits: def _rank_hits(hits, query) -> List[Hit]
+  - Derived: `D_76ba89b51a72cebf` → `E_b2410f1ed5356146` via `T_f20bff2ad00feea8`
+- **S_b4f0f66f1da14114**: def summarize_hits: def summarize_hits(query, hits, max_files) -> Dict[str, object]
+  - Derived: `D_0662be7048b0acc7` → `E_1400a21b7f18ee73` via `T_52398c6053291d31`
+- **S_d108ffa19df240fc**: def ask_repo: def ask_repo(root, query, max_hits, context, glob) -> str
+  - Derived: `D_3b8ecb20301fae47` → `E_63119adfbf08ae5f` via `T_9a001406f5ff84ec`
+- **S_9acb768b10ae9db5**: class Hit: class Hit
+  - Derived: `D_ce9701207042ebd7` → `E_3a5320b37048c546` via `T_c1958799bd216d10`
+- **S_c2d181f996d21dd2**: pattern:error_handling at ask.py:34
+  - Derived: `D_1ecf991a3e443ce4` → `E_6d59ffcd75dc1fd0` via `T_f4ee7c0f395be961`
+- **S_07e691426779b014**: pattern:error_handling at ask.py:42
+  - Derived: `D_39d803f7ee0f874f` → `E_2239a8a6c2d0b925` via `T_e0a0148ff5222755`
+- **S_ec675ec9d847ac46**: pattern:error_handling at ask.py:54
+  - Derived: `D_4ed544e6e2f803d3` → `E_a732c7aeb8a2693f` via `T_6936732c5a99d68a`
+- **S_220b82c5cac44dda**: pattern:error_handling at ask.py:92
+  - Derived: `D_ac393f8293b87875` → `E_6bb8aeed96ffeaa6` via `T_b1ddd16baa50b09c`
+- **S_f06f5a9c944c9406**: ripgrep_search complexity=10, candidate for refactor
+  - Derived: `D_b402fbc6f09d0c0b` → `E_7cf9980b17589007` via `T_54889487db543b22`
+- **S_a1f7f913ffe7fd7b**: summarize_hits complexity=6, candidate for refactor
+  - Derived: `D_efa7102ea8d6c27c` → `E_e64e356e4b220bd6` via `T_da9a6762eff151d3`
+- **S_e48ca9fabf2477e9**: if ask then __future__
+  - Derived: `D_12822c8a155e82f5` → `E_d072e48588eb2e01` via `T_5cda8cddacf1e2f6`
+- **S_b64d8e1b10d2e6ff**: if ask then re
+  - Derived: `D_822746b604682463` → `E_9c2e51543e302e51` via `T_34a4d4bf7886255f`
+- **S_19af27323257c0fb**: if ask then subprocess
+  - Derived: `D_9298039f0b585705` → `E_c03870612780ae68` via `T_d0495ad88ffafcfd`
+- **S_a7d8ddf2bcfe6057**: if ask then dataclasses
+  - Derived: `D_969e185fbb5b28e3` → `E_9e1b9dc74e774084` via `T_b71cb79e9a6326ee`
+- **S_5717eff164e520f8**: if ask then pathlib
+  - Derived: `D_5e5850cdea2ac497` → `E_885695aa7e1d3cd2` via `T_c1bfe2a99e5eeb2f`
+- **S_923a50e59aa320a6**: if ask then typing
+  - Derived: `D_7fcdf228e15c08ae` → `E_8eb037bd401efcd0` via `T_3314fb5acdde8f2b`
+- **S_e1f5af33423b5a0f**: if _has_ripgrep then run
+  - Derived: `D_d828713a6245ca74` → `E_f79ddfec3c6e4581` via `T_3796e0606b121848`
+- **S_fd98f4340d5b5e26**: if _should_skip_path then relative_to
+  - Derived: `D_23b93c1de936bebe` → `E_30402e0b49469876` via `T_a0919c80e423e7af`
+- **S_13824cd992b2e311**: if _read_context_lines then read_text
+  - Derived: `D_593f73b66ae3e9b3` → `E_be1435901f6c6a05` via `T_20d5e793e9ef21e3`
+- **S_66af29e403889bc5**: if _read_context_lines then splitlines
+  - Derived: `D_0db5079dc5a1d218` → `E_c3a4e87cbd36bc39` via `T_3e4b65b7e79eba16`
+- **S_a41af247d317abdf**: if ripgrep_search then Hit
+  - Derived: `D_1eba75be5913caaa` → `E_9e0df3426bcdebe7` via `T_4da2b419ae716b40`
+- **S_dedfe26bff1e8b66**: if ripgrep_search then Path
+  - Derived: `D_d44c1e4196dd13b7` → `E_7da0058f3dd73992` via `T_dc5ec678d993ffc9`
+- **S_de3e1a9f28b4a6f4**: if ripgrep_search then RuntimeError
+  - Derived: `D_96831e6d0cbed783` → `E_8bc9d664e621c670` via `T_fb4d8565470c0e6f`
+- **S_5cf6f43b4202ca9d**: def _histogram: def _histogram(vals, bins) -> Dict[str, int]
+  - Derived: `D_89f39e6ea67a168a` → `E_4839837cc95d0cfb` via `T_1e7a1e039cf7c936`
+- **S_d64978d9355d79bd**: def analyze_state: def analyze_state(settings) -> Dict[str, Any]
+  - Derived: `D_68fe05b81c6ca292` → `E_dd820c3a50f64da1` via `T_1a28389000f6c81a`
+- **S_b6e3dd85353449b8**: _histogram complexity=7, candidate for refactor
+  - Derived: `D_3426997d83c99696` → `E_09eeb2635eef8461` via `T_8fe8565cef337727`
+- **S_f6b7fd6b9a02396d**: analyze_state complexity=14, candidate for refactor
+  - Derived: `D_6b1bc41e65417b56` → `E_5889294a93b88a51` via `T_775a24e23379635d`
+- **S_49bcaa91cea4342f**: if analyze then __future__
+  - Derived: `D_d4f9d40cee7e8d54` → `E_2efc7de56b4e9001` via `T_842b54a9ef6445d1`
+- **S_dc969fd4ffe04f05**: if analyze then typing
+  - Derived: `D_1adfca5ea36ae175` → `E_2066f94260f2420b` via `T_253a284c6b6c3c78`
+- **S_dcbca5b7134a6013**: if analyze then config
+  - Derived: `D_db1f7f5ddc7a68bc` → `E_eda07a3e6deb9940` via `T_46db5bc9c31e6830`
+- **S_f6481549cecabda4**: if analyze then storage
+  - Derived: `D_8c3c989f3472f884` → `E_35e811d009fbc685` via `T_93050dabadcd7c08`
+- **S_38f5d3106b4210fb**: if analyze_state then _histogram
+  - Derived: `D_c74664aa3d09b989` → `E_6f009914745c61f2` via `T_bd5a1f2f844ad885`
+- **S_aaa7e59415f12144**: if analyze_state then append
+  - Derived: `D_e45d116aaa3cac81` → `E_fd88d857f02d130a` via `T_8cc3503d81b4d114`
+- **S_53ca426403b21fba**: if analyze_state then get
+  - Derived: `D_7177a7df6caa7596` → `E_2ba88e7617fddd0b` via `T_792797788ac3965d`
+- **S_e8b83b1fbf1880f1**: if analyze_state then keys
+  - Derived: `D_d1fa131d1ced5873` → `E_d5b62f72058efae1` via `T_ea38d7965a26a987`
+- **S_b9ab784e1fff98e9**: if analyze_state then load_state
+  - Derived: `D_f5c06dd9d77520e8` → `E_f1df422d76e3cf21` via `T_fd621a9b6a8dbf5f`
+- **S_61230bd7f1eaed84**: def _has_ripgrep: def _has_ripgrep() -> bool
+  - Derived: `D_3a7195e957e8faea` → `E_f67776d1115913dd` via `T_e2b8b10176c3bbbf`
+- **S_d6357baee46dd90c**: def _should_skip_path: def _should_skip_path(path, root) -> bool
+  - Derived: `D_cbe6e9e46944208b` → `E_ab9f6dddf6a0e81f` via `T_de9c1325ff009bcd`
+- **S_cb32b8a471374a73**: def _read_context_lines: def _read_context_lines(path, line_no_1based, context) -> Tuple[List[str], List[str]]
+  - Derived: `D_06d8565774ad69a2` → `E_5ee526c94c83e569` via `T_9a80ad7c70d87f3d`
+- **S_537831f1fa3021a4**: def ripgrep_search: def ripgrep_search(root, query, max_hits, context, glob) -> List[Hit]
+  - Derived: `D_469b1a069351c7de` → `E_8f259510b4dc72d6` via `T_49e8500ee9207c77`
+- **S_a3efc07dad12eaa9**: def _rank_hits: def _rank_hits(hits, query) -> List[Hit]
+  - Derived: `D_e505cb0191223ab5` → `E_b2410f1ed5356146` via `T_ea13487b3694e7e0`
+- **S_d163361fc116feac**: def summarize_hits: def summarize_hits(query, hits, max_files) -> Dict[str, object]
+  - Derived: `D_1215d49b7703ca3a` → `E_1400a21b7f18ee73` via `T_783ce6b17392bbaf`
+- **S_aa20ec2872eb7f90**: def ask_repo: def ask_repo(root, query, max_hits, context, glob) -> str
+  - Derived: `D_38a459b5730d566c` → `E_63119adfbf08ae5f` via `T_910e308d597da794`
+- **S_2466c2b1a717513d**: class Hit: class Hit
+  - Derived: `D_f79005151fd6ccbc` → `E_3a5320b37048c546` via `T_2525575010cc64cc`
+- **S_8ac9922da753adb8**: pattern:error_handling at ask.py:34
+  - Derived: `D_b8551e3f5bf6a5cc` → `E_6d59ffcd75dc1fd0` via `T_1c4b3300373f0072`
+- **S_9bb7f29a3338e3dc**: pattern:error_handling at ask.py:42
+  - Derived: `D_9c87671ac6f517be` → `E_2239a8a6c2d0b925` via `T_3769ecd34a565e25`
+- **S_80c7c75502e31a33**: pattern:error_handling at ask.py:54
+  - Derived: `D_82b18a0e322b4497` → `E_a732c7aeb8a2693f` via `T_f2defc9b07771add`
+- **S_a63f8335a04f471e**: pattern:error_handling at ask.py:92
+  - Derived: `D_5aad2d42b1ca2c58` → `E_6bb8aeed96ffeaa6` via `T_4f32a27a61b048e8`
+- **S_9242e7fe6f0f8384**: ripgrep_search complexity=10, candidate for refactor
+  - Derived: `D_b6888d6372855f9c` → `E_7cf9980b17589007` via `T_fac709cfbda28f92`
+- **S_a9b45efadf531e57**: summarize_hits complexity=6, candidate for refactor
+  - Derived: `D_4e7993e8de407181` → `E_e64e356e4b220bd6` via `T_06bb81a8c690a804`
+- **S_ece731b963a90521**: if ask then __future__
+  - Derived: `D_c1aae97d46f24040` → `E_d072e48588eb2e01` via `T_847a6282e9686030`
+- **S_4bbd51527ab4e2e0**: if ask then re
+  - Derived: `D_a79482d6d399fd55` → `E_9c2e51543e302e51` via `T_304b84fc0eae2001`
+- **S_648dc6af740e63da**: if ask then subprocess
+  - Derived: `D_d54708b70e136bf4` → `E_c03870612780ae68` via `T_258823b0bebdf2b8`
+- **S_c0002a146ab57416**: if ask then dataclasses
+  - Derived: `D_89353400ba6796be` → `E_9e1b9dc74e774084` via `T_d9b5b111089c93c8`
+- **S_c76a0c0cdff22842**: if ask then pathlib
+  - Derived: `D_4a2695e82d77400e` → `E_885695aa7e1d3cd2` via `T_bb30561fdb9cd5fb`
+- **S_fb450ee6a41f452a**: if ask then typing
+  - Derived: `D_f154addda83d1848` → `E_8eb037bd401efcd0` via `T_63858dd71b071433`
+- **S_66c37defa8de18e8**: if _has_ripgrep then run
+  - Derived: `D_59666039641a60ea` → `E_f79ddfec3c6e4581` via `T_568649c9816725c5`
+- **S_b7cdece11d347dc3**: def _histogram: def _histogram(vals, bins) -> Dict[str, int]
+  - Derived: `D_c01f75dafecb2cdb` → `E_4839837cc95d0cfb` via `T_1f7734476f04274b`
+- **S_b8d0663781f21078**: def analyze_state: def analyze_state(settings) -> Dict[str, Any]
+  - Derived: `D_2ea7aa20075a0906` → `E_dd820c3a50f64da1` via `T_dfdc0e38e724538d`
+- **S_3d6696627b0509c1**: _histogram complexity=7, candidate for refactor
+  - Derived: `D_1a8963a19e081391` → `E_09eeb2635eef8461` via `T_7fb4b86b90087c18`
+- **S_3650b3090658aee8**: analyze_state complexity=14, candidate for refactor
+  - Derived: `D_5c793e6048ee2272` → `E_5889294a93b88a51` via `T_157137abd2c3dc92`
+- **S_895234a3b63e063e**: if analyze then __future__
+  - Derived: `D_4c5bc8743cb36844` → `E_2efc7de56b4e9001` via `T_5bc3faedd7bc53c8`
+- **S_03d24b38611161cb**: if analyze then typing
+  - Derived: `D_3a63c5ebd27c5efb` → `E_2066f94260f2420b` via `T_982030adbd407402`
+- **S_f86fbd5b243f546b**: if analyze then config
+  - Derived: `D_4c5c48f838d0c24a` → `E_eda07a3e6deb9940` via `T_1ed555d5d5a44528`
+- **S_3e58dc5d3695f33f**: if analyze then storage
+  - Derived: `D_97996494cf44dc5a` → `E_35e811d009fbc685` via `T_9a58573729f74f28`
+- **S_742e37d5a2de60cc**: if analyze_state then _histogram
+  - Derived: `D_77a8a7b76b373fd9` → `E_6f009914745c61f2` via `T_60e447e24bef6234`
+- **S_13742e39b47d873c**: if analyze_state then append
+  - Derived: `D_e2ffb2632bfd2ac6` → `E_fd88d857f02d130a` via `T_aadb50ce53fb9a83`
+- **S_16733a71da63d653**: if analyze_state then get
+  - Derived: `D_7aefb1fb75273b2b` → `E_2ba88e7617fddd0b` via `T_9c729d1df2acd62a`
+- **S_5cfe206fa0503467**: if analyze_state then keys
+  - Derived: `D_312ab03abd4d2bfd` → `E_d5b62f72058efae1` via `T_5fc1222f56768cb4`
+- **S_71566b5a1e640c72**: if analyze_state then load_state
+  - Derived: `D_d27e91f9e0b25902` → `E_f1df422d76e3cf21` via `T_d16a20901492e0e5`
+- **S_a5a22d6b532c1637**: def _has_ripgrep: def _has_ripgrep() -> bool
+  - Derived: `D_63ce6cb55cd94715` → `E_f67776d1115913dd` via `T_5df19ec9235ec0c0`
+- **S_b6e6d5649e1b41c9**: def _should_skip_path: def _should_skip_path(path, root) -> bool
+  - Derived: `D_a1d13bbcaaffb5f0` → `E_ab9f6dddf6a0e81f` via `T_71e21bad2bd9e903`
+- **S_3eee9a8362e9ad50**: def _read_context_lines: def _read_context_lines(path, line_no_1based, context) -> Tuple[List[str], List[str]]
+  - Derived: `D_f48131aaab8ec3c8` → `E_5ee526c94c83e569` via `T_8ac2658a3b117030`
+- **S_84bd04fa66626c61**: def ripgrep_search: def ripgrep_search(root, query, max_hits, context, glob) -> List[Hit]
+  - Derived: `D_c80bf4dfd0648b57` → `E_8f259510b4dc72d6` via `T_f94362d85e034ad2`
+- **S_b47e511ad30f297e**: def _rank_hits: def _rank_hits(hits, query) -> List[Hit]
+  - Derived: `D_59b0811eb2c09ce2` → `E_b2410f1ed5356146` via `T_cdf523a4a99d89b0`
+- **S_db92a56d9c00ff7f**: def summarize_hits: def summarize_hits(query, hits, max_files) -> Dict[str, object]
+  - Derived: `D_1eb6c197b46c5301` → `E_1400a21b7f18ee73` via `T_ab2a0f0edf77cc4b`
+- **S_3a5943a1b06df7e1**: def ask_repo: def ask_repo(root, query, max_hits, context, glob) -> str
+  - Derived: `D_11a60df4708e0cbf` → `E_63119adfbf08ae5f` via `T_f4f833a90d885f35`
+- **S_697590410ce5d486**: class Hit: class Hit
+  - Derived: `D_4f53f25c7d036044` → `E_3a5320b37048c546` via `T_e6165e18d018b2d8`
+- **S_d4aca1f92258ebf3**: pattern:error_handling at ask.py:34
+  - Derived: `D_db14c54a4936c2a2` → `E_6d59ffcd75dc1fd0` via `T_27ce1cd2e276af36`
+- **S_a98d4aceedb93a2b**: pattern:error_handling at ask.py:42
+  - Derived: `D_e71abb94c6d55409` → `E_2239a8a6c2d0b925` via `T_65e6585a9294526a`
+- **S_3cb76735e85a596a**: pattern:error_handling at ask.py:54
+  - Derived: `D_26897e24b994f176` → `E_a732c7aeb8a2693f` via `T_f6773416f44e7556`
+- **S_ad25b69ae8c56337**: pattern:error_handling at ask.py:92
+  - Derived: `D_69f34de3be56272f` → `E_6bb8aeed96ffeaa6` via `T_3fb48ba0cebf64b7`
+- **S_e70463701f4f4368**: ripgrep_search complexity=10, candidate for refactor
+  - Derived: `D_9435f83c610dfbe1` → `E_7cf9980b17589007` via `T_0eebfd5f63c1c969`
+- **S_c2c31834576f0327**: summarize_hits complexity=6, candidate for refactor
+  - Derived: `D_41c2a06a31890e18` → `E_e64e356e4b220bd6` via `T_43f7c08b3b389a0a`
+- **S_2706688bf7ebc024**: if ask then __future__
+  - Derived: `D_a8d8abd6ef81d7a9` → `E_d072e48588eb2e01` via `T_9db08e8100177ece`
+- **S_9eda65720b9f52fb**: if ask then re
+  - Derived: `D_b7d884c21d8521e1` → `E_9c2e51543e302e51` via `T_54043d1adbd3c90c`
+- **S_90aa4cc1b70ca01c**: if ask then dataclasses
+  - Derived: `D_3deac4614d230aa9` → `E_9e1b9dc74e774084` via `T_38c3f29cd497fb3a`
+- **S_5c36ddac79d57194**: if ask then pathlib
+  - Derived: `D_a000248c35113143` → `E_885695aa7e1d3cd2` via `T_21ec3c2dcd0cdc3c`
+- **S_b6ec816725d4a423**: if ask then typing
+  - Derived: `D_2e5328f0edad9949` → `E_8eb037bd401efcd0` via `T_1b81943f1711b8f7`
+- **S_a14d7db1e8e16492**: if _has_ripgrep then run
+  - Derived: `D_ab89e37e8fac9bc5` → `E_f79ddfec3c6e4581` via `T_7227e1931948e430`
+- **S_5484b425d747c5e9**: if _should_skip_path then relative_to
+  - Derived: `D_e5aacd622412883c` → `E_30402e0b49469876` via `T_a57145ccc792cacd`
+- **S_93434bfe299df463**: def is_question: def is_question(text) -> bool
+  - Derived: `D_2b2033d3caaeef3b` → `E_97410b2c955449c2` via `T_54086e7009026603`
+- **S_b2dfc9f04707728a**: if classify then __future__
+  - Derived: `D_0bd5c3cd6bae5118` → `E_711590492d600de2` via `T_ca3d80705c7aca37`
+- **S_5a75888ae2f192a1**: if classify then re
+  - Derived: `D_9a25b3a214511689` → `E_963f6fe175089a0b` via `T_d025fc64529ab9dd`
+- **S_03b88fc2584c393c**: if is_question then endswith
+  - Derived: `D_49c09024e864859c` → `E_f0d1a20aff81a22c` via `T_f3208bb28da9b73c`
+- **S_6e8eaa6f604547f6**: if is_question then strip
+  - Derived: `D_b0eefb433b0d270f` → `E_5857e6cbc1dfce39` via `T_a0ce8e5341fef56c`

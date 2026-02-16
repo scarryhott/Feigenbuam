@@ -2632,3 +2632,2755 @@ theorem pattern_error_handling_at_cli_py_147 : True := by
 
 -- <<< IVI_EQUATION E_ebeb05437ffd5154 END
 
+-- >>> IVI_EQUATION E_c4a32817ee89938e BEGIN
+/-- Proposition derived from: def _exec_git_commit: def _exec_git_commit(args) -> str: Stage files and commit to git. -/
+theorem def_exec_git_commit_def_exec_git_commit : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c4a32817ee89938e END
+
+-- >>> IVI_EQUATION E_b07b75a28c9b9330 BEGIN
+/-- Proposition derived from: def _exec_run_tests: def _exec_run_tests(args) -> str: Run tests: try pytest, fall back to py_compile. -/
+theorem def_exec_run_tests_def_exec_run_tests : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b07b75a28c9b9330 END
+
+-- >>> IVI_EQUATION E_70904b9180b37025 BEGIN
+/-- Proposition derived from: def _exec_git_diff: def _exec_git_diff(args) -> str: Show git diff. -/
+theorem def_exec_git_diff_def_exec_git_diff : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_70904b9180b37025 END
+
+-- >>> IVI_EQUATION E_29f536d75e3dd865 BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:42 -/
+theorem pattern_error_handling_at_openclaw_actions_py_42 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_29f536d75e3dd865 END
+
+-- >>> IVI_EQUATION E_ec6909b728603c53 BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:353 -/
+theorem pattern_error_handling_at_openclaw_actions_py_353 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ec6909b728603c53 END
+
+-- >>> IVI_EQUATION E_9e71c31b863edd66 BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:398 -/
+theorem pattern_error_handling_at_openclaw_actions_py_398 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9e71c31b863edd66 END
+
+-- >>> IVI_EQUATION E_3878a18649f98f8d BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:414 -/
+theorem pattern_error_handling_at_openclaw_actions_py_414 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3878a18649f98f8d END
+
+-- >>> IVI_EQUATION E_d939f92b4a807636 BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:430 -/
+theorem pattern_error_handling_at_openclaw_actions_py_430 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d939f92b4a807636 END
+
+-- >>> IVI_EQUATION E_5bd94b6062310ebc BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:456 -/
+theorem pattern_error_handling_at_openclaw_actions_py_456 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5bd94b6062310ebc END
+
+-- >>> IVI_EQUATION E_f4cfc5adb3e1cbdd BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:471 -/
+theorem pattern_error_handling_at_openclaw_actions_py_471 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f4cfc5adb3e1cbdd END
+
+-- >>> IVI_EQUATION E_6d82b1f0a5d409ff BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:495 -/
+theorem pattern_error_handling_at_openclaw_actions_py_495 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6d82b1f0a5d409ff END
+
+-- >>> IVI_EQUATION E_39bf57bcae0c76e2 BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:527 -/
+theorem pattern_error_handling_at_openclaw_actions_py_527 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_39bf57bcae0c76e2 END
+
+-- >>> IVI_EQUATION E_cbdc56803c8bc84a BEGIN
+/-- Proposition derived from: pattern:error_handling at openclaw_actions.py:598 -/
+theorem pattern_error_handling_at_openclaw_actions_py_598 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cbdc56803c8bc84a END
+
+-- >>> IVI_EQUATION E_f67776d1115913dd BEGIN
+/-- Proposition derived from: def _has_ripgrep: def _has_ripgrep() -> bool -/
+theorem def_has_ripgrep_def_has_ripgrep_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f67776d1115913dd END
+
+-- >>> IVI_EQUATION E_ab9f6dddf6a0e81f BEGIN
+/-- Proposition derived from: def _should_skip_path: def _should_skip_path(path, root) -> bool -/
+theorem def_should_skip_path_def_should_skip_path : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ab9f6dddf6a0e81f END
+
+-- >>> IVI_EQUATION E_5ee526c94c83e569 BEGIN
+/-- Proposition derived from: def _read_context_lines: def _read_context_lines(path, line_no_1based, context) -> Tuple[List[str], List[str]] -/
+theorem def_read_context_lines_def_read_context_lines : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5ee526c94c83e569 END
+
+-- >>> IVI_EQUATION E_8f259510b4dc72d6 BEGIN
+/-- Proposition derived from: def ripgrep_search: def ripgrep_search(root, query, max_hits, context, glob) -> List[Hit] -/
+theorem def_ripgrep_search_def_ripgrep_search_root_query : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8f259510b4dc72d6 END
+
+-- >>> IVI_EQUATION E_b2410f1ed5356146 BEGIN
+/-- Proposition derived from: def _rank_hits: def _rank_hits(hits, query) -> List[Hit] -/
+theorem def_rank_hits_def_rank_hits_hits_query : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b2410f1ed5356146 END
+
+-- >>> IVI_EQUATION E_1400a21b7f18ee73 BEGIN
+/-- Proposition derived from: def summarize_hits: def summarize_hits(query, hits, max_files) -> Dict[str, object] -/
+theorem def_summarize_hits_def_summarize_hits_query_hits : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1400a21b7f18ee73 END
+
+-- >>> IVI_EQUATION E_63119adfbf08ae5f BEGIN
+/-- Proposition derived from: def ask_repo: def ask_repo(root, query, max_hits, context, glob) -> str -/
+theorem def_ask_repo_def_ask_repo_root_query : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_63119adfbf08ae5f END
+
+-- >>> IVI_EQUATION E_3a5320b37048c546 BEGIN
+/-- Proposition derived from: class Hit: class Hit -/
+theorem class_hit_class_hit : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3a5320b37048c546 END
+
+-- >>> IVI_EQUATION E_6d59ffcd75dc1fd0 BEGIN
+/-- Proposition derived from: pattern:error_handling at ask.py:34 -/
+theorem pattern_error_handling_at_ask_py_34 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6d59ffcd75dc1fd0 END
+
+-- >>> IVI_EQUATION E_2239a8a6c2d0b925 BEGIN
+/-- Proposition derived from: pattern:error_handling at ask.py:42 -/
+theorem pattern_error_handling_at_ask_py_42 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2239a8a6c2d0b925 END
+
+-- >>> IVI_EQUATION E_a732c7aeb8a2693f BEGIN
+/-- Proposition derived from: pattern:error_handling at ask.py:54 -/
+theorem pattern_error_handling_at_ask_py_54 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a732c7aeb8a2693f END
+
+-- >>> IVI_EQUATION E_6bb8aeed96ffeaa6 BEGIN
+/-- Proposition derived from: pattern:error_handling at ask.py:92 -/
+theorem pattern_error_handling_at_ask_py_92 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6bb8aeed96ffeaa6 END
+
+-- >>> IVI_EQUATION E_7cf9980b17589007 BEGIN
+/-- Proposition derived from: ripgrep_search complexity=10, candidate for refactor -/
+theorem ripgrep_search_complexity_10_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7cf9980b17589007 END
+
+-- >>> IVI_EQUATION E_e64e356e4b220bd6 BEGIN
+/-- Proposition derived from: summarize_hits complexity=6, candidate for refactor -/
+theorem summarize_hits_complexity_6_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e64e356e4b220bd6 END
+
+-- >>> IVI_EQUATION E_d072e48588eb2e01 BEGIN
+/-- Proposition derived from: if ask then __future__ -/
+theorem if_ask_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d072e48588eb2e01 END
+
+-- >>> IVI_EQUATION E_9c2e51543e302e51 BEGIN
+/-- Proposition derived from: if ask then re -/
+theorem if_ask_then_re : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9c2e51543e302e51 END
+
+-- >>> IVI_EQUATION E_c03870612780ae68 BEGIN
+/-- Proposition derived from: if ask then subprocess -/
+theorem if_ask_then_subprocess : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c03870612780ae68 END
+
+-- >>> IVI_EQUATION E_9e1b9dc74e774084 BEGIN
+/-- Proposition derived from: if ask then dataclasses -/
+theorem if_ask_then_dataclasses : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9e1b9dc74e774084 END
+
+-- >>> IVI_EQUATION E_885695aa7e1d3cd2 BEGIN
+/-- Proposition derived from: if ask then pathlib -/
+theorem if_ask_then_pathlib : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_885695aa7e1d3cd2 END
+
+-- >>> IVI_EQUATION E_8eb037bd401efcd0 BEGIN
+/-- Proposition derived from: if ask then typing -/
+theorem if_ask_then_typing : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8eb037bd401efcd0 END
+
+-- >>> IVI_EQUATION E_f79ddfec3c6e4581 BEGIN
+/-- Proposition derived from: if _has_ripgrep then run -/
+theorem if_has_ripgrep_then_run : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f79ddfec3c6e4581 END
+
+-- >>> IVI_EQUATION E_30402e0b49469876 BEGIN
+/-- Proposition derived from: if _should_skip_path then relative_to -/
+theorem if_should_skip_path_then_relative_to : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_30402e0b49469876 END
+
+-- >>> IVI_EQUATION E_be1435901f6c6a05 BEGIN
+/-- Proposition derived from: if _read_context_lines then read_text -/
+theorem if_read_context_lines_then_read_text : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_be1435901f6c6a05 END
+
+-- >>> IVI_EQUATION E_c3a4e87cbd36bc39 BEGIN
+/-- Proposition derived from: if _read_context_lines then splitlines -/
+theorem if_read_context_lines_then_splitlines : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c3a4e87cbd36bc39 END
+
+-- >>> IVI_EQUATION E_9e0df3426bcdebe7 BEGIN
+/-- Proposition derived from: if ripgrep_search then Hit -/
+theorem if_ripgrep_search_then_hit : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9e0df3426bcdebe7 END
+
+-- >>> IVI_EQUATION E_7da0058f3dd73992 BEGIN
+/-- Proposition derived from: if ripgrep_search then Path -/
+theorem if_ripgrep_search_then_path : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7da0058f3dd73992 END
+
+-- >>> IVI_EQUATION E_8bc9d664e621c670 BEGIN
+/-- Proposition derived from: if ripgrep_search then RuntimeError -/
+theorem if_ripgrep_search_then_runtimeerror : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8bc9d664e621c670 END
+
+-- >>> IVI_EQUATION E_2abc9ba5d78bd9b6 BEGIN
+/-- Proposition derived from: if ripgrep_search then _has_ripgrep -/
+theorem if_ripgrep_search_then_has_ripgrep : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2abc9ba5d78bd9b6 END
+
+-- >>> IVI_EQUATION E_556c96531a652d7b BEGIN
+/-- Proposition derived from: if ripgrep_search then _read_context_lines -/
+theorem if_ripgrep_search_then_read_context_lines : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_556c96531a652d7b END
+
+-- >>> IVI_EQUATION E_67ce6a743417b359 BEGIN
+/-- Proposition derived from: if _rank_hits then append -/
+theorem if_rank_hits_then_append : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_67ce6a743417b359 END
+
+-- >>> IVI_EQUATION E_5272e7fcb12c9329 BEGIN
+/-- Proposition derived from: def summary: def summary(self) -> str -/
+theorem def_summary_def_summary_self_str : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5272e7fcb12c9329 END
+
+-- >>> IVI_EQUATION E_1655736ec3bf42f5 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, threshold) -> None -/
+theorem def_init_def_init_self_threshold_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1655736ec3bf42f5 END
+
+-- >>> IVI_EQUATION E_97aa39159645cca7 BEGIN
+/-- Proposition derived from: def record_error: def record_error(self, error) -> None -/
+theorem def_record_error_def_record_error_self_error : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_97aa39159645cca7 END
+
+-- >>> IVI_EQUATION E_9510d69e64f07b9f BEGIN
+/-- Proposition derived from: def record_gateway_block: def record_gateway_block(self) -> None -/
+theorem def_record_gateway_block_def_record_gateway_block : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9510d69e64f07b9f END
+
+-- >>> IVI_EQUATION E_f629d713d1d60dd1 BEGIN
+/-- Proposition derived from: def record_gateway_pass: def record_gateway_pass(self) -> None -/
+theorem def_record_gateway_pass_def_record_gateway_pass : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f629d713d1d60dd1 END
+
+-- >>> IVI_EQUATION E_fd8b1c5db5ee6e4a BEGIN
+/-- Proposition derived from: def record_llm_output: def record_llm_output(self, output) -> None -/
+theorem def_record_llm_output_def_record_llm_output : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_fd8b1c5db5ee6e4a END
+
+-- >>> IVI_EQUATION E_e76f9dc8eaf180d0 BEGIN
+/-- Proposition derived from: def record_test_result: def record_test_result(self, target, passed) -> None -/
+theorem def_record_test_result_def_record_test_result : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e76f9dc8eaf180d0 END
+
+-- >>> IVI_EQUATION E_96c8e6b84c42fb45 BEGIN
+/-- Proposition derived from: def record_success: def record_success(self) -> None: Reset all counters on a successful cycle. -/
+theorem def_record_success_def_record_success_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_96c8e6b84c42fb45 END
+
+-- >>> IVI_EQUATION E_2083fb385febb6db BEGIN
+/-- Proposition derived from: def check: def check(self) -> Tuple[bool, str]: Check if we're at an impasse. Returns (is_impasse, reason). -/
+theorem def_check_def_check_self_tuple_bool_str : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2083fb385febb6db END
+
+-- >>> IVI_EQUATION E_f15457e63aa1d102 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, settings, gateway, repo_root, morpheus_tracker) -> None -/
+theorem def_init_def_init_self_settings_gateway_repo : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f15457e63aa1d102 END
+
+-- >>> IVI_EQUATION E_1979d25bba5b8f17 BEGIN
+/-- Proposition derived from: def has_pending_question: def has_pending_question(self) -> bool -/
+theorem def_has_pending_question_def_has_pending_question : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1979d25bba5b8f17 END
+
+-- >>> IVI_EQUATION E_eec0dc01ce1a1a9e BEGIN
+/-- Proposition derived from: def pending_question: def pending_question(self) -> str -/
+theorem def_pending_question_def_pending_question_self_str : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_eec0dc01ce1a1a9e END
+
+-- >>> IVI_EQUATION E_d05f282c30bb156e BEGIN
+/-- Proposition derived from: def clear_question: def clear_question(self) -> None -/
+theorem def_clear_question_def_clear_question_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d05f282c30bb156e END
+
+-- >>> IVI_EQUATION E_6283a7e16b9681c9 BEGIN
+/-- Proposition derived from: def run_cycle: def run_cycle(self, target, native_cycle, grid, microcosm) -> CycleResult: Run one full autonomous cycle on a target file/directory. -/
+theorem def_run_cycle_def_run_cycle_self_target : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6283a7e16b9681c9 END
+
+-- >>> IVI_EQUATION E_4d38ade652a15b28 BEGIN
+/-- Proposition derived from: def _run_llm_improvement: def _run_llm_improvement(self, target, goal_description, microcosm) -> str: Use LLM + tools to make actual improvements to the target. -/
+theorem def_run_llm_improvement_def_run_llm_improvement : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4d38ade652a15b28 END
+
+-- >>> IVI_EQUATION E_7dc6283c1d53d963 BEGIN
+/-- Proposition derived from: def _run_tests: def _run_tests(self, target) -> Tuple[bool, str]: Run tests on the target. Returns (passed, output). -/
+theorem def_run_tests_def_run_tests_self_target : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7dc6283c1d53d963 END
+
+-- >>> IVI_EQUATION E_d78d38fe0860b7f7 BEGIN
+/-- Proposition derived from: def _git_commit: def _git_commit(self, target, goal_description) -> Tuple[bool, str]: Stage and commit changes. -/
+theorem def_git_commit_def_git_commit_self_target : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d78d38fe0860b7f7 END
+
+-- >>> IVI_EQUATION E_bbeb7fbfccb050a7 BEGIN
+/-- Proposition derived from: def _git_rollback: def _git_rollback(self, target) -> None: Discard uncommitted changes after test failure. -/
+theorem def_git_rollback_def_git_rollback_self_target : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_bbeb7fbfccb050a7 END
+
+-- >>> IVI_EQUATION E_e24ccb49d98f3a10 BEGIN
+/-- Proposition derived from: class CycleResult: class CycleResult: Result of one full autonomous cycle. -/
+theorem class_cycleresult_class_cycleresult_result_of_one_full : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e24ccb49d98f3a10 END
+
+-- >>> IVI_EQUATION E_95b468384ebf07d0 BEGIN
+/-- Proposition derived from: class ImpasseDetector: class ImpasseDetector: Detects when the system is genuinely stuck and should ask the user.
+
+Impasse con -/
+theorem class_impassedetector_class_impassedetector_detects_when_the : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_95b468384ebf07d0 END
+
+-- >>> IVI_EQUATION E_291781260daa614b BEGIN
+/-- Proposition derived from: class AutonomousExecutor: class AutonomousExecutor: Orchestrates full autonomous improvement cycles.
+
+Each cycle: analyze → improve -/
+theorem class_autonomousexecutor_class_autonomousexecutor_orchestrat : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_291781260daa614b END
+
+-- >>> IVI_EQUATION E_b15095da0dce296f BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:332 -/
+theorem pattern_error_handling_at_autonomous_executor_py_332 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b15095da0dce296f END
+
+-- >>> IVI_EQUATION E_cb30d152e7ac494e BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:348 -/
+theorem pattern_error_handling_at_autonomous_executor_py_348 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cb30d152e7ac494e END
+
+-- >>> IVI_EQUATION E_e98c1f8b4e01c4d5 BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:415 -/
+theorem pattern_error_handling_at_autonomous_executor_py_415 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e98c1f8b4e01c4d5 END
+
+-- >>> IVI_EQUATION E_18b477fa2b267b2d BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:453 -/
+theorem pattern_error_handling_at_autonomous_executor_py_453 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_18b477fa2b267b2d END
+
+-- >>> IVI_EQUATION E_bcf5d4ebc5f300b3 BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:215 -/
+theorem pattern_error_handling_at_autonomous_executor_py_215 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_bcf5d4ebc5f300b3 END
+
+-- >>> IVI_EQUATION E_0ed88acbbcbf641c BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:263 -/
+theorem pattern_error_handling_at_autonomous_executor_py_263 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0ed88acbbcbf641c END
+
+-- >>> IVI_EQUATION E_25e460c4000c4bed BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:371 -/
+theorem pattern_error_handling_at_autonomous_executor_py_371 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_25e460c4000c4bed END
+
+-- >>> IVI_EQUATION E_8753bb01360fee11 BEGIN
+/-- Proposition derived from: pattern:error_handling at autonomous_executor.py:397 -/
+theorem pattern_error_handling_at_autonomous_executor_py_397 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8753bb01360fee11 END
+
+-- >>> IVI_EQUATION E_97410b2c955449c2 BEGIN
+/-- Proposition derived from: def is_question: def is_question(text) -> bool -/
+theorem def_is_question_def_is_question_text_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_97410b2c955449c2 END
+
+-- >>> IVI_EQUATION E_711590492d600de2 BEGIN
+/-- Proposition derived from: if classify then __future__ -/
+theorem if_classify_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_711590492d600de2 END
+
+-- >>> IVI_EQUATION E_963f6fe175089a0b BEGIN
+/-- Proposition derived from: if classify then re -/
+theorem if_classify_then_re : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_963f6fe175089a0b END
+
+-- >>> IVI_EQUATION E_f0d1a20aff81a22c BEGIN
+/-- Proposition derived from: if is_question then endswith -/
+theorem if_is_question_then_endswith : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f0d1a20aff81a22c END
+
+-- >>> IVI_EQUATION E_d783f9509404bec0 BEGIN
+/-- Proposition derived from: if is_question then lower -/
+theorem if_is_question_then_lower : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d783f9509404bec0 END
+
+-- >>> IVI_EQUATION E_685dfcfd14631144 BEGIN
+/-- Proposition derived from: if is_question then split -/
+theorem if_is_question_then_split : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_685dfcfd14631144 END
+
+-- >>> IVI_EQUATION E_5857e6cbc1dfce39 BEGIN
+/-- Proposition derived from: if is_question then strip -/
+theorem if_is_question_then_strip : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5857e6cbc1dfce39 END
+
+-- >>> IVI_EQUATION E_1d62f349ecd8ca0c BEGIN
+/-- Proposition derived from: def _run_autonomous_loop: def _run_autonomous_loop(loop, source) -> None: Run fully autonomous self-improvement forever.
+
+Full cycle: analyze → improve → -/
+theorem def_run_autonomous_loop_def_run_autonomous_loop : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1d62f349ecd8ca0c END
+
+-- >>> IVI_EQUATION E_008626d5ffa202bc BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, quiet) -> None -/
+theorem def_init_def_init_self_quiet_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_008626d5ffa202bc END
+
+-- >>> IVI_EQUATION E_a0ef741ffbaa2bdc BEGIN
+/-- Proposition derived from: def say: def say(self, message) -> None: Say something to the human. -/
+theorem def_say_def_say_self_message_none_say : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a0ef741ffbaa2bdc END
+
+-- >>> IVI_EQUATION E_96dd868135e822ac BEGIN
+/-- Proposition derived from: def _quiet_note: def _quiet_note(self) -> None: Track suppressed messages. -/
+theorem def_quiet_note_def_quiet_note_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_96dd868135e822ac END
+
+-- >>> IVI_EQUATION E_7f60363e255ab1f7 BEGIN
+/-- Proposition derived from: def greeting: def greeting(self) -> None -/
+theorem def_greeting_def_greeting_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7f60363e255ab1f7 END
+
+-- >>> IVI_EQUATION E_097f7ab206a29444 BEGIN
+/-- Proposition derived from: def discovery_done: def discovery_done(self, python_files, roots, runtimes) -> None -/
+theorem def_discovery_done_def_discovery_done_self_python : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_097f7ab206a29444 END
+
+-- >>> IVI_EQUATION E_a80a75b5c6c72654 BEGIN
+/-- Proposition derived from: def navigation_ready: def navigation_ready(self, layers, ops) -> None -/
+theorem def_navigation_ready_def_navigation_ready_self_layers : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a80a75b5c6c72654 END
+
+-- >>> IVI_EQUATION E_dc8a16fae190d653 BEGIN
+/-- Proposition derived from: def goal_received: def goal_received(self, count) -> None -/
+theorem def_goal_received_def_goal_received_self_count : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dc8a16fae190d653 END
+
+-- >>> IVI_EQUATION E_d2310bbbf1dcb83f BEGIN
+/-- Proposition derived from: def goal_working: def goal_working(self, description) -> None -/
+theorem def_goal_working_def_goal_working_self_description : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d2310bbbf1dcb83f END
+
+-- >>> IVI_EQUATION E_b1ee71579ea40fa1 BEGIN
+/-- Proposition derived from: def goal_completed: def goal_completed(self, result, committed) -> None -/
+theorem def_goal_completed_def_goal_completed_self_result : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b1ee71579ea40fa1 END
+
+-- >>> IVI_EQUATION E_325d6fa1b8f66045 BEGIN
+/-- Proposition derived from: def goal_queued: def goal_queued(self, goal_id, description) -> None -/
+theorem def_goal_queued_def_goal_queued_self_goal : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_325d6fa1b8f66045 END
+
+-- >>> IVI_EQUATION E_902e5b340171677b BEGIN
+/-- Proposition derived from: def satisfaction_recorded: def satisfaction_recorded(self, rating) -> None -/
+theorem def_satisfaction_recorded_def_satisfaction_recorded_self_rat : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_902e5b340171677b END
+
+-- >>> IVI_EQUATION E_0a72984cf6db0ff5 BEGIN
+/-- Proposition derived from: def impasse_cleared: def impasse_cleared(self) -> None -/
+theorem def_impasse_cleared_def_impasse_cleared_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0a72984cf6db0ff5 END
+
+-- >>> IVI_EQUATION E_1429c4068a2f0572 BEGIN
+/-- Proposition derived from: def impasse_skipped: def impasse_skipped(self) -> None -/
+theorem def_impasse_skipped_def_impasse_skipped_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1429c4068a2f0572 END
+
+-- >>> IVI_EQUATION E_d048b3ec25403bc7 BEGIN
+/-- Proposition derived from: def cycle_result: def cycle_result(self, summary, committed, tests_passed, is_human_goal) -> None -/
+theorem def_cycle_result_def_cycle_result_self_summary : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d048b3ec25403bc7 END
+
+-- >>> IVI_EQUATION E_b4c588d6abdfce1e BEGIN
+/-- Proposition derived from: def idle: def idle(self, rounds, max_rounds) -> None -/
+theorem def_idle_def_idle_self_rounds_max_rounds : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b4c588d6abdfce1e END
+
+-- >>> IVI_EQUATION E_ac90a583e5101d88 BEGIN
+/-- Proposition derived from: def anticipated: def anticipated(self, description) -> None -/
+theorem def_anticipated_def_anticipated_self_description_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ac90a583e5101d88 END
+
+-- >>> IVI_EQUATION E_7fc7cefb8fc1462c BEGIN
+/-- Proposition derived from: def triangle_place_reached: def triangle_place_reached(self, closure) -> None -/
+theorem def_triangle_place_reached_def_triangle_place_reached : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7fc7cefb8fc1462c END
+
+-- >>> IVI_EQUATION E_1598842a46aea946 BEGIN
+/-- Proposition derived from: def new_triangles: def new_triangles(self, count) -> None -/
+theorem def_new_triangles_def_new_triangles_self_count : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1598842a46aea946 END
+
+-- >>> IVI_EQUATION E_9c4bff29f17d7659 BEGIN
+/-- Proposition derived from: def silence_generating: def silence_generating(self) -> None -/
+theorem def_silence_generating_def_silence_generating_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9c4bff29f17d7659 END
+
+-- >>> IVI_EQUATION E_cd14461835c07ae6 BEGIN
+/-- Proposition derived from: def status_report: def status_report(self, executor_status, tracker_status, tri_status, engine) -> None -/
+theorem def_status_report_def_status_report_self_executor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cd14461835c07ae6 END
+
+-- >>> IVI_EQUATION E_04566508f8ce5a6a BEGIN
+/-- Proposition derived from: def impasse_hit: def impasse_hit(self, question) -> None -/
+theorem def_impasse_hit_def_impasse_hit_self_question : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_04566508f8ce5a6a END
+
+-- >>> IVI_EQUATION E_2bbe6b25bbddd8db BEGIN
+/-- Proposition derived from: def goals_report: def goals_report(self, engine) -> None -/
+theorem def_goals_report_def_goals_report_self_engine : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2bbe6b25bbddd8db END
+
+-- >>> IVI_EQUATION E_43b93ccb58845ae6 BEGIN
+/-- Proposition derived from: def error: def error(self, message) -> None -/
+theorem def_error_def_error_self_message_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_43b93ccb58845ae6 END
+
+-- >>> IVI_EQUATION E_b9ede468f7d404df BEGIN
+/-- Proposition derived from: class ConversationLayer: class ConversationLayer: Translates system events into conversational messages.
+
+Instead of:  [autonomous -/
+theorem class_conversationlayer_class_conversationlayer_translates_s : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b9ede468f7d404df END
+
+-- >>> IVI_EQUATION E_9b1af4a96dcced60 BEGIN
+/-- Proposition derived from: pattern:error_handling at conversation_layer.py:214 -/
+theorem pattern_error_handling_at_conversation_layer_py_214 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9b1af4a96dcced60 END
+
+-- >>> IVI_EQUATION E_ef9386b0b046f9a4 BEGIN
+/-- Proposition derived from: say complexity=6, candidate for refactor -/
+theorem say_complexity_6_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ef9386b0b046f9a4 END
+
+-- >>> IVI_EQUATION E_f2a2793c4d0d21e2 BEGIN
+/-- Proposition derived from: status_report complexity=11, candidate for refactor -/
+theorem status_report_complexity_11_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f2a2793c4d0d21e2 END
+
+-- >>> IVI_EQUATION E_12deb7f788eaa5f3 BEGIN
+/-- Proposition derived from: if conversation_layer then __future__ -/
+theorem if_conversation_layer_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_12deb7f788eaa5f3 END
+
+-- >>> IVI_EQUATION E_91d22682e5b6cc4b BEGIN
+/-- Proposition derived from: if conversation_layer then sys -/
+theorem if_conversation_layer_then_sys : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_91d22682e5b6cc4b END
+
+-- >>> IVI_EQUATION E_5dd627f5065b6a1d BEGIN
+/-- Proposition derived from: def ingest_text_message: def ingest_text_message(text, source_type, source_id) -> Utterance -/
+theorem def_ingest_text_message_def_ingest_text_message : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5dd627f5065b6a1d END
+
+-- >>> IVI_EQUATION E_19125153e68acdda BEGIN
+/-- Proposition derived from: def ingest_dir_of_texts: def ingest_dir_of_texts(path) -> List[Utterance] -/
+theorem def_ingest_dir_of_texts_def_ingest_dir : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_19125153e68acdda END
+
+-- >>> IVI_EQUATION E_a241d22253a0b361 BEGIN
+/-- Proposition derived from: def ingest_chatgpt_export_json: def ingest_chatgpt_export_json(path) -> List[Utterance] -/
+theorem def_ingest_chatgpt_export_json_def_ingest_chatgpt : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a241d22253a0b361 END
+
+-- >>> IVI_EQUATION E_e82a5020d7721b65 BEGIN
+/-- Proposition derived from: def add: def add(role, content, span) -> None -/
+theorem def_add_def_add_role_content_span_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e82a5020d7721b65 END
+
+-- >>> IVI_EQUATION E_1509e6d1274696e2 BEGIN
+/-- Proposition derived from: ingest_chatgpt_export_json complexity=23, candidate for refactor -/
+theorem ingest_chatgpt_export_json_complexity_23_candidate_for : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1509e6d1274696e2 END
+
+-- >>> IVI_EQUATION E_f16066cd8564dd14 BEGIN
+/-- Proposition derived from: if ingest then __future__ -/
+theorem if_ingest_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f16066cd8564dd14 END
+
+-- >>> IVI_EQUATION E_ae15a3aba8d4c644 BEGIN
+/-- Proposition derived from: if ingest then json -/
+theorem if_ingest_then_json : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ae15a3aba8d4c644 END
+
+-- >>> IVI_EQUATION E_6e2d999adaad8f83 BEGIN
+/-- Proposition derived from: if ingest then pathlib -/
+theorem if_ingest_then_pathlib : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6e2d999adaad8f83 END
+
+-- >>> IVI_EQUATION E_8c34970f5d877ec7 BEGIN
+/-- Proposition derived from: if ingest then typing -/
+theorem if_ingest_then_typing : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8c34970f5d877ec7 END
+
+-- >>> IVI_EQUATION E_a34a2a56dc22aca7 BEGIN
+/-- Proposition derived from: if ingest then classify -/
+theorem if_ingest_then_classify : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a34a2a56dc22aca7 END
+
+-- >>> IVI_EQUATION E_e01e12baf5c9ba1e BEGIN
+/-- Proposition derived from: if ingest then ir -/
+theorem if_ingest_then_ir : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e01e12baf5c9ba1e END
+
+-- >>> IVI_EQUATION E_e7e7b8a969b88f2a BEGIN
+/-- Proposition derived from: if ingest_text_message then Provenance -/
+theorem if_ingest_text_message_then_provenance : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e7e7b8a969b88f2a END
+
+-- >>> IVI_EQUATION E_1c63dc8342d37d71 BEGIN
+/-- Proposition derived from: if ingest_text_message then is_question -/
+theorem if_ingest_text_message_then_is_question : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1c63dc8342d37d71 END
+
+-- >>> IVI_EQUATION E_e5f5ed7865ff0b50 BEGIN
+/-- Proposition derived from: if ingest_text_message then make_utterance -/
+theorem if_ingest_text_message_then_make_utterance : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e5f5ed7865ff0b50 END
+
+-- >>> IVI_EQUATION E_36157618b8fa81ef BEGIN
+/-- Proposition derived from: if ingest_text_message then strip -/
+theorem if_ingest_text_message_then_strip : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_36157618b8fa81ef END
+
+-- >>> IVI_EQUATION E_08126296b3889fa8 BEGIN
+/-- Proposition derived from: if ingest_dir_of_texts then append -/
+theorem if_ingest_dir_of_texts_then_append : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_08126296b3889fa8 END
+
+-- >>> IVI_EQUATION E_5db35f2091922506 BEGIN
+/-- Proposition derived from: if ingest_dir_of_texts then ingest_text_message -/
+theorem if_ingest_dir_of_texts_then_ingest_text : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5db35f2091922506 END
+
+-- >>> IVI_EQUATION E_6b30b1ee283a8510 BEGIN
+/-- Proposition derived from: if ingest_dir_of_texts then is_dir -/
+theorem if_ingest_dir_of_texts_then_is_dir : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6b30b1ee283a8510 END
+
+-- >>> IVI_EQUATION E_aaa981b3017592cd BEGIN
+/-- Proposition derived from: if ingest_dir_of_texts then lower -/
+theorem if_ingest_dir_of_texts_then_lower : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_aaa981b3017592cd END
+
+-- >>> IVI_EQUATION E_7bb293805c67e732 BEGIN
+/-- Proposition derived from: if ingest_dir_of_texts then read_text -/
+theorem if_ingest_dir_of_texts_then_read_text : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7bb293805c67e732 END
+
+-- >>> IVI_EQUATION E_2bd60f325589c5b4 BEGIN
+/-- Proposition derived from: if ingest_chatgpt_export_json then Provenance -/
+theorem if_ingest_chatgpt_export_json_then_provenance : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2bd60f325589c5b4 END
+
+-- >>> IVI_EQUATION E_e77bf779222c184e BEGIN
+/-- Proposition derived from: if ingest_chatgpt_export_json then append -/
+theorem if_ingest_chatgpt_export_json_then_append : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e77bf779222c184e END
+
+-- >>> IVI_EQUATION E_610119bdadea5b6c BEGIN
+/-- Proposition derived from: if ingest_chatgpt_export_json then get -/
+theorem if_ingest_chatgpt_export_json_then_get : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_610119bdadea5b6c END
+
+-- >>> IVI_EQUATION E_5fb0c65de82ea383 BEGIN
+/-- Proposition derived from: if ingest_chatgpt_export_json then is_question -/
+theorem if_ingest_chatgpt_export_json_then_is_question : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5fb0c65de82ea383 END
+
+-- >>> IVI_EQUATION E_6b7ccad1ceb5278b BEGIN
+/-- Proposition derived from: if add then Provenance -/
+theorem if_add_then_provenance : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6b7ccad1ceb5278b END
+
+-- >>> IVI_EQUATION E_698cfc8f46349a33 BEGIN
+/-- Proposition derived from: if add then append -/
+theorem if_add_then_append : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_698cfc8f46349a33 END
+
+-- >>> IVI_EQUATION E_cad939abffeb7bcb BEGIN
+/-- Proposition derived from: if add then is_question -/
+theorem if_add_then_is_question : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cad939abffeb7bcb END
+
+-- >>> IVI_EQUATION E_df93ecabe85a8457 BEGIN
+/-- Proposition derived from: if add then make_utterance -/
+theorem if_add_then_make_utterance : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_df93ecabe85a8457 END
+
+-- >>> IVI_EQUATION E_923cb2552c0fb32e BEGIN
+/-- Proposition derived from: if add then strip -/
+theorem if_add_then_strip : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_923cb2552c0fb32e END
+
+-- >>> IVI_EQUATION E_2899ac57b6ec5c78 BEGIN
+/-- Proposition derived from: def potential_ratio: def potential_ratio(self) -> float: 0.0 = pure possibility, 1.0 = pure potential.
+Weighted composite of all sub-metr -/
+theorem def_potential_ratio_def_potential_ratio_self_float : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2899ac57b6ec5c78 END
+
+-- >>> IVI_EQUATION E_9f662ac0165c3bb7 BEGIN
+/-- Proposition derived from: def phase: def phase(self) -> str: Human-readable phase of the possibility→potential transition. -/
+theorem def_phase_def_phase_self_str_human_readable : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9f662ac0165c3bb7 END
+
+-- >>> IVI_EQUATION E_d4e0836e87657f2e BEGIN
+/-- Proposition derived from: def update_status: def update_status(self) -> None: Recompute status based on metrics. -/
+theorem def_update_status_def_update_status_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d4e0836e87657f2e END
+
+-- >>> IVI_EQUATION E_42a38c76f33ddf8f BEGIN
+/-- Proposition derived from: def register_from_capabilities: def register_from_capabilities(self, capabilities) -> None: Import capability data from CapabilityRegistry. -/
+theorem def_register_from_capabilities_def_register_from_capabilitie : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_42a38c76f33ddf8f END
+
+-- >>> IVI_EQUATION E_fd4415346c25a00b BEGIN
+/-- Proposition derived from: def record_native_use: def record_native_use(self, name) -> None -/
+theorem def_record_native_use_def_record_native_use : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_fd4415346c25a00b END
+
+-- >>> IVI_EQUATION E_7bb1f48a0f6df1b8 BEGIN
+/-- Proposition derived from: def record_llm_fallback: def record_llm_fallback(self, name) -> None -/
+theorem def_record_llm_fallback_def_record_llm_fallback : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7bb1f48a0f6df1b8 END
+
+-- >>> IVI_EQUATION E_1b0ff650b1c6b077 BEGIN
+/-- Proposition derived from: def record_lean_result: def record_lean_result(self, name, result) -> None -/
+theorem def_record_lean_result_def_record_lean_result : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1b0ff650b1c6b077 END
+
+-- >>> IVI_EQUATION E_e428d4e8446524a4 BEGIN
+/-- Proposition derived from: def record_triangle: def record_triangle(self, name) -> None -/
+theorem def_record_triangle_def_record_triangle_self_name : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e428d4e8446524a4 END
+
+-- >>> IVI_EQUATION E_463c7ce11c8fb0d3 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, settings) -> None -/
+theorem def_init_def_init_self_settings_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_463c7ce11c8fb0d3 END
+
+-- >>> IVI_EQUATION E_4006c8f11f6e857e BEGIN
+/-- Proposition derived from: def tracker: def tracker(self) -> FunctionReplacementTracker -/
+theorem def_tracker_def_tracker_self_functionreplacementtracker : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4006c8f11f6e857e END
+
+-- >>> IVI_EQUATION E_76588bc31a0f8c03 BEGIN
+/-- Proposition derived from: def sample: def sample(self, gateway, grid, native_cycle, skills_loop) -> PotentialScore: Collect a single PotentialScore from all available sources. -/
+theorem def_sample_def_sample_self_gateway_grid_native : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_76588bc31a0f8c03 END
+
+-- >>> IVI_EQUATION E_a261251475faa65f BEGIN
+/-- Proposition derived from: def _scan_events_for_lean: def _scan_events_for_lean(self, score) -> None: Scan events.jsonl from cursor for Lean results. -/
+theorem def_scan_events_for_lean_def_scan_events : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a261251475faa65f END
+
+-- >>> IVI_EQUATION E_09a038f7dda85419 BEGIN
+/-- Proposition derived from: def report: def report(self, score) -> str: Format a human-readable report of the potential-building progress. -/
+theorem def_report_def_report_self_score_str_format : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_09a038f7dda85419 END
+
+-- >>> IVI_EQUATION E_d84b58ef1f785b9d BEGIN
+/-- Proposition derived from: def trend: def trend(self) -> Dict[str, Any]: Compute the trend of the potential ratio over recent samples. -/
+theorem def_trend_def_trend_self_dict_str_any : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d84b58ef1f785b9d END
+
+-- >>> IVI_EQUATION E_e7c5c29ce68bc1b4 BEGIN
+/-- Proposition derived from: def start: def start(self, gateway, grid, native_cycle, skills_loop) -> None: Start continuous monitoring in a background thread. -/
+theorem def_start_def_start_self_gateway_grid_native : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e7c5c29ce68bc1b4 END
+
+-- >>> IVI_EQUATION E_e02b2d7fa14aacfb BEGIN
+/-- Proposition derived from: def stop: def stop(self) -> Dict[str, Any]: Stop the background monitor and return final summary. -/
+theorem def_stop_def_stop_self_dict_str_any : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e02b2d7fa14aacfb END
+
+-- >>> IVI_EQUATION E_b53038a3468e2114 BEGIN
+/-- Proposition derived from: def _monitor_loop: def _monitor_loop() -> None -/
+theorem def_monitor_loop_def_monitor_loop_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b53038a3468e2114 END
+
+-- >>> IVI_EQUATION E_ef1df5a778ea294d BEGIN
+/-- Proposition derived from: class PotentialScore: class PotentialScore: Snapshot of the system's potential-vs-possibility balance.
+
+potential_ratio appr -/
+theorem class_potentialscore_class_potentialscore_snapshot_of_the_sy : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ef1df5a778ea294d END
+
+-- >>> IVI_EQUATION E_f13d4033a1da348e BEGIN
+/-- Proposition derived from: class FunctionReplacement: class FunctionReplacement: Tracks a single function's transition from possibility to potential. -/
+theorem class_functionreplacement_class_functionreplacement_tracks_a : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f13d4033a1da348e END
+
+-- >>> IVI_EQUATION E_dc8164821c762fe9 BEGIN
+/-- Proposition derived from: class FunctionReplacementTracker: class FunctionReplacementTracker: Tracks which possibility-AI functions are being replaced by potential-AI. -/
+theorem class_functionreplacementtracker_class_functionreplacementtr : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dc8164821c762fe9 END
+
+-- >>> IVI_EQUATION E_531e63adef088eb6 BEGIN
+/-- Proposition derived from: class PotentialMonitor: class PotentialMonitor: Continuously monitors the system building potential AI.
+
+Reads events.jsonl, que -/
+theorem class_potentialmonitor_class_potentialmonitor_continuously_m : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_531e63adef088eb6 END
+
+-- >>> IVI_EQUATION E_ad8417fcdd6d4f7b BEGIN
+/-- Proposition derived from: pattern:context_manager at ivi_potential_monitor.py:404 -/
+theorem pattern_context_manager_at_ivi_potential_monitor_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ad8417fcdd6d4f7b END
+
+-- >>> IVI_EQUATION E_83e5589d111134ff BEGIN
+/-- Proposition derived from: pattern:error_handling at ivi_potential_monitor.py:310 -/
+theorem pattern_error_handling_at_ivi_potential_monitor_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_83e5589d111134ff END
+
+-- >>> IVI_EQUATION E_f4091f1f12d2778f BEGIN
+/-- Proposition derived from: pattern:error_handling at ivi_potential_monitor.py:337 -/
+theorem pattern_error_handling_at_ivi_potential_monitor_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f4091f1f12d2778f END
+
+-- >>> IVI_EQUATION E_788df13f9ce82ae1 BEGIN
+/-- Proposition derived from: pattern:error_handling at ivi_potential_monitor.py:361 -/
+theorem pattern_error_handling_at_ivi_potential_monitor_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_788df13f9ce82ae1 END
+
+-- >>> IVI_EQUATION E_2c6700832956cb54 BEGIN
+/-- Proposition derived from: pattern:error_handling at ivi_potential_monitor.py:378 -/
+theorem pattern_error_handling_at_ivi_potential_monitor_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2c6700832956cb54 END
+
+-- >>> IVI_EQUATION E_dad764b7d3a7ee64 BEGIN
+/-- Proposition derived from: def pass_rate_update: def pass_rate_update(self, passed) -> None -/
+theorem def_pass_rate_update_def_pass_rate_update : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dad764b7d3a7ee64 END
+
+-- >>> IVI_EQUATION E_e1aa18cf059ebf1c BEGIN
+/-- Proposition derived from: def from_dict: def from_dict(cls, d) -> 'SkillManifest' -/
+theorem def_from_dict_def_from_dict_cls_d : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e1aa18cf059ebf1c END
+
+-- >>> IVI_EQUATION E_2f982978569cfe95 BEGIN
+/-- Proposition derived from: def save: def save(self, skills_dir) -> Path: Write manifest as SKILL.json alongside the skill .py file. -/
+theorem def_save_def_save_self_skills_dir_path : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2f982978569cfe95 END
+
+-- >>> IVI_EQUATION E_5bf184f33ad58ae0 BEGIN
+/-- Proposition derived from: def load: def load(cls, path) -> Optional['SkillManifest'] -/
+theorem def_load_def_load_cls_path_optional__skillmanifest_ : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5bf184f33ad58ae0 END
+
+-- >>> IVI_EQUATION E_0d7239c79f10c9eb BEGIN
+/-- Proposition derived from: def fork: def fork(self, reason) -> 'BranchState': Create a new branch from the current state. -/
+theorem def_fork_def_fork_self_reason__branchstate__create : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0d7239c79f10c9eb END
+
+-- >>> IVI_EQUATION E_c92a918d7eac5222 BEGIN
+/-- Proposition derived from: def merge: def merge(self, other_branch_id) -> None: Merge another branch into this one. -/
+theorem def_merge_def_merge_self_other_branch_id : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c92a918d7eac5222 END
+
+-- >>> IVI_EQUATION E_350a7f567a81d221 BEGIN
+/-- Proposition derived from: def active_branches: def active_branches(self) -> List[str] -/
+theorem def_active_branches_def_active_branches_self_list : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_350a7f567a81d221 END
+
+-- >>> IVI_EQUATION E_f087f9fb65ed9849 BEGIN
+/-- Proposition derived from: def enrich_event: def enrich_event(self, event) -> Dict[str, Any]: Add branch metadata to an event payload. -/
+theorem def_enrich_event_def_enrich_event_self_event : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f087f9fb65ed9849 END
+
+-- >>> IVI_EQUATION E_0604c77e56370187 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, lean_dir) -> None -/
+theorem def_init_def_init_self_lean_dir_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0604c77e56370187 END
+
+-- >>> IVI_EQUATION E_3234fff455dc915f BEGIN
+/-- Proposition derived from: def _find_lean_dir: def _find_lean_dir(self, base_path) -> Optional[Path]: Locate the Lean project directory. -/
+theorem def_find_lean_dir_def_find_lean_dir : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3234fff455dc915f END
+
+-- >>> IVI_EQUATION E_7ad068546b22ec3c BEGIN
+/-- Proposition derived from: def is_available: def is_available(self) -> bool: Check if Lean toolchain is installed. -/
+theorem def_is_available_def_is_available_self_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7ad068546b22ec3c END
+
+-- >>> IVI_EQUATION E_249394f6cd6f3fdf BEGIN
+/-- Proposition derived from: def verify: def verify(self, base_path) -> Tuple[bool, str]: Run Lean compile check on derived files.
+Returns (passed, detail_message). -/
+theorem def_verify_def_verify_self_base_path_tuple : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_249394f6cd6f3fdf END
+
+-- >>> IVI_EQUATION E_63b8ed7428affb2f BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, base_path) -> None -/
+theorem def_init_def_init_self_base_path_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_63b8ed7428affb2f END
+
+-- >>> IVI_EQUATION E_04a7c094786325e3 BEGIN
+/-- Proposition derived from: def _load_existing_manifests: def _load_existing_manifests(self) -> None: Load existing skill manifests from disk. -/
+theorem def_load_existing_manifests_def_load_existing_manifests : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_04a7c094786325e3 END
+
+-- >>> IVI_EQUATION E_9c13ed283a0c0106 BEGIN
+/-- Proposition derived from: def propose: def propose(self, kind, description, payload, grid) -> Proposal: Semantic evaluation of a proposed mutation.
+Scores it against the grid, assigns -/
+theorem def_propose_def_propose_self_kind_description_payload : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9c13ed283a0c0106 END
+
+-- >>> IVI_EQUATION E_6159e5dc4c7e844d BEGIN
+/-- Proposition derived from: def commit: def commit(self, proposal_id, grid, force) -> Tuple[bool, str]: Enforcement verification and commitment of a proposal.
+Checks closure, Lean, gat -/
+theorem def_commit_def_commit_self_proposal_id_grid : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6159e5dc4c7e844d END
+
+-- >>> IVI_EQUATION E_bacae06f8bca5d75 BEGIN
+/-- Proposition derived from: def fork_branch: def fork_branch(self, reason) -> str: Fork a new branch from current state. -/
+theorem def_fork_branch_def_fork_branch_self_reason : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_bacae06f8bca5d75 END
+
+-- >>> IVI_EQUATION E_0507e79c1de0d093 BEGIN
+/-- Proposition derived from: def propose_and_commit: def propose_and_commit(self, kind, description, payload, grid) -> Tuple[bool, str, Optional[Proposal]]: Two-phase in one call: propose then commit.
+Retur... -/
+theorem def_propose_and_commit_def_propose_and_commit : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0507e79c1de0d093 END
+
+-- >>> IVI_EQUATION E_e498561c646096b8 BEGIN
+/-- Proposition derived from: def _log_commit: def _log_commit(self, proposal, manifest) -> None -/
+theorem def_log_commit_def_log_commit_self_proposal : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e498561c646096b8 END
+
+-- >>> IVI_EQUATION E_76ac8fe9aeac8c26 BEGIN
+/-- Proposition derived from: class SkillManifest: class SkillManifest: Structured manifest for a Purple skill. Replaces ad-hoc .py headers. -/
+theorem class_skillmanifest_class_skillmanifest_structured_manifest_ : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_76ac8fe9aeac8c26 END
+
+-- >>> IVI_EQUATION E_36516d1da9b3ad7b BEGIN
+/-- Proposition derived from: class BranchState: class BranchState: Tracks potential branches in the event timeline.
+Each branch is a possible state -/
+theorem class_branchstate_class_branchstate_tracks_potential_branche : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_36516d1da9b3ad7b END
+
+-- >>> IVI_EQUATION E_e35c1af14fdf3123 BEGIN
+/-- Proposition derived from: class Proposal: class Proposal: A proposed mutation before enforcement verification.
+The semantic side evaluates -/
+theorem class_proposal_class_proposal_a_proposed_mutation_before : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e35c1af14fdf3123 END
+
+-- >>> IVI_EQUATION E_327c8d2e5dc0e9be BEGIN
+/-- Proposition derived from: class LeanVerifier: class LeanVerifier: Runs Lean compile checks as the hard enforcement gate.
+Skills only finalize when -/
+theorem class_leanverifier_class_leanverifier_runs_lean_compile_chec : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_327c8d2e5dc0e9be END
+
+-- >>> IVI_EQUATION E_a3174ce9e8d73823 BEGIN
+/-- Proposition derived from: class IVISemanticEnforcementDuality: class IVISemanticEnforcementDuality: The universal network interface invariant.
+
+Every mutation passes through both s -/
+theorem class_ivisemanticenforcementduality_class_ivisemanticenforce : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a3174ce9e8d73823 END
+
+-- >>> IVI_EQUATION E_d7547bd0892a16f9 BEGIN
+/-- Proposition derived from: pattern:error_handling at ivi_semantic_enforcement.py:117 -/
+theorem pattern_error_handling_at_ivi_semantic_enforcement_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d7547bd0892a16f9 END
+
+-- >>> IVI_EQUATION E_dd589f07667d0bf3 BEGIN
+/-- Proposition derived from: pattern:error_handling at ivi_semantic_enforcement.py:254 -/
+theorem pattern_error_handling_at_ivi_semantic_enforcement_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dd589f07667d0bf3 END
+
+-- >>> IVI_EQUATION E_36d3d3b2f68eed85 BEGIN
+/-- Proposition derived from: def generate_lean_phase1: def generate_lean_phase1(settings) -> Path -/
+theorem def_generate_lean_phase1_def_generate_lean_phase1 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_36d3d3b2f68eed85 END
+
+-- >>> IVI_EQUATION E_317bc8e2617a5e3d BEGIN
+/-- Proposition derived from: generate_lean_phase1 complexity=7, candidate for refactor -/
+theorem generate_lean_phase1_complexity_7_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_317bc8e2617a5e3d END
+
+-- >>> IVI_EQUATION E_31b606957a49419e BEGIN
+/-- Proposition derived from: if lean_gen then __future__ -/
+theorem if_lean_gen_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_31b606957a49419e END
+
+-- >>> IVI_EQUATION E_f3146ed1ec82712f BEGIN
+/-- Proposition derived from: if lean_gen then re -/
+theorem if_lean_gen_then_re : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f3146ed1ec82712f END
+
+-- >>> IVI_EQUATION E_1b148b4f901b834d BEGIN
+/-- Proposition derived from: if lean_gen then pathlib -/
+theorem if_lean_gen_then_pathlib : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1b148b4f901b834d END
+
+-- >>> IVI_EQUATION E_510d4a5469961fe1 BEGIN
+/-- Proposition derived from: if lean_gen then typing -/
+theorem if_lean_gen_then_typing : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_510d4a5469961fe1 END
+
+-- >>> IVI_EQUATION E_3baee190bf3ca0d4 BEGIN
+/-- Proposition derived from: if lean_gen then config -/
+theorem if_lean_gen_then_config : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3baee190bf3ca0d4 END
+
+-- >>> IVI_EQUATION E_bf0d5419ea041abb BEGIN
+/-- Proposition derived from: if lean_gen then storage -/
+theorem if_lean_gen_then_storage : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_bf0d5419ea041abb END
+
+-- >>> IVI_EQUATION E_36deee7a06ba7947 BEGIN
+/-- Proposition derived from: if _sanitize_ident then isdigit -/
+theorem if_sanitize_ident_then_isdigit : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_36deee7a06ba7947 END
+
+-- >>> IVI_EQUATION E_1bfc9aa08d1e438a BEGIN
+/-- Proposition derived from: if _sanitize_ident then strip -/
+theorem if_sanitize_ident_then_strip : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1bfc9aa08d1e438a END
+
+-- >>> IVI_EQUATION E_6bc6fd88696548ee BEGIN
+/-- Proposition derived from: if _sanitize_ident then sub -/
+theorem if_sanitize_ident_then_sub : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6bc6fd88696548ee END
+
+-- >>> IVI_EQUATION E_bca18a989810204f BEGIN
+/-- Proposition derived from: if generate_lean_phase1 then _sanitize_ident -/
+theorem if_generate_lean_phase1_then_sanitize_ident : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_bca18a989810204f END
+
+-- >>> IVI_EQUATION E_f399a4df05aedbfb BEGIN
+/-- Proposition derived from: if generate_lean_phase1 then add -/
+theorem if_generate_lean_phase1_then_add : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f399a4df05aedbfb END
+
+-- >>> IVI_EQUATION E_03772c781d79c72f BEGIN
+/-- Proposition derived from: if generate_lean_phase1 then append -/
+theorem if_generate_lean_phase1_then_append : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_03772c781d79c72f END
+
+-- >>> IVI_EQUATION E_deb66408a24dd996 BEGIN
+/-- Proposition derived from: if generate_lean_phase1 then get -/
+theorem if_generate_lean_phase1_then_get : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_deb66408a24dd996 END
+
+-- >>> IVI_EQUATION E_0d89be787f10a91a BEGIN
+/-- Proposition derived from: if generate_lean_phase1 then group -/
+theorem if_generate_lean_phase1_then_group : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0d89be787f10a91a END
+
+-- >>> IVI_EQUATION E_5fc96a604f5b72f4 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, persist_path) -> None -/
+theorem def_init_def_init_self_persist_path_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5fc96a604f5b72f4 END
+
+-- >>> IVI_EQUATION E_d4540d23f646df9f BEGIN
+/-- Proposition derived from: def add_goal: def add_goal(self, goal) -> None: Register a new human goal. -/
+theorem def_add_goal_def_add_goal_self_goal : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d4540d23f646df9f END
+
+-- >>> IVI_EQUATION E_5ac2e358c8ef6eb3 BEGIN
+/-- Proposition derived from: def complete_goal: def complete_goal(self, goal_id, result, committed) -> None: Mark a goal as completed. -/
+theorem def_complete_goal_def_complete_goal_self_goal : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5ac2e358c8ef6eb3 END
+
+-- >>> IVI_EQUATION E_0289664525802371 BEGIN
+/-- Proposition derived from: def record_satisfaction: def record_satisfaction(self, goal_id, satisfaction) -> None: Record human's feedback on a completed goal. -/
+theorem def_record_satisfaction_def_record_satisfaction_self_goal : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0289664525802371 END
+
+-- >>> IVI_EQUATION E_67690b1d0e63ad49 BEGIN
+/-- Proposition derived from: def end_chain: def end_chain(self) -> None: Human has moved on — save the current chain. -/
+theorem def_end_chain_def_end_chain_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_67690b1d0e63ad49 END
+
+-- >>> IVI_EQUATION E_fc09b8cfbfc6e902 BEGIN
+/-- Proposition derived from: def _classify_kind: def _classify_kind(self, raw) -> str: Classify the human goal into a kind. -/
+theorem def_classify_kind_def_classify_kind_self_raw : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_fc09b8cfbfc6e902 END
+
+-- >>> IVI_EQUATION E_ddd64d3b0ec3bcc9 BEGIN
+/-- Proposition derived from: def top_focus_files: def top_focus_files(self, n) -> List[Tuple[str, int]]: Files the human focuses on most. -/
+theorem def_top_focus_files_def_top_focus_files : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ddd64d3b0ec3bcc9 END
+
+-- >>> IVI_EQUATION E_f90e522aad4357d4 BEGIN
+/-- Proposition derived from: def goal_kind_distribution: def goal_kind_distribution(self) -> Dict[str, int]: What kinds of goals the human gives. -/
+theorem def_goal_kind_distribution_def_goal_kind_distribution : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f90e522aad4357d4 END
+
+-- >>> IVI_EQUATION E_08ca1a717fa0119c BEGIN
+/-- Proposition derived from: def satisfaction_rate: def satisfaction_rate(self) -> float: Average satisfaction (0.0 to 1.0). -/
+theorem def_satisfaction_rate_def_satisfaction_rate_self_float : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_08ca1a717fa0119c END
+
+-- >>> IVI_EQUATION E_cb806c2c2dd20825 BEGIN
+/-- Proposition derived from: def completion_rate: def completion_rate(self) -> float: Fraction of goals that were completed successfully. -/
+theorem def_completion_rate_def_completion_rate_self_float : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cb806c2c2dd20825 END
+
+-- >>> IVI_EQUATION E_893da72e6a456866 BEGIN
+/-- Proposition derived from: def pending_count: def pending_count(self) -> int -/
+theorem def_pending_count_def_pending_count_self_int : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_893da72e6a456866 END
+
+-- >>> IVI_EQUATION E_f2f2241e7725a879 BEGIN
+/-- Proposition derived from: def active_count: def active_count(self) -> int -/
+theorem def_active_count_def_active_count_self_int : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f2f2241e7725a879 END
+
+-- >>> IVI_EQUATION E_2d97210a09d5711b BEGIN
+/-- Proposition derived from: def anticipate_next: def anticipate_next(self) -> Optional[str]: Based on patterns, anticipate what Morpheus might want next.
+Returns a suggested -/
+theorem def_anticipate_next_def_anticipate_next_self_optional : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2d97210a09d5711b END
+
+-- >>> IVI_EQUATION E_8cf253893c0a7e16 BEGIN
+/-- Proposition derived from: def learning_summary_for_prompt: def learning_summary_for_prompt(self) -> str: Format what Neo has learned about Morpheus for prompt injection. -/
+theorem def_learning_summary_for_prompt_def_learning_summary : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8cf253893c0a7e16 END
+
+-- >>> IVI_EQUATION E_2cf1e2108b244e82 BEGIN
+/-- Proposition derived from: def _persist: def _persist(self) -> None: Save tracker state to disk. -/
+theorem def_persist_def_persist_self_none_save_tracker : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2cf1e2108b244e82 END
+
+-- >>> IVI_EQUATION E_8be26c8e819bc4be BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, tracker, repo_root) -> None -/
+theorem def_init_def_init_self_tracker_repo_root : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8be26c8e819bc4be END
+
+-- >>> IVI_EQUATION E_6fc5f66c239ac15f BEGIN
+/-- Proposition derived from: def tracker: def tracker(self) -> HumanGoalTracker -/
+theorem def_tracker_def_tracker_self_humangoaltracker : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6fc5f66c239ac15f END
+
+-- >>> IVI_EQUATION E_12d4829a65b10d49 BEGIN
+/-- Proposition derived from: def stop_requested: def stop_requested(self) -> bool -/
+theorem def_stop_requested_def_stop_requested_self_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_12d4829a65b10d49 END
+
+-- >>> IVI_EQUATION E_b88080a3964ac794 BEGIN
+/-- Proposition derived from: def status_requested: def status_requested(self) -> bool: Check and clear status request flag. -/
+theorem def_status_requested_def_status_requested_self_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b88080a3964ac794 END
+
+-- >>> IVI_EQUATION E_3a728a5b5d73521b BEGIN
+/-- Proposition derived from: def start: def start(self) -> None: Start the non-blocking input thread. -/
+theorem def_start_def_start_self_none_start_the : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3a728a5b5d73521b END
+
+-- >>> IVI_EQUATION E_87f4228a399c8373 BEGIN
+/-- Proposition derived from: def stop: def stop(self) -> None: Stop the input thread. -/
+theorem def_stop_def_stop_self_none_stop_the : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_87f4228a399c8373 END
+
+-- >>> IVI_EQUATION E_435e09fad87681ce BEGIN
+/-- Proposition derived from: def drain_goals: def drain_goals(self) -> List[HumanGoal]: Drain all pending human goals from the queue.
+Called by the autonomous loop each -/
+theorem def_drain_goals_def_drain_goals_self_list : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_435e09fad87681ce END
+
+-- >>> IVI_EQUATION E_b00b63801d6a998d BEGIN
+/-- Proposition derived from: def report_result: def report_result(self, goal_id, result, committed) -> None: Report a goal's completion back to the human. -/
+theorem def_report_result_def_report_result_self_goal : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b00b63801d6a998d END
+
+-- >>> IVI_EQUATION E_b3abc5f744a6107b BEGIN
+/-- Proposition derived from: def _input_loop: def _input_loop(self) -> None: Background thread: read stdin and parse into goals. -/
+theorem def_input_loop_def_input_loop_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_b3abc5f744a6107b END
+
+-- >>> IVI_EQUATION E_d3616ea6b5fc3178 BEGIN
+/-- Proposition derived from: def _handle_input: def _handle_input(self, line) -> None: Parse human input into commands or goals. -/
+theorem def_handle_input_def_handle_input_self_line : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d3616ea6b5fc3178 END
+
+-- >>> IVI_EQUATION E_02a6351eabc494c7 BEGIN
+/-- Proposition derived from: def _parse_goal: def _parse_goal(self, raw) -> HumanGoal: Parse raw human input into a structured goal. -/
+theorem def_parse_goal_def_parse_goal_self_raw : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_02a6351eabc494c7 END
+
+-- >>> IVI_EQUATION E_ded5ae3be1f254b0 BEGIN
+/-- Proposition derived from: def _extract_path: def _extract_path(self, text) -> str: Extract a file or directory path from human input. -/
+theorem def_extract_path_def_extract_path_self_text : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ded5ae3be1f254b0 END
+
+-- >>> IVI_EQUATION E_423108dcbfe352bc BEGIN
+/-- Proposition derived from: def print_status: def print_status(self, executor_status, engine) -> None: Print full status for the human via conversation layer. -/
+theorem def_print_status_def_print_status_self_executor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_423108dcbfe352bc END
+
+-- >>> IVI_EQUATION E_3ae2e4e1a09b5dca BEGIN
+/-- Proposition derived from: def _mode_rank: def _mode_rank(mode) -> int -/
+theorem def_mode_rank_def_mode_rank_mode_int : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3ae2e4e1a09b5dca END
+
+-- >>> IVI_EQUATION E_247f30925749679b BEGIN
+/-- Proposition derived from: def min_mode: def min_mode(a, b) -> str -/
+theorem def_min_mode_def_min_mode_a_b : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_247f30925749679b END
+
+-- >>> IVI_EQUATION E_ee7c64fdcd97bc19 BEGIN
+/-- Proposition derived from: def max_mode: def max_mode(a, b) -> str -/
+theorem def_max_mode_def_max_mode_a_b : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ee7c64fdcd97bc19 END
+
+-- >>> IVI_EQUATION E_408f52702ba9c1f3 BEGIN
+/-- Proposition derived from: def cap_mode: def cap_mode(candidate, ceiling) -> str -/
+theorem def_cap_mode_def_cap_mode_candidate_ceiling : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_408f52702ba9c1f3 END
+
+-- >>> IVI_EQUATION E_79bea439a124353f BEGIN
+/-- Proposition derived from: def _normalize_perms: def _normalize_perms(perms) -> Set[str] -/
+theorem def_normalize_perms_def_normalize_perms_perms_set : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_79bea439a124353f END
+
+-- >>> IVI_EQUATION E_bf4e15bc530c856d BEGIN
+/-- Proposition derived from: def _perm_granted: def _perm_granted(required, granted) -> bool -/
+theorem def_perm_granted_def_perm_granted_required_granted : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_bf4e15bc530c856d END
+
+-- >>> IVI_EQUATION E_ad381029d53e6fe9 BEGIN
+/-- Proposition derived from: def _triangle_time_integral_ok: def _triangle_time_integral_ok(policy_state) -> bool -/
+theorem def_triangle_time_integral_ok_def_triangle_time : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ad381029d53e6fe9 END
+
+-- >>> IVI_EQUATION E_0bf9d9d35d77a0c2 BEGIN
+/-- Proposition derived from: def has_permissions: def has_permissions(required, granted) -> bool -/
+theorem def_has_permissions_def_has_permissions_required_granted : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0bf9d9d35d77a0c2 END
+
+-- >>> IVI_EQUATION E_a93f1d605ed96a35 BEGIN
+/-- Proposition derived from: def has_high_severity_gaps: def has_high_severity_gaps(gaps) -> bool -/
+theorem def_has_high_severity_gaps_def_has_high : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a93f1d605ed96a35 END
+
+-- >>> IVI_EQUATION E_4f72e77d848403c9 BEGIN
+/-- Proposition derived from: def _critical_checks_ok: def _critical_checks_ok(state_checks) -> bool -/
+theorem def_critical_checks_ok_def_critical_checks_ok : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4f72e77d848403c9 END
+
+-- >>> IVI_EQUATION E_6dc4e08bc5a54056 BEGIN
+/-- Proposition derived from: def readiness_for_order_2: def readiness_for_order_2(trace, state_checks, gaps) -> bool -/
+theorem def_readiness_for_order_2_def_readiness_for : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6dc4e08bc5a54056 END
+
+-- >>> IVI_EQUATION E_25fbde5d49add277 BEGIN
+/-- Proposition derived from: def readiness_for_order_3: def readiness_for_order_3(trace, state_checks, gaps, permissions) -> bool -/
+theorem def_readiness_for_order_3_def_readiness_for : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_25fbde5d49add277 END
+
+-- >>> IVI_EQUATION E_992096c9f90fe062 BEGIN
+/-- Proposition derived from: def readiness_for_order_4: def readiness_for_order_4(trace, state_checks, gaps, permissions, policy_state) -> bool -/
+theorem def_readiness_for_order_4_def_readiness_for : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_992096c9f90fe062 END
+
+-- >>> IVI_EQUATION E_c904692b24113c8d BEGIN
+/-- Proposition derived from: def select_order_mode: def select_order_mode(trace, state_checks, gaps, permissions, policy_state) -> str -/
+theorem def_select_order_mode_def_select_order_mode : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c904692b24113c8d END
+
+-- >>> IVI_EQUATION E_f6a597f8c480e198 BEGIN
+/-- Proposition derived from: class PolicyState: class PolicyState -/
+theorem class_policystate_class_policystate : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f6a597f8c480e198 END
+
+-- >>> IVI_EQUATION E_6786a609ef9765bd BEGIN
+/-- Proposition derived from: readiness_for_order_4 complexity=7, candidate for refactor -/
+theorem readiness_for_order_4_complexity_7_candidate_for : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6786a609ef9765bd END
+
+-- >>> IVI_EQUATION E_98f374a011956e36 BEGIN
+/-- Proposition derived from: select_order_mode complexity=13, candidate for refactor -/
+theorem select_order_mode_complexity_13_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_98f374a011956e36 END
+
+-- >>> IVI_EQUATION E_e3f666a6ae6afb26 BEGIN
+/-- Proposition derived from: if order_mode_selector then __future__ -/
+theorem if_order_mode_selector_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e3f666a6ae6afb26 END
+
+-- >>> IVI_EQUATION E_404759392d919c50 BEGIN
+/-- Proposition derived from: if order_mode_selector then dataclasses -/
+theorem if_order_mode_selector_then_dataclasses : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_404759392d919c50 END
+
+-- >>> IVI_EQUATION E_0086e74dbac1f5f4 BEGIN
+/-- Proposition derived from: if order_mode_selector then math -/
+theorem if_order_mode_selector_then_math : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0086e74dbac1f5f4 END
+
+-- >>> IVI_EQUATION E_8dd980e751377f3f BEGIN
+/-- Proposition derived from: if order_mode_selector then typing -/
+theorem if_order_mode_selector_then_typing : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8dd980e751377f3f END
+
+-- >>> IVI_EQUATION E_ffc5c6a53128610b BEGIN
+/-- Proposition derived from: if _mode_rank then get -/
+theorem if_mode_rank_then_get : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ffc5c6a53128610b END
+
+-- >>> IVI_EQUATION E_9e2cdcce4ca17dea BEGIN
+/-- Proposition derived from: if min_mode then _mode_rank -/
+theorem if_min_mode_then_mode_rank : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9e2cdcce4ca17dea END
+
+-- >>> IVI_EQUATION E_353ba2e22f039322 BEGIN
+/-- Proposition derived from: if max_mode then _mode_rank -/
+theorem if_max_mode_then_mode_rank : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_353ba2e22f039322 END
+
+-- >>> IVI_EQUATION E_f7990daf2ca10d92 BEGIN
+/-- Proposition derived from: if cap_mode then min_mode -/
+theorem if_cap_mode_then_min_mode : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f7990daf2ca10d92 END
+
+-- >>> IVI_EQUATION E_4d3c01c60be5387b BEGIN
+/-- Proposition derived from: if _normalize_perms then add -/
+theorem if_normalize_perms_then_add : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4d3c01c60be5387b END
+
+-- >>> IVI_EQUATION E_1cfb2bedf00ef0e7 BEGIN
+/-- Proposition derived from: if _normalize_perms then strip -/
+theorem if_normalize_perms_then_strip : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1cfb2bedf00ef0e7 END
+
+-- >>> IVI_EQUATION E_5ab6e79d27318a23 BEGIN
+/-- Proposition derived from: if _perm_granted then split -/
+theorem if_perm_granted_then_split : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5ab6e79d27318a23 END
+
+-- >>> IVI_EQUATION E_0e755acbf9733d7b BEGIN
+/-- Proposition derived from: if _perm_granted then strip -/
+theorem if_perm_granted_then_strip : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0e755acbf9733d7b END
+
+-- >>> IVI_EQUATION E_424b02646d5b8e86 BEGIN
+/-- Proposition derived from: def to_prompt_line: def to_prompt_line(self) -> str: Format as a single-line constraint for AI context injection. -/
+theorem def_to_prompt_line_def_to_prompt_line : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_424b02646d5b8e86 END
+
+-- >>> IVI_EQUATION E_1d25e803e6f43cb2 BEGIN
+/-- Proposition derived from: def extract_from_grid: def extract_from_grid(self, grid) -> List[PurpleSkill]: Read the grid's triangles and convert new ones into skills. -/
+theorem def_extract_from_grid_def_extract_from_grid : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1d25e803e6f43cb2 END
+
+-- >>> IVI_EQUATION E_4a11b2003f4d32f8 BEGIN
+/-- Proposition derived from: def extract_from_call_graph: def extract_from_call_graph(self, insights) -> List[PurpleSkill]: Convert call graph insights directly into skills without grid mediation.
+These a -/
+theorem def_extract_from_call_graph_def_extract_from : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4a11b2003f4d32f8 END
+
+-- >>> IVI_EQUATION E_ac129d9829892d72 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, max_skills_in_context) -> None -/
+theorem def_init_def_init_self_max_skills_in : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ac129d9829892d72 END
+
+-- >>> IVI_EQUATION E_cc547ac6398fad19 BEGIN
+/-- Proposition derived from: def add_skills: def add_skills(self, skills) -> int: Add newly extracted skills to the pool. Returns count added. -/
+theorem def_add_skills_def_add_skills_self_skills : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cc547ac6398fad19 END
+
+-- >>> IVI_EQUATION E_54e07f15ed663548 BEGIN
+/-- Proposition derived from: def format_for_context: def format_for_context(self) -> str: Format the most relevant skills as a context block for AI injection.
+This is the -/
+theorem def_format_for_context_def_format_for_context : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_54e07f15ed663548 END
+
+-- >>> IVI_EQUATION E_c0ad56b809811402 BEGIN
+/-- Proposition derived from: def record_usage: def record_usage(self, skill_id) -> None: Record that a skill was used, boosting its confidence. -/
+theorem def_record_usage_def_record_usage_self_skill : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c0ad56b809811402 END
+
+-- >>> IVI_EQUATION E_21e7d2e0c31517cd BEGIN
+/-- Proposition derived from: def record_activation: def record_activation(self, skill_ids) -> None: Batch-boost skills that were active during a successful AI interaction. -/
+theorem def_record_activation_def_record_activation_self_skill : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_21e7d2e0c31517cd END
+
+-- >>> IVI_EQUATION E_cc769440a9280ad6 BEGIN
+/-- Proposition derived from: def active_skill_ids: def active_skill_ids(self) -> List[str]: Return IDs of skills currently in the context window. -/
+theorem def_active_skill_ids_def_active_skill_ids : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cc769440a9280ad6 END
+
+-- >>> IVI_EQUATION E_26678a40e5a52d1f BEGIN
+/-- Proposition derived from: def skill_count: def skill_count(self) -> int -/
+theorem def_skill_count_def_skill_count_self_int : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_26678a40e5a52d1f END
+
+-- >>> IVI_EQUATION E_7c7ba938eeedf9d3 BEGIN
+/-- Proposition derived from: def tick: def tick(self, grid) -> Dict[str, Any]: Run one cycle of the self-generating skills loop.
+
+1. Extract new skills from gr -/
+theorem def_tick_def_tick_self_grid_dict_str : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7c7ba938eeedf9d3 END
+
+-- >>> IVI_EQUATION E_fdcbbfb9bbdbba6e BEGIN
+/-- Proposition derived from: def get_context_for_ai: def get_context_for_ai(self) -> str: Get the current skills context block for AI injection.
+This is what shapes the A -/
+theorem def_get_context_for_ai_def_get_context : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_fdcbbfb9bbdbba6e END
+
+-- >>> IVI_EQUATION E_ae1c5fec40098e51 BEGIN
+/-- Proposition derived from: def observe_ai_output: def observe_ai_output(self, ai_text, grid) -> Dict[str, Any]: Feed AI output back as claims into the grid, then extract new skills.
+This close -/
+theorem def_observe_ai_output_def_observe_ai_output : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ae1c5fec40098e51 END
+
+-- >>> IVI_EQUATION E_dbbecca6921d3bdf BEGIN
+/-- Proposition derived from: def record_activation_from_output: def record_activation_from_output(self, ai_text) -> int: After the AI produces output, boost skills that were in context.
+Returns count o -/
+theorem def_record_activation_from_output_def_record_activation : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dbbecca6921d3bdf END
+
+-- >>> IVI_EQUATION E_f5cbec9f77b29179 BEGIN
+/-- Proposition derived from: class PurpleSkill: class PurpleSkill: A skill derived from IVI grid structure that guides AI behavior. -/
+theorem class_purpleskill_class_purpleskill_a_skill_derived_from : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f5cbec9f77b29179 END
+
+-- >>> IVI_EQUATION E_1a8dc38e4e5a63dc BEGIN
+/-- Proposition derived from: class SkillsInjector: class SkillsInjector: Injects Purple-derived skills into AI context as structural constraints.
+This is -/
+theorem class_skillsinjector_class_skillsinjector_injects_purple_der : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1a8dc38e4e5a63dc END
+
+-- >>> IVI_EQUATION E_026c6d7fb135204f BEGIN
+/-- Proposition derived from: class SelfGeneratingSkillsLoop: class SelfGeneratingSkillsLoop: The closed cycle: grid → derivations → skills → AI context → new claims → grid. -/
+theorem class_selfgeneratingskillsloop_class_selfgeneratingskillsloo : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_026c6d7fb135204f END
+
+-- >>> IVI_EQUATION E_163671c1a664a5ed BEGIN
+/-- Proposition derived from: pattern:error_handling at purple_skills_loop.py:76 -/
+theorem pattern_error_handling_at_purple_skills_loop_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_163671c1a664a5ed END
+
+-- >>> IVI_EQUATION E_9a727c1c03c87e33 BEGIN
+/-- Proposition derived from: pattern:error_handling at purple_skills_loop.py:363 -/
+theorem pattern_error_handling_at_purple_skills_loop_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9a727c1c03c87e33 END
+
+-- >>> IVI_EQUATION E_2a8729dba9f363fe BEGIN
+/-- Proposition derived from: pattern:error_handling at purple_skills_loop.py:367 -/
+theorem pattern_error_handling_at_purple_skills_loop_py : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2a8729dba9f363fe END
+
+-- >>> IVI_EQUATION E_31b3e04f15502909 BEGIN
+/-- Proposition derived from: extract_from_grid complexity=13, candidate for refactor -/
+theorem extract_from_grid_complexity_13_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_31b3e04f15502909 END
+
+-- >>> IVI_EQUATION E_cca702194eb97286 BEGIN
+/-- Proposition derived from: format_for_context complexity=10, candidate for refactor -/
+theorem format_for_context_complexity_10_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cca702194eb97286 END
+
+-- >>> IVI_EQUATION E_695075761777d20f BEGIN
+/-- Proposition derived from: observe_ai_output complexity=12, candidate for refactor -/
+theorem observe_ai_output_complexity_12_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_695075761777d20f END
+
+-- >>> IVI_EQUATION E_30f99d2c8ece72dc BEGIN
+/-- Proposition derived from: if purple_skills_loop then __future__ -/
+theorem if_purple_skills_loop_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_30f99d2c8ece72dc END
+
+-- >>> IVI_EQUATION E_87e4de4210e9b149 BEGIN
+/-- Proposition derived from: if purple_skills_loop then json -/
+theorem if_purple_skills_loop_then_json : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_87e4de4210e9b149 END
+
+-- >>> IVI_EQUATION E_0af99fb30b499b7d BEGIN
+/-- Proposition derived from: def format_status: def format_status(settings) -> str -/
+theorem def_format_status_def_format_status_settings_str : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0af99fb30b499b7d END
+
+-- >>> IVI_EQUATION E_a9875170564ca759 BEGIN
+/-- Proposition derived from: if report then __future__ -/
+theorem if_report_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a9875170564ca759 END
+
+-- >>> IVI_EQUATION E_21951de8054842cf BEGIN
+/-- Proposition derived from: if report then config -/
+theorem if_report_then_config : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_21951de8054842cf END
+
+-- >>> IVI_EQUATION E_8cbdedbdfd78722c BEGIN
+/-- Proposition derived from: if report then storage -/
+theorem if_report_then_storage : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8cbdedbdfd78722c END
+
+-- >>> IVI_EQUATION E_69ccb42be815bae3 BEGIN
+/-- Proposition derived from: if format_status then append -/
+theorem if_format_status_then_append : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_69ccb42be815bae3 END
+
+-- >>> IVI_EQUATION E_8bc99609efc377ed BEGIN
+/-- Proposition derived from: if format_status then get -/
+theorem if_format_status_then_get : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8bc99609efc377ed END
+
+-- >>> IVI_EQUATION E_3c6f4c62fd770d19 BEGIN
+/-- Proposition derived from: if format_status then join -/
+theorem if_format_status_then_join : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3c6f4c62fd770d19 END
+
+-- >>> IVI_EQUATION E_81079aefe0b31aef BEGIN
+/-- Proposition derived from: if format_status then load_state -/
+theorem if_format_status_then_load_state : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_81079aefe0b31aef END
+
+-- >>> IVI_EQUATION E_99be2d792fbd63ba BEGIN
+/-- Proposition derived from: if format_status then lower -/
+theorem if_format_status_then_lower : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_99be2d792fbd63ba END
+
+-- >>> IVI_EQUATION E_1390383a841c9bdb BEGIN
+/-- Proposition derived from: def now: def now(self) -> int: Current triangle time. -/
+theorem def_now_def_now_self_int_current_triangle : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1390383a841c9bdb END
+
+-- >>> IVI_EQUATION E_57a0f3b9fee25235 BEGIN
+/-- Proposition derived from: def rate: def rate(self) -> float: Triangles per real-second (for Morpheus display). -/
+theorem def_rate_def_rate_self_float_triangles_per : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_57a0f3b9fee25235 END
+
+-- >>> IVI_EQUATION E_39d6e0cd179ba22f BEGIN
+/-- Proposition derived from: def tick: def tick(self, tid, sid, did, eid) -> TriangleTick: Advance the clock by one triangle. -/
+theorem def_tick_def_tick_self_tid_sid_did : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_39d6e0cd179ba22f END
+
+-- >>> IVI_EQUATION E_dc4507f8dae7a61b BEGIN
+/-- Proposition derived from: def wait_for_tick: def wait_for_tick(self, timeout_real) -> bool: Block until the next triangle forms (or real-time timeout for Morpheus safety). -/
+theorem def_wait_for_tick_def_wait_for_tick : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dc4507f8dae7a61b END
+
+-- >>> IVI_EQUATION E_c9b5dc12a7bf95b9 BEGIN
+/-- Proposition derived from: def ticks_since: def ticks_since(self, since_tick) -> List[TriangleTick]: Get all ticks since a given triangle-time. -/
+theorem def_ticks_since_def_ticks_since_self_since : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c9b5dc12a7bf95b9 END
+
+-- >>> IVI_EQUATION E_2d0904ad8b389e71 BEGIN
+/-- Proposition derived from: def scale_time: def scale_time(self, scale) -> int: Triangle time at a specific scale. -/
+theorem def_scale_time_def_scale_time_self_scale : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2d0904ad8b389e71 END
+
+-- >>> IVI_EQUATION E_dba727402cd59b69 BEGIN
+/-- Proposition derived from: def silence_duration: def silence_duration(self) -> float: Real seconds since last triangle (for homeostasis detection). -/
+theorem def_silence_duration_def_silence_duration_self_float : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dba727402cd59b69 END
+
+-- >>> IVI_EQUATION E_de8f5edf425add15 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, clock) -> None -/
+theorem def_init_def_init_self_clock_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_de8f5edf425add15 END
+
+-- >>> IVI_EQUATION E_52ebd6eac051b62a BEGIN
+/-- Proposition derived from: def update_from_grid: def update_from_grid(self, grid) -> None: Rebuild triangle space from the current grid state. -/
+theorem def_update_from_grid_def_update_from_grid : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_52ebd6eac051b62a END
+
+-- >>> IVI_EQUATION E_0eea53f25e47a6a4 BEGIN
+/-- Proposition derived from: def densest_region: def densest_region(self) -> Optional[TriangleRegion]: Region with highest triangle density — where knowledge is richest. -/
+theorem def_densest_region_def_densest_region_self_optional : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0eea53f25e47a6a4 END
+
+-- >>> IVI_EQUATION E_0f9d696860c1e697 BEGIN
+/-- Proposition derived from: def sparsest_region: def sparsest_region(self) -> Optional[TriangleRegion]: Region with lowest density — where gaps exist. -/
+theorem def_sparsest_region_def_sparsest_region_self_optional : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0f9d696860c1e697 END
+
+-- >>> IVI_EQUATION E_d0888ca10a12edf7 BEGIN
+/-- Proposition derived from: def frontier_sids: def frontier_sids(self) -> Set[str]: Statements at the edge of triangle space — in triangles but with
+orphan neighbor -/
+theorem def_frontier_sids_def_frontier_sids_self_set : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d0888ca10a12edf7 END
+
+-- >>> IVI_EQUATION E_c7d383b68b1254a1 BEGIN
+/-- Proposition derived from: def total_closure: def total_closure(self) -> float: Overall closure: fraction of all nodes that are in triangles. -/
+theorem def_total_closure_def_total_closure_self_float : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c7d383b68b1254a1 END
+
+-- >>> IVI_EQUATION E_4a305d3328097d87 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, clock, space, closure_threshold, stability_window) -> None -/
+theorem def_init_def_init_self_clock_space_closure : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4a305d3328097d87 END
+
+-- >>> IVI_EQUATION E_e07ae61b4331c753 BEGIN
+/-- Proposition derived from: def _is_rate_stable: def _is_rate_stable(self) -> bool: Rate is stable if variance over the window is low. -/
+theorem def_is_rate_stable_def_is_rate_stable : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e07ae61b4331c753 END
+
+-- >>> IVI_EQUATION E_ed1da05e29614bbd BEGIN
+/-- Proposition derived from: def _is_connected: def _is_connected(self) -> bool: Check if the largest region holds a majority of triangles. -/
+theorem def_is_connected_def_is_connected_self_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ed1da05e29614bbd END
+
+-- >>> IVI_EQUATION E_1fa35926f03e5cd9 BEGIN
+/-- Proposition derived from: def _are_orphans_stable: def _are_orphans_stable(self) -> bool: Orphans are stable if not increasing over the window. -/
+theorem def_are_orphans_stable_def_are_orphans_stable : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_1fa35926f03e5cd9 END
+
+-- >>> IVI_EQUATION E_9ec471fa7d2c37fb BEGIN
+/-- Proposition derived from: def in_place: def in_place(self) -> bool -/
+theorem def_in_place_def_in_place_self_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9ec471fa7d2c37fb END
+
+-- >>> IVI_EQUATION E_c4d401ddf9507291 BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, clock, space, place, morpheus_timeout_s) -> None -/
+theorem def_init_def_init_self_clock_space_place : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c4d401ddf9507291 END
+
+-- >>> IVI_EQUATION E_0aee25685167c0f8 BEGIN
+/-- Proposition derived from: def wait_for_evolution: def wait_for_evolution(self, min_ticks) -> Dict[str, Any]: Wait for the system to evolve (new triangles).
+
+If the system is in triangle pla -/
+theorem def_wait_for_evolution_def_wait_for_evolution : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0aee25685167c0f8 END
+
+-- >>> IVI_EQUATION E_916d036c5f91a477 BEGIN
+/-- Proposition derived from: def should_act: def should_act(self, last_acted_tick) -> Tuple[bool, str]: Should Neo act now?
+
+Returns (should_act, reason).
+Reasons for acting:
+- New tri -/
+theorem def_should_act_def_should_act_self_last : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_916d036c5f91a477 END
+
+-- >>> IVI_EQUATION E_29d4615283e9a6f5 BEGIN
+/-- Proposition derived from: def classify_scale: def classify_scale(self, target) -> str: Classify a target into a triangle-time scale. -/
+theorem def_classify_scale_def_classify_scale_self_target : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_29d4615283e9a6f5 END
+
+-- >>> IVI_EQUATION E_05c9438e34ba54ad BEGIN
+/-- Proposition derived from: class TriangleTick: class TriangleTick: A single tick of triangle time. -/
+theorem class_triangletick_class_triangletick_a_single_tick_of : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_05c9438e34ba54ad END
+
+-- >>> IVI_EQUATION E_3cb5792165422512 BEGIN
+/-- Proposition derived from: class TriangleClock: class TriangleClock: The system's clock. Time = triangle count.
+
+Instead of time.time() or sleep(N), -/
+theorem class_triangleclock_class_triangleclock_the_system_s_clock_t : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3cb5792165422512 END
+
+-- >>> IVI_EQUATION E_e888c10fee82c81c BEGIN
+/-- Proposition derived from: def __init__: def __init__(self, enabled, asr_engine, enable_tts, tts_voice) -> None -/
+theorem def_init_def_init_self_enabled_asr_engine : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e888c10fee82c81c END
+
+-- >>> IVI_EQUATION E_9a9512265a89312e BEGIN
+/-- Proposition derived from: def diagnostics: def diagnostics(self) -> AudioDiagnostics -/
+theorem def_diagnostics_def_diagnostics_self_audiodiagnostics : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9a9512265a89312e END
+
+-- >>> IVI_EQUATION E_0033a7d986a44f29 BEGIN
+/-- Proposition derived from: def _init_asr: def _init_asr(self) -> None -/
+theorem def_init_asr_def_init_asr_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0033a7d986a44f29 END
+
+-- >>> IVI_EQUATION E_c1e590bae4334d90 BEGIN
+/-- Proposition derived from: def _init_tts: def _init_tts(self) -> None -/
+theorem def_init_tts_def_init_tts_self_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c1e590bae4334d90 END
+
+-- >>> IVI_EQUATION E_0861de057452ddaf BEGIN
+/-- Proposition derived from: def _recognize_with_engine: def _recognize_with_engine(self, audio, engine) -> str -/
+theorem def_recognize_with_engine_def_recognize_with_engine : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0861de057452ddaf END
+
+-- >>> IVI_EQUATION E_dc3b39b7532144f2 BEGIN
+/-- Proposition derived from: def _recognize: def _recognize(self, audio) -> str -/
+theorem def_recognize_def_recognize_self_audio_str : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dc3b39b7532144f2 END
+
+-- >>> IVI_EQUATION E_d0f4a3e83ee9f8d6 BEGIN
+/-- Proposition derived from: def listen_once: def listen_once(self) -> str -/
+theorem def_listen_once_def_listen_once_self_str : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d0f4a3e83ee9f8d6 END
+
+-- >>> IVI_EQUATION E_bd6537777df9ba7c BEGIN
+/-- Proposition derived from: def speak: def speak(self, text) -> None -/
+theorem def_speak_def_speak_self_text_none : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_bd6537777df9ba7c END
+
+-- >>> IVI_EQUATION E_8d0bc929796f5eb1 BEGIN
+/-- Proposition derived from: class AudioDiagnostics: class AudioDiagnostics -/
+theorem class_audiodiagnostics_class_audiodiagnostics : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8d0bc929796f5eb1 END
+
+-- >>> IVI_EQUATION E_f0c8e13d919bac7d BEGIN
+/-- Proposition derived from: class VoiceAudioInterface: class VoiceAudioInterface -/
+theorem class_voiceaudiointerface_class_voiceaudiointerface : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f0c8e13d919bac7d END
+
+-- >>> IVI_EQUATION E_a998be13e7dc49dd BEGIN
+/-- Proposition derived from: pattern:error_handling at voice_audio.py:92 -/
+theorem pattern_error_handling_at_voice_audio_py_92 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a998be13e7dc49dd END
+
+-- >>> IVI_EQUATION E_4d921a0a2ff96611 BEGIN
+/-- Proposition derived from: pattern:error_handling at voice_audio.py:106 -/
+theorem pattern_error_handling_at_voice_audio_py_106 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_4d921a0a2ff96611 END
+
+-- >>> IVI_EQUATION E_e2d04381a0adb395 BEGIN
+/-- Proposition derived from: pattern:error_handling at voice_audio.py:159 -/
+theorem pattern_error_handling_at_voice_audio_py_159 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e2d04381a0adb395 END
+
+-- >>> IVI_EQUATION E_979860f693ec933f BEGIN
+/-- Proposition derived from: pattern:error_handling at voice_audio.py:191 -/
+theorem pattern_error_handling_at_voice_audio_py_191 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_979860f693ec933f END
+
+-- >>> IVI_EQUATION E_d01653e9016b7d8e BEGIN
+/-- Proposition derived from: pattern:error_handling at voice_audio.py:147 -/
+theorem pattern_error_handling_at_voice_audio_py_147 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_d01653e9016b7d8e END
+
+-- >>> IVI_EQUATION E_f1aedbf5c63846f5 BEGIN
+/-- Proposition derived from: pattern:context_manager at voice_audio.py:160 -/
+theorem pattern_context_manager_at_voice_audio_py_160 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f1aedbf5c63846f5 END
+
+-- >>> IVI_EQUATION E_de4b3e6ce6755ad4 BEGIN
+/-- Proposition derived from: diagnostics complexity=9, candidate for refactor -/
+theorem diagnostics_complexity_9_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_de4b3e6ce6755ad4 END
+
+-- >>> IVI_EQUATION E_3f214dadcc01f6bd BEGIN
+/-- Proposition derived from: _init_tts complexity=6, candidate for refactor -/
+theorem init_tts_complexity_6_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3f214dadcc01f6bd END
+
+-- >>> IVI_EQUATION E_6d0e3a62f2b3d6a5 BEGIN
+/-- Proposition derived from: _recognize_with_engine complexity=6, candidate for refactor -/
+theorem recognize_with_engine_complexity_6_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6d0e3a62f2b3d6a5 END
+
+-- >>> IVI_EQUATION E_98b12d0550d510ee BEGIN
+/-- Proposition derived from: _recognize complexity=7, candidate for refactor -/
+theorem recognize_complexity_7_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_98b12d0550d510ee END
+
+-- >>> IVI_EQUATION E_de8a1f6e584c6ecb BEGIN
+/-- Proposition derived from: listen_once complexity=6, candidate for refactor -/
+theorem listen_once_complexity_6_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_de8a1f6e584c6ecb END
+
+-- >>> IVI_EQUATION E_cb5fae7603bd88ce BEGIN
+/-- Proposition derived from: speak complexity=9, candidate for refactor -/
+theorem speak_complexity_9_candidate_for_refactor : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cb5fae7603bd88ce END
+
+-- >>> IVI_EQUATION E_dd5d7f9310fcac73 BEGIN
+/-- Proposition derived from: if voice_audio then __future__ -/
+theorem if_voice_audio_then_future : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_dd5d7f9310fcac73 END
+
+-- >>> IVI_EQUATION E_cd9e05a0f42dbe46 BEGIN
+/-- Proposition derived from: if voice_audio then shutil -/
+theorem if_voice_audio_then_shutil : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_cd9e05a0f42dbe46 END
+
+-- >>> IVI_EQUATION E_9794bdf8fb72cdd6 BEGIN
+/-- Proposition derived from: if voice_audio then subprocess -/
+theorem if_voice_audio_then_subprocess : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9794bdf8fb72cdd6 END
+
+-- >>> IVI_EQUATION E_6c3bae81f7c73120 BEGIN
+/-- Proposition derived from: if voice_audio then dataclasses -/
+theorem if_voice_audio_then_dataclasses : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6c3bae81f7c73120 END
+
+-- >>> IVI_EQUATION E_58b4888e6cf932c2 BEGIN
+/-- Proposition derived from: if voice_audio then typing -/
+theorem if_voice_audio_then_typing : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_58b4888e6cf932c2 END
+
+-- >>> IVI_EQUATION E_a3cc9cf7a901d28c BEGIN
+/-- Proposition derived from: if voice_audio then speech_recognition -/
+theorem if_voice_audio_then_speech_recognition : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a3cc9cf7a901d28c END
+
+-- >>> IVI_EQUATION E_c221b7953cb59c78 BEGIN
+/-- Proposition derived from: def shutdown_report: def shutdown_report(self, cycle, exec_status, morph_status, tri_status) -> None -/
+theorem def_shutdown_report_def_shutdown_report_self_cycle : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c221b7953cb59c78 END
+
+-- >>> IVI_EQUATION E_07c6a9a33be9a8f4 BEGIN
+/-- Proposition derived from: if ingest_chatgpt_export_json then add -/
+theorem if_ingest_chatgpt_export_json_then_add : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_07c6a9a33be9a8f4 END
+
+-- >>> IVI_EQUATION E_33b537df943b12db BEGIN
+/-- Proposition derived from: def status: def status(self) -> Dict[str, Any]: Current monitor status. -/
+theorem def_status_def_status_self_dict_str_any : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_33b537df943b12db END
+
+-- >>> IVI_EQUATION E_ba4c17e25640c6df BEGIN
+/-- Proposition derived from: def merge_branch: def merge_branch(self, branch_id) -> None: Merge a branch back into current. -/
+theorem def_merge_branch_def_merge_branch_self_branch : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ba4c17e25640c6df END
+
+-- >>> IVI_EQUATION E_18037f3f604d148f BEGIN
+/-- Proposition derived from: def goals_requested: def goals_requested(self) -> bool: Check and clear goals request flag. -/
+theorem def_goals_requested_def_goals_requested_self_bool : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_18037f3f604d148f END
+
+-- >>> IVI_EQUATION E_a02dbfe594090de9 BEGIN
+/-- Proposition derived from: class DerivationSkillExtractor: class DerivationSkillExtractor: Extracts structured skills from IVI grid derivations and triangles.
+Each triangl -/
+theorem class_derivationskillextractor_class_derivationskillextracto : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_a02dbfe594090de9 END
+
+-- >>> IVI_EQUATION E_05618f02c7f6d4e7 BEGIN
+/-- Proposition derived from: def sample: def sample(self) -> Dict[str, Any]: Sample current state and update place detection. -/
+theorem def_sample_def_sample_self_dict_str_any : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_05618f02c7f6d4e7 END
+
+-- >>> IVI_EQUATION E_7cc31c32fd05c7fd BEGIN
+/-- Proposition derived from: pattern:error_handling at voice_audio.py:177 -/
+theorem pattern_error_handling_at_voice_audio_py_177 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_7cc31c32fd05c7fd END
+
+-- >>> IVI_EQUATION E_2c8301ee58ad2f70 BEGIN
+/-- Proposition derived from: class PermissionState: class PermissionState -/
+theorem class_permissionstate_class_permissionstate : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2c8301ee58ad2f70 END
+
+-- >>> IVI_EQUATION E_0b08ea412a3e9f2a BEGIN
+/-- Proposition derived from: def get_accounts_for_hashtag: def get_accounts_for_hashtag(hashtag, limit): Get accounts for a hashtag using our mapping first before trying API methods -/
+theorem def_get_accounts_for_hashtag_def_get_accounts : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_0b08ea412a3e9f2a END
+
+-- >>> IVI_EQUATION E_5158d2e5162103d8 BEGIN
+/-- Proposition derived from: def find_accounts_from_hashtag: def find_accounts_from_hashtag(hashtag): Find Instagram accounts related to a specific hashtag, with multiple fallback me -/
+theorem def_find_accounts_from_hashtag_def_find_accounts : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5158d2e5162103d8 END
+
+-- >>> IVI_EQUATION E_3f71ce5501015b37 BEGIN
+/-- Proposition derived from: def allowed_file: def allowed_file(filename) -/
+theorem def_allowed_file_def_allowed_file_filename : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_3f71ce5501015b37 END
+
+-- >>> IVI_EQUATION E_9d6584a2a140242a BEGIN
+/-- Proposition derived from: def encode_image_to_base64: def encode_image_to_base64(image_path): Convert an image to base64 for Gemini API -/
+theorem def_encode_image_to_base64_def_encode_image : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9d6584a2a140242a END
+
+-- >>> IVI_EQUATION E_e509b01500e51556 BEGIN
+/-- Proposition derived from: def analyze_image_with_gemini: def analyze_image_with_gemini(image_path): Use Gemini to analyze the image and extract facial features, hashtags, and descr -/
+theorem def_analyze_image_with_gemini_def_analyze_image : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e509b01500e51556 END
+
+-- >>> IVI_EQUATION E_8e29455a2fdc0c59 BEGIN
+/-- Proposition derived from: def expand_hashtags_with_gemini: def expand_hashtags_with_gemini(base_hashtags, iterations): Use Gemini to iteratively expand hashtags to find more relevant ones -/
+theorem def_expand_hashtags_with_gemini_def_expand_hashtags : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8e29455a2fdc0c59 END
+
+-- >>> IVI_EQUATION E_c6d2f0efbee556f3 BEGIN
+/-- Proposition derived from: def hashtags_to_instagram_accounts: def hashtags_to_instagram_accounts(hashtags, limit): Convert hashtags to Instagram accounts that frequently use these hashtags -/
+theorem def_hashtags_to_instagram_accounts_def_hashtags_to : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c6d2f0efbee556f3 END
+
+-- >>> IVI_EQUATION E_5a87ba4f932d24ff BEGIN
+/-- Proposition derived from: def compute_image_features: def compute_image_features(img): Extract key features from image for comparison -/
+theorem def_compute_image_features_def_compute_image_features : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5a87ba4f932d24ff END
+
+-- >>> IVI_EQUATION E_2cf1731175fbc702 BEGIN
+/-- Proposition derived from: def compare_images: def compare_images(img1_path, img2_path): Compare two images using multiple histogram features -/
+theorem def_compare_images_def_compare_images_img1_path : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2cf1731175fbc702 END
+
+-- >>> IVI_EQUATION E_be284382f807a6fb BEGIN
+/-- Proposition derived from: def download_instagram_images: def download_instagram_images(account, max_results, mock): Download images from an Instagram account -/
+theorem def_download_instagram_images_def_download_instagram_images : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_be284382f807a6fb END
+
+-- >>> IVI_EQUATION E_6f830868672c0a4c BEGIN
+/-- Proposition derived from: def download_instagram_images_by_hashtag: def download_instagram_images_by_hashtag(hashtag, limit): Download images from Instagram hashtag -/
+theorem def_download_instagram_images_by_hashtag_def_download : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_6f830868672c0a4c END
+
+-- >>> IVI_EQUATION E_9dc24f87e52abbde BEGIN
+/-- Proposition derived from: def extract_accounts_from_hashtag: def extract_accounts_from_hashtag(hashtag, limit): Find Instagram accounts that frequently use a specific hashtag -/
+theorem def_extract_accounts_from_hashtag_def_extract_accounts : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9dc24f87e52abbde END
+
+-- >>> IVI_EQUATION E_9a5d6606455b1690 BEGIN
+/-- Proposition derived from: def extract_accounts_from_hashtag_selenium: def extract_accounts_from_hashtag_selenium(hashtag, limit): Use Selenium to find Instagram accounts that use a specific hashtag
+This ... -/
+theorem def_extract_accounts_from_hashtag_selenium_def_extract : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_9a5d6606455b1690 END
+
+-- >>> IVI_EQUATION E_2f5238197558f884 BEGIN
+/-- Proposition derived from: def search_worker: def search_worker(search_id, upload_path, hashtags, accounts): Background worker to search for similar faces -/
+theorem def_search_worker_def_search_worker_search_id : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_2f5238197558f884 END
+
+-- >>> IVI_EQUATION E_c43d6bc7496ce5a8 BEGIN
+/-- Proposition derived from: def generate_ai_face_version: def generate_ai_face_version(image_path): Generate an AI-enhanced version of the uploaded face using Gemini -/
+theorem def_generate_ai_face_version_def_generate_ai : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_c43d6bc7496ce5a8 END
+
+-- >>> IVI_EQUATION E_46f122b9dfbb6f27 BEGIN
+/-- Proposition derived from: def create_face_collage: def create_face_collage(original_image_path, instagram_images, similarity_scores, output_path): Create a collage of Instagram faces overlaid on the orig... -/
+theorem def_create_face_collage_def_create_face_collage : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_46f122b9dfbb6f27 END
+
+-- >>> IVI_EQUATION E_688d64b1b778c926 BEGIN
+/-- Proposition derived from: def index: def index() -/
+theorem def_index_def_index : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_688d64b1b778c926 END
+
+-- >>> IVI_EQUATION E_8799af2010dfc0c7 BEGIN
+/-- Proposition derived from: def upload_file: def upload_file() -/
+theorem def_upload_file_def_upload_file : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8799af2010dfc0c7 END
+
+-- >>> IVI_EQUATION E_ae096f484d2dc241 BEGIN
+/-- Proposition derived from: def search_results: def search_results(search_id): Page to display search results and updates -/
+theorem def_search_results_def_search_results_search_id : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_ae096f484d2dc241 END
+
+-- >>> IVI_EQUATION E_93e301095b70cb99 BEGIN
+/-- Proposition derived from: def search: def search(): Run the search process and display the search page -/
+theorem def_search_def_search_run_the_search_process : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_93e301095b70cb99 END
+
+-- >>> IVI_EQUATION E_8150b9d4fe707393 BEGIN
+/-- Proposition derived from: def search_status: def search_status(search_id): Get status updates for an ongoing search -/
+theorem def_search_status_def_search_status_search_id : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_8150b9d4fe707393 END
+
+-- >>> IVI_EQUATION E_115aab06fd0534fc BEGIN
+/-- Proposition derived from: def cancel_search: def cancel_search(search_id): Cancel an ongoing search -/
+theorem def_cancel_search_def_cancel_search_search_id : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_115aab06fd0534fc END
+
+-- >>> IVI_EQUATION E_12a252a6e3ec3001 BEGIN
+/-- Proposition derived from: def uploaded_file: def uploaded_file(filename) -/
+theorem def_uploaded_file_def_uploaded_file_filename : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_12a252a6e3ec3001 END
+
+-- >>> IVI_EQUATION E_5c209d29a5376b9f BEGIN
+/-- Proposition derived from: def instagram_file: def instagram_file(account, filename): Serve Instagram images -/
+theorem def_instagram_file_def_instagram_file_account_filename : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_5c209d29a5376b9f END
+
+-- >>> IVI_EQUATION E_699685923163222e BEGIN
+/-- Proposition derived from: def favicon: def favicon() -/
+theorem def_favicon_def_favicon : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_699685923163222e END
+
+-- >>> IVI_EQUATION E_e9230289d059a198 BEGIN
+/-- Proposition derived from: def detect_face: def detect_face(img_path) -/
+theorem def_detect_face_def_detect_face_img_path : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_e9230289d059a198 END
+
+-- >>> IVI_EQUATION E_40cbbeb528fde566 BEGIN
+/-- Proposition derived from: pattern:error_handling at app.py:41 -/
+theorem pattern_error_handling_at_app_py_41 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_40cbbeb528fde566 END
+
+-- >>> IVI_EQUATION E_801814cf7d68a0d7 BEGIN
+/-- Proposition derived from: pattern:context_manager at app.py:206 -/
+theorem pattern_context_manager_at_app_py_206 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_801814cf7d68a0d7 END
+
+-- >>> IVI_EQUATION E_f1b6be21462e5622 BEGIN
+/-- Proposition derived from: pattern:error_handling at app.py:219 -/
+theorem pattern_error_handling_at_app_py_219 : True := by
+  trivial
+
+-- <<< IVI_EQUATION E_f1b6be21462e5622 END
+

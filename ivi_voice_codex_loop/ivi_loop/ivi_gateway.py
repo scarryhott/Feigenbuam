@@ -266,7 +266,7 @@ LAYER_TEMPLATES: Dict[str, Dict[str, Any]] = {
             "append_only_log_integrity",
         ],
         "context_budget": 3000,
-        "allowed_ops": ["read", "write", "execute", "lean", "claim_add", "skill_save"],
+        "allowed_ops": ["read", "write", "execute", "lean", "claim_add", "skill_save", "git_commit", "run_tests"],
         "depth": 1,
     },
     "project": {
@@ -277,7 +277,7 @@ LAYER_TEMPLATES: Dict[str, Dict[str, Any]] = {
             "skill_saves_go_to_project_skills_dir",
         ],
         "context_budget": 2000,
-        "allowed_ops": ["read", "write", "execute", "skill_save", "claim_add"],
+        "allowed_ops": ["read", "write", "execute", "skill_save", "claim_add", "git_commit", "run_tests"],
         "depth": 1,
     },
     "runtime": {
@@ -343,21 +343,19 @@ class NavigationContext:
 
     @property
     def active_allowed_ops(self) -> List[str]:
-        """Allowed ops = intersection of all active layers.
-        An op must be allowed at every layer in the stack."""
+        """Allowed ops = union of all active layers, governed by the innermost.
+        The innermost (most specific) layer defines what you can do in the
+        current scope. Parent layers add their ops as a floor, not a ceiling.
+        Invariants (union) constrain HOW you do it; ops define WHAT you can do."""
         if not self._layer_stack:
             return []
-        sets = []
+        # Collect union of all active layers' ops
+        all_ops: set = set()
         for lid in self._layer_stack:
             layer = self._layers.get(lid)
             if layer and layer.active:
-                sets.append(set(layer.allowed_ops))
-        if not sets:
-            return []
-        result = sets[0]
-        for s in sets[1:]:
-            result = result & s
-        return sorted(result)
+                all_ops.update(layer.allowed_ops)
+        return sorted(all_ops)
 
     def enter_layer(
         self,
