@@ -1,0 +1,116 @@
+{
+  "score": {
+    "ts": 1771283510.770875,
+    "potential_ratio": 0.9897,
+    "phase": "potential-converged",
+    "gateway": {
+      "intents": 4,
+      "committed": 0,
+      "rejected": 0,
+      "open": 4
+    },
+    "grid": {
+      "triangles_closed": 4787,
+      "orphan_statements": 74,
+      "orphan_equations": 1,
+      "total_claims": 4861,
+      "total_derivations": 4811
+    },
+    "native": {
+      "invocations": 0,
+      "llm_fallbacks": 0,
+      "native_ratio": 0.0,
+      "capabilities_above_threshold": 7
+    },
+    "lean": {
+      "checks": 0,
+      "passes": 0,
+      "failures": 0
+    },
+    "skills": {
+      "derived": 0,
+      "active": 0
+    },
+    "potential_space": {
+      "constraints_from_failures": 0,
+      "successful_patterns": 12
+    },
+    "layers": {
+      "active": 15,
+      "invariants_enforced": 22
+    }
+  },
+  "trend": {
+    "direction": "stable",
+    "delta": 0.0,
+    "latest_ratio": 0.9897,
+    "samples": 4,
+    "latest_phase": "potential-converged"
+  },
+  "replacements": {
+    "total_tracked": 7,
+    "by_status": {
+      "possibility": 0,
+      "transitioning": 7,
+      "potential": 0
+    },
+    "replacements": {
+      "code_structure_analysis": {
+        "replaces": "llm_read_file_and_describe",
+        "status": "transitioning",
+        "confidence": 0.95,
+        "native_uses": 0,
+        "llm_uses": 0,
+        "grid_triangles": 0
+      },
+      "pattern_detection": {
+        "replaces": "llm_find_patterns",
+        "status": "transitioning",
+        "confidence": 0.85,
+        "native_uses": 0,
+        "llm_uses": 0,
+        "grid_triangles": 0
+      },
+      "claim_derivation": {
+        "replaces": "llm_extract_claims",
+        "status": "transitioning",
+        "confidence": 0.9,
+        "native_uses": 0,
+        "llm_uses": 0,
+        "grid_triangles": 0
+      },
+      "grid_context_building": {
+        "replaces": "llm_find_relevant_context",
+        "status": "transitioning",
+        "confidence": 0.85,
+        "native_uses": 0,
+        "llm_uses": 0,
+        "grid_triangles": 0
+      },
+      "closure_analysis": {
+        "replaces": "llm_analyze_completeness",
+        "status": "transitioning",
+        "confidence": 0.95,
+        "native_uses": 0,
+        "llm_uses": 0,
+        "grid_triangles": 0
+      },
+      "conflict_detection": {
+        "replaces": "llm_find_conflicts",
+        "status": "transitioning",
+        "confidence": 0.9,
+        "native_uses": 0,
+        "llm_uses": 0,
+        "grid_triangles": 0
+      },
+      "complexity_scoring": {
+        "replaces": "llm_assess_code_quality",
+        "status": "transitioning",
+        "confidence": 0.9,
+        "native_uses": 0,
+        "llm_uses": 0,
+        "grid_triangles": 0
+      }
+    }
+  }
+}

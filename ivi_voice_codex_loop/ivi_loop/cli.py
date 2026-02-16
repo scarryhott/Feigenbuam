@@ -427,7 +427,7 @@ def _run_audio_voice_session(loop: IVILoopController, source: str, full_output: 
         _purple_background_tick(loop, source)
 
 
-def _run_autonomous_loop(loop: IVILoopController, source: str) -> None:
+def _run_autonomous_loop(loop: IVILoopController, settings: Settings, source: str) -> None:
     """Run fully autonomous self-improvement forever.
 
     Full cycle: analyze → improve → test → commit → learn.
@@ -843,7 +843,7 @@ def cmd_voice(
         else:
             _run_audio_voice_session(loop=loop, source=source, full_output=bool(full_output), audio=audio)
     elif autonomous:
-        _run_autonomous_loop(loop=loop, source=source)
+        _run_autonomous_loop(loop=loop, settings=settings, source=source)
     else:
         _run_conversational_voice_session(loop=loop, source=source, full_output=bool(full_output))
     goal_engine = getattr(loop, "_purple_goal_engine", None)
