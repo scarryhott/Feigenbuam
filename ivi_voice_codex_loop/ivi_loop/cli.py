@@ -452,11 +452,13 @@ def _run_autonomous_loop(loop: IVILoopController, settings: Settings, source: st
     engine = getattr(loop, "_purple_goal_engine", None)
     microcosm = getattr(loop, "_openclaw", None)
     from .conversation_layer import ConversationLayer
-    voice = ConversationLayer()
 
     if engine is None or microcosm is None:
+        voice = ConversationLayer()
         voice.say("I can't start — missing goal engine or microcosm.")
         return
+
+    voice = ConversationLayer(openclaw=microcosm)
 
     # Import all subsystems
     from .purple_native_intelligence import NativeAutonomousCycle, OSRuntimeDiscovery
@@ -796,6 +798,14 @@ def cmd_voice(
     loop._purple_goal_engine = goal_engine
 
     # Create the IVI Gateway — single runtime boundary for all effects
+    allowed_roots = {
+        str(settings.root),
+        str(base_dir),
+        str(Path.home()),
+        str(Path.home() / "Purple"),
+        str(Path.home() / "Feigenbuam"),
+        str(Path.home() / "Downloads"),
+    }
     gateway = IVIGateway(
         settings=settings,
         orchestrator_state={
@@ -804,7 +814,7 @@ def cmd_voice(
             "active_order_mode": "order_3_constrained_write",
             "max_order_mode": "order_4_bounded_autonomy" if autonomous else "order_3_constrained_write",
         },
-        allowed_roots=[str(settings.root), str(base_dir), str(Path.home() / "Purple")],
+        allowed_roots=sorted(allowed_roots),
     )
     loop._ivi_gateway = gateway
 

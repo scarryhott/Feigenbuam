@@ -16,25 +16,26 @@ from typing import Any, Dict, List, Optional
 class ConversationLayer:
     """Translates system events into conversational messages.
 
-    Instead of:  [autonomous] OS discovery: 42 Python files across 3 roots
-    Says:        I found 42 Python files across your system. Ready to work.
-
-    Keeps a short memory of what was already said to avoid repetition.
-    Filters low-value events. Batches related updates.
+    When an OpenClaw microcosm is provided, outputs are routed through the
+    contextual_response pipeline so the dialogue stays dynamic. Otherwise this
+    falls back to lightweight prints.
     """
 
-    def __init__(self, quiet: bool = False) -> None:
+    def __init__(self, quiet: bool = False, openclaw: Any | None = None) -> None:
         self._quiet = quiet
         self._history: List[str] = []
         self._last_said: float = 0.0
         self._suppressed: int = 0
         self._min_interval: float = 0.5  # don't talk faster than this
+        self._openclaw = openclaw
 
-    def say(self, message: str) -> None:
+    def say(self, message: str, utterance_kind: str = "status") -> None:
         """Say something to the human."""
         if self._quiet or not message.strip():
             return
-        # Deduplicate
+        if self._openclaw_emit(message, utterance_kind):
+            return
+        # Deduplicate fallback prints
         if self._history and self._history[-1] == message:
             return
         self._history.append(message)
@@ -42,6 +43,28 @@ class ConversationLayer:
             self._history = self._history[-25:]
         self._last_said = time.time()
         print(message, flush=True)
+
+    def _openclaw_emit(self, message: str, utterance_kind: str) -> bool:
+        oc = self._openclaw
+        if oc is None or not hasattr(oc, "contextual_response"):
+            return False
+        prompt = (
+            "Provide a concise conversational update for the human guiding you. "
+            f"Treat this as a {utterance_kind} note: {message}"
+        )
+        try:
+            reply = oc.contextual_response(prompt)
+        except Exception:
+            return False
+        if not isinstance(reply, str) or not reply.strip():
+            return False
+        reply = reply.strip()
+        try:
+            oc.record_turn("assistant", reply)
+        except Exception:
+            pass
+        print(reply, flush=True)
+        return True
 
     def _quiet_note(self) -> None:
         """Track suppressed messages."""
@@ -54,14 +77,16 @@ class ConversationLayer:
     def greeting(self) -> None:
         self.say(
             "I'm online. Tell me what you'd like me to work on, "
-            "or I'll find improvements on my own."
+            "or I'll find improvements on my own.",
+            utterance_kind="greeting",
         )
 
     def discovery_done(self, python_files: int, roots: int, runtimes: int) -> None:
         if python_files > 0:
             self.say(
                 f"I can see {python_files} Python files across {roots} "
-                f"project{'s' if roots != 1 else ''} on your system."
+                f"project{'s' if roots != 1 else ''} on your system.",
+                utterance_kind="discovery",
             )
 
     def navigation_ready(self, layers: int, ops: int) -> None:
@@ -73,24 +98,24 @@ class ConversationLayer:
 
     def goal_received(self, count: int) -> None:
         if count == 1:
-            self.say("Got it — working on that now.")
+            self.say("Got it — working on that now.", utterance_kind="goal_update")
         else:
-            self.say(f"Got {count} goals — I'll handle them in order.")
+            self.say(f"Got {count} goals — I'll handle them in order.", utterance_kind="goal_update")
 
     def goal_working(self, description: str) -> None:
         short = description[:120].rstrip(".")
-        self.say(f"Working on: {short}")
+        self.say(f"Working on: {short}", utterance_kind="goal_update")
 
     def goal_completed(self, result: str, committed: bool) -> None:
         short = result[:200].rstrip(".")
         if committed:
-            self.say(f"Done and committed. {short}")
+            self.say(f"Done and committed. {short}", utterance_kind="goal_update")
         else:
-            self.say(f"Finished, but didn't commit. {short}")
+            self.say(f"Finished, but didn't commit. {short}", utterance_kind="goal_update")
 
     def goal_queued(self, goal_id: str, description: str) -> None:
         short = description[:120].rstrip(".")
-        self.say(f"Queued: {short}")
+        self.say(f"Queued: {short}", utterance_kind="goal_update")
 
     def guidance_changed(self, message: str, state: Dict[str, Any]) -> None:
         mode = state.get("mode", "light")
@@ -123,20 +148,20 @@ class ConversationLayer:
         )
 
     def satisfaction_recorded(self, rating: str) -> None:
-        self.say(f"Noted — thanks for the feedback.")
+        self.say(f"Noted — thanks for the feedback.", utterance_kind="goal_update")
 
     # ------------------------------------------------------------------
     # Impasse
     # ------------------------------------------------------------------
 
     def impasse_hit(self, question: str) -> None:
-        self.say(f"I'm stuck — {question}\nWhat would you like me to do?")
+        self.say(f"I'm stuck — {question}\nWhat would you like me to do?", utterance_kind="impasse")
 
     def impasse_cleared(self) -> None:
-        self.say("Thanks — that clears it up. Continuing.")
+        self.say("Thanks — that clears it up. Continuing.", utterance_kind="impasse")
 
     def impasse_skipped(self) -> None:
-        self.say("No worries, I'll move on to something else.")
+        self.say("No worries, I'll move on to something else.", utterance_kind="impasse")
 
     # ------------------------------------------------------------------
     # Cycle results
@@ -147,15 +172,15 @@ class ConversationLayer:
         short = summary[:200].rstrip(".")
         if is_human_goal:
             if committed:
-                self.say(f"Done — {short}")
+                self.say(f"Done — {short}", utterance_kind="goal_update")
             elif tests_passed:
-                self.say(f"Improved but didn't commit: {short}")
+                self.say(f"Improved but didn't commit: {short}", utterance_kind="goal_update")
             else:
-                self.say(f"Tried but tests failed: {short}")
+                self.say(f"Tried but tests failed: {short}", utterance_kind="goal_update")
         else:
             # Self-improvement — be brief
             if committed:
-                self.say(f"Self-improved: {short}")
+                self.say(f"Self-improved: {short}", utterance_kind="goal_update")
             else:
                 self._quiet_note()  # don't bother human with failed self-improvement
 
@@ -165,19 +190,19 @@ class ConversationLayer:
 
     def idle(self, rounds: int, max_rounds: int) -> None:
         if rounds >= max_rounds:
-            self.say("Nothing to do — scanning for new opportunities.")
+            self.say("Nothing to do — scanning for new opportunities.", utterance_kind="status")
         # Otherwise stay quiet
 
     def anticipated(self, description: str) -> None:
-        self.say(f"I think you might want me to {description.lower().rstrip('.')}")
+        self.say(f"I think you might want me to {description.lower().rstrip('.')}", utterance_kind="status")
 
     def triangle_place_reached(self, closure: float) -> None:
         pct = int(closure * 100)
-        self.say(f"Knowledge is {pct}% verified and stable. Waiting for something new.")
+        self.say(f"Knowledge is {pct}% verified and stable. Waiting for something new.", utterance_kind="status")
 
     def new_triangles(self, count: int) -> None:
         if count >= 5:
-            self.say(f"New knowledge forming — {count} new verifications.")
+            self.say(f"New knowledge forming — {count} new verifications.", utterance_kind="status")
         # Small ticks are silent
 
     def silence_generating(self) -> None:
@@ -246,12 +271,12 @@ class ConversationLayer:
             except Exception:
                 pass
 
-        self.say("\n".join(lines) if lines else "All quiet — nothing to report.")
+        self.say("\n".join(lines) if lines else "All quiet — nothing to report.", utterance_kind="status")
 
     def goals_report(self, engine: Any) -> None:
         goals = engine.state.goals
         if not goals:
-            self.say("No goals in the queue right now.")
+            self.say("No goals in the queue right now.", utterance_kind="status")
             return
         lines = ["Current goals:"]
         for g in goals:
@@ -262,7 +287,7 @@ class ConversationLayer:
             else:
                 mark = "self"
             lines.append(f"  {'✓' if g.executed else '→'} {g.description[:90]} ({mark})")
-        self.say("\n".join(lines))
+        self.say("\n".join(lines), utterance_kind="status")
 
     # ------------------------------------------------------------------
     # Shutdown
@@ -293,11 +318,11 @@ class ConversationLayer:
             parts.append(f"Knowledge {cl:.0%} verified"
                          + (" and stable." if in_place else "."))
 
-        self.say(" ".join(parts))
+        self.say(" ".join(parts), utterance_kind="shutdown")
 
     # ------------------------------------------------------------------
     # Errors
     # ------------------------------------------------------------------
 
     def error(self, message: str) -> None:
-        self.say(f"Something went wrong: {message}")
+        self.say(f"Something went wrong: {message}", utterance_kind="error")

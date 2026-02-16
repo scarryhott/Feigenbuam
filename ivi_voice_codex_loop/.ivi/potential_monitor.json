@@ -1,13 +1,13 @@
 {
   "score": {
-    "ts": 1771283510.770875,
+    "ts": 1771284428.211259,
     "potential_ratio": 0.9897,
     "phase": "potential-converged",
     "gateway": {
-      "intents": 4,
+      "intents": 23,
       "committed": 0,
       "rejected": 0,
-      "open": 4
+      "open": 23
     },
     "grid": {
       "triangles_closed": 4787,
@@ -29,14 +29,14 @@
     },
     "skills": {
       "derived": 0,
-      "active": 0
+      "active": 4787
     },
     "potential_space": {
       "constraints_from_failures": 0,
-      "successful_patterns": 12
+      "successful_patterns": 20
     },
     "layers": {
-      "active": 15,
+      "active": 16,
       "invariants_enforced": 22
     }
   },
@@ -44,7 +44,7 @@
     "direction": "stable",
     "delta": 0.0,
     "latest_ratio": 0.9897,
-    "samples": 4,
+    "samples": 3,
     "latest_phase": "potential-converged"
   },
   "replacements": {
